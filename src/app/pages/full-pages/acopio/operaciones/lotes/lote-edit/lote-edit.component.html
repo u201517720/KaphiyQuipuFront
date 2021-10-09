@@ -1,0 +1,180 @@
+<div class="card">
+    <div class="card-body">
+        <form class="needs-validation" [formGroup]="loteEditForm">
+            <div class="form-row">
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <input type="text" minlength="5" maxlength="200" formControlName="razonSocial" class="form-control"
+                        id="razonSocial" placeholder="Razón social" [readonly]="true">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group row">
+                        <label for="nroLote" class="col-4 col-form-label">N° DE LOTE</label>
+                        <div class="col-8">
+                            <input type="text" name="nroLote" id="nroLote" formControlName="nroLote"
+                                class="form-control" placeholder="Número de lote" [readonly]="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <input type="text" minlength="5" maxlength="200" formControlName="direccion" class="form-control"
+                        id="direccion" placeholder="Dirección" [readonly]="true">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group row">
+                        <label for="fecha" class="col-4 col-form-label">FECHA</label>
+                        <div class="col-8">
+                            <input type="date" date name="fecha" id="fecha" formControlName="fecha" class="form-control"
+                                placeholder="Fecha" [readonly]="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <div class="form-group row">
+                        <label for="ruc" class="col-1 col-form-label">RUC</label>
+                        <div class="col-11">
+                            <input type="text" name="ruc" id="ruc" formControlName="ruc" class="form-control"
+                                placeholder="R.U.C" [readonly]="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group row">
+                        <label for="almacen" class="col-4 col-form-label">ALMACEN</label>
+                        <div class="col-8">
+                            <ng-select [items]="listAlmacenes" formControlName="almacen" class="form-control"
+                                bindLabel="Label" bindValue="Codigo" id="almacen" placeholder="Almacen"
+                                [ngClass]="{ 'is-invalid': f.almacen.invalid, 'is-valid': !f.almacen.invalid }"
+                                [(ngModel)]="selectedAlmacen">
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <div class="form-group row">
+                        <label for="producto" class="col-4 col-form-label">PRODUCTO</label>
+                        <div class="col-8">
+                            <input type="text" name="producto" id="producto" formControlName="producto"
+                                class="form-control" placeholder="Producto" [readonly]="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group row">
+                        <label for="certificacion" class="col-4 col-form-label">CERTIFICACIÓN</label>
+                        <div class="col-8">
+                            <input type="text" name="certificacion" id="certificacion" formControlName="certificacion"
+                                class="form-control" placeholder="Certificación" [readonly]="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <div class="form-group row">
+                        <label for="subproducto" class="col-4 col-form-label">SUB PRODUCTO</label>
+                        <div class="col-8">
+                            <input type="text" name="subproducto" id="subproducto" formControlName="subproducto"
+                                class="form-control" placeholder="Sub Producto" [readonly]="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group row">
+                        <label for="tipoProduccion" class="col-4 col-form-label">TIPO DE PRODUCCION</label>
+                        <div class="col-8">
+                            <input type="text" name="tipoProduccion" id="tipoProduccion"
+                                formControlName="tipoProduccion" class="form-control" placeholder="Tipo de Produccion"
+                                [readonly]="true">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <section class="users-edit">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <!-- Nav-tabs -->
+                                    <ul ngbNav #nav="ngbNav" [activeId]="1" [destroyOnHide]="false"
+                                        class="nav-pills justify-content-left">
+                                        <li [ngbNavItem]="1">
+                                            <a ngbNavLink class="nav-link d-flex align-items-center">
+                                                <span class="d-none d-sm-block" style="font-size: 1.1rem;">Detalle
+                                                    Lote</span>
+                                            </a>
+                                            <ng-template ngbNavContent>
+
+                                                <app-detalleLote (miEvento)="calculoKilosPendiente()"
+                                                    formGroupName="detalleLote"></app-detalleLote>
+                                                <div class="form-row">
+                                                    <div class="col-lg-9 col-md-9 col-sm-9">
+                                                        <small class="form-label text-muted danger"
+                                                            *ngIf="errorGeneral.isError">
+                                                            {{errorGeneral.msgError}}
+                                                        </small>
+                                                    </div>
+
+                                                </div>
+                                                <div class="card-footer text-right">
+                                                    <button class="btn btn-primary mb-2 mb-sm-0 mr-sm-2"
+                                                        (click)="Print()">Imprimir</button>
+
+
+                                                    <button class="btn btn-primary mb-2 mb-sm-0 mr-sm-2"
+                                                        (click)="Save()">Guardar</button>
+
+                                                    <button class="btn btn-danger mb-2 mb-sm-0 mr-sm-2"
+                                                        (click)="Cancel()">Cancelar</button>
+                                                </div>
+                                            </ng-template>
+
+                                        </li>
+                                        <li [ngbNavItem]="2">
+                                            <a ngbNavLink
+                                                [class]="'nav-link ' + disabledControl + ' d-flex align-items-center'">
+                                                <span class="d-none d-sm-block" style="font-size: 1.1rem;">Control de
+                                                    Calidad</span>
+                                            </a>
+
+                                            <ng-template ngbNavContent *ngIf="viewTagSeco">
+                                                <app-controlCalidadSeco *ngIf="detalle" [detalle]="detalle"
+                                                    [form]="form"></app-controlCalidadSeco>
+                                            </ng-template>
+
+                                            <ng-template ngbNavContent *ngIf="!viewTagSeco">
+                                                <app-controlCalidadHumedo *ngIf="detalle" [detalle]="detalle">
+                                                </app-controlCalidadHumedo>
+                                            </ng-template>
+
+
+                                        </li>
+
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div [ngbNavOutlet]="nav"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </form>
+    </div>
+</div>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>

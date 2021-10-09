@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-12">
+        <div class="content-header">DATOS DE LA FINCA</div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form class="needs-validation" [formGroup]="fincaSocioForm" novalidate>
+            <div class="form-row">
+                <button class="btn btn-primary mr-1" type="button" (click)="New()">Nuevo</button>
+                <button class="btn btn-primary mr-1" type="button" [disabled]="selected.length <= 0"
+                    (click)="Certifications()">Certificaciones</button>
+                <button class="btn btn-primary mr-1" type="button" [disabled]="selected.length <= 0"
+                    (click)="Inspections()">Inspección</button>
+                <button class="btn btn-primary mr-1" type="button" [disabled]="selected.length <= 0"
+                    (click)="Diagnosis()">Diagnostico</button>
+                <button class="btn btn-primary mr-1" type="button" [disabled]="!rows || rows.length <= 0"
+                    (click)="Export()">Exportar</button>
+                <button class="btn btn-danger" type="button" (click)="Cancel()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>
+<div class="card">
+    <div class="card-body">
+        <fieldset class="form-group">
+            <label>Show
+                <select name="users-list-select"
+                    class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                    (click)="updateLimit($event)">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                entries</label>
+            <label for="ngx-filter-ref" class="float-right">Search:
+                <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200 ml-1"
+                    type="text" (keyup)="filterUpdate($event)" />
+            </label>
+        </fieldset>
+        <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+            rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true" [selected]="selected"
+            [selectionType]="'single'" [selectCheck]="onSelectCheck">
+            <ngx-datatable-column name="NOMBRE" prop="Nombre" width="90">
+                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                    <div class="d-flex align-items-center">
+                        <div class="cell-line-height">
+                            <a class="line-height-1 mb-0"
+                                [routerLink]="['/agropecuario/operaciones/socio/finca/update', row.SocioId, row.ProductorId, row.SocioFincaId]">{{
+                                name }}</a>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="DEPARTAMENTO" prop="Departamento" width="90">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="PROVINCIA" prop="Provincia" width="90">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="DISTRITO" prop="Distrito" width="90">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="ZONA" prop="Zona" width="170">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="ESTADO" prop="Estado" width="70">
+                <ng-template let-status="value" ngx-datatable-cell-template>
+                    <div class="badge"
+                        [ngClass]="{'bg-light-success': status == 'Activo','bg-light-warning': status == 'Inactivo'}">
+                        {{ status }}
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>

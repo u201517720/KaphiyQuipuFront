@@ -1,0 +1,483 @@
+{
+  "Dashboard": "Tablero",
+  "Dashboard 1": "Tablero1",
+  "Dashboard 2": "Tablero2",
+  "Color Palette": "Paleta de color",
+  "Inbox": "Bandeja de entrada",
+  "Chat": "Charla",
+  "Task Board": "Tablero de tareas",
+  "Player": "Jugador",
+  "Media Player": "Reproductor multimedia",
+  "Bootstrap Table": "Mesa Bootstrap",
+  "Angular": "Angular",
+  "UI Kit": "Kit UI",
+  "Grid": "Cuadrícula",
+  "Typography": "Tipografía",
+  "Syntax Highlighter": "Resaltador de sintaxis",
+  "Helper Classes": "Clases de ayuda",
+  "Text Utilities": "Utilidades de texto",
+  "Icons": "Iconos",
+  "Feather Icon": "Icono de pluma",
+  "Font Awesome Icon": "Fuente Awesome Icon",
+  "Simple Line Icon": "Simple Line Icon",
+  "Components": "Componentes",
+  "Bootstrap": "Bootstrap",
+  "List": "Lista",
+  "Buttons": "Botones",
+  "NG Buttons": "Botones NG",
+  "Alerts": "Alertas",
+  "Badges": "Insignias",
+  "Dropdowns": "Listas deplegables",
+  "Input Groups": "Grupos de entrada",
+  "Media Objects": "Objetos de medios",
+  "Pagination": "Paginación",
+  "Progress Bars": "Barras de progreso",
+  "Modals": "Modals",
+  "Collapse": "Colapso",
+  "Accordion": "Acordeón",
+  "Carousel": "Carrusel",
+  "Datepicker": "Selector de fechas",
+  "Popover": "Popover",
+  "Rating": "Clasificación",
+  "Navs": "Navs",
+  "Timepicker": "Timepicker",
+  "Tooltip": "Información sobre herramientas",
+  "Typeahead": "Typeahead",
+  "Extra": "Extra",
+  "Sweet Alert": "Sweet Alert",
+  "Toastr": "Toastr",
+  "NoUI Slider": "Control deslizante NoUI",
+  "Upload": "Subir",
+  "Editor": "Editor",
+  "Drag and Drop": "Arrastrar y soltar",
+  "Tour": "Gira",
+  "Forms": "Formularios",
+  "Elements": "Elementos",
+  "Inputs": "Entradas",
+  "Input Group": "Grupo de entrada",
+  "Input Grid": "Cuadrícula de entrada",
+  "Layouts": "Diseños",
+  "Basic Forms": "Formularios Básicos",
+  "Horizontal Forms": "Formas horizontales",
+  "Hidden Labels": "Etiquetas escondidas",
+  "Form Actions": "Acciones de forma",
+  "Bordered Forms": "Formas Limitadas",
+  "Striped Rows": "Filas rayadas",
+  "Validation": "Validación",
+  "Wizard": "Mago",
+  "NGX Wizard": "NGX Wizard",
+  "Tables": "Mesas",
+  "Regular": "Regular",
+  "Extended": "Extendido",
+  "Smart Tables": "Smart Tables",
+  "Data Tables": "Tablas de datos",
+  "Basic": "BASIC",
+  "Editing": "Edición",
+  "Filter": "Filtrar",
+  "Fullscreen": "Pantalla completa",
+  "Paging": "Paginación",
+  "Pinning": "Fijando",
+  "Selection": "Selección",
+  "Sorting": "Clasificación",
+  "Cards": "Tarjetas",
+  "Basic Cards": "Tarjetas básicas",
+  "Advanced Cards": "Tarjetas avanzadas",
+  "Maps": "Mapas",
+  "Google Map": "Mapa de Google",
+  "Full Screen Map": "Mapa de pantalla completa",
+  "Charts": "Gráficos",
+  "ChartJs": "ChartJs",
+  "Chartist": "Chartista",
+  "NGX Chart": "NGX Chart",
+  "calendar": "calendario",
+  "Pages": "Páginas",
+  "Forgot Password": "Se te olvidó tu contraseña",
+  "Horizontal Timeline": "Cronología horizontal",
+  "Vertical Timeline": "Cronología vertical",
+  "Login": "Iniciar sesión",
+  "Register": "Registro",
+  "User Profile": "Perfil del usuario",
+  "Lock Screen": "Bloquear pantalla",
+  "Invoice": "Factura",
+  "Error": "Error",
+  "Coming Soon": "Próximamente",
+  "Maintenance": "Mantenimiento",
+  "Gallery": "Galería",
+  "Documentation": "Documentación",
+  "Support": "Apoyo",
+  "Chat NgRx": "Charla NgRx",
+  "Task Board NgRx": "Tablero de tareas NgRx",
+  "Calendar": "Calendario",
+  "Select": "Seleccione",
+  "Image Cropper": "Recortador de imagen",
+  "Input Tags": "Etiquetas de entrada",
+  "Switch": "Cambiar",
+  "Avatar": "Benutzerbild",
+  "Swiper": "Swiper",
+  "Radio": "Radio",
+  "Checkbox": "Caja",
+  "Apex": "Apéndice",
+  "NGX": "NGX",
+  "Authentication": "Autenticación",
+  "Center": "Centrar",
+  "Left": "Izquierda",
+  "Right": "Derecha",
+  "Account Settings": "Configuraciones de la cuenta",
+  "Search": "Buscar",
+  "FAQ": "FAQ",
+  "Knowledge Base": "Base de conocimientos",
+  "Charts & Maps": "Gráficos y mapas",
+  "Menu Levels": "Niveles de menú",
+  "Second Level": "Segundo nivel",
+  "Second Level Child": "Niña de segundo nivel",
+  "Third Level 1.1": "Tercer nivel 1.1",
+  "Third Level 1.2": "Tercer nivel 1.2",
+  "Productor":
+	{
+		"Label":"Productor",
+		"Operaciones":
+		{
+			"Label":"Operaciones",
+			"RegistroActividades":
+				{
+				  "Label":"Registro Actividades"
+				},
+			"RegistroCosechas":
+				{
+				  "Label":"Registro Cosechas"
+				}
+		},
+		"Administracion":
+		{
+			"Label":"Administracion",
+			"Productor":
+				{
+				  "Label":"Datos Productor"
+				},
+			"EntidadesCertificadoras":
+				{
+				  "Label":"Entidades Certificadoras"
+				},
+			"MaestrosGenerales":
+				{
+				  "Label":"Maestros Generales"
+				}	
+		}
+	},
+  "Acopio":
+	{
+		"Label":"Acopio",
+		"Operaciones":
+		{
+			"Label":"Operaciones",
+			"RecepcionMateriaPrima":
+				{
+					"Label":"Recepcion Materia Prima"
+				},
+			"RecepcionProductoTerminado":
+				{
+					"Label":"Recepcion Producto Terminado"
+				},
+			
+			"IngresoAlmacen":
+				{
+					"Label":"Ingreso Almacén"
+				},
+			"Lotes":
+				{
+					"Label":"Lotes"
+				},
+			"SalidaAlmacen":
+				{
+					"Label":"Salida Almacén"
+				},
+			"ControlCalidadExterna":
+				{
+					"Label":"Control Calidad Externa"
+				},
+				"Kardex": {
+					"Label": "Kardex"
+				}
+		},
+		"Administracion":
+		{
+			"Label":"Administracion",
+			"Proveedores":
+				{
+				  "Label":"Proveedores"
+				},
+			"Terceros":
+				{
+				  "Label":"Terceros"
+				},
+			"MaestrosGenerales":
+				{
+				  "Label":"Maestros Generales"
+				}	
+		}
+	},
+	"Planta":
+	{
+		"Label":"Planta",
+		"Operaciones":
+		{
+			"Label":"Operaciones",
+			"NotaIngreso":
+				{
+					"Label":"Nota de Ingreso"
+				},
+				"NotaIngresoAlmacen":
+				{
+					"Label":"Nota de Ingreso Almacen"
+				},
+				"NotaSalida":
+				{
+					"Label":"Nota de Salida"
+				},
+				"LiquidacionProceso":
+				{
+					"Label":"Liquidacion de Proceso"
+				},
+				"OrdenProceso":
+				{
+					"Label":"Orden de Proceso"
+					
+				}
+		},
+		"Administracion":
+		{
+			"Label":"Administracion",
+			"MaestrosGenerales":
+				{
+				  "Label":"Maestros Generales"
+				}
+		}
+	},
+	"Exportador":
+	{
+		"Label":"Comercial",
+    "Operaciones":
+		{
+			"Label":"Operaciones",
+			"ControlCalidadExterna":
+				{
+					"Label":"Orden de Servicio"
+				},
+        "Cliente":
+				{
+					"Label":"Cliente"
+				},
+        "Contrato":
+				{
+					"Label":"Contrato"
+				}
+				,
+        "OrdenProceso":
+				{
+					"Label":"Orden de Proceso"
+				},
+		"PreciosDia":
+				{
+					"Label":"Precio del Día"
+				},
+		"TipoCambioDia":
+				{
+					"Label":"Tipo de Cambio"
+				},
+		"Aduanas":
+				{
+					"Label":"Aduanas"
+				}
+
+		},
+		"Administracion":
+		{
+			"Label":"Administracion",
+			"MaestrosGenerales":
+				{
+				  "Label":"Maestros Generales"
+				}
+		}
+	},
+	"Transporte":
+	{
+		"Label":"Transporte"
+	},
+	"Exportacion": {
+		"Label": "Exportación",
+		"GestionExportacion": {
+			"Label": "Gestión de Exportación"
+		}
+	},
+	"Cliente":
+	{
+		"Label":"Cliente",
+		"Tracking":
+		{
+			"Label":"Contrato"
+		}
+	},
+	"Agropecuario":
+	{
+		"Label":"Agropecuario",
+		"Operaciones":
+		{
+			"Label":"Operaciones",
+			"Socio":
+				{
+				  "Label":"Socio"
+				}
+		},
+		"Administracion":
+		{
+			"Label":"Administracion",
+			"MaestrosGenerales":
+				{
+				  "Label":"Maestros Generales"
+				}	
+		}
+	},
+
+	"Maestros":
+	{
+		"Label":"Maestros",
+		"EmpresaTransporte":
+		{
+			"Label":"Empresa Transporte"
+			
+		},
+		"EmpresaProveedora":
+		{
+			"Label":"Empresa Proveedora"
+			
+		}
+		,
+		"Zona":
+		{
+			"Label":"Zona"
+			
+		}
+		,
+		"Ciudad":
+		{
+			"Label":"Ciudad"
+			
+		}
+		,
+		"TablaTablas":
+		{
+			"Label":"Tabla de Tablas"
+			
+		}
+		
+	},
+	
+	"Tesoreria":
+	{
+		"Label":"Tesoreria",
+		"Adelanto":
+		{
+			"Label":"Adelantos"
+		},
+		"LiquidacionCompra":
+				{
+					"Label":"Liquidacion de Compra"
+				}
+	},
+"CONTRATO":
+{
+	"LIST":
+	{
+		"Title": "BANDEJA DE CONTRATOS",
+		"NumContrato": "N° CONTRATO",
+		"CodigoCliente": "CÓDIGO CLIENTE",
+		"FechaInicial":"FECHA INICIAL",
+		"FechaFinal":"FECHA FINAL",
+		"Cliente" :"CLIENTE",
+		"Producto": "PRODUCTO",
+		"TipoProduccion": "TIPO DE PRODUCCIÓN",
+		"Calidad":"CALIDAD",
+		"EstadoMuestra":"ESTADO DE ENVÍO DE MUESTRA",
+		"EstadoSeguimiento":"STATUS DE EMBARQUE",
+		"Buscar": "Buscar",
+		"HeaderContrato": "Contrato",
+		"HeaderFechaContrato": "Fecha de Contrato",
+		"HeaderCliente": "Cliente",
+		"HeaderProductor": "Producto",
+		"HeaderTipoProduccion":"Tipo de Produccion",
+		"HeaderCalidad":"Calidad",
+		"HeaderEstadoMuestra": "Estado de Envío de Muestra",
+		"HeaderEstadoSeguimiento": "Status de Embarque",
+		"PlaceHolderNumContrato":"Numero de Contrato",
+		"PlaceHolderProducto":"Seleccionar Producto",
+		"PlaceHolderTipoProduccion":"Seleccionar Tipo de Produccion",
+		"PlaceHolderCalidad":"Seleccionar Calidad",
+		"PlaceHolderEstadoMuestra": "Seleccion Estado",
+		"PlaceHolderEstadoSeguimiento":"Seleccionar Estado de Seguimiento"
+
+	},
+	"EDIT":
+	{
+		"SubTitle1": "INFORMACIÓN DE SEGUIMIENTO PARA EL CLIENTE",
+		"NumContrato": "NUMERO CONTRATO",
+		"FechaContrato": "FECHA CONTRATO",
+		"Cliente":"CLIENTE",
+		"SubTitle2":"INFORMACIÓN SOBRE LA MUESTRA",
+		"Courier":"COURIER",
+		"NumTracking" :"NUMERO DE TRACKING",
+		"EstadoMuestra": "ESTADO",
+		"SubTitle3": "LOGISTICA Y ADUANAS",
+		"Button":"Imprimir Documentos y Certificaciones",
+		"FechaEmbarque":"FECHA DE EMBARQUE",
+		"SubTitle4":"INFORMACIÓN DE PLANTA PROCESADORA",
+		"SubTitle5":"INFORMACIÓN SOBRE DOCUMENTOS",
+		"FechaEnvioDocumentos":"FECHA DE ENVÍO DE DOCUMENTOS",
+		"FechaLlegadaDocumentos":"FECHA DE LLEGADA DE DOCUMENTOS",
+		"Exportador": "EXPORTADOR",
+		"Estado": "ESTADO",
+		"Productor": "PRODUCTOR",
+		"Producto": "PRODUCTO",
+		"Cantidad": "CANTIDAD",
+		"Grado":"GRADO",
+		"PesoxSaco":"PESO X SACO KG",
+		"PesoNeto": "PESO NETO",
+		"NotasAdicionales": "NOTAS ADICIONALES",
+		"Responsable":"RESPONSABLE COMERCIAL"
+
+	}
+},
+"MODAL":
+{
+	"DOCUMENTOS": {
+		"Title":"CARGA DE DOCUMENTOS",
+		"Nuevo": "Nuevo",
+		"Editar": "Editar",
+		"Eliminar": "Eliminar",
+		"Lista": "Lista de Documentos",
+		"HeaderDes": "Descripcion",
+		"HeaderAr": "Archivo",
+		"TitleAgregar": "Agregar Documentos",
+		"SubtitleAgregar": "Registro de Documento",
+		"Descripcion": "Descripcion",
+		"Documento": "Documento",
+		"Archivo": "Seleccionar archivo",
+		"TextArchivo": "Seleccionar archivo seleccionado",
+		"MensajeErrorAgregar": "Por favor Ingresar ambos valores",
+		"GuardarAgregar": "Guardar",
+		"CancelarAgregar": "Cancelar",
+		"TitleEliminar": "¿Estas seguro?",
+		"SubTitleEliminar": "¿Estas seguro de eliminar el documento?",
+		"MensajeListado": "Por favor seleccionar un elemento del listado.",
+		"Eliminado": "Eliminado!",
+		"DocumentoEliminado": "Documento Eliminado",
+		"Confirmacion": "CONFIRMACIÓN",
+		"TextConfirmacion": "Se registro correctamente el documento.",
+		"ActualizacionTextConfirmacion": "Se actualizó correctamente el documento."
+
+	}
+}
+
+
+	
+
+}
