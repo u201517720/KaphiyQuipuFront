@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,19 +21,11 @@ export class AppComponent implements OnInit, OnDestroy {
         filter(event => event instanceof NavigationEnd)
       )
       .subscribe(() => window.scrollTo(0, 0));
-
-
-
   }
-
 
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
-
-
-
-
 }

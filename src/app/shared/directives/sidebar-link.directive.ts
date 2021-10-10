@@ -68,7 +68,7 @@ export class SidebarLinkDirective implements OnInit, OnDestroy {
   //when side menu (vertical menu) item gets clicked
   public toggle(): any {
     this.open = !this.open;
-    if(this.open) {
+    if (this.open) {
       this.sideNav.closeOtherLinks(this);
     }
     if (!this.open && this.level.toString() === "1" && this.hasSub) {

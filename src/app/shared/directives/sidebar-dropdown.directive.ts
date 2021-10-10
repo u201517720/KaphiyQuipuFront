@@ -8,11 +8,11 @@ import { SidebarLinkDirective } from './sidebar-link.directive';
 export class SidebarDropdownDirective implements OnInit {
   protected navlinks: Array<SidebarLinkDirective> = [];
 
-    public ngOnInit(): any {
-      //write your code here!
-    }
+  public ngOnInit(): any {
+    //write your code here!
+  }
 
-    constructor( private router: Router) {
-    }
+  constructor(private router: Router) {
+  }
 
 }

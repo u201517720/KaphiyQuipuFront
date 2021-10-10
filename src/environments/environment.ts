@@ -6,8 +6,6 @@ export const environment = {
   production: false,
   base_url: 'http://localhost:62742/api/'
   //base_url: 'http://mruizb-002-site1.htempurl.com/api/'
-  
-
 };
 
 

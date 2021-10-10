@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CoffeeConnectFront": {
+    "KaphiyQuipuFront": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -24,7 +24,7 @@
               "chart.js"
             ],
             "aot": true,
-            "outputPath": "dist/CoffeeConnectFront",
+            "outputPath": "dist/KaphiyQuipuFront",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
@@ -85,18 +85,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "CoffeeConnectFront:build"
+            "browserTarget": "KaphiyQuipuFront:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "CoffeeConnectFront:build:production"
+              "browserTarget": "KaphiyQuipuFront:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CoffeeConnectFront:build"
+            "browserTarget": "KaphiyQuipuFront:build"
           }
         },
         "test": {
@@ -111,14 +111,14 @@
               "node_modules/apexcharts/dist/apexcharts.min.js"
             ],
             "styles": [
-              "node_modules/sweetalert2/dist/CoffeeConnectFront/sweetalert2.min.css",
+              "node_modules/sweetalert2/dist/KaphiyQuipuFront/sweetalert2.min.css",
               "src/assets/css/wizard.css",
               "src/assets/css/quill.snow.css",
               "src/assets/css/quill.bubble.css",
               "src/assets/css/hopscotch.css",
               "node_modules/nouislider/distribute/nouislider.min.css",
               "node_modules/angular-calendar/scss/angular-calendar.scss",
-              "node_modules/dragula/dist/CoffeeConnectFront/dragula.css",
+              "node_modules/dragula/dist/KaphiyQuipuFront/dragula.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/@swimlane/ngx-datatable/index.css",
               "node_modules/@swimlane/ngx-datatable/assets/icons.css",
@@ -154,7 +154,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "CoffeeConnectFront:serve"
+            "devServerTarget": "KaphiyQuipuFront:serve"
           }
         },
         "lint": {
@@ -171,7 +171,7 @@
       }
     }
   },
-  "defaultProject": "CoffeeConnectFront",
+  "defaultProject": "KaphiyQuipuFront",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

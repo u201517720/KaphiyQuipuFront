@@ -74,4 +74,10 @@ export class LoginPageComponent {
 
   }
 
+  onKeyPressLogin(e) {
+    if (e && e.keyCode === 13) {
+      this.onSubmit();
+    }
+  }
+
 }
