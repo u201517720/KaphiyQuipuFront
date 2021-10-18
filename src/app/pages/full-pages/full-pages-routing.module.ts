@@ -51,6 +51,10 @@ const routes: Routes = [
         }
       }
     ]
+  },
+  {
+    path: 'compras',
+    loadChildren: () => import('./compras/compras.module').then(m => m.ComprasModule)
   }
 ];
 

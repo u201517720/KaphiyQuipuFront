@@ -13,7 +13,6 @@ import { ContratoService } from '../../../../../services/contrato.service';
 import { AlertUtil } from '../../../../../services/util/alert-util';
 import { formatDate } from '@angular/common';
 
-
 @Component({
   selector: 'app-contrato',
   templateUrl: './contrato.component.html',
@@ -178,7 +177,7 @@ export class ContratoComponent implements OnInit {
             res.Result.Data.forEach((obj: any) => {
               obj.FechaContratoString = this.dateUtil.formatDate(obj.FechaContrato, '/');
               obj.FechaFijacionContrato = this.dateUtil.formatDate(obj.FechaFijacionContrato, '/');
-              obj.FechaEmbarque = obj.FechaEmbarque == null ? "": formatDate(obj.FechaEmbarque, 'MM/yyyy', 'en');
+              obj.FechaEmbarque = obj.FechaEmbarque == null ? "" : formatDate(obj.FechaEmbarque, 'MM/yyyy', 'en');
             });
             this.rows = res.Result.Data;
             this.tempData = this.rows;

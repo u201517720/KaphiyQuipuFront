@@ -84,8 +84,8 @@
                                 </div>
                                 <div *ngIf="tipoEmpresaId === '01' " class="col-md-3 mb-4 form-group mb-2">
                                     <label for="tipoContrato" class="form-label">Tipo de Contrato</label>
-                                    <ng-select [items]="listTipoContrato" formControlName="tipoContrato" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" id="estado"
+                                    <ng-select [items]="listTipoContrato" formControlName="tipoContrato"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="estado"
                                         placeholder="Seleccionar Tipo Contrato"
                                         [ngClass]="{ 'is-invalid': f.tipoContrato.invalid, 'is-valid': !f.tipoContrato.invalid }"
                                         [(ngModel)]="selectedTipoContrato">
@@ -97,14 +97,17 @@
                                 *ngIf="errorGeneral.isError">{{errorGeneral.msgError}}</small>
                             <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()"
                                 [disabled]="contratoForm.invalid">Buscar</button>
-                            <button class="btn btn-primary mr-1 mb-1" type="button"  *ngIf="!popUp" (click)="Nuevo()">Nuevo</button>
+                            <button class="btn btn-primary mr-1 mb-1" type="button" *ngIf="!popUp"
+                                (click)="Nuevo()">Nuevo</button>
                             <button class="btn btn-primary mr-1 mb-1" type="button" data-toggle="tooltip"
-                            data-placement="top" (click)="Agregar(selected)"
-                            [disabled]="!rows.length || !selected.length" *ngIf="popUp">Seleccionar</button>
+                                data-placement="top" (click)="Agregar(selected)"
+                                [disabled]="!rows.length || !selected.length" *ngIf="popUp">Seleccionar</button>
                             <button class="btn btn-primary mr-1 mb-1" type="button"
-                                [disabled]="!selected || selected.length <= 0" (click)="Cancel()" *ngIf="!popUp">Anular</button>
+                                [disabled]="!selected || selected.length <= 0" (click)="Cancel()"
+                                *ngIf="!popUp">Anular</button>
                             <button class="btn btn-primary mr-1 mb-1" type="button"
-                                [disabled]="!rows || rows.length <= 0" *ngIf="!popUp" (click)="Export()">Exportar</button>
+                                [disabled]="!rows || rows.length <= 0" *ngIf="!popUp"
+                                (click)="Export()">Exportar</button>
                         </form>
                     </div>
                 </div>
@@ -160,7 +163,8 @@
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Fecha de Contrato" prop="FechaContratoString" width="150">
                             </ngx-datatable-column>
-                            <ngx-datatable-column  *ngIf="tipoEmpresaId === '01' "  name="Tipo Contrato" prop="TipoContrato" width="120">
+                            <ngx-datatable-column *ngIf="tipoEmpresaId === '01' " name="Tipo Contrato"
+                                prop="TipoContrato" width="120">
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Codigo Cliente" prop="NumeroCliente" width="150">
                             </ngx-datatable-column>
@@ -186,7 +190,8 @@
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Kg. Neto en LB" prop="KilosNetosLB" width="140">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Fecha Fijación Contrato" prop="FechaFijacionContrato" width="200">
+                            <ngx-datatable-column name="Fecha Fijación Contrato" prop="FechaFijacionContrato"
+                                width="200">
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Estado Fijación" prop="EstadoFijacion" width="140">
                             </ngx-datatable-column>
@@ -198,7 +203,8 @@
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Precio a Facturar" prop="TotalFacturar1" width="140">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Nota de Crédito/Comisión" prop="NotaCreditoComision" width="200">
+                            <ngx-datatable-column name="Nota de Crédito/Comisión" prop="NotaCreditoComision"
+                                width="200">
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Precio" prop="PUTotalB" width="100">
                             </ngx-datatable-column>

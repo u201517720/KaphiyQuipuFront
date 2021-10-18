@@ -222,6 +222,12 @@
 			}
 		}
 	},
+	"Compras": {
+		"Label": "Compras",
+		"SolicitudCompra": {
+			"Label": "Solicitud de Compra"
+		}
+	},
 	"Exportador": {
 		"Label": "Comercial",
 		"Operaciones": {
