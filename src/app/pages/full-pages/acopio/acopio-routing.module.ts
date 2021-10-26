@@ -23,6 +23,7 @@ import { LoteEditComponent } from './operaciones/lotes/lote-edit/lote-edit.compo
 import { ZonaListComponent } from './operaciones/zona/list/zona-list.component';
 import { ZonaEditComponent } from './operaciones/zona/edit/zona-edit.component';
 import { KardexComponent } from './operaciones/kardex/kardex.component';
+import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
 
 const routes: Routes = [
   {
@@ -50,14 +51,14 @@ const routes: Routes = [
         }
       },
       {
-        path: 'ingresoalmacen-list',
+        path: 'ingresoalmacen/list',
         component: IngresoAlmacenComponent,
         data: {
           title: 'Ingreso a almacen'
         }
       },
       {
-        path: 'ingresoalmacen-edit',
+        path: 'ingresoalmacen/update/:id',
         component: IngresoAlmacenEditComponent,
         data: {
           title: 'Edit'
@@ -189,6 +190,13 @@ const routes: Routes = [
         component: KardexComponent,
         data: {
           title: 'Kardex'
+        }
+      },
+      {
+        path: 'guiarecepcion/list',
+        component: GuiaRecepcionComponent,
+        data: {
+          title: 'Guías de Recepción'
         }
       }
     ]

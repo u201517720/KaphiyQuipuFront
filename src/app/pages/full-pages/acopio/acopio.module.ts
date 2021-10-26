@@ -20,7 +20,7 @@ import { NgbDateCustomParserFormatter } from "../../../shared/util/NgbDateCustom
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
-import { DetalleCatalogoEditComponent }from './operaciones/detallecatalogo/edit/detallecatalogo-edit.component';
+import { DetalleCatalogoEditComponent } from './operaciones/detallecatalogo/edit/detallecatalogo-edit.component';
 import { DetalleCatalogoComponent } from './operaciones/detallecatalogo/list/detallecatalogo-list.component';
 import { MateriaPrimaListComponent } from "./operaciones/materiaprima/materiaprima-list/materiaprima-list.component";
 import { EmpresaTransporteListComponent } from "./operaciones/empresatransporte/list/empresatransporte-list.component";
@@ -51,10 +51,10 @@ import { TagOrdenServicioComponent } from './operaciones/ordenservicio/ordenserv
 import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/ingresoalmacen-edit/ingresoalmacen-edit.component';
 import { ModalModule } from '../modals/modal.module'
 import { DetalleLoteComponent } from "./operaciones/lotes/lote-edit/detalleLote/detalleLote.component";
-import{ZonaListComponent} from './operaciones/zona/list/zona-list.component';
-import {ZonaEditComponent} from './operaciones/zona/edit/zona-edit.component';
+import { ZonaListComponent } from './operaciones/zona/list/zona-list.component';
+import { ZonaEditComponent } from './operaciones/zona/edit/zona-edit.component';
 import { KardexComponent } from './operaciones/kardex/kardex.component';
-import { GuiaRecepcionComponent } from './operaciones/guia-recepcion/guia-recepcion.component';
+import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
 
 @NgModule({
   imports: [

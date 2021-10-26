@@ -1,36 +1,35 @@
 <div class="row">
     <div class="col-12">
-        <div class="content-header">Notas de Ingreso</div>
+        <div class="content-header">Lista de Guias de Recepción</div>
     </div>
 </div>
-
 <section id="tooltip-validation">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="needs-validation" [formGroup]="ingresoAlmacenForm" novalidate>
+                        <form class="needs-validation" [formGroup]="frmListGuiaRecepcion">
                             <div class="form-row">
                                 <div class="col-md-4 mb-4 form-group mb-2">
-                                    <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+                                    <label for="fechaInicio">Fecha Inicio</label>
                                     <input type="date" class="form-control" formControlName="fechaInicio"
                                         id="fechaInicio" name="fechaInicio" placeholder="date" date
-                                        [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.invalid, 'is-valid': submitted && !f.fechaInicio.invalid }"
+                                        [ngClass]="{ 'is-invalid': f.fechaInicio.invalid, 'is-valid': !f.fechaInicio.invalid }"
                                         (blur)="compareTwoDates()" />
                                 </div>
                                 <div class="col-md-4 mb-4 form-group mb-2">
-                                    <label for="fechaFin" class="form-label">Fecha Fin</label>
+                                    <label for="fechaFin">Fecha Fin</label>
                                     <input type="date" class="form-control" formControlName="fechaFin" id="fechaFin"
                                         name="fechaFin" placeholder="date" date
-                                        [ngClass]="{ 'is-invalid': submitted && f.fechaFin.invalid, 'is-valid': submitted && !f.fechaFin.invalid }"
+                                        [ngClass]="{ 'is-invalid': f.fechaFin.invalid, 'is-valid': !f.fechaFin.invalid }"
                                         (blur)="compareTwoDates()" />
                                 </div>
+                                <small class="form-text text-muted danger"
+                                    *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
                             </div>
 
-                            <small class="form-text text-muted danger mb-1"
-                                *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
-                            <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()">Buscar</button>
+                            <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="buscar()">Buscar</button>
                         </form>
                     </div>
                 </div>
@@ -41,6 +40,7 @@
 <div class="d-flex justify-content-between align-items-center">
     <ngx-spinner></ngx-spinner>
 </div>
+<!-- Filter Datatables -->
 <section id="ngx-datatable-filter">
     <div class="row">
         <div class="col-12">
@@ -66,38 +66,33 @@
                                     (keyup)="filterUpdate($event)" />
                             </label>
                         </fieldset>
-                        <ngx-datatable class="bootstrap core-bootstrap ngx-datatable-almacen" [columnMode]="'force'"
-                            [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows"
-                            [scrollbarH]="true" [selected]="selected" [selectionType]="'checkbox'"
-                            (select)="onSelect($event)">
-                            <ngx-datatable-column name="N° Nota Ingreso" prop="Numero" width="130">
+                        <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
+                            [selectCheck]="singleSelectCheck" [selected]="selected" [selectionType]="'single'">
+                            <ngx-datatable-column name="Numero" prop="Numero" width="120">
                                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                                     <div class="d-flex align-items-center">
                                         <div class="cell-line-height">
-                                            <a class="line-height-1 mb-0" routerLink="/operaciones/ingresoalmacen-edit"
-                                                [queryParams]="{ id: row.NotaIngresoAlmacenId}">{{ name }}</a>
+                                            <a class="line-height-1 mb-0" routerLink="/operaciones/guiarecepcion/update"
+                                                [queryParams]="{ id: row.ID}">{{
+                                                name }}</a>
                                         </div>
                                     </div>
                                 </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="N° Nota Ingreso" prop="Numero" width="100">
+                            <ngx-datatable-column name="Distribuidora" prop="CodigoSocio" width="120">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Número Guia" prop="CodigoSocio" width="100">
+                            <ngx-datatable-column name="Producto" prop="TipoDocumento" width="150">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Distribuidora" prop="TipoDocumento" width="180">
+                            <ngx-datatable-column name="Unidad de Medida" prop="NumeroDocumento" width="170">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Producto" prop="NumeroDocumento" width="180">
+                            <ngx-datatable-column name="Cantidad" prop="NombreRazonSocial" width="250">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Unidad de Medida" prop="NombreRazonSocial" width="300">
+                            <ngx-datatable-column name="Kilos Brutos" prop="Producto" width="200">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Cantidad" prop="Producto" width="200">
+                            <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroCadena" width="120">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Kilos Brutos" prop="SubProducto" width="180">
-                            </ngx-datatable-column>
-
-                            <ngx-datatable-column name="Fecha Registro" prop="DefectosAnalisisSensorial" width="200">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Usuario Registro" prop="Almacen" width="150">
+                            <ngx-datatable-column name="Usuario Registro" prop="FechaRegistroCadena" width="120">
                             </ngx-datatable-column>
                         </ngx-datatable>
                     </div>
@@ -106,3 +101,4 @@
         </div>
     </div>
 </section>
+<!--/ Filter Datatables -->
