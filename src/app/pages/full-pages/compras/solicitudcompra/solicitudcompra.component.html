@@ -25,14 +25,6 @@
                         name="fechaFinal" placeholder="Seleccionar fecha final"
                         [ngClass]="{ 'is-invalid': f.fechaFinal.invalid, 'is-valid': !f.fechaFinal.invalid }" />
                 </div>
-                <div class="col-md-3 mb-4 form-group mb-2">
-                    <label for="estado" class="form-label">Estado</label>
-                    <ng-select [items]="listEstados" formControlName="estado" class="form-control" bindLabel="Label"
-                        bindValue="Codigo" id="estado" placeholder="Seleccionar estado"
-                        [ngClass]="{ 'is-invalid': f.estado.invalid, 'is-valid': !f.estado.invalid }"
-                        [(ngModel)]="selectedEstado">
-                    </ng-select>
-                </div>
             </div>
 
             <small class="form-text text-muted danger mb-1"
@@ -67,12 +59,12 @@
         <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
             rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true" [selected]="selected"
             [selectionType]="'single'" [selectCheck]="onSelectCheck">
-            <ngx-datatable-column name="NRO SOLICITUD" prop="NumeroSolicitud" width="90">
+            <ngx-datatable-column name="NRO SOLICITUD" prop="ID" width="90">
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                     <div class="d-flex align-items-center">
                         <div class="cell-line-height">
                             <a class="line-height-1 mb-0"
-                                [routerLink]="['/compras/solicitudcompra/update', row.SocioId]">{{
+                                [routerLink]="['/compras/solicitudcompra/update', row.ID]">{{
                                 name }}</a>
                         </div>
                     </div>

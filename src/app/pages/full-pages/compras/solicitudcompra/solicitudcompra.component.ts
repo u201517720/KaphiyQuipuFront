@@ -1,15 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { NgxSpinnerService } from 'ngx-spinner';
 import swal from 'sweetalert2';
 
 import { SolicitudcompraService } from '../../../../services/solicitudcompra.service';
+import { DateUtil } from '../../../../services/util/date-util';
+import { MaestroUtil } from '../../../../services/util/maestro-util';
 
 @Component({
   selector: 'app-solicitudcompra',
   templateUrl: './solicitudcompra.component.html',
-  styleUrls: ['./solicitudcompra.component.scss']
+  styleUrls: ['./solicitudcompra.component.scss', '/assets/sass/libs/datatables.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SolicitudcompraComponent implements OnInit {
 
@@ -21,24 +24,26 @@ export class SolicitudcompraComponent implements OnInit {
   tempData = [];
   selected = [];
   userSession: any;
-  listEstados: any[];
-  selectedEstado: any;
 
   constructor(private fb: FormBuilder,
     private solicitudcompraService: SolicitudcompraService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private dateUtil: DateUtil,
+    private maestroUtil: MaestroUtil) { }
 
   ngOnInit(): void {
     this.LoadForm();
+    this.Buscar();
   }
 
   LoadForm() {
     this.frmListaSolicitudeCompra = this.fb.group({
       descCliente: [],
       fechaInicial: [],
-      fechaFinal: [],
-      estado: []
+      fechaFinal: []
     });
+    this.frmListaSolicitudeCompra.controls.fechaInicial.setValue(this.dateUtil.currentMonthAgo());
+    this.frmListaSolicitudeCompra.controls.fechaFinal.setValue(this.dateUtil.currentDate());
   }
 
   get f() {
@@ -63,7 +68,12 @@ export class SolicitudcompraComponent implements OnInit {
   }
 
   GetRequestSearch() {
-    const request = {};
+    const form = this.frmListaSolicitudeCompra.value;
+    const request = {
+      cliente: form.descCliente ? form.descCliente : '',
+      fechaInicio: form.fechaInicial ? form.fechaInicial : null,
+      fechaFinal: form.fechaFinal ? form.fechaFinal : null
+    };
     return request;
   }
 

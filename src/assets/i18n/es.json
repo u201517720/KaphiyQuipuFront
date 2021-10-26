@@ -226,6 +226,9 @@
 		"Label": "Compras",
 		"SolicitudCompra": {
 			"Label": "Solicitud de Compra"
+		},
+		"NuevaSolicitudCompra": {
+			"Label": "Nueva Solicitud de Compra"
 		}
 	},
 	"Exportador": {
