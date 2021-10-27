@@ -21,6 +21,7 @@ import { ExportadorModule } from './exportador/exportador.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ClienteModule } from "./cliente/cliente.module";
 import { TesoreriaModule } from "./tesoreria/tesoreria.module";
+import { MateriaprimaComponent } from './solicitudes/materiaprima/materiaprima.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -46,7 +47,8 @@ import { TesoreriaModule } from "./tesoreria/tesoreria.module";
     InvoicePageComponent,
     HomeComponent,
     MConsultarProductorComponent,
-    ListFilterPipe
+    ListFilterPipe,
+    MateriaprimaComponent
   ]
   // entryComponents: [
   //   MConsultarProductorComponent

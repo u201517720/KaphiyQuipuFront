@@ -17,9 +17,11 @@ export class GuiaRecepcionComponent implements OnInit {
   rows: [];
 
   constructor(private fb: FormBuilder,
-    private dateUtil: DateUtil) { }
+    private dateUtil: DateUtil) {
+  }
 
   ngOnInit(): void {
+    this.LoadForm();
   }
 
   LoadForm() {
@@ -27,6 +29,10 @@ export class GuiaRecepcionComponent implements OnInit {
       fechaInicio: [, Validators.required],
       fechaFin: [, Validators.required]
     });
+  }
+
+  get f() {
+    return this.frmListGuiaRecepcion.controls;
   }
 
   compareTwoDates() {
@@ -48,6 +54,8 @@ export class GuiaRecepcionComponent implements OnInit {
   filterUpdate(e) {
 
   }
+
+
 
   buscar() {
 

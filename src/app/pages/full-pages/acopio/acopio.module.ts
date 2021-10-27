@@ -55,6 +55,7 @@ import { ZonaListComponent } from './operaciones/zona/list/zona-list.component';
 import { ZonaEditComponent } from './operaciones/zona/edit/zona-edit.component';
 import { KardexComponent } from './operaciones/kardex/kardex.component';
 import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
+import { GuiaRecepcionEditComponent } from './operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
 
 @NgModule({
   imports: [
@@ -110,7 +111,8 @@ import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepci
     ZonaListComponent,
     ZonaEditComponent,
     KardexComponent,
-    GuiaRecepcionComponent
+    GuiaRecepcionComponent,
+    GuiaRecepcionEditComponent
 
   ],
   exports: [
