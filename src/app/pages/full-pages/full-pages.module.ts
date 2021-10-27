@@ -21,7 +21,9 @@ import { ExportadorModule } from './exportador/exportador.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ClienteModule } from "./cliente/cliente.module";
 import { TesoreriaModule } from "./tesoreria/tesoreria.module";
-import { MateriaprimaComponent } from './solicitudes/materiaprima/materiaprima.component';
+import { ComprasModule } from './compras/compras.module';
+import { SolicitudesModule } from './solicitudes/solicitudes.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -41,17 +43,15 @@ import { MateriaprimaComponent } from './solicitudes/materiaprima/materiaprima.c
     ExportadorModule,
     FileUploadModule,
     ClienteModule,
-    TesoreriaModule
+    TesoreriaModule,
+    ComprasModule,
+    SolicitudesModule
   ],
   declarations: [
     InvoicePageComponent,
     HomeComponent,
     MConsultarProductorComponent,
-    ListFilterPipe,
-    MateriaprimaComponent
+    ListFilterPipe
   ]
-  // entryComponents: [
-  //   MConsultarProductorComponent
-  // ]
 })
 export class FullPagesModule { }

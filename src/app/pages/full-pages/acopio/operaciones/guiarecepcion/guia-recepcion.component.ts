@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 import { DateUtil } from '../../../../../services/util/date-util';
 
 @Component({
   selector: 'app-guia-recepcion',
   templateUrl: './guia-recepcion.component.html',
-  styleUrls: ['./guia-recepcion.component.scss']
+  styleUrls: ['./guia-recepcion.component.scss', '/assets/sass/libs/datatables.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class GuiaRecepcionComponent implements OnInit {
 
   frmListGuiaRecepcion: FormGroup;
   errorGeneral = { isError: false, errorMessage: '' };
+  @ViewChild(DatatableComponent) table: DatatableComponent;
   limitRef = 10;
   selected: [];
   rows: [];
@@ -54,8 +57,6 @@ export class GuiaRecepcionComponent implements OnInit {
   filterUpdate(e) {
 
   }
-
-
 
   buscar() {
 

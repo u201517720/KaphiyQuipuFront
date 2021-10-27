@@ -48,7 +48,7 @@ import { TagNotaSalidaEditComponent } from './operaciones/notasalida/notasalida-
 import { TagOrdenServicioComponent } from './operaciones/ordenservicio/ordenservicio-edit/tag-ordenservicio/tag-ordenservicio.component'
 
 
-import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/ingresoalmacen-edit/ingresoalmacen-edit.component';
+import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
 import { ModalModule } from '../modals/modal.module'
 import { DetalleLoteComponent } from "./operaciones/lotes/lote-edit/detalleLote/detalleLote.component";
 import { ZonaListComponent } from './operaciones/zona/list/zona-list.component';
