@@ -23,7 +23,7 @@ import { ModalModule } from '../modals/modal.module'
 
 import { SolicitudcompraComponent } from './solicitudcompra/solicitudcompra.component';
 import { SolicitudcompraEditComponent } from './solicitudcompra/solicitudcompra-edit/solicitudcompra-edit.component';
-import { ContratoRoutingModule } from './compras-routing.module';
+import { CompraRoutingModule } from './compras-routing.module';
 
 @NgModule({
   declarations: [SolicitudcompraComponent, SolicitudcompraEditComponent],
@@ -48,7 +48,7 @@ import { ContratoRoutingModule } from './compras-routing.module';
     MatchHeightModule,
     ModalModule,
     FileUploadModule,
-    ContratoRoutingModule
+    CompraRoutingModule
   ],
   providers: [
     { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }

@@ -4,6 +4,8 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 import { MaestroService } from '../../../../../services/maestro.service';
 import { MaestroUtil } from '../../../../../services/util/maestro-util';
+import { SolicitudcompraService } from '../../../../../services/solicitudcompra.service';
+import { AlertUtil } from '../../../../../services/util/alert-util';
 
 @Component({
   selector: 'app-solicitudcompra-edit',
@@ -46,7 +48,9 @@ export class SolicitudcompraEditComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
-    private maestroUtil: MaestroUtil) {
+    private maestroUtil: MaestroUtil,
+    private solicitudcompraService: SolicitudcompraService,
+    private alertUtil: AlertUtil) {
     this.userSession = JSON.parse(localStorage.getItem('user'));
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
@@ -205,7 +209,12 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   EnviarSolicitud() {
-
+    if (!this.frmSolicitudCompraNew.invalid) {
+      this.alertUtil.alertRegistro('Enviar Solicitud de Compra',
+        '¿Está seguro de enviar la solicitud de compra?', () => {
+          this.EnviarSolicitud();
+        });
+    }
   }
 
   CalcularPesoEnKilos() {
@@ -233,6 +242,44 @@ export class SolicitudcompraEditComponent implements OnInit {
 
   updateLimit(e) {
 
+  }
+
+  RequestEnviarSolicitud() {
+    const frm = this.frmSolicitudCompraNew.value;
+    const request = {
+      DistribuidorId: 0,
+      PaisId: frm.pais ? frm.pais : '',
+      DepartamentoId: frm.ciudad ? frm.ciudad : '',
+      MonedaId: frm.moneda,
+      UnidadMedidaId: frm.unidadMedida,
+      TipoProduccionId: frm.tipoProduccion,
+      EmpaqueId: frm.empaque,
+      TipoEmpaqueId: frm.tipoEmpaque,
+      TotalSacos: frm.cantASolicitar ? frm.cantASolicitar : 0,
+      PesoSaco: frm.pesoXSaco ? frm.pesoXSaco : 0,
+      PesoKilos: frm.pesoEnKilos ? frm.pesoEnKilos : 0,
+      ProductoId: frm.producto,
+      SubProductoId: frm.subProducto,
+      GradoPreparacionId: frm.gradoPreparacion,
+      CalidadId: frm.calidad,
+      Observaciones: frm.observaciones,
+      Estado: 1,
+      EstadoId: '01',
+      UsuarioRegistro: ''
+    }
+    return request;
+  }
+
+  GuardarSolicitud() {
+    const request = this.RequestEnviarSolicitud();
+    this.solicitudcompraService.Registrar(request)
+      .subscribe((res) => {
+        if (res) {
+
+        }
+      }, (err) => {
+        console.log(err);
+      });
   }
 
   Cancelar() {

@@ -17,34 +17,41 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgbDateCustomParserFormatter } from "../../../shared/util/NgbDateCustomParserFormatter";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FileUploadModule } from 'ng2-file-upload';
 
-import { SolicitudesRoutingModule } from './solicitudes-routing.module';
+import { SharedModule } from '../../../shared/shared.module';
+import { ModalModule } from '../modals/modal.module'
+import { SolicitudRoutingModule } from './solicitudes-routing.module';
 import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
 
 @NgModule({
+    declarations: [
+        MateriaprimaComponent
+    ],
     imports: [
+        SharedModule,
         CommonModule,
-        SolicitudesRoutingModule,
         FormsModule,
         ReactiveFormsModule,
+        NgxSpinnerModule,
+        NgxDatatableModule,
         ChartistModule,
         AgmCoreModule,
         NgSelectModule,
         NgbModule,
         SwiperModule,
-        PipeModule,
-        NgxDatatableModule,
         CustomFormsModule,
         ArchwizardModule,
         UiSwitchModule,
         TagInputModule,
         QuillModule,
+        PipeModule,
         MatchHeightModule,
-        NgxSpinnerModule
+        ModalModule,
+        FileUploadModule,
+        SolicitudRoutingModule
     ],
-    declarations: [
-        MateriaprimaComponent
-    ],
+
     providers: [
         { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }
     ]

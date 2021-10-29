@@ -59,8 +59,7 @@ export class AlertUtil {
     })
   }
 
-  alertRegistro(title: String, mensaje: any, callback)
-  {
+  alertRegistro(title: String, mensaje: any, callback) {
     swal.fire({
       title: title,
       text: mensaje,
