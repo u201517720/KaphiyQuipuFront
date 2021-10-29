@@ -10,20 +10,20 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="needs-validation" [formGroup]="ingresoAlmacenForm" novalidate>
+                        <form class="needs-validation" [formGroup]="frmNotaIngresoAlmacen" novalidate>
                             <div class="form-row">
                                 <div class="col-md-4 mb-4 form-group mb-2">
                                     <label for="fechaInicio" class="form-label">Fecha Inicio</label>
                                     <input type="date" class="form-control" formControlName="fechaInicio"
                                         id="fechaInicio" name="fechaInicio" placeholder="date" date
-                                        [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.invalid, 'is-valid': submitted && !f.fechaInicio.invalid }"
+                                        [ngClass]="{ 'is-invalid': f.fechaInicio.invalid, 'is-valid': !f.fechaInicio.invalid }"
                                         (blur)="compareTwoDates()" />
                                 </div>
                                 <div class="col-md-4 mb-4 form-group mb-2">
                                     <label for="fechaFin" class="form-label">Fecha Fin</label>
                                     <input type="date" class="form-control" formControlName="fechaFin" id="fechaFin"
                                         name="fechaFin" placeholder="date" date
-                                        [ngClass]="{ 'is-invalid': submitted && f.fechaFin.invalid, 'is-valid': submitted && !f.fechaFin.invalid }"
+                                        [ngClass]="{ 'is-invalid': f.fechaFin.invalid, 'is-valid': !f.fechaFin.invalid }"
                                         (blur)="compareTwoDates()" />
                                 </div>
                             </div>

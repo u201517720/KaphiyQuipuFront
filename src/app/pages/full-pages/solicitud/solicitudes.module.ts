@@ -25,9 +25,7 @@ import { SolicitudRoutingModule } from './solicitudes-routing.module';
 import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
 
 @NgModule({
-    declarations: [
-        MateriaprimaComponent
-    ],
+    declarations: [MateriaprimaComponent],
     imports: [
         SharedModule,
         CommonModule,

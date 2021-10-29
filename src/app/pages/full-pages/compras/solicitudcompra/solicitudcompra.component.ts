@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { NgxSpinnerService } from 'ngx-spinner';
-import swal from 'sweetalert2';
 
 import { SolicitudcompraService } from '../../../../services/solicitudcompra.service';
 import { DateUtil } from '../../../../services/util/date-util';
@@ -29,16 +28,19 @@ export class SolicitudcompraComponent implements OnInit {
     private solicitudcompraService: SolicitudcompraService,
     private spinner: NgxSpinnerService,
     private dateUtil: DateUtil,
-    private maestroUtil: MaestroUtil) { }
+    private maestroUtil: MaestroUtil) {
+    this.userSession = JSON.parse(localStorage.getItem('user'));
+    if (this.userSession) {
+      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+    }
+  }
 
   ngOnInit(): void {
     this.LoadForm();
-    this.Buscar();
   }
 
   LoadForm() {
     this.frmListaSolicitudeCompra = this.fb.group({
-      descCliente: [],
       fechaInicial: [],
       fechaFinal: []
     });
@@ -63,27 +65,26 @@ export class SolicitudcompraComponent implements OnInit {
     this.table.offset = 0;
   }
 
-  onSelectCheck(row: any) {
-    return this.selected.indexOf(row) === -1;
-  }
-
   GetRequestSearch() {
     const form = this.frmListaSolicitudeCompra.value;
     const request = {
-      cliente: form.descCliente ? form.descCliente : '',
       fechaInicio: form.fechaInicial ? form.fechaInicial : null,
-      fechaFinal: form.fechaFinal ? form.fechaFinal : null
+      fechaFinal: form.fechaFinal ? form.fechaFinal : null,
+      UsuarioId: this.userSession.IdUsuario
     };
     return request;
   }
 
   Buscar() {
     this.spinner.show();
+    this.rows = [];
+    this.tempData = [];
     const request = this.GetRequestSearch();
     this.solicitudcompraService.Consultar(request).subscribe((res) => {
       this.spinner.hide();
       if (res) {
-
+        this.rows = res.Result.Data;
+        this.tempData = this.rows;
       }
     }, (err) => {
       this.spinner.hide();

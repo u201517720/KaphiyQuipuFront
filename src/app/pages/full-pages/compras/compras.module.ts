@@ -22,7 +22,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ModalModule } from '../modals/modal.module'
 
 import { SolicitudcompraComponent } from './solicitudcompra/solicitudcompra.component';
-import { SolicitudcompraEditComponent } from './solicitudcompra/solicitudcompra-edit/solicitudcompra-edit.component';
+import { SolicitudcompraEditComponent } from './solicitudcompra/edit/solicitudcompra-edit.component';
 import { CompraRoutingModule } from './compras-routing.module';
 
 @NgModule({

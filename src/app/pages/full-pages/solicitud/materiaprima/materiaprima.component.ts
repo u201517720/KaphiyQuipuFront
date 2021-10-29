@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 
+import { DateUtil } from '../../../../services/util/date-util';
+
 @Component({
   selector: 'app-materiaprima',
   templateUrl: './materiaprima.component.html',
@@ -17,7 +19,8 @@ export class MateriaprimaComponent implements OnInit {
   rows = [];
   selected = [];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private dateUtil: DateUtil) { }
 
   ngOnInit(): void {
     this.LoadForm();
@@ -28,6 +31,9 @@ export class MateriaprimaComponent implements OnInit {
       fechaInicio: [],
       fechaFin: []
     });
+
+    this.frmSolicitudesMateriaPrima.controls.fechaInicio.setValue(this.dateUtil.currentMonthAgo());
+    this.frmSolicitudesMateriaPrima.controls.fechaFin.setValue(this.dateUtil.currentDate());
   }
 
   get f() {

@@ -113,7 +113,6 @@ import { GuiaRecepcionEditComponent } from './operaciones/guiarecepcion/edit/gui
     KardexComponent,
     GuiaRecepcionComponent,
     GuiaRecepcionEditComponent
-
   ],
   exports: [
     PesadoCafeComponent,

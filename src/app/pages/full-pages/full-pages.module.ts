@@ -22,7 +22,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { ClienteModule } from "./cliente/cliente.module";
 import { TesoreriaModule } from "./tesoreria/tesoreria.module";
 import { ComprasModule } from './compras/compras.module';
-import { SolicitudesModule } from './solicitudes/solicitudes.module';
+import { SolicitudesModule } from './solicitud/solicitudes.module';
 
 @NgModule({
   imports: [

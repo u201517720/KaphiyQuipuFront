@@ -32,6 +32,9 @@ export class GuiaRecepcionComponent implements OnInit {
       fechaInicio: [, Validators.required],
       fechaFin: [, Validators.required]
     });
+
+    this.frmListGuiaRecepcion.controls.fechaInicio.setValue(this.dateUtil.currentMonthAgo());
+    this.frmListGuiaRecepcion.controls.fechaFin.setValue(this.dateUtil.currentDate());
   }
 
   get f() {
@@ -39,12 +42,12 @@ export class GuiaRecepcionComponent implements OnInit {
   }
 
   compareTwoDates() {
-    var anioFechaInicio = new Date(this.frmListGuiaRecepcion.controls['fechaInicio'].value).getFullYear()
-    var anioFechaFin = new Date(this.frmListGuiaRecepcion.controls['fechaFin'].value).getFullYear()
+    const anioFechaInicio = new Date(this.frmListGuiaRecepcion.value.fechaInicio).getFullYear()
+    const anioFechaFin = new Date(this.frmListGuiaRecepcion.value.fechaFin).getFullYear()
 
     if (anioFechaFin < anioFechaInicio) {
       this.errorGeneral = { isError: true, errorMessage: 'La fecha fin no puede ser anterior a la fecha inicio' };
-      this.frmListGuiaRecepcion.controls['fechaFin'].setErrors({ isError: true })
+      // this.frmListGuiaRecepcion.controls['fechaFin'].setErrors({ isError: true })
     } else {
       this.errorGeneral = { isError: false, errorMessage: '' };
     }

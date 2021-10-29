@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { MaestroService } from '../../../../../services/maestro.service';
 import { MaestroUtil } from '../../../../../services/util/maestro-util';
 import { SolicitudcompraService } from '../../../../../services/solicitudcompra.service';
 import { AlertUtil } from '../../../../../services/util/alert-util';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-solicitudcompra-edit',
@@ -45,12 +47,15 @@ export class SolicitudcompraEditComponent implements OnInit {
   userSession: any;
   rows = [];
   selected = [];
+  locId = 0;
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
     private maestroUtil: MaestroUtil,
     private solicitudcompraService: SolicitudcompraService,
-    private alertUtil: AlertUtil) {
+    private alertUtil: AlertUtil,
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService) {
     this.userSession = JSON.parse(localStorage.getItem('user'));
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
@@ -58,7 +63,11 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.locId = this.route.snapshot.params['id'];
     this.LoadForm();
+    if (this.locId > 0) {
+      this.ConsultarPorId();
+    }
   }
 
   LoadForm() {
@@ -265,7 +274,7 @@ export class SolicitudcompraEditComponent implements OnInit {
       Observaciones: frm.observaciones,
       Estado: 1,
       EstadoId: '01',
-      UsuarioRegistro: ''
+      UsuarioRegistro: this.userSession.NombreUsuario
     }
     return request;
   }
@@ -275,11 +284,103 @@ export class SolicitudcompraEditComponent implements OnInit {
     this.solicitudcompraService.Registrar(request)
       .subscribe((res) => {
         if (res) {
-
+          if (res.Result.Success) {
+            this.alertUtil.alertOk('', '');
+          }
         }
       }, (err) => {
         console.log(err);
       });
+  }
+
+  ConsultarPorId() {
+    this.spinner.show();
+    this.solicitudcompraService.ConsultarPorId({ SolicitudCompraId: this.locId })
+      .subscribe((res) => {
+        if (res && res.Result.Success) {
+          this.CompletarForm(res.Result.Data);
+        }
+      }, (err) => {
+        this.spinner.hide();
+      });
+  }
+
+  async CompletarForm(data) {
+    if (data) {
+      if (data.PaisId) {
+        await this.GetCountries();
+        this.frmSolicitudCompraNew.controls.pais.setValue(data.PaisId);
+      }
+
+      if (data.DepartamentoId) {
+        await this.GetCities();
+        this.frmSolicitudCompraNew.controls.ciudad.setValue(data.DepartamentoId);
+      }
+
+      if (data.MonedaId) {
+        await this.GetCurrencies();
+        this.frmSolicitudCompraNew.controls.moneda.setValue(data.MonedaId);
+      }
+
+      if (data.UnidadMedidaId) {
+        await this.GetMeasurementUnit();
+        this.frmSolicitudCompraNew.controls.unidadMedida.setValue(data.UnidadMedidaId);
+      }
+
+      if (data.TipoProduccionId) {
+        await this.GetProductionType();
+        this.frmSolicitudCompraNew.controls.tipoProduccion.setValue(data.TipoProduccionId);
+      }
+
+      if (data.EmpaqueId) {
+        await this.GetPackaging();
+        this.frmSolicitudCompraNew.controls.empaque.setValue(data.EmpaqueId);
+      }
+
+      if (data.TipoEmpaqueId) {
+        await this.GetPackagingType();
+        this.frmSolicitudCompraNew.controls.tipoEmpaque.setValue(data.TipoEmpaqueId);
+      }
+
+      if (data.ProductoId) {
+        await this.GetProducts();
+        this.frmSolicitudCompraNew.controls.producto.setValue(data.ProductoId);
+      }
+
+      if (data.SubProductoId) {
+        await this.GetSubProducts(this.frmSolicitudCompraNew.value.producto);
+        this.frmSolicitudCompraNew.controls.subProducto.setValue(data.SubProductoId);
+      }
+
+      if (data.GradoPreparacionId) {
+        await this.GetDegreePreparation();
+        this.frmSolicitudCompraNew.controls.gradoPreparacion.setValue(data.GradoPreparacionId);
+      }
+
+      if (data.CalidadId) {
+        await this.GetQuality();
+        this.frmSolicitudCompraNew.controls.calidad.setValue(data.CalidadId);
+      }
+
+      if (data.TotalSacos) {
+        this.frmSolicitudCompraNew.controls.cantASolicitar.setValue(data.TotalSacos);
+      }
+
+      if (data.PesoSaco) {
+        this.frmSolicitudCompraNew.controls.pesoXSaco.setValue(data.PesoSaco);
+      }
+
+      if (data.PesoKilos) {
+        this.frmSolicitudCompraNew.controls.pesoEnKilos.setValue(data.PesoKilos);
+      }
+
+      if (data.Observaciones) {
+        this.frmSolicitudCompraNew.controls.observaciones.setValue(data.Observaciones);
+      }
+      // this.frmSolicitudCompraNew.controls.costoUnitario.setValue();
+      // this.frmSolicitudCompraNew.controls.costoTotal.setValue();
+    }
+    this.spinner.hide();
   }
 
   Cancelar() {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SolicitudcompraComponent } from '../compras/solicitudcompra/solicitudcompra.component';
-import { SolicitudcompraEditComponent } from '../compras/solicitudcompra/solicitudcompra-edit/solicitudcompra-edit.component';
+import { SolicitudcompraEditComponent } from './solicitudcompra/edit/solicitudcompra-edit.component';
 
 const routes: Routes = [
     {
