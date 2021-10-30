@@ -59,7 +59,7 @@
         <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
             rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true" [selected]="selected"
             [selectionType]="'single'">
-            <ngx-datatable-column name="NRO SOLICITUD" prop="Correlativo" width="90">
+            <ngx-datatable-column name="NRO SOLICITUD" prop="Correlativo" width="150">
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                     <div class="d-flex align-items-center">
                         <div class="cell-line-height">
@@ -70,21 +70,21 @@
                     </div>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="CLIENTE" prop="RazonSocial" width="90">
+            <ngx-datatable-column name="CLIENTE" prop="RazonSocial" width="300">
             </ngx-datatable-column>
-            <ngx-datatable-column name="PRODUCTO" prop="Producto" width="90">
+            <ngx-datatable-column name="PRODUCTO" prop="Producto" width="200">
             </ngx-datatable-column>
-            <ngx-datatable-column name="SUB PRODUCTO" prop="SubProducto" width="90">
+            <ngx-datatable-column name="SUB PRODUCTO" prop="SubProducto" width="200">
             </ngx-datatable-column>
             <ngx-datatable-column name="CALIDAD" prop="Calidad" width="170">
             </ngx-datatable-column>
             <ngx-datatable-column name="ESTADO" prop="DescripcionEstado" width="70">
             </ngx-datatable-column>
-            <ngx-datatable-column name="FECHA REGISTRO" prop="FechaRegistroString" width="70">
+            <ngx-datatable-column name="FECHA REGISTRO" prop="FechaRegistroString" width="150">
             </ngx-datatable-column>
-            <ngx-datatable-column name="USUARIO ACTUALIZACIÓN" prop="UsuarioActualizacion" width="70">
+            <ngx-datatable-column name="USUARIO ACTUALIZACIÓN" prop="UsuarioActualizacion" width="100">
             </ngx-datatable-column>
-            <ngx-datatable-column name="FECHA ACTUALIZACIÓN" prop="FechaActualizacionString" width="70">
+            <ngx-datatable-column name="FECHA ACTUALIZACIÓN" prop="FechaActualizacionString" width="150">
             </ngx-datatable-column>
         </ngx-datatable>
     </div>

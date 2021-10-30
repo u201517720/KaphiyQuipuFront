@@ -65,7 +65,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.locId = this.route.snapshot.params['id'];
+    this.locId = parseInt(this.route.snapshot.params['id']);
     this.LoadForm();
     if (this.locId > 0) {
       this.ConsultarPorId();
