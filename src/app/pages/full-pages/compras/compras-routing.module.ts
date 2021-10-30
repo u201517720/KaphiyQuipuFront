@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SolicitudcompraComponent } from '../compras/solicitudcompra/solicitudcompra.component';
+import { SolicitudcompraComponent } from './solicitudcompra/solicitudcompra.component';
 import { SolicitudcompraEditComponent } from './solicitudcompra/edit/solicitudcompra-edit.component';
 
 const routes: Routes = [
@@ -22,7 +22,6 @@ const routes: Routes = [
                     title: 'Solicitud de Compra'
                 }
             },
-            ,
             {
                 path: 'solicitudcompra/update/:id',
                 component: SolicitudcompraEditComponent,

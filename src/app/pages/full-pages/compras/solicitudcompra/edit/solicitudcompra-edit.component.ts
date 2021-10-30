@@ -32,6 +32,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   listProductos: any[];
   listSubProductos: any[];
   listGradosPreparacion: any[];
+  listCertificaciones: any[];
   listCalidad: any[];
   selectedPais: any;
   selectedCiudad: any;
@@ -44,6 +45,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   selectedSubProducto: any;
   selectedGradoPreparacion: any;
   selectedCalidad: any;
+  selectedCertificacion: any;
   userSession: any;
   rows = [];
   selected = [];
@@ -83,6 +85,7 @@ export class SolicitudcompraEditComponent implements OnInit {
       subProducto: [, Validators.required],
       gradoPreparacion: [, Validators.required],
       calidad: [, Validators.required],
+      certificacion: [, Validators.required],
       cantASolicitar: [, Validators.required],
       pesoXSaco: [, Validators.required],
       pesoEnKilos: [, Validators.required],
@@ -116,6 +119,7 @@ export class SolicitudcompraEditComponent implements OnInit {
     this.GetProducts();
     this.GetDegreePreparation();
     this.GetQuality();
+    this.GetCertificaciones();
   }
 
   get f() {
@@ -209,6 +213,14 @@ export class SolicitudcompraEditComponent implements OnInit {
     }
   }
 
+  async GetCertificaciones() {
+    this.listCertificaciones = [];
+    const res = await this.maestroService.obtenerMaestros('TipoCertificacion').toPromise();
+    if (res.Result.Success) {
+      this.listCertificaciones = res.Result.Data;
+    }
+  }
+
   onChangePais(e: any) {
     this.GetCities();
   }
@@ -221,7 +233,7 @@ export class SolicitudcompraEditComponent implements OnInit {
     if (!this.frmSolicitudCompraNew.invalid) {
       this.alertUtil.alertRegistro('Enviar Solicitud de Compra',
         '¿Está seguro de enviar la solicitud de compra?', () => {
-          this.EnviarSolicitud();
+          this.GuardarSolicitud();
         });
     }
   }
@@ -256,7 +268,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   RequestEnviarSolicitud() {
     const frm = this.frmSolicitudCompraNew.value;
     const request = {
-      DistribuidorId: 0,
+      DistribuidorId: this.userSession.IdUsuario,
       PaisId: frm.pais ? frm.pais : '',
       DepartamentoId: frm.ciudad ? frm.ciudad : '',
       MonedaId: frm.moneda,
@@ -271,6 +283,7 @@ export class SolicitudcompraEditComponent implements OnInit {
       SubProductoId: frm.subProducto,
       GradoPreparacionId: frm.gradoPreparacion,
       CalidadId: frm.calidad,
+      CertificacionId: frm.certificacion,
       Observaciones: frm.observaciones,
       Estado: 1,
       EstadoId: '01',
@@ -285,7 +298,8 @@ export class SolicitudcompraEditComponent implements OnInit {
       .subscribe((res) => {
         if (res) {
           if (res.Result.Success) {
-            this.alertUtil.alertOk('', '');
+            this.alertUtil.alertOk('Confirmación', 'La solicitud de compra ha sido creada.');
+            this.frmSolicitudCompraNew.reset();
           }
         }
       }, (err) => {
