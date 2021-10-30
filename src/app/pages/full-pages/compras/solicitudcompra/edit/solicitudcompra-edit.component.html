@@ -2,7 +2,9 @@
     <div class="form-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card mt-0">
-                <h5 class="card-header bg-primary text-white text-center align-middle p-0">{{frmTitle}}</h5>
+                <h5 class="card-header bg-primary text-white text-center align-middle p-0">
+                    {{frmTitle}}{{frmSolicitudCompraNew.value.correlativo}}
+                </h5>
                 <div class="card-body">
                     <div class="form-row"
                         *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9">
@@ -13,6 +15,9 @@
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                             <div class="form-group row">
                                 <label for="destino" class="col-lg-5 col-form-label pr-0">FECHA REGISTRO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">{{locFechaRegistroString}}</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -21,11 +26,17 @@
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                             <div class="form-group row">
                                 <label for="destino" class="col-lg-2 col-form-label pr-0">DISTRIBUIDORA</label>
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <label class="col-form-label">{{frmSolicitudCompraNew.value.distribuidora}}</label>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                             <div class="form-group row">
-                                <label for="destino" class="col-lg-3 col-form-label pr-0">ESTADO</label>
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">ESTADO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">{{frmSolicitudCompraNew.value.estado}}</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -193,9 +204,9 @@
                     <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="cantASolicitar" class="col-lg-4 col-form-label pr-0">CANTIDAD A
+                                <label for="cantASolicitar" class="col-lg-5 col-form-label pr-0">CANTIDAD A
                                     SOLICITAR</label>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                                     <input type="number" name="cantASolicitar" id="cantASolicitar"
                                         formControlName="cantASolicitar" class="form-control text-right"
                                         placeholder="Cantidad a solicitar" (blur)="CalcularPesoEnKilos()"
@@ -206,8 +217,8 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="pesoXSaco" class="col-lg-5 col-form-label">PESO POR SACO</label>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <label for="pesoXSaco" class="col-lg-4 col-form-label">PESO POR SACO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" name="pesoXSaco" id="pesoXSaco" formControlName="pesoXSaco"
                                         class="form-control text-right" placeholder="Peso por saco"
                                         (blur)="CalcularPesoEnKilos()" [readonly]="userSession.RolId != 6"
@@ -241,7 +252,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row" *ngIf="locId > 0">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
                                 <label for="costoUnitario" class="col-lg-5 col-form-label">COSTO UNITARIO</label>
@@ -265,11 +276,11 @@
                         </div>
                     </div>
                     <div class="form-row bg-primary align-middle mb-2"
-                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9">
+                        *ngIf="(userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9) && locCodigoEstado != '01'">
                         <label class="text-white ml-1">SELECCIONAR AGRICULTORES</label>
                     </div>
                     <div class="form-row"
-                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9">
+                        *ngIf="(userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9) && locCodigoEstado != '01'">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <fieldset class="form-group">
                                 <label>Mostrar
@@ -308,14 +319,15 @@
             </div>
         </div>
     </div>
-    <div class="form-row" *ngIf="userSession.RolId === 9 || userSession.RolId === 8">
+    <div class="form-row" *ngIf="(userSession.RolId === 9 || userSession.RolId === 8) && locCodigoEstado === '04'">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
                         <ul ngbNav #nav="ngbNav" [activeId]="1" [destroyOnHide]="false"
                             class="nav-pills justify-content-left">
-                            <li [ngbNavItem]="1" [destroyOnHide]="true" *ngIf="userSession.RolId === 9">
+                            <li [ngbNavItem]="1" [destroyOnHide]="true"
+                                *ngIf="userSession.RolId === 9 && locCodigoEstado === '04'">
                                 <a ngbNavLink class="nav-link d-flex align-items-center">
                                     <span class="d-none d-sm-block" style="font-size: 1.1rem;">Control de Calidad</span>
                                 </a>
@@ -645,12 +657,13 @@
                                     [disabled]="frmSolicitudCompraNew.invalid" *ngIf="userSession.RolId === 6">Enviar
                                     Solicitud</button>
                                 <button type="button" class="btn btn-primary mr-1"
-                                    *ngIf="userSession.RolId === 7 || userSession.RolId === 9">Guardar</button>
+                                    *ngIf="locCodigoEstado === '03' || locCodigoEstado === '04'">Guardar</button>
                                 <button type="button" class="btn btn-primary mr-1"
-                                    *ngIf="userSession.RolId === 7">Generar Guía de
+                                    *ngIf="locCodigoEstado === '05'">Generar Guía de
                                     Recepción</button>
                                 <button type="button" class="btn btn-primary mr-1"
-                                    *ngIf="userSession.RolId === 7">Generar Contrato</button>
+                                    *ngIf="locCodigoEstado === '01' && userSession.RolId === 7">Generar
+                                    Contrato</button>
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                             </div>
                         </div>

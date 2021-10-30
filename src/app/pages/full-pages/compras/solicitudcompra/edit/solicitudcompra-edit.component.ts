@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { MaestroService } from '../../../../../services/maestro.service';
 import { MaestroUtil } from '../../../../../services/util/maestro-util';
 import { SolicitudcompraService } from '../../../../../services/solicitudcompra.service';
 import { AlertUtil } from '../../../../../services/util/alert-util';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-solicitudcompra-edit',
@@ -50,6 +50,8 @@ export class SolicitudcompraEditComponent implements OnInit {
   rows = [];
   selected = [];
   locId = 0;
+  locCodigoEstado;
+  locFechaRegistroString;
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -57,19 +59,22 @@ export class SolicitudcompraEditComponent implements OnInit {
     private solicitudcompraService: SolicitudcompraService,
     private alertUtil: AlertUtil,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private router: Router) {
+    this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.LoadForm();
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+    }
+    if (this.locId > 0) {
+      this.ConsultarPorId();
+      this.frmTitle = 'DETALLE DE LA SOLICITUD ';
     }
   }
 
   ngOnInit(): void {
-    this.locId = parseInt(this.route.snapshot.params['id']);
-    this.LoadForm();
-    if (this.locId > 0) {
-      this.ConsultarPorId();
-    }
+    this.LoadCombos();
   }
 
   LoadForm() {
@@ -108,18 +113,27 @@ export class SolicitudcompraEditComponent implements OnInit {
       totalGramos: [],
       totalPorcentaje: [],
       humedadProcenPC: [],
-      observacionesPC: []
+      observacionesPC: [],
+      distribuidora: [],
+      fechaRegistro: [],
+      estado: [],
+      correlativo: []
     });
-    this.GetCountries();
-    this.GetCurrencies();
-    this.GetMeasurementUnit();
-    this.GetProductionType();
-    this.GetPackaging();
-    this.GetPackagingType();
-    this.GetProducts();
-    this.GetDegreePreparation();
-    this.GetQuality();
-    this.GetCertificaciones();
+  }
+
+  LoadCombos() {
+    if (!this.locId) {
+      this.GetCountries();
+      this.GetCurrencies();
+      this.GetMeasurementUnit();
+      this.GetProductionType();
+      this.GetPackaging();
+      this.GetPackagingType();
+      this.GetProducts();
+      this.GetDegreePreparation();
+      this.GetQuality();
+      this.GetCertificaciones();
+    }
   }
 
   get f() {
@@ -231,7 +245,7 @@ export class SolicitudcompraEditComponent implements OnInit {
 
   EnviarSolicitud() {
     if (!this.frmSolicitudCompraNew.invalid) {
-      this.alertUtil.alertRegistro('Enviar Solicitud de Compra',
+      this.alertUtil.alertRegistro('Confirmación',
         '¿Está seguro de enviar la solicitud de compra?', () => {
           this.GuardarSolicitud();
         });
@@ -298,7 +312,7 @@ export class SolicitudcompraEditComponent implements OnInit {
       .subscribe((res) => {
         if (res) {
           if (res.Result.Success) {
-            this.alertUtil.alertOk('Confirmación', 'La solicitud de compra ha sido creada.');
+            this.alertUtil.alertOk('Confirmación', `Se ha creado la solicitud de compra venta ${res.Result.Data}.`);
             this.frmSolicitudCompraNew.reset();
           }
         }
@@ -319,6 +333,25 @@ export class SolicitudcompraEditComponent implements OnInit {
       });
   }
 
+  async MostrarCostoUnitario() {
+    const moneda = this.frmSolicitudCompraNew.value.moneda;
+    if (moneda === '01') {
+      this.frmSolicitudCompraNew.controls.costoUnitario.setValue(7.46);
+    }
+  }
+
+  CalcularCostoTotal() {
+    const cantidad = this.frmSolicitudCompraNew.value.cantASolicitar;
+    if (cantidad) {
+      let costoUnitario = this.frmSolicitudCompraNew.value.costoUnitario;
+
+      const costoTotal = cantidad * costoUnitario;
+      if (costoTotal) {
+        this.frmSolicitudCompraNew.controls.costoTotal.setValue(costoTotal);
+      }
+    }
+  }
+
   async CompletarForm(data) {
     if (data) {
       if (data.PaisId) {
@@ -334,6 +367,7 @@ export class SolicitudcompraEditComponent implements OnInit {
       if (data.MonedaId) {
         await this.GetCurrencies();
         this.frmSolicitudCompraNew.controls.moneda.setValue(data.MonedaId);
+        await this.MostrarCostoUnitario();
       }
 
       if (data.UnidadMedidaId) {
@@ -376,6 +410,11 @@ export class SolicitudcompraEditComponent implements OnInit {
         this.frmSolicitudCompraNew.controls.calidad.setValue(data.CalidadId);
       }
 
+      if (data.CertificacionId) {
+        await this.GetCertificaciones();
+        this.frmSolicitudCompraNew.controls.certificacion.setValue(data.CertificacionId);
+      }
+
       if (data.TotalSacos) {
         this.frmSolicitudCompraNew.controls.cantASolicitar.setValue(data.TotalSacos);
       }
@@ -391,14 +430,19 @@ export class SolicitudcompraEditComponent implements OnInit {
       if (data.Observaciones) {
         this.frmSolicitudCompraNew.controls.observaciones.setValue(data.Observaciones);
       }
-      // this.frmSolicitudCompraNew.controls.costoUnitario.setValue();
-      // this.frmSolicitudCompraNew.controls.costoTotal.setValue();
+      this.frmSolicitudCompraNew.controls.fechaRegistro.setValue(data.FechaRegistro);
+      this.frmSolicitudCompraNew.controls.distribuidora.setValue(data.Distribuidor);
+      this.frmSolicitudCompraNew.controls.estado.setValue(data.DescripcionEstado);
+      this.frmSolicitudCompraNew.controls.correlativo.setValue(data.Correlativo);
+      this.locCodigoEstado = data.EstadoId
+      this.locFechaRegistroString = data.FechaRegistroString;
+      this.CalcularCostoTotal();
     }
     this.spinner.hide();
   }
 
   Cancelar() {
-
+    this.router.navigate(['/compras/solicitudcompra/list']);
   }
 
 }
