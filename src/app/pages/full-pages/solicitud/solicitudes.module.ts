@@ -23,9 +23,10 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ModalModule } from '../modals/modal.module'
 import { SolicitudRoutingModule } from './solicitudes-routing.module';
 import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
+import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit.component';
 
 @NgModule({
-    declarations: [MateriaprimaComponent],
+    declarations: [MateriaprimaComponent, MateriaprimaEditComponent],
     imports: [
         SharedModule,
         CommonModule,
