@@ -282,7 +282,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   RequestEnviarSolicitud() {
     const frm = this.frmSolicitudCompraNew.value;
     const request = {
-      DistribuidorId: this.userSession.IdUsuario,
+      CodigoCliente: this.userSession.CodigoCliente,
       PaisId: frm.pais ? frm.pais : '',
       DepartamentoId: frm.ciudad ? frm.ciudad : '',
       MonedaId: frm.moneda,
@@ -307,18 +307,23 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   GuardarSolicitud() {
-    const request = this.RequestEnviarSolicitud();
-    this.solicitudcompraService.Registrar(request)
-      .subscribe((res) => {
-        if (res) {
-          if (res.Result.Success) {
-            this.alertUtil.alertOk('Confirmación', `Se ha creado la solicitud de compra venta ${res.Result.Data}.`);
-            this.frmSolicitudCompraNew.reset();
+    if (this.userSession.RolId === 6) {
+      const request = this.RequestEnviarSolicitud();
+      this.solicitudcompraService.Registrar(request)
+        .subscribe((res) => {
+          if (res) {
+            if (res.Result.Success) {
+              this.alertUtil.alertOk('Confirmación',
+                `Se ha creado la solicitud de compra venta ${res.Result.Data}.`);
+              this.frmSolicitudCompraNew.reset();
+            } else {
+
+            }
           }
-        }
-      }, (err) => {
-        console.log(err);
-      });
+        }, (err) => {
+          console.log(err);
+        });
+    }
   }
 
   ConsultarPorId() {
@@ -439,6 +444,16 @@ export class SolicitudcompraEditComponent implements OnInit {
       this.CalcularCostoTotal();
     }
     this.spinner.hide();
+  }
+
+  ConfirmarContrato() {
+    if (this.locCodigoEstado === '02' && this.userSession.RolId === 6) {
+      if (!this.frmSolicitudCompraNew.invalid) {
+        this.alertUtil.alertSiNoCallback('Confirmación', '', () => {
+
+        })
+      }
+    }
   }
 
   Cancelar() {

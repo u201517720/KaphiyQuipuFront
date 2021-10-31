@@ -2,7 +2,7 @@
     <div class="form-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card mt-0">
-                <h5 class="card-header bg-primary text-white text-center align-middle p-0">
+                <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
                     {{frmTitle}}{{frmSolicitudCompraNew.value.correlativo}}
                 </h5>
                 <div class="card-body">
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row bg-primary align-middle mb-2">
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
                         <label class="text-white ml-1">DATOS GENERALES</label>
                     </div>
                     <div class="form-row">
@@ -59,7 +59,8 @@
                                     <ng-select [items]="listCiudades" formControlName="ciudad" class="form-control"
                                         bindLabel="Descripcion" bindValue="Codigo" id="ciudad" placeholder="Ciudad"
                                         [ngClass]="{ 'is-invalid': f.ciudad.invalid, 'is-valid': !f.ciudad.invalid }"
-                                        [(ngModel)]="selectedCiudad" [readonly]="userSession.RolId != 6">
+                                        [(ngModel)]="selectedCiudad"
+                                        [readonly]="userSession.RolId != 6 || !selectedPais">
                                     </ng-select>
                                 </div>
                             </div>
@@ -153,7 +154,8 @@
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <ng-select [items]="listSubProductos" formControlName="subProducto"
                                         class="form-control" bindLabel="Label" bindValue="Codigo" id="subProducto"
-                                        placeholder="Sub Producto" [readonly]="userSession.RolId != 6"
+                                        placeholder="Sub Producto"
+                                        [readonly]="userSession.RolId != 6 || !selectedProducto"
                                         [ngClass]="{ 'is-invalid': f.subProducto.invalid, 'is-valid': !f.subProducto.invalid }"
                                         [(ngModel)]="selectedSubProducto">
                                     </ng-select>
@@ -651,7 +653,7 @@
             <div class="card-footer">
                 <div class="form-row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="form-group row">
+                        <div class="form-group row m-0">
                             <div class="col-lg-12 text-right">
                                 <button type="button" class="btn btn-primary mr-1" (click)="EnviarSolicitud()"
                                     [disabled]="frmSolicitudCompraNew.invalid" *ngIf="userSession.RolId === 6">Enviar
@@ -664,6 +666,8 @@
                                 <button type="button" class="btn btn-primary mr-1"
                                     *ngIf="locCodigoEstado === '01' && userSession.RolId === 7">Generar
                                     Contrato</button>
+                                <button type="button" class="btn btn-danger" (click)="ConfirmarContrato()"
+                                    *ngIf="locCodigoEstado === '02' && userSession.RolId === 6">Confirmar Contrato</button>
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                             </div>
                         </div>

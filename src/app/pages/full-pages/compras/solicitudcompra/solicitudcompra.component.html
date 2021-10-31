@@ -7,12 +7,6 @@
     <div class="card-body">
         <form class="needs-validation" [formGroup]="frmListaSolicitudeCompra" novalidate>
             <div class="form-row">
-                <!-- <div class="col-md-3 mb-4 form-group mb-2">
-                    <label for="descCliente" class="form-label">Cliente</label>
-                    <input type="text" formControlName="descCliente" class="form-control" id="descCliente"
-                        placeholder="Cliente" name="descCliente"
-                        [ngClass]="{ 'is-invalid': f.descCliente.invalid, 'is-valid': !f.descCliente.invalid }">
-                </div> -->
                 <div class="col-md-3 mb-4 form-group mb-2">
                     <label for="fechaInicial" class="form-label">Fecha Inicial</label>
                     <input type="date" class="form-control" formControlName="fechaInicial" date id="fechaInicial"
@@ -70,21 +64,21 @@
                     </div>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="CLIENTE" prop="RazonSocial" width="300">
+            <ngx-datatable-column name="DISTRIBUIDORA" prop="RazonSocial" width="300">
             </ngx-datatable-column>
-            <ngx-datatable-column name="PRODUCTO" prop="Producto" width="200">
+            <ngx-datatable-column name="PRODUCTO" prop="Producto" width="150">
             </ngx-datatable-column>
-            <ngx-datatable-column name="SUB PRODUCTO" prop="SubProducto" width="200">
+            <ngx-datatable-column name="SUB PRODUCTO" prop="SubProducto" width="130">
             </ngx-datatable-column>
-            <ngx-datatable-column name="CALIDAD" prop="Calidad" width="170">
+            <ngx-datatable-column name="CALIDAD" prop="Calidad" width="100">
             </ngx-datatable-column>
-            <ngx-datatable-column name="ESTADO" prop="DescripcionEstado" width="70">
+            <ngx-datatable-column name="ESTADO" prop="DescripcionEstado" width="100">
             </ngx-datatable-column>
             <ngx-datatable-column name="FECHA REGISTRO" prop="FechaRegistroString" width="150">
             </ngx-datatable-column>
-            <ngx-datatable-column name="USUARIO ACTUALIZACIÓN" prop="UsuarioActualizacion" width="100">
+            <ngx-datatable-column name="USUARIO ACTUALIZACIÓN" prop="UsuarioActualizacion" width="200">
             </ngx-datatable-column>
-            <ngx-datatable-column name="FECHA ACTUALIZACIÓN" prop="FechaActualizacionString" width="150">
+            <ngx-datatable-column name="FECHA ACTUALIZACIÓN" prop="FechaActualizacionString" width="250">
             </ngx-datatable-column>
         </ngx-datatable>
     </div>

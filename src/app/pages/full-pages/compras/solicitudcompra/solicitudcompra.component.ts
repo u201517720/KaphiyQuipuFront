@@ -70,7 +70,8 @@ export class SolicitudcompraComponent implements OnInit {
     const request = {
       fechaInicio: form.fechaInicial ? form.fechaInicial : null,
       fechaFin: form.fechaFinal ? form.fechaFinal : null,
-      UsuarioId: this.userSession.IdUsuario
+      RolId: this.userSession.RolId,
+      CodigoCliente: this.userSession.CodigoCliente
     };
     return request;
   }
