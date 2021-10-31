@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { DateUtil } from '../../../../services/util/date-util';
 
@@ -18,9 +19,17 @@ export class MateriaprimaComponent implements OnInit {
   limitRef = 10;
   rows = [];
   selected = [];
+  tempData = [];
+  userSession;
 
   constructor(private fb: FormBuilder,
-    private dateUtil: DateUtil) { }
+    private dateUtil: DateUtil,
+    private spinner: NgxSpinnerService) {
+    this.userSession = JSON.parse(localStorage.getItem('user'));
+    if (this.userSession) {
+      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+    }
+  }
 
   ngOnInit(): void {
     this.LoadForm();
@@ -53,15 +62,16 @@ export class MateriaprimaComponent implements OnInit {
   }
 
   updateLimit(e) {
-
-  }
-
-  filterUpdate(e) {
-
+    this.limitRef = e.target.value;
   }
 
   Buscar() {
-
+    if (this.userSession.RolId === 3) {
+      if (!this.frmSolicitudesMateriaPrima.invalid) {
+        this.spinner.show();
+        this.spinner.hide();
+      }
+    }
   }
 
 }

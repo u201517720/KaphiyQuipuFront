@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-materiaprima-edit',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MateriaprimaEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
   }
