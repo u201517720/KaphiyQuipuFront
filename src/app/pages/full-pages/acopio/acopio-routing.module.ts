@@ -25,6 +25,9 @@ import { ZonaEditComponent } from './operaciones/zona/edit/zona-edit.component';
 import { KardexComponent } from './operaciones/kardex/kardex.component';
 import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
 
+import { ContratoComponent } from './operaciones/contrato/contrato.component';
+import { ContratoEditComponent } from './operaciones/contrato/edit/contrato-edit.component';
+
 const routes: Routes = [
   {
     path: 'operaciones',
@@ -197,6 +200,20 @@ const routes: Routes = [
         component: GuiaRecepcionComponent,
         data: {
           title: 'Guías de Recepción'
+        }
+      },
+      {
+        path: 'contrato/list',
+        component: ContratoComponent,
+        data: {
+          title: 'Lista Contratos'
+        }
+      },
+      {
+        path: 'contrato/update/:id',
+        component: ContratoEditComponent,
+        data: {
+          title: 'Lista Contratos'
         }
       }
     ]
