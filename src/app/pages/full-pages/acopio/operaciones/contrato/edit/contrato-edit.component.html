@@ -271,7 +271,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row bg-primary align-middle mb-2"
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1"
                         *ngIf="(userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9) && locCodigoEstado != '01'">
                         <label class="text-white ml-1">SELECCIONAR AGRICULTORES</label>
                     </div>
@@ -657,7 +657,7 @@
                                 <button type="button" class="btn btn-primary mr-1"
                                     *ngIf="locCodigoEstado === '01' && userSession.RolId === 7">Generar
                                     Contrato</button>
-                                <button type="button" class="btn btn-danger" (click)="ConfirmarContrato()"
+                                <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarContrato()"
                                     *ngIf="locCodigoEstado === '02' && userSession.RolId === 6">Confirmar
                                     Contrato</button>
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>

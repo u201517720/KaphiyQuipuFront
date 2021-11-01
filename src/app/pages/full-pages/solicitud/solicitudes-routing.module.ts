@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
+import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit.component';
 
 const routes: Routes = [
     {
@@ -14,7 +15,13 @@ const routes: Routes = [
                     title: 'Lista de Solicitudes de Materia Prima'
                 }
             },
-
+            {
+                path: 'materiaprima/update/:id',
+                component: MateriaprimaEditComponent,
+                data: {
+                    title: 'Detalle de la solicitud de materia prima'
+                }
+            }
         ]
     }
 ];

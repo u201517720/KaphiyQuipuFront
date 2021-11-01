@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -8,11 +8,13 @@ import { MaestroService } from '../../../../../../services/maestro.service';
 import { MaestroUtil } from '../../../../../../services/util/maestro-util';
 import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { ContratoService } from '../../../../../../services/contrato.service';
+import { AgricultorService } from '../../../../../../services/agricultor.service';
 
 @Component({
   selector: 'app-contrato-edit',
   templateUrl: './contrato-edit.component.html',
-  styleUrls: ['./contrato-edit.component.scss']
+  styleUrls: ['./contrato-edit.component.scss', '/assets/sass/libs/datatables.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ContratoEditComponent implements OnInit {
 
@@ -59,7 +61,8 @@ export class ContratoEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private alertUtil: AlertUtil,
-    private contratoService: ContratoService) {
+    private contratoService: ContratoService,
+    private agricultorService: AgricultorService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(localStorage.getItem('user'));
     this.LoadForm();
@@ -69,6 +72,7 @@ export class ContratoEditComponent implements OnInit {
     if (this.locId > 0) {
       this.ConsultarPorId();
       this.frmTitle = 'DETALLE DEL CONTRATO ';
+
     }
   }
 
@@ -382,6 +386,9 @@ export class ContratoEditComponent implements OnInit {
       this.locCodigoEstado = data.EstadoId
       this.locFechaRegistroString = data.FechaRegistroString;
       this.CalcularCostoTotal();
+      if (parseInt(this.locCodigoEstado) >= 3) {
+        this.ObtenerAgricultoresDisponibles();
+      }
     }
     this.spinner.hide();
   }
@@ -398,6 +405,20 @@ export class ContratoEditComponent implements OnInit {
 
   Cancelar() {
     this.router.navigate(['/acopio/operaciones/contrato/list']);
+  }
+
+  ObtenerAgricultoresDisponibles() {
+    const request = {
+      TipoCertificacionId: this.frmContratoCompraVenta.value.certificacion
+    }
+    this.agricultorService.Consultar(request)
+      .subscribe((res) => {
+        if (res && res.Result.Success) {
+          this.rows = res.Result.Data;
+        }
+      }, (err) => {
+        console.log(err);
+      });
   }
 
 }

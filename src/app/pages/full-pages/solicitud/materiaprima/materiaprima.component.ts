@@ -4,6 +4,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { DateUtil } from '../../../../services/util/date-util';
+import { AgricultorService } from '../../../../services/agricultor.service';
 
 @Component({
   selector: 'app-materiaprima',
@@ -24,7 +25,8 @@ export class MateriaprimaComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private dateUtil: DateUtil,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private agricultorService: AgricultorService) {
     this.userSession = JSON.parse(localStorage.getItem('user'));
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
@@ -65,10 +67,32 @@ export class MateriaprimaComponent implements OnInit {
     this.limitRef = e.target.value;
   }
 
+  RequestBuscar() {
+    const request = {
+      FechaInicio: this.frmSolicitudesMateriaPrima.value.fechaInicio,
+      FechaFin: this.frmSolicitudesMateriaPrima.value.fechaFin,
+      UserId: this.userSession.IdUsuario
+    };
+
+    return request;
+  }
+
   Buscar() {
     if (this.userSession.RolId === 3) {
       if (!this.frmSolicitudesMateriaPrima.invalid) {
         this.spinner.show();
+        this.rows = [];
+        this.tempData = [];
+        const request = this.RequestBuscar();
+        this.agricultorService.ConsultarMateriaPrimaSolicitada(request)
+          .subscribe((res) => {
+            if (res && res.Result.Success) {
+              this.rows = res.Result.Data;
+              this.tempData = res.Result.Data;
+            }
+          }, (err) => {
+
+          });
         this.spinner.hide();
       }
     }

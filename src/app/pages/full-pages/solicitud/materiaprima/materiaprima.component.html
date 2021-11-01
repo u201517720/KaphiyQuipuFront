@@ -63,21 +63,26 @@
                         <ngx-datatable class="bootstrap core-bootstrap ngx-datatable-almacen" [columnMode]="'force'"
                             [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows"
                             [scrollbarH]="true" [selected]="selected">
-                            <ngx-datatable-column name="Solicitante" prop="Numero" width="130">
+                            <ngx-datatable-column name="Solicitante" prop="RazonSocial" width="130">
+                                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                                    <div class="d-flex align-items-center">
+                                        <div class="cell-line-height">
+                                            <a class="line-height-1 mb-0"
+                                                [routerLink]="['/solicitudes/materiaprima/update', row.ContratoSocioFincaId]">{{
+                                                name }}</a>
+                                        </div>
+                                    </div>
+                                </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Tipo Documento" prop="Numero" width="100">
+                            <ngx-datatable-column name="RUC" prop="Ruc" width="100">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Número Documento" prop="CodigoSocio" width="100">
+                            <ngx-datatable-column name="Pero Por Saco" prop="PesoSaco" width="100">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Producto" prop="TipoDocumento" width="180">
+                            <ngx-datatable-column name="Cantidad Solicitada" prop="CantidadSolicitada" width="180">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Cantidad en Sacos" prop="NumeroDocumento" width="180">
+                            <ngx-datatable-column name="Estado" prop="NumeroDocumento" width="180">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Kilos por Saco" prop="NombreRazonSocial" width="300">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Estado" prop="Producto" width="200">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Última Fecha" prop="SubProducto" width="180">
+                            <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString" width="300">
                             </ngx-datatable-column>
                         </ngx-datatable>
                     </div>
