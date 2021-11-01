@@ -291,21 +291,28 @@
                                     Filas</label>
                             </fieldset>
                             <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
-                                [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows"
-                                [scrollbarH]="true" [selected]="selected" [selectionType]="'single'">
-                                <ngx-datatable-column name="NOMBRE" prop="ID" width="90">
+                                [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows"
+                                [scrollbarH]="true" [selected]="selected" [selectionType]="'checkbox'"
+                                (select)="onSelectAgricultores($event)">
+                                <ngx-datatable-column name="Nombre" prop="NombreCompleto" width="100">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="TIPO DOCUMENTO" prop="Departamento" width="90">
+                                <ngx-datatable-column name="Tipo Documento" prop="TipoDocumento" width="100">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="NÚMERO DOCUMENTO" prop="Provincia" width="90">
+                                <ngx-datatable-column name="Número Documento" prop="NumeroDocumento" width="100">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="CELULAR" prop="Distrito" width="90">
+                                <ngx-datatable-column name="Celular" prop="NumeroTelefonoCelular" width="100">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="NOMBRE FINCA" prop="Zona" width="170">
+                                <ngx-datatable-column name="Finca" prop="Finca" width="100">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="TOTAL COSECHA" prop="Estado" width="70">
+                                <ngx-datatable-column name="Certificación" prop="TipoCertificacion" width="100">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="FECHA ACTUALIZACIÓN" prop="Estado" width="70">
+                                <ngx-datatable-column name="Total Cosecha" prop="TotalCosecha" width="100">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString"
+                                    width="100">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
+                                    checkboxable="true" width="30" sortable="false">
                                 </ngx-datatable-column>
                             </ngx-datatable>
                         </div>

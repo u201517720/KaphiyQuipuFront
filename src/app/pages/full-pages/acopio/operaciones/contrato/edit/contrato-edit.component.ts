@@ -421,4 +421,8 @@ export class ContratoEditComponent implements OnInit {
       });
   }
 
+  onSelectAgricultores(e) {
+
+  }
+
 }
