@@ -132,93 +132,12 @@
 	"Second Level Child": "Niña de segundo nivel",
 	"Third Level 1.1": "Tercer nivel 1.1",
 	"Third Level 1.2": "Tercer nivel 1.2",
-	"Productor": {
-		"Label": "Productor",
-		"Operaciones": {
-			"Label": "Operaciones",
-			"RegistroActividades": {
-				"Label": "Registro Actividades"
-			},
-			"RegistroCosechas": {
-				"Label": "Registro Cosechas"
-			}
-		},
-		"Administracion": {
-			"Label": "Administracion",
-			"Productor": {
-				"Label": "Datos Productor"
-			},
-			"EntidadesCertificadoras": {
-				"Label": "Entidades Certificadoras"
-			},
-			"MaestrosGenerales": {
-				"Label": "Maestros Generales"
-			}
-		}
-	},
 	"Acopio": {
 		"Label": "Acopio",
 		"Operaciones": {
 			"Label": "Operaciones",
-			"RecepcionMateriaPrima": {
-				"Label": "Recepcion Materia Prima"
-			},
-			"RecepcionProductoTerminado": {
-				"Label": "Recepcion Producto Terminado"
-			},
-			"IngresoAlmacen": {
-				"Label": "Ingreso Almacén"
-			},
-			"Lotes": {
-				"Label": "Lotes"
-			},
-			"SalidaAlmacen": {
-				"Label": "Salida Almacén"
-			},
-			"ControlCalidadExterna": {
-				"Label": "Control Calidad Externa"
-			},
-			"Kardex": {
-				"Label": "Kardex"
-			}
-		},
-		"Administracion": {
-			"Label": "Administracion",
-			"Proveedores": {
-				"Label": "Proveedores"
-			},
-			"Terceros": {
-				"Label": "Terceros"
-			},
-			"MaestrosGenerales": {
-				"Label": "Maestros Generales"
-			}
-		}
-	},
-	"Planta": {
-		"Label": "Planta",
-		"Operaciones": {
-			"Label": "Operaciones",
-			"NotaIngreso": {
-				"Label": "Nota de Ingreso"
-			},
-			"NotaIngresoAlmacen": {
-				"Label": "Nota de Ingreso Almacen"
-			},
-			"NotaSalida": {
-				"Label": "Nota de Salida"
-			},
-			"LiquidacionProceso": {
-				"Label": "Liquidacion de Proceso"
-			},
-			"OrdenProceso": {
-				"Label": "Orden de Proceso"
-			}
-		},
-		"Administracion": {
-			"Label": "Administracion",
-			"MaestrosGenerales": {
-				"Label": "Maestros Generales"
+			"ListaContratos": {
+				"Label": "Contratos"
 			}
 		}
 	},
@@ -228,97 +147,7 @@
 			"Label": "Solicitud de Compra"
 		},
 		"NuevaSolicitudCompra": {
-			"Label": "Nueva Solicitud de Compra"
-		}
-	},
-	"Exportador": {
-		"Label": "Comercial",
-		"Operaciones": {
-			"Label": "Operaciones",
-			"ControlCalidadExterna": {
-				"Label": "Orden de Servicio"
-			},
-			"Cliente": {
-				"Label": "Cliente"
-			},
-			"Contrato": {
-				"Label": "Contrato"
-			},
-			"OrdenProceso": {
-				"Label": "Orden de Proceso"
-			},
-			"PreciosDia": {
-				"Label": "Precio del Día"
-			},
-			"TipoCambioDia": {
-				"Label": "Tipo de Cambio"
-			},
-			"Aduanas": {
-				"Label": "Aduanas"
-			}
-		},
-		"Administracion": {
-			"Label": "Administracion",
-			"MaestrosGenerales": {
-				"Label": "Maestros Generales"
-			}
-		}
-	},
-	"Transporte": {
-		"Label": "Transporte"
-	},
-	"Exportacion": {
-		"Label": "Exportación",
-		"GestionExportacion": {
-			"Label": "Gestión de Exportación"
-		}
-	},
-	"Cliente": {
-		"Label": "Cliente",
-		"Tracking": {
-			"Label": "Contrato"
-		}
-	},
-	"Agropecuario": {
-		"Label": "Agropecuario",
-		"Operaciones": {
-			"Label": "Operaciones",
-			"Socio": {
-				"Label": "Socio"
-			}
-		},
-		"Administracion": {
-			"Label": "Administracion",
-			"MaestrosGenerales": {
-				"Label": "Maestros Generales"
-			}
-		}
-	},
-	"Maestros": {
-		"Label": "Maestros",
-		"EmpresaTransporte": {
-			"Label": "Empresa Transporte"
-		},
-		"EmpresaProveedora": {
-			"Label": "Empresa Proveedora"
-		},
-		"Zona": {
-			"Label": "Zona"
-		},
-		"Ciudad": {
-			"Label": "Ciudad"
-		},
-		"TablaTablas": {
-			"Label": "Tabla de Tablas"
-		}
-	},
-	"Tesoreria": {
-		"Label": "Tesoreria",
-		"Adelanto": {
-			"Label": "Adelantos"
-		},
-		"LiquidacionCompra": {
-			"Label": "Liquidacion de Compra"
+			"Label": "Solicitud de Compra"
 		}
 	},
 	"CONTRATO": {
