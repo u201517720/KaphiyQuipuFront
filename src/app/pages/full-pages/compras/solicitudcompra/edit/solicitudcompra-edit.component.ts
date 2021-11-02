@@ -8,6 +8,7 @@ import { MaestroService } from '../../../../../services/maestro.service';
 import { MaestroUtil } from '../../../../../services/util/maestro-util';
 import { SolicitudcompraService } from '../../../../../services/solicitudcompra.service';
 import { AlertUtil } from '../../../../../services/util/alert-util';
+import { ContratoService } from '../../../../../services/contrato.service';
 
 @Component({
   selector: 'app-solicitudcompra-edit',
@@ -60,7 +61,8 @@ export class SolicitudcompraEditComponent implements OnInit {
     private alertUtil: AlertUtil,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
-    private router: Router) {
+    private router: Router,
+    private contratoService: ContratoService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(localStorage.getItem('user'));
     this.LoadForm();
@@ -429,18 +431,33 @@ export class SolicitudcompraEditComponent implements OnInit {
     this.spinner.hide();
   }
 
-  ConfirmarContrato() {
-    if (this.locCodigoEstado === '02' && this.userSession.RolId === 6) {
-      if (!this.frmSolicitudCompraNew.invalid) {
-        this.alertUtil.alertSiNoCallback('Confirmación', '', () => {
-
-        })
-      }
-    }
-  }
-
   Cancelar() {
     this.router.navigate(['/compras/solicitudcompra/list']);
+  }
+
+  GenerarContrato() {
+    this.alertUtil.alertSiNoCallback('Pregunta', '¿Está seguro de generar el contrato?', () => {
+      this.RegistrarContrato();
+    });
+
+  }
+
+  RegistrarContrato() {
+    const request = {
+      SolicitudCompraId: this.locId,
+      EmpresaId: this.userSession.EmpresaId,
+      Observaciones: this.frmSolicitudCompraNew.value.observaciones,
+      UsuarioRegistro: this.userSession.NombreUsuario
+    };
+
+    this.contratoService.Create(request)
+      .subscribe((res) => {
+        if (res.Result.Success) {
+          this.alertUtil.alertOk('Confirmación', `El contrato ${res.Result.Data} ha sido generado.`);
+        }
+      }, (err) => {
+        console.log(err);
+      });
   }
 
 }

@@ -294,7 +294,7 @@
                                     [disabled]="frmSolicitudCompraNew.invalid" *ngIf="userSession.RolId === 6">Enviar
                                     Solicitud</button>
                                 <button type="button" class="btn btn-primary mr-1"
-                                    *ngIf="locCodigoEstado === '01' && userSession.RolId === 7">Generar
+                                    *ngIf="locCodigoEstado === '01' && userSession.RolId === 7" (click)="GenerarContrato()">Generar
                                     Contrato</button>
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                             </div>

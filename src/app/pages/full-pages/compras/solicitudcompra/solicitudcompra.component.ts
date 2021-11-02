@@ -56,15 +56,6 @@ export class SolicitudcompraComponent implements OnInit {
     this.limitRef = e.target.value;
   }
 
-  filterUpdate(e: any) {
-    const val = e.target.value.toLowerCase();
-    const temp = this.tempData.filter(function (d) {
-      return d.Numero.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-    this.rows = temp;
-    this.table.offset = 0;
-  }
-
   GetRequestSearch() {
     const form = this.frmListaSolicitudeCompra.value;
     const request = {
