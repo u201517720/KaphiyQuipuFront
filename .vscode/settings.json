@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/ffb51e0b-c7e5-48c8-a7cf-3e025be7f54e/resourceGroups/GR_APIs/providers/Microsoft.Web/sites/KaphiyQuipu",
+    "appService.deploySubpath": "dist\\KaphiyQuipuFront"
+}
