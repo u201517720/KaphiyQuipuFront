@@ -314,7 +314,8 @@
                                     width="100">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
-                                    checkboxable="true" width="30" sortable="false">
+                                    checkboxable="true" width="30" sortable="false"
+                                    *ngIf="userSession.RolId === 8 || userSession.RolId === 9">
                                 </ngx-datatable-column>
                             </ngx-datatable>
                         </div>

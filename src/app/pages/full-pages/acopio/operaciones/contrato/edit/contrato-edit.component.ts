@@ -22,7 +22,7 @@ export class ContratoEditComponent implements OnInit {
   frmContratoCompraVenta: FormGroup;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   frmTitle = 'DETALLE DEL CONTRATO';
-  limitRef = 10;
+  limitRef = 50;
   listPaises: any[];
   listCiudades: any[];
   listMonedas: any[];
@@ -53,6 +53,7 @@ export class ContratoEditComponent implements OnInit {
   locId = 0;
   locCodigoEstado;
   locFechaRegistroString;
+  agricultoresSeleccionados;
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -422,7 +423,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   onSelectAgricultores(e) {
-
+    this.agricultoresSeleccionados = e.selected;
   }
 
 }
