@@ -21,7 +21,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   active = 1;
   frmSolicitudCompraNew: FormGroup;
   @ViewChild(DatatableComponent) table: DatatableComponent;
-  frmTitle = 'REGISTRO DE SOLICITUD DE COMPRA';
+  frmTitle = 'SOLICITUD DE COMPRA';
   limitRef = 10;
   listPaises: any[];
   listCiudades: any[];
@@ -299,7 +299,7 @@ export class SolicitudcompraEditComponent implements OnInit {
           if (res) {
             if (res.Result.Success) {
               this.alertUtil.alertOk('Confirmación',
-                `Se ha creado la solicitud de compra venta ${res.Result.Data}.`);
+                `Se ha generado solicitud de compra ${res.Result.Data}.`);
               this.frmSolicitudCompraNew.reset();
             } else {
 
@@ -453,7 +453,7 @@ export class SolicitudcompraEditComponent implements OnInit {
     this.contratoService.Create(request)
       .subscribe((res) => {
         if (res.Result.Success) {
-          this.alertUtil.alertOk('Confirmación', `El contrato ${res.Result.Data} ha sido generado.`);
+          this.alertUtil.alertOk('Confirmación', `Se ha generado contrato venta ${res.Result.Data}.`);
         }
       }, (err) => {
         console.log(err);

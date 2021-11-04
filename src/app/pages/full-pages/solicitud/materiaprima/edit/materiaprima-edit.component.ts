@@ -103,12 +103,14 @@ export class MateriaprimaEditComponent implements OnInit {
   }
 
   ConfirmarEnvio() {
-
+    //¿Está seguro de confirmar envío de materia prima solicitada al acopiador?
+    //Se ha confirmado envío de materia prima solicitada al acopiador.
   }
 
   ConfirmarCantidad() {
-
-  }
+    //¿Está seguro de confirmar disponibilidad de cantidad de materia prima solicitada?
+    //Se ha confirmado disponibilidad de cantidad de materia prima solicitada.
+  } 
 
   Cancelar() {
     this.router.navigate(['/solicitudes/materiaprima/list']);
