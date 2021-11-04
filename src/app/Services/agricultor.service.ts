@@ -28,4 +28,14 @@ export class AgricultorService {
     const url = `${this.url}/DetalleMateriaPrimaSolicitada`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConfirmarDisponibilidad(request: any): Observable<any> {
+    const url = `${this.url}/ConfirmarDisponibilidad`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  ConfirmarEnvio(request: any): Observable<any> {
+    const url = `${this.url}/ConfirmarEnvio`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

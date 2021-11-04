@@ -407,13 +407,14 @@ export class ContratoEditComponent implements OnInit {
             SubProducto: this.listSubProductos.find(x => x.Codigo == this.selectedSubProducto).Label,
             TipoProduccion: this.listTipoProduccion.find(x => x.Codigo == this.selectedTipoProduccion).Label,
             Calidad: this.listCalidad.find(x => x.Codigo == this.selectedCalidad).Label,
-            GradoPreparacion: this.listGradosPreparacion.find(x => x.Codigo == this.selectedGradoPreparacion).Label
+            GradoPreparacion: this.listGradosPreparacion.find(x => x.Codigo == this.selectedGradoPreparacion).Label,
+            Usuario: this.userSession.NombreUsuario
           }
 
           this.contratoService.confirmar(request).subscribe((response: TransactionReponse<string>) => {
             console.log(response);
             if (response.Result.Success) {
-              this.alertUtil.alertOk('Confirmación', `El contrato ${request.NroContrato} ha sido confirmado.`);
+              this.alertUtil.alertOk('Confirmación', `El contrato ha sido confirmado correctamente.`);
               this.router.navigate(['/acopio/operaciones/contrato/list']);
             } else {
               this.alertUtil.alertOk('Error', "Ocurrió un error en el proceso: " + response.Result.Message)
@@ -446,4 +447,38 @@ export class ContratoEditComponent implements OnInit {
     this.agricultoresSeleccionados = e.selected;
   }
 
+  Guardar() {
+    if (this.locCodigoEstado === '03' && this.userSession.RolId === 7) {
+      this.alertUtil.alertSiNoCallback('Confirmación',
+        '¿Está seguro de solicitar la materia prima a los agricultores seleccionados?', () => {
+          this.GuardarAgricultores();
+        });
+    }
+  }
+
+  GuardarAgricultores() {
+    this.spinner.show();
+    let request = {
+      agricultores: []
+    };
+    this.agricultoresSeleccionados.forEach(x => {
+      request.agricultores.push({
+        ContratoId: this.locId,
+        SocioFincaId: x.SocioFincaId,
+        CantidadSolicitada: 10,
+        Usuario: this.userSession.NombreUsuario
+      });
+    });
+    if (request.agricultores.length > 0) {
+      this.contratoService.RegistrarAgricultores(request)
+        .subscribe((res) => {
+          if (res.Result.Success) {
+            this.alertUtil.alertOk('Confirmación',
+              'Se ha solicitado materia prima a lo agricultores seleccionados correctamente.');
+          }
+        }, (err) => {
+          console.log(err);
+        });
+    }
+  }
 }

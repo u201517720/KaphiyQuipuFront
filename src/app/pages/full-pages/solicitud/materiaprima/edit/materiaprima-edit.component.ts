@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { AgricultorService } from '../../../../../services/agricultor.service';
+import { AlertUtil } from '../../../../../services/util/alert-util';
 
 @Component({
   selector: 'app-materiaprima-edit',
@@ -16,7 +17,8 @@ export class MateriaprimaEditComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private agricultorService: AgricultorService,
-    private router: Router) {
+    private router: Router,
+    private alertUtil: AlertUtil) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(localStorage.getItem('user'));
     this.IniciarForm();
@@ -103,14 +105,41 @@ export class MateriaprimaEditComponent implements OnInit {
   }
 
   ConfirmarEnvio() {
-    //¿Está seguro de confirmar envío de materia prima solicitada al acopiador?
-    //Se ha confirmado envío de materia prima solicitada al acopiador.
+    this.alertUtil.alertSiNoCallback('Confirmación',
+      '¿Está seguro de confirmar envío de materia prima solicitada al acopiador?',
+      () => {
+        const request = {
+
+        };
+        this.agricultorService.ConfirmarEnvio(request)
+          .subscribe((res) => {
+            if (res.Result.Success) {
+              this.alertUtil.alertOk('Confirmación', 'Se ha confirmado envío de materia prima solicitada al acopiador.');
+            }
+          }, (err) => {
+            console.log(err);
+          })
+      })
   }
 
   ConfirmarCantidad() {
-    //¿Está seguro de confirmar disponibilidad de cantidad de materia prima solicitada?
-    //Se ha confirmado disponibilidad de cantidad de materia prima solicitada.
-  } 
+    this.alertUtil.alertSiNoCallback('Confirmación',
+      '¿Está seguro de confirmar disponibilidad de cantidad de materia prima solicitada?',
+      () => {
+        const request = {
+
+        };
+        this.agricultorService.ConfirmarDisponibilidad(request)
+          .subscribe((res) => {
+            if (res.Result.Success) {
+              this.alertUtil.alertOk('Confirmación',
+                'Se ha confirmado disponibilidad de cantidad de materia prima solicitada.');
+            }
+          }, (err) => {
+            console.log(err);
+          })
+      })
+  }
 
   Cancelar() {
     this.router.navigate(['/solicitudes/materiaprima/list']);
