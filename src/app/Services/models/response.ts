@@ -2,7 +2,7 @@ export interface Response {
     Result: result;
   }
 
-  interface result {
+  export interface result {
     Success: boolean;
     ErrCode: string;
     Message: string;

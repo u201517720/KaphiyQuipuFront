@@ -9,6 +9,7 @@ import { MaestroUtil } from '../../../../../../services/util/maestro-util';
 import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { ContratoService } from '../../../../../../services/contrato.service';
 import { AgricultorService } from '../../../../../../services/agricultor.service';
+import { TransactionReponse } from '../../../../../../services/models/transaction-response';
 
 @Component({
   selector: 'app-contrato-edit',
@@ -397,8 +398,27 @@ export class ContratoEditComponent implements OnInit {
   ConfirmarContrato() {
     if (this.locCodigoEstado === '02' && this.userSession.RolId === 6) {
       if (!this.frmContratoCompraVenta.invalid) {
-        this.alertUtil.alertSiNoCallback('Confirmación', '', () => {
+        this.alertUtil.alertSiNoCallback('Confirmación', '¿Está seguro de confirmar el contrato?', () => {
+          const request = {
+            Id: this.locId,
+            NroContrato: this.frmContratoCompraVenta.value.correlativo,
+            Distribuidor: this.frmContratoCompraVenta.value.distribuidora,
+            Producto: this.listProductos.find(x => x.Codigo == this.selectedProducto).Label,
+            SubProducto: this.listSubProductos.find(x => x.Codigo == this.selectedSubProducto).Label,
+            TipoProduccion: this.listTipoProduccion.find(x => x.Codigo == this.selectedTipoProduccion).Label,
+            Calidad: this.listCalidad.find(x => x.Codigo == this.selectedCalidad).Label,
+            GradoPreparacion: this.listGradosPreparacion.find(x => x.Codigo == this.selectedGradoPreparacion).Label
+          }
 
+          this.contratoService.confirmar(request).subscribe((response: TransactionReponse<string>) => {
+            console.log(response);
+            if (response.Result.Success) {
+              this.alertUtil.alertOk('Confirmación', `El contrato ${request.NroContrato} ha sido confirmado.`);
+              this.router.navigate(['/acopio/operaciones/contrato/list']);
+            } else {
+              this.alertUtil.alertOk('Error', "Ocurrió un error en el proceso: " + response.Result.Message)
+            }
+          })
         })
       }
     }

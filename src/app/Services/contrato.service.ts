@@ -3,6 +3,7 @@ import { host } from '../shared/hosts/main.host';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { ErrorHandling } from '../shared/util/error-handling';
+import { TransactionReponse } from './models/transaction-response';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,11 @@ export class ContratoService {
 
   AssignCollection(request: any): Observable<any> {
     const url = `${this.url}/AsignarAcopio`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  confirmar(request: any): Observable<TransactionReponse<string>> {
+    const url = `${this.url}/Confirmar`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
 }
