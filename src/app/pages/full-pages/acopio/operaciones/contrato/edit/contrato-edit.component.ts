@@ -415,9 +415,9 @@ export class ContratoEditComponent implements OnInit {
             console.log(response);
             if (response.Result.Success) {
               this.alertUtil.alertOk('Confirmación', `El contrato ha sido confirmado correctamente.`);
-              this.router.navigate(['/acopio/operaciones/contrato/list']);
+              this.router.navigate(['/home']);
             } else {
-              this.alertUtil.alertOk('Error', "Ocurrió un error en el proceso: " + response.Result.Message)
+              this.alertUtil.alertError('Error', "Ocurrió un error en el proceso: " + response.Result.Message)
             }
           })
         })

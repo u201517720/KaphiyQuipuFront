@@ -439,10 +439,10 @@ export class SolicitudcompraEditComponent implements OnInit {
     this.alertUtil.alertSiNoCallback('Pregunta', '¿Está seguro de generar el contrato?', () => {
       this.RegistrarContrato();
     });
-
   }
 
   RegistrarContrato() {
+    this.spinner.show();
     const request = {
       SolicitudCompraId: this.locId,
       EmpresaId: this.userSession.EmpresaId,
@@ -453,10 +453,16 @@ export class SolicitudcompraEditComponent implements OnInit {
     this.contratoService.Create(request)
       .subscribe((res) => {
         if (res.Result.Success) {
-          this.alertUtil.alertOk('Confirmación', `Se ha generado contrato venta ${res.Result.Data}.`);
+          this.spinner.hide();
+          this.alertUtil.alertOkCallback('Confirmación',
+            `Se ha generado contrato venta ${res.Result.Data}.`,
+            () => {
+              this.router.navigate(['/acopio/operaciones/contrato/list']);
+            });
         }
       }, (err) => {
         console.log(err);
+        this.spinner.hide();
       });
   }
 
