@@ -1,1 +1,137 @@
-<p>materiaprima-edit works!</p>
+<form class="needs-validation" [formGroup]="frmDetalleMateriaPrimaSolicitada" novalidate>
+    <div class="form-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card mt-0">
+                <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
+                    DETALLE DE LA SOLICITUD {{frmDetalleMateriaPrimaSolicitada.value.correlativoContrato}}
+                </h5>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label class="col-lg-5 col-form-label pr-0 font-weight-bolder">SOLICITANTE</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">
+                                        {{frmDetalleMateriaPrimaSolicitada.value.descSolicitante}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label pr-0 font-weight-bolder">ESTADO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <label
+                                        class="col-form-label">{{frmDetalleMateriaPrimaSolicitada.value.descEstado}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label class="col-lg-5 col-form-label pr-0 font-weight-bolder">TIPO DOCUMENTO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">
+                                        {{frmDetalleMateriaPrimaSolicitada.value.descTipoDocumento}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label for="tipoProduccion"
+                                    class="col-lg-4 col-form-label pr-0 font-weight-bolder">NÚMERO DOCUMENTO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <label
+                                        class="col-form-label">{{frmDetalleMateriaPrimaSolicitada.value.numeroDocumento}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label class="col-lg-5 col-form-label pr-0 font-weight-bolder">PRODUCTO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">
+                                        {{frmDetalleMateriaPrimaSolicitada.value.descProducto}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label for="tipoProduccion"
+                                    class="col-lg-4 col-form-label pr-0 font-weight-bolder">CANTIDAD DE SACOS</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <label
+                                        class="col-form-label">{{frmDetalleMateriaPrimaSolicitada.value.cantidadSacos}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label class="col-lg-5 col-form-label pr-0 font-weight-bolder">SUB PRODUCTO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">
+                                        {{frmDetalleMateriaPrimaSolicitada.value.descSubProducto}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label for="tipoProduccion"
+                                    class="col-lg-4 col-form-label pr-0 font-weight-bolder">KILOS POR SACO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <label
+                                        class="col-form-label">{{frmDetalleMateriaPrimaSolicitada.value.kiloPorSaco}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label class="col-lg-5 col-form-label pr-0 font-weight-bolder">UNIDAD DE MEDIDA</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">
+                                        {{frmDetalleMateriaPrimaSolicitada.value.descUnidadMedida}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="card-footer">
+                <div class="form-row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group row m-0">
+                            <div class="col-lg-12 text-right">
+                                <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarEnvio()">Confirmar
+                                    Envió</button>
+                                <button type="button" class="btn btn-primary mr-1"
+                                    (click)="ConfirmarCantidad()">Confirmar
+                                    Cantidad</button>
+                                <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>

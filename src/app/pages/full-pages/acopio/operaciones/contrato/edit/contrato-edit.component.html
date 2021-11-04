@@ -289,6 +289,8 @@
                                         <option value="100">100</option>
                                     </select>
                                     Filas</label>
+                                <button type="button" class="btn btn-sm float-right btn-primary"
+                                    (click)="ObtenerAgricultoresDisponibles()">Actualizar Lista</button>
                             </fieldset>
                             <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
                                 [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows"
