@@ -19,8 +19,6 @@ export class MateriaprimaComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   limitRef = 10;
   rows = [];
-  selected = [];
-  tempData = [];
   userSession;
 
   constructor(private fb: FormBuilder,
@@ -82,18 +80,19 @@ export class MateriaprimaComponent implements OnInit {
       if (!this.frmSolicitudesMateriaPrima.invalid) {
         this.spinner.show();
         this.rows = [];
-        this.tempData = [];
         const request = this.RequestBuscar();
         this.agricultorService.ConsultarMateriaPrimaSolicitada(request)
           .subscribe((res) => {
+            this.spinner.hide();
             if (res && res.Result.Success) {
               this.rows = res.Result.Data;
-              this.tempData = res.Result.Data;
+            } else {
+
             }
           }, (err) => {
-
+            console.log(err);
+            this.spinner.hide();
           });
-        this.spinner.hide();
       }
     }
   }

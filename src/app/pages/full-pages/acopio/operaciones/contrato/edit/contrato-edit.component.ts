@@ -50,11 +50,11 @@ export class ContratoEditComponent implements OnInit {
   selectedCertificacion: any;
   userSession: any;
   rows = [];
-  selected = [];
+  selectedAgricultores = [];
   locId = 0;
   locCodigoEstado;
   locFechaRegistroString;
-  agricultoresSeleccionados;
+  locTotalCosechaSeleccionada = 0;
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -388,8 +388,10 @@ export class ContratoEditComponent implements OnInit {
       this.locCodigoEstado = data.EstadoId
       this.locFechaRegistroString = data.FechaRegistroString;
       this.CalcularCostoTotal();
-      if (parseInt(this.locCodigoEstado) >= 3) {
+      if (this.locCodigoEstado === '03') {
         this.ObtenerAgricultoresDisponibles();
+      } else {
+        this.ObtenerAgricultores();
       }
     }
     this.spinner.hide();
@@ -445,13 +447,34 @@ export class ContratoEditComponent implements OnInit {
 
   onSelectAgricultores(e) {
     const pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
+    let sumaSelected = 0;
     if (e.selected.length > 0) {
-      let sumaSelected = 0;
-      e.selected.forEach(x => {
-        sumaSelected =+ x.TotalCosecha;
-      });;
+      if (this.locTotalCosechaSeleccionada < pesoKilos) {
+        e.selected.forEach(x => {
+          if (sumaSelected < pesoKilos) {
+            sumaSelected += x.TotalCosecha
+          }
+        });
+        if (sumaSelected >= pesoKilos) {
+          // this.selectedAgricultores.pop();
+          // e.selected.pop()
+          // this.selectedAgricultores = [...e.selected];
+          // this.selectedAgricultores = e.selected;
+        }
+      } else {
+        sumaSelected = this.locTotalCosechaSeleccionada;
+        // this.selectedAgricultores.pop();
+        // e.selected.pop()
+        // this.selectedAgricultores = e.selected;
+      }
     }
-    
+    this.locTotalCosechaSeleccionada = sumaSelected;
+  }
+
+  onActivate(e) {
+    if (e.type === 'click') {
+      var hh = e;
+    }
   }
 
   Guardar() {
@@ -460,6 +483,8 @@ export class ContratoEditComponent implements OnInit {
         '¿Está seguro de solicitar la materia prima a los agricultores seleccionados?', () => {
           this.GuardarAgricultores();
         });
+    } else if (this.locCodigoEstado === '06') {
+
     }
   }
 
@@ -468,24 +493,60 @@ export class ContratoEditComponent implements OnInit {
     let request = {
       agricultores: []
     };
-    this.agricultoresSeleccionados.forEach(x => {
-      request.agricultores.push({
-        ContratoId: this.locId,
-        SocioFincaId: x.SocioFincaId,
-        CantidadSolicitada: 10,
-        Usuario: this.userSession.NombreUsuario
-      });
-    });
-    if (request.agricultores.length > 0) {
-      this.contratoService.RegistrarAgricultores(request)
-        .subscribe((res) => {
-          if (res.Result.Success) {
-            this.alertUtil.alertOk('Confirmación',
-              'Se ha solicitado materia prima a lo agricultores seleccionados correctamente.');
-          }
-        }, (err) => {
-          console.log(err);
+    if (this.selectedAgricultores && this.selectedAgricultores.length > 0) {
+      let pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
+      let cosecha = 0;
+
+      this.selectedAgricultores.forEach(x => {
+
+        if (x.TotalCosecha < pesoKilos) {
+          cosecha = x.TotalCosecha;
+          pesoKilos -= x.TotalCosecha;
+        } else {
+          cosecha = pesoKilos;
+        }
+        // sumaTotalCosecha += x.TotalCosecha;
+        request.agricultores.push({
+          ContratoId: this.locId,
+          SocioFincaId: x.SocioFincaId,
+          CantidadSolicitada: cosecha,
+          Usuario: this.userSession.NombreUsuario
         });
+      });
+
+      if (request.agricultores.length > 0) {
+        this.contratoService.RegistrarAgricultores(request)
+          .subscribe((res) => {
+            this.spinner.hide();
+            if (res.Result.Success) {
+              this.alertUtil.alertOkCallback('Confirmación',
+                'Se ha solicitado materia prima a lo agricultores seleccionados correctamente.',
+                () => {
+                  this.ConsultarPorId();
+                });
+            } else {
+
+            }
+          }, (err) => {
+            console.log(err);
+            this.spinner.hide();
+            this.alertUtil.alertError('ERROR', err.Result.Message);
+          });
+      }
+    } else {
+      this.spinner.hide();
+      this.alertUtil.alertWarning('Validación', 'No ha seleccionado agricultores.');
     }
+  }
+
+  ObtenerAgricultores() {
+    this.contratoService.ObtenerAgricultores({ ContratoId: this.locId })
+      .subscribe((res) => {
+        if (res.Result.Success) {
+          this.rows = res.Result.Data;
+        }
+      }, (err) => {
+        console.log(err);
+      });
   }
 }

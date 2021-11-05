@@ -71,5 +71,10 @@ export class ContratoService {
     const url = `${this.url}/RegistrarAgricultores`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ObtenerAgricultores(request: any): Observable<any> {
+    const url = `${this.url}/Agricultores`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
 

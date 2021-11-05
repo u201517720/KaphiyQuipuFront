@@ -21,17 +21,19 @@ export class MateriaprimaEditComponent implements OnInit {
     private alertUtil: AlertUtil) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(localStorage.getItem('user'));
-    this.IniciarForm();
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
     }
+    this.IniciarForm();
     if (this.locId > 0) {
+      this.ObtenerSolicitudPorId();
     }
   }
 
   frmDetalleMateriaPrimaSolicitada: FormGroup;
   userSession: any;
   locId = 0;
+  locEstadoMateriaPrima = '';
 
   ngOnInit(): void {
   }
@@ -62,6 +64,8 @@ export class MateriaprimaEditComponent implements OnInit {
       .subscribe((res) => {
         if (res.Result.Success) {
           this.LoadForm(res.Result.Data);
+        } else {
+
         }
       }, (err) => {
         console.log(err);
@@ -70,6 +74,7 @@ export class MateriaprimaEditComponent implements OnInit {
 
   LoadForm(data) {
     if (data) {
+      this.locEstadoMateriaPrima = data.EstadoId;
       if (data.RazonSocial) {
         this.frmDetalleMateriaPrimaSolicitada.controls.descSolicitante.setValue(data.RazonSocial);
       }
@@ -108,16 +113,24 @@ export class MateriaprimaEditComponent implements OnInit {
     this.alertUtil.alertSiNoCallback('Confirmación',
       '¿Está seguro de confirmar envío de materia prima solicitada al acopiador?',
       () => {
+        this.spinner.show();
         const request = {
-
+          ContratoSocioFincaId: this.locId,
+          Usuario: this.userSession.NombreUsuario
         };
         this.agricultorService.ConfirmarEnvio(request)
           .subscribe((res) => {
+            this.spinner.hide();
             if (res.Result.Success) {
-              this.alertUtil.alertOk('Confirmación', 'Se ha confirmado envío de materia prima solicitada al acopiador.');
+              this.alertUtil.alertOkCallback('Confirmación',
+                'Se ha confirmado envío de materia prima solicitada al acopiador.',
+                () => {
+                  this.ObtenerSolicitudPorId();
+                });
             }
           }, (err) => {
             console.log(err);
+            this.spinner.hide();
           })
       })
   }
@@ -126,17 +139,24 @@ export class MateriaprimaEditComponent implements OnInit {
     this.alertUtil.alertSiNoCallback('Confirmación',
       '¿Está seguro de confirmar disponibilidad de cantidad de materia prima solicitada?',
       () => {
+        this.spinner.show();
         const request = {
-
+          ContratoSocioFincaId: this.locId,
+          Usuario: this.userSession.NombreUsuario
         };
         this.agricultorService.ConfirmarDisponibilidad(request)
           .subscribe((res) => {
+            this.spinner.hide();
             if (res.Result.Success) {
-              this.alertUtil.alertOk('Confirmación',
-                'Se ha confirmado disponibilidad de cantidad de materia prima solicitada.');
+              this.alertUtil.alertOkCallback('Confirmación',
+                'Se ha confirmado disponibilidad de cantidad de materia prima solicitada.',
+                () => {
+                  this.ObtenerSolicitudPorId();
+                });
             }
           }, (err) => {
             console.log(err);
+            this.spinner.hide();
           })
       })
   }

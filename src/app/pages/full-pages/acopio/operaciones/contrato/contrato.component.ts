@@ -18,7 +18,6 @@ export class ContratoComponent implements OnInit {
   errorGeneral = { isError: false, msgError: '' };
   limitRef = 10;
   rows = [];
-  selected = [];
   @ViewChild(DatatableComponent) table: DatatableComponent;
   tempData = [];
   userSession: any;
