@@ -17,7 +17,7 @@ import { ILogin } from '../../services/models/login';
 })
 export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   currentLang = "es";
-  selectedLanguageText = "Spanish";
+  selectedLanguageText = "Español";
   selectedLanguageFlag = "./assets/img/flags/es.png";
   toggleClass = "ft-maximize";
   placement = "bottom-right";
@@ -187,7 +187,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.selectedLanguageFlag = "./assets/img/flags/us.png";
     }
     else if (language === 'es') {
-      this.selectedLanguageText = "Spanish";
+      this.selectedLanguageText = "Español";
       this.selectedLanguageFlag = "./assets/img/flags/es.png";
     }
 

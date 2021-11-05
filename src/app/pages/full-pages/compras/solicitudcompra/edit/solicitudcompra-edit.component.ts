@@ -293,20 +293,25 @@ export class SolicitudcompraEditComponent implements OnInit {
 
   GuardarSolicitud() {
     if (this.userSession.RolId === 6) {
+      this.spinner.show();
       const request = this.RequestEnviarSolicitud();
       this.solicitudcompraService.Registrar(request)
         .subscribe((res) => {
+          this.spinner.hide();
           if (res) {
             if (res.Result.Success) {
-              this.alertUtil.alertOk('Confirmación',
-                `Se ha generado solicitud de compra ${res.Result.Data}.`);
-              this.frmSolicitudCompraNew.reset();
+              this.alertUtil.alertOkCallback('Confirmación',
+                `Se ha generado solicitud de compra ${res.Result.Data}.`,
+                () => {
+                  this.router.navigate(['/home']);
+                });
             } else {
 
             }
           }
         }, (err) => {
           console.log(err);
+          this.spinner.hide();
         });
     }
   }

@@ -276,7 +276,7 @@
                         <label class="text-white ml-1">SELECCIONAR AGRICULTORES</label>
                     </div>
                     <div class="form-row"
-                        *ngIf="(userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9) && locCodigoEstado != '01'">
+                        *ngIf="(userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9) && locCodigoEstado === '03'">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <fieldset class="form-group">
                                 <label>Mostrar
@@ -315,7 +315,7 @@
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
                                     checkboxable="true" width="30" sortable="false"
-                                    *ngIf="userSession.RolId === 8 || userSession.RolId === 9">
+                                    *ngIf="userSession.RolId === 7 && locCodigoEstado === '03'">
                                 </ngx-datatable-column>
                             </ngx-datatable>
                         </div>

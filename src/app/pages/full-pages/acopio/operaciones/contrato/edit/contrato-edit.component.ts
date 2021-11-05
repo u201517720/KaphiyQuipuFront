@@ -444,7 +444,14 @@ export class ContratoEditComponent implements OnInit {
   }
 
   onSelectAgricultores(e) {
-    this.agricultoresSeleccionados = e.selected;
+    const pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
+    if (e.selected.length > 0) {
+      let sumaSelected = 0;
+      e.selected.forEach(x => {
+        sumaSelected =+ x.TotalCosecha;
+      });;
+    }
+    
   }
 
   Guardar() {
