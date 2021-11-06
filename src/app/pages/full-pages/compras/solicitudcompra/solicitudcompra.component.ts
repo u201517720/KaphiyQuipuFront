@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -20,9 +20,10 @@ export class SolicitudcompraComponent implements OnInit {
   errorGeneral = { msgError: '', isError: false };
   limitRef: 10;
   rows = [];
-  tempData = [];
   selected = [];
   userSession: any;
+  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
+  submitted = false;
 
   constructor(private fb: FormBuilder,
     private solicitudcompraService: SolicitudcompraService,
@@ -36,13 +37,15 @@ export class SolicitudcompraComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.errorGeneral = { msgError: '', isError: false };
+    this.submitted = false;
     this.LoadForm();
   }
 
   LoadForm() {
     this.frmListaSolicitudeCompra = this.fb.group({
-      fechaInicial: [],
-      fechaFinal: []
+      fechaInicial: [, Validators.required],
+      fechaFinal: [, Validators.required]
     });
     this.frmListaSolicitudeCompra.controls.fechaInicial.setValue(this.dateUtil.currentMonthAgo());
     this.frmListaSolicitudeCompra.controls.fechaFinal.setValue(this.dateUtil.currentDate());
@@ -68,18 +71,30 @@ export class SolicitudcompraComponent implements OnInit {
   }
 
   Buscar() {
-    this.spinner.show();
-    this.rows = [];
-    this.tempData = [];
-    const request = this.GetRequestSearch();
-    this.solicitudcompraService.Consultar(request).subscribe((res) => {
-      this.spinner.hide();
-      if (res) {
-        this.rows = res.Result.Data;
-        this.tempData = this.rows;
-      }
-    }, (err) => {
-      this.spinner.hide();
-    })
+    this.errorGeneral = { msgError: '', isError: false };
+    this.submitted = false;
+    if (!this.frmListaSolicitudeCompra.invalid) {
+      this.spinner.show();
+      this.rows = [];
+      const request = this.GetRequestSearch();
+      this.solicitudcompraService.Consultar(request).subscribe((res) => {
+        this.spinner.hide();
+        if (res) {
+          if (res.Result.Success) {
+            if (!res.Result.Message) {
+              this.rows = res.Result.Data;
+            } else {
+              this.errorGeneral = { isError: true, msgError: res.Result.Message };
+            }
+          } else {
+            this.errorGeneral = { isError: true, msgError: res.Result.Message };
+          }
+        } else {
+          this.errorGeneral = { isError: true, msgError: this.mensajeGenerico };
+        }
+      }, (err) => {
+        this.spinner.hide();
+      })
+    }
   }
 }

@@ -53,6 +53,8 @@ export class SolicitudcompraEditComponent implements OnInit {
   locId = 0;
   locCodigoEstado;
   locFechaRegistroString;
+  submitted = false;
+  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -76,6 +78,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.submitted = false;
     this.LoadCombos();
   }
 
@@ -229,11 +232,16 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   EnviarSolicitud() {
-    if (!this.frmSolicitudCompraNew.invalid) {
-      this.alertUtil.alertRegistro('Confirmación',
-        '¿Está seguro de enviar la solicitud de compra?', () => {
-          this.GuardarSolicitud();
-        });
+    if (this.userSession.RolId === 6) {
+      this.submitted = false;
+      if (!this.frmSolicitudCompraNew.invalid) {
+        this.alertUtil.alertRegistro('Confirmación',
+          '¿Está seguro de enviar la solicitud de compra?', () => {
+            this.GuardarSolicitud();
+          });
+      } else {
+        this.submitted = true;
+      }
     }
   }
 
@@ -243,12 +251,16 @@ export class SolicitudcompraEditComponent implements OnInit {
     const total = cantidad * pesoSaco;
     if (total) {
       this.frmSolicitudCompraNew.controls.pesoEnKilos.setValue(total);
+    } else {
+      this.frmSolicitudCompraNew.controls.pesoEnKilos.reset();
     }
 
     const costo = this.frmSolicitudCompraNew.value.costoUnitario ? this.frmSolicitudCompraNew.value.costoUnitario : 0;
     const costoTotal = cantidad * costo;
     if (costoTotal) {
       this.frmSolicitudCompraNew.controls.costoTotal.setValue(costoTotal);
+    } else {
+      this.frmSolicitudCompraNew.controls.costoTotal.reset();
     }
   }
 
@@ -292,28 +304,26 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   GuardarSolicitud() {
-    if (this.userSession.RolId === 6) {
-      this.spinner.show();
-      const request = this.RequestEnviarSolicitud();
-      this.solicitudcompraService.Registrar(request)
-        .subscribe((res) => {
-          this.spinner.hide();
-          if (res) {
-            if (res.Result.Success) {
-              this.alertUtil.alertOkCallback('Confirmación',
-                `Se ha generado solicitud de compra ${res.Result.Data}.`,
-                () => {
-                  this.router.navigate(['/home']);
-                });
-            } else {
+    this.spinner.show();
+    const request = this.RequestEnviarSolicitud();
+    this.solicitudcompraService.Registrar(request)
+      .subscribe((res) => {
+        this.spinner.hide();
+        if (res) {
+          if (res.Result.Success) {
+            this.alertUtil.alertOkCallback('Confirmación',
+              `Se ha generado solicitud de compra ${res.Result.Data}.`,
+              () => {
+                this.router.navigate(['/home']);
+              });
+          } else {
 
-            }
           }
-        }, (err) => {
-          console.log(err);
-          this.spinner.hide();
-        });
-    }
+        }
+      }, (err) => {
+        console.log(err);
+        this.spinner.hide();
+      });
   }
 
   ConsultarPorId() {
@@ -322,8 +332,11 @@ export class SolicitudcompraEditComponent implements OnInit {
       .subscribe((res) => {
         if (res && res.Result.Success) {
           this.CompletarForm(res.Result.Data);
+        } else {
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
         }
       }, (err) => {
+        console.log(err);
         this.spinner.hide();
       });
   }
@@ -343,7 +356,11 @@ export class SolicitudcompraEditComponent implements OnInit {
       const costoTotal = cantidad * costoUnitario;
       if (costoTotal) {
         this.frmSolicitudCompraNew.controls.costoTotal.setValue(costoTotal);
+      } else {
+        this.frmSolicitudCompraNew.controls.costoTotal.reset();
       }
+    } else {
+      this.frmSolicitudCompraNew.controls.costoTotal.reset();
     }
   }
 

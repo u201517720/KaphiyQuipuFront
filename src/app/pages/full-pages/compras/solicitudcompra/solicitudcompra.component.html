@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <small class="form-text text-muted danger mb-1"
+            <small class="form-text text-muted danger mb-1 font-weight-bolder"
                 *ngIf="errorGeneral.isError">{{errorGeneral.msgError}}</small>
             <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()"
                 [disabled]="frmListaSolicitudeCompra.invalid">Buscar</button>
