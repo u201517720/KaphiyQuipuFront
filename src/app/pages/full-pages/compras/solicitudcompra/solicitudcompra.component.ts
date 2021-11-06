@@ -29,7 +29,7 @@ export class SolicitudcompraComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private dateUtil: DateUtil,
     private maestroUtil: MaestroUtil) {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
     }

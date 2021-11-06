@@ -56,7 +56,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
   ngOnInit(): void {
     this.cargarForm();
     this.cargarcombos();
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     this.route.queryParams
       .subscribe(params => {
         if (Number(params.id)) {

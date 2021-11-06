@@ -36,7 +36,7 @@ export class MAsignacionContratoAcopioComponent implements OnInit {
   }
 
   LoadForm() {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.frmMdlAsignacionContratoAcopio = this.fb.group({
       pesoNetoKGOro: [0],
       KGPergamino: [, Validators.required],

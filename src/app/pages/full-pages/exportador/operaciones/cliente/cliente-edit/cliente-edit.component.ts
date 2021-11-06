@@ -48,7 +48,7 @@ export class ClienteEditComponent implements OnInit {
     this.addValidations();
     this.LoadCombos();
     this.vId = this.route.snapshot.params['id'] ? parseFloat(this.route.snapshot.params['id']) : 0;
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
     this.LoadDataInicial();
     if (this.vId > 0) {
       this.ConsultarPorId();

@@ -71,7 +71,7 @@ export class ProductorEditComponent implements OnInit {
     this.LoadCombos();
     this.LoadDataInitial();
     this.addValidations();
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
   }
 
   LoadForm(): void {

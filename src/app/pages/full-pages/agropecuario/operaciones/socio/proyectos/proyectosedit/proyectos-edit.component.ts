@@ -55,7 +55,7 @@ export class ProyectosEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.vSession = JSON.parse(localStorage.getItem("user"));
+    this.vSession = JSON.parse(sessionStorage.getItem("user"));
     this.LoadForm();
     this.AddRequiredConditionals();
     this.LoadDropDowns();

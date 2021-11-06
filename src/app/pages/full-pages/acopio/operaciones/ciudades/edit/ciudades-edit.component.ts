@@ -50,7 +50,7 @@ export class CiudadesEditComponent implements OnInit {
   ngOnInit(): void {
     this.LoadForm();
     this.LoadCombos();
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
     this.route.queryParams
     .subscribe(params => {
       if (Number(params.id)) {

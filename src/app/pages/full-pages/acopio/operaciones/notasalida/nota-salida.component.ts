@@ -60,7 +60,7 @@ export class NotaSalidaComponent implements OnInit {
     this.LoadCombos();
     this.notaSalidaForm.controls['fechaFin'].setValue(this.dateUtil.currentDate());
     this.notaSalidaForm.controls['fechaInicio'].setValue(this.dateUtil.currentMonthAgo());
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
   }
 
   get f() {

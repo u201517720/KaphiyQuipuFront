@@ -57,7 +57,7 @@ export class AduanasComponent implements OnInit {
     this.LoadForm();
     this.aduanasForm.controls['fechaFin'].setValue(this.dateUtil.currentDate());
     this.aduanasForm.controls['fechaInicio'].setValue(this.dateUtil.currentMonthAgo());
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
   }
 
   close() {

@@ -55,7 +55,7 @@ export class ContratoEditComponent implements OnInit {
   ngOnInit(): void {
     this.ContratoEditTraduccion = new ContratoEditTraduccion();
     this.cargarForm();
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     this.route.queryParams
       .subscribe(params => {
         if (Number(params.id)) {
@@ -66,7 +66,7 @@ export class ContratoEditComponent implements OnInit {
       );
 
     this.translate.onLangChange.subscribe((event: TranslationChangeEvent) => {
-      localStorage.setItem("language", event.lang);
+      sessionStorage.setItem("language", event.lang);
       this.obtenerDetalle(event.lang);
     });
 
@@ -123,7 +123,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   obtenerDetalle(lang: string) {
-    var lenguaje = localStorage.getItem("language");
+    var lenguaje = sessionStorage.getItem("language");
     lang = lang == '' ? (lenguaje == null ? this.translate.getDefaultLang() : lenguaje) : lang;
     this.spinner.show();
     this.contratoService.ConsultarTrackingContratoPorContratoId({ "ContratoId": this.id, "Idioma": lang })

@@ -64,7 +64,7 @@ export class SolicitudcompraEditComponent implements OnInit {
     private router: Router,
     private contratoService: ContratoService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;

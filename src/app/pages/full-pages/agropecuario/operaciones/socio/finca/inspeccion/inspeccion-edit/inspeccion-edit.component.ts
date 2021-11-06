@@ -69,7 +69,7 @@ export class InspeccionEditComponent implements OnInit {
     this.codeFincaPartner = this.route.snapshot.params['fincapartner'] ? parseInt(this.route.snapshot.params['fincapartner']) : 0;
     this.codeProducer = this.route.snapshot.params['producer'] ? parseInt(this.route.snapshot.params['producer']) : 0;
     this.codePartner = this.route.snapshot.params['partner'] ? parseInt(this.route.snapshot.params['partner']) : 0;
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.LoadStatus();
     this.frmFincaInspeccionEdit.controls.organization.setValue(this.userSession.Result.Data.RazonSocialEmpresa);

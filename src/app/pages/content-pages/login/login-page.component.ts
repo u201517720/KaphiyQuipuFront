@@ -20,7 +20,7 @@ export class LoginPageComponent {
   mensajeErrorGenerico = 'Usuario/password incorrecto.';
   loginForm = new FormGroup({
     username: new FormControl(null, [Validators.required]),
-    password: new FormControl('P@ssw0rd100', [Validators.required]),
+    password: new FormControl(null, [Validators.required]),
     rememberMe: new FormControl(true)
   });
 
@@ -57,7 +57,7 @@ export class LoginPageComponent {
         if (res.Result.Success) {
           if (res.Result.ErrCode == "") {
             this.spinner.hide();
-            localStorage.setItem("user", JSON.stringify(this.loginModel));
+            sessionStorage.setItem("user", JSON.stringify(this.loginModel));
             this.router.navigate(['/home']);
           }
           else {

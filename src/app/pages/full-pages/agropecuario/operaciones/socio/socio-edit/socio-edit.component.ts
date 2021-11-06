@@ -67,7 +67,7 @@ export class SocioEditComponent implements OnInit {
     this.LoadForm();
     this.LoadCombos();
     this.vId = this.route.snapshot.params['id'];
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
     if (!this.vId) {
       // this.socioEditForm.controls.estado.setValue('01');
       this.socioEditForm.controls.fecRegistro.setValue(this.dateUtil.currentDate());

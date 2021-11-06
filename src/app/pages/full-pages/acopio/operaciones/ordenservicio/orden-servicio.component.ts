@@ -50,7 +50,7 @@ export class OrdenServicioComponent implements OnInit {
     this.LoadCombos();
     this.ordenServConCalExtForm.controls['fechaFin'].setValue(this.dateUtil.currentDate());
     this.ordenServConCalExtForm.controls['fechaInicio'].setValue(this.dateUtil.currentMonthAgo());
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
   }
 
   LoadForm(): void {

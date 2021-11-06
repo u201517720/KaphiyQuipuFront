@@ -52,14 +52,14 @@ export class ContratoClienteComponent implements OnInit {
   contratoListTraduccion: ContratoListTraduccion;
 
   ngOnInit(): void {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.LoadCombos(this.translate.getDefaultLang());
     this.contratoForm.controls['fechaInicial'].setValue(this.dateUtil.currentMonthAgo());
     this.contratoForm.controls['fechaFinal'].setValue(this.dateUtil.currentDate());
     this.contratoListTraduccion = new ContratoListTraduccion();
     this.translate.onLangChange.subscribe((event: TranslationChangeEvent) => {
-      localStorage.setItem("language", event.lang);
+      sessionStorage.setItem("language", event.lang);
       this.listEstadoMuestra = [];
       this.LoadCombos(event.lang);
       this.rows = [];
@@ -222,7 +222,7 @@ export class ContratoClienteComponent implements OnInit {
   }
 //test
   Buscar(lang: string): void {
-    var lenguaje = localStorage.getItem("language");
+    var lenguaje = sessionStorage.getItem("language");
     lang = lang == '' ? (lenguaje == null ? this.translate.getDefaultLang() : lenguaje) : lang;
     this.Search(lang);
   }

@@ -77,7 +77,7 @@ export class LiquidacionProcesoEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     this.cargarForm();
     this.Load();
     this.route.queryParams

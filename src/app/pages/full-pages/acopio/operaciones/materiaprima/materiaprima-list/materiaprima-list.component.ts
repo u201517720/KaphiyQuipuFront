@@ -87,7 +87,7 @@ export class MateriaPrimaListComponent implements OnInit {
   ngOnInit(): void {
     this.cargarForm();
     this.cargarcombos();
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
     this.consultaMateriaPrimaForm.controls['fechaFin'].setValue(this.dateUtil.currentDate());
     this.consultaMateriaPrimaForm.controls['fechaInicio'].setValue(this.dateUtil.currentMonthAgo());
   }

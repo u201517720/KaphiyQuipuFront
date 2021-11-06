@@ -58,7 +58,7 @@ export class LotesComponent implements OnInit {
     this.LoadCombos();
     this.banLoteForm.controls['fechaFin'].setValue(this.dateUtil.currentDate());
     this.banLoteForm.controls['fechaInicio'].setValue(this.dateUtil.currentMonthAgo());
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
   }
 
   LoadForm(): void {

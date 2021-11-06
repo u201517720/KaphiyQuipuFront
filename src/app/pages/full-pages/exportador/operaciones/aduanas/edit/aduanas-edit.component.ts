@@ -227,7 +227,7 @@ export class AduanasEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     this.cargarForm();
     this.route.queryParams
       .subscribe(params => {

@@ -53,7 +53,7 @@ export class AdelantoComponent implements OnInit {
   popUpNotaCompra = true;
 
   ngOnInit(): void {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.LoadCombos();
     this.adelantoForm.controls['fechaInicial'].setValue(this.dateUtil.currentMonthAgo());

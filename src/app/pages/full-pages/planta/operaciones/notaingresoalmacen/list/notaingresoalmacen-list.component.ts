@@ -70,7 +70,7 @@ export class NotaIngresoAlmacenListComponent implements OnInit {
   ngOnInit(): void {
     this.cargarForm();
     this.cargarcombos();
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
     this.notaIngresoAlmacenForm.controls['fechaFin'].setValue(this.dateUtil.currentDate());
     this.notaIngresoAlmacenForm.controls['fechaInicio'].setValue(this.dateUtil.currentMonthAgo());
 

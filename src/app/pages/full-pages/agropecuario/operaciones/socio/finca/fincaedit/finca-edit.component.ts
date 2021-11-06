@@ -80,7 +80,7 @@ export class FincaEditComponent implements OnInit {
     this.codeProducer = this.route.snapshot.params['producer'] ? parseInt(this.route.snapshot.params['producer']) : 0
     this.codeFincaPartner = this.route.snapshot.params['fincapartner'] ? parseInt(this.route.snapshot.params['fincapartner']) : 0
     this.nameProductor = this.route.snapshot.params['title'];
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.LoadCombos();
     if (this.codeFincaPartner > 0) {

@@ -88,7 +88,7 @@ export class TagNotaSalidaPlantaEditComponent implements OnInit {
     this.cargarformTagNotaSalida();
     this.tagNotadeSalida = <FormGroup>this.controlContainer.control;
     this.notaSalidaFormEdit =  <FormGroup>this.controlContainer.control;
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     this.eventsNs.subscribe({
       next: (data) => this.cargarDatos(data)
 

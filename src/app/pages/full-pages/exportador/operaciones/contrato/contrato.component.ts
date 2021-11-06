@@ -57,7 +57,7 @@ export class ContratoComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.tipoEmpresaId = this.userSession.Result.Data.TipoEmpresaid;
     this.LoadForm();
     this.LoadCombos();

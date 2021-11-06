@@ -25,7 +25,7 @@ export class MateriaprimaComponent implements OnInit {
     private dateUtil: DateUtil,
     private spinner: NgxSpinnerService,
     private agricultorService: AgricultorService) {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
     }

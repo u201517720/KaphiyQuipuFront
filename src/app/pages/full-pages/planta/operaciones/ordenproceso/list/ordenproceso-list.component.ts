@@ -48,7 +48,7 @@ export class OrdenProcesoListComponent implements OnInit {
   page: any;
   
   ngOnInit(): void {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.LoadCombos();
     this.ordenProcesoform.controls['fechaFin'].setValue(this.dateUtil.currentDate());

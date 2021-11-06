@@ -48,10 +48,10 @@ export class ClienteComponent implements OnInit {
   userSession: any;
 
   ngOnInit(): void {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.LoadCombos();
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     this.clienteForm.controls['fechaInicial'].setValue(this.dateUtil.currentMonthAgo());
     this.clienteForm.controls['fechaFinal'].setValue(this.dateUtil.currentDate());
   }

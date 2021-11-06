@@ -11,8 +11,13 @@ import { filter } from 'rxjs/operators';
 export class AppComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
+  userSession: any;
 
-  constructor(private router: Router,) {
+  constructor(private router: Router) {
+    this.userSession = sessionStorage.getItem('user');
+    if (!this.userSession) {
+      this.router.navigate(['/pages/login']);
+    }
   }
 
   ngOnInit() {

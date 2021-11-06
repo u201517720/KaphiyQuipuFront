@@ -56,7 +56,7 @@ export class ForgotPasswordComponent {
           if(res.Result.ErrCode == "")
           {
           this.spinner.hide();
-          localStorage.setItem("user", JSON.stringify(this.loginModel));
+          sessionStorage.setItem("user", JSON.stringify(this.loginModel));
           this.router.navigate(['/home']);
           }
           else{

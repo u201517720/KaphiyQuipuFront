@@ -50,7 +50,7 @@ export class OrdenProcesoComponent implements OnInit {
   @Output() agregarEvent = new EventEmitter<any>();
   page: any;
   ngOnInit(): void {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.ordenProcesoForm.controls.fechaFinal.setValue(this.dateUtil.currentDate());
     this.ordenProcesoForm.controls.fechaInicial.setValue(this.dateUtil.currentMonthAgo());

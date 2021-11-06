@@ -38,7 +38,7 @@ export class StorageService {
 
   clear() {
     this.ls.removeAll();
-    localStorage.clear();
+    sessionStorage.clear();
   }
 
   setLastUpdate() {
@@ -257,17 +257,17 @@ export class StorageService {
   }
 
   removeToken() {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.setLastUpdate();
   }
 
   setToken(token) {
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
     this.setLastUpdate();
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   setEmail(email) {
@@ -280,11 +280,11 @@ export class StorageService {
   }
 
   setSolicitudOptionStep(optionStep) {
-    localStorage.setItem('optionStep', optionStep);
+    sessionStorage.setItem('optionStep', optionStep);
   }
 
   getSolicitudOptionStep() {
-    return localStorage.getItem('optionStep');
+    return sessionStorage.getItem('optionStep');
   }
 
   setIpAddress(ipAddress: string) {

@@ -149,7 +149,7 @@ export class ControlCalidadComponentHumedo implements OnInit {
   
   }
   actualizarAnalisisControlCalidad(e) {
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     if (this.formControlCalidadHumedo.invalid || this.errorGeneral.isError) {
       this.submitted = true;
       return;

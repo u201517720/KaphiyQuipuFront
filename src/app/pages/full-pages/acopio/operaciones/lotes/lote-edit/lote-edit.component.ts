@@ -58,7 +58,7 @@ export class LoteEditComponent implements OnInit {
   login: ILogin;
   ngOnInit(): void {
     this.vId = parseInt(this.route.snapshot.params['id']);
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
     if (this.vId && this.vId > 0) {
       this.LoadForm();
       // this.LoadCombos();
@@ -99,7 +99,7 @@ export class LoteEditComponent implements OnInit {
       contrato: [],
       cliente: []
     });
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
   }
   get f() {
     return this.loteEditForm.controls;

@@ -54,7 +54,7 @@ export class NotaCompraComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.cargarForm();
 
     if (this.detalle) {
@@ -132,7 +132,7 @@ export class NotaCompraComponent implements OnInit {
     await this.LoadCombos();
     var data = this.detalle;
     this.CodigoSubProducto = data.SubProductoId;
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     // await this.cargarPrecioDia();
 
     if (data.NotaCompra == null) {

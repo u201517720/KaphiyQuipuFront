@@ -57,7 +57,7 @@ export class NotacompraListComponent implements OnInit {
   @Output() agregarEvent = new EventEmitter<any>();
 
   ngOnInit(): void {
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.LoadCombos();
     this.consultaNotaCompraForm.controls.fechaFin.setValue(this.dateUtil.currentDate());

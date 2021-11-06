@@ -47,7 +47,7 @@ export class LiquidacionProcesoComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.liquidacionProcesoForm.controls.fechaFinal.setValue(this.dateUtil.currentDate());
     this.liquidacionProcesoForm.controls.fechaInicial.setValue(this.dateUtil.currentMonthAgo());

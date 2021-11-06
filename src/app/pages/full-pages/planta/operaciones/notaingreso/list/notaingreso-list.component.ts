@@ -72,7 +72,7 @@ export class NotaIngresoListComponent implements OnInit {
     this.cargarcombos();
     this.consultaNotaIngresoPlantaForm.controls.fechaInicio.setValue(this.dateUtil.currentMonthAgo());
     this.consultaNotaIngresoPlantaForm.controls.fechaFin.setValue(this.dateUtil.currentDate());
-    this.vSessionUser = JSON.parse(localStorage.getItem("user"));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem("user"));
   }
 
   get f() {

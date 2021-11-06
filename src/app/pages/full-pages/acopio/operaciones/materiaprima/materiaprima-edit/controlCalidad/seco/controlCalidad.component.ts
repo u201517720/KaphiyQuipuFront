@@ -82,7 +82,7 @@ export class ControlCalidadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     this.page = this.route.routeConfig.data.title;
     this.cargarForm();
     this.cargarCombos();

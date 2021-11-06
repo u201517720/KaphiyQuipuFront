@@ -46,7 +46,7 @@ export class IngresoAlmacenComponent implements OnInit {
 
   ngOnInit(): void {
     this.LoadForm();
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
   }
 
   LoadForm() {

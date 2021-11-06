@@ -46,7 +46,7 @@ export class EmpresaTransporteListComponent implements OnInit {
   vSessionUser: ILogin;
 
   ngOnInit(): void {
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     this.LoadCombos();
   }

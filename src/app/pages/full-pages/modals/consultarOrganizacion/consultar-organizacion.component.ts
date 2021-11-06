@@ -45,7 +45,7 @@ export class MConsultarOrganizacionComponent implements OnInit {
   }
   ngOnInit(): void {
     this.cargarOrganizacion();
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
   }
 
   close() {

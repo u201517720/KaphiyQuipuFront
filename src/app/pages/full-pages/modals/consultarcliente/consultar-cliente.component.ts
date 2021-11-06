@@ -43,7 +43,7 @@ export class MConsultarClienteComponent implements OnInit {
     private dateUtil: DateUtil,
     private fb: FormBuilder) {
     this.singleSelectCheck = this.singleSelectCheck.bind(this);
-    this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+    this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
   }
 
   ngOnInit(): void {

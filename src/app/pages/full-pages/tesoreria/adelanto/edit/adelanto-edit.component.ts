@@ -70,7 +70,7 @@ export class AdelantoEditComponent implements OnInit {
   ngOnInit(): void {
     this.cargarForm();
     this.LoadCombos();
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     this.route.queryParams
       .subscribe(params => {
         if (Number(params.id)) {

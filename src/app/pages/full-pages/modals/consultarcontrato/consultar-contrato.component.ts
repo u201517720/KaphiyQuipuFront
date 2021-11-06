@@ -44,7 +44,7 @@ export class MConsultarContratoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
   }
 

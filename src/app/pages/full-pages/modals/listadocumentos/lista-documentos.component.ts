@@ -71,7 +71,7 @@ export class MListaDocumentosComponent implements OnInit {
 
   ngOnInit(): void {
     this.modalDocumentosTranslate = new ModalDocumentosTranslate();
-    this.userSession = JSON.parse(localStorage.getItem('user'));
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     if (this.codeForm === 'frmMdlListaFotosGeoreferenciadas') {
       this.titleModal = 'CARGA DE FOTOS GEOREFERENCIADAS';
       this.subTitleModal = 'LISTA DE DOCUMENTOS';

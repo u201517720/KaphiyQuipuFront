@@ -71,7 +71,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.listItems = LISTITEMS;
-    this.login = JSON.parse(localStorage.getItem("user"));
+    this.login = JSON.parse(sessionStorage.getItem("user"));
     this.user = this.login.Result.Data.NombreCompletoUsuario;
 
     if (this.innerWidth < 1200) {
@@ -190,8 +190,6 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.selectedLanguageText = "Español";
       this.selectedLanguageFlag = "./assets/img/flags/es.png";
     }
-
-
   }
 
   ToggleClass() {
@@ -214,12 +212,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.searchOpenClass = '';
     }
     this.seachTextEmpty.emit(true);
-
-
-
   }
-
-
 
   toggleNotificationSidebar() {
     this.layoutService.toggleNotificationSidebar(true);
@@ -227,5 +220,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   toggleSidebar() {
     this.layoutService.toggleSidebarSmallScreen(this.hideSidebar);
+  }
+
+  CerrarSesion() {
+    sessionStorage.clear();
   }
 }

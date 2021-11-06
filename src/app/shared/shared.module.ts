@@ -44,7 +44,7 @@ import { TopMenuAnchorToggleDirective } from './directives/topmenu-anchor-toggle
         SidebarDirective
     ],
     imports: [
-        
+
         RouterModule,
         CommonModule,
         NgbModule,

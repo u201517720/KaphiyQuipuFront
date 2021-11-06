@@ -52,7 +52,7 @@ export class TransporteEditComponent implements OnInit {
     ngOnInit() {
        this.LoadForm();
         
-        this.vSessionUser = JSON.parse(localStorage.getItem('user'));
+        this.vSessionUser = JSON.parse(sessionStorage.getItem('user'));
         this.route.queryParams
             .subscribe(params => {
                 if (Number(params.idEmpresaTransporte)) {

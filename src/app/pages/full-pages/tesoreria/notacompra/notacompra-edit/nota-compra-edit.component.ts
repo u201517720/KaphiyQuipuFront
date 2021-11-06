@@ -53,7 +53,7 @@ export class NotaCompraEditComponent implements OnInit {
     this.vId = this.route.snapshot.params['id'];
     if (this.vId) {
       this.vId = parseInt(this.route.snapshot.params['id']);
-      this.vUserSession = JSON.parse(localStorage.getItem('user'));
+      this.vUserSession = JSON.parse(sessionStorage.getItem('user'));
       this.LoadForm();
       this.SearchById();
     } else {
@@ -206,7 +206,7 @@ export class NotaCompraEditComponent implements OnInit {
 
   async AutocompleteForm(data: any) {
     if (data) {
-      this.login = JSON.parse(localStorage.getItem("user"));
+      this.login = JSON.parse(sessionStorage.getItem("user"));
       this.CodigoSubProducto = data.SubProductoId;
       // await this.cargarPrecioDia();
       await this.GetPreciosRendimiento(data.ValorId, data.ExportablePorcentajeAnalisisFisico);
