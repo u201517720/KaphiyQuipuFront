@@ -243,6 +243,7 @@
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <textarea class="form-control" id="observaciones" formControlName="observaciones"
                                         rows="4" placeholder="Observaciones" maxlength="500"
+                                        [readonly]="locCodigoEstado === '03' || locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'"
                                         [ngClass]="{ 'is-invalid': f.observaciones.invalid, 'is-valid': !f.observaciones.invalid }"></textarea>
                                 </div>
                             </div>
@@ -290,37 +291,37 @@
                                     </select>
                                     Filas</label>
                                 <button type="button" class="btn btn-sm float-right btn-primary"
-                                    (click)="ObtenerAgricultoresDisponibles()">Actualizar Lista</button>
+                                    (click)="ActualizarListaAgricultores()">Actualizar Lista</button>
                             </fieldset>
                             <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
                                 [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows"
                                 [scrollbarH]="true" [selected]="selectedAgricultores" [selectionType]="'checkbox'"
                                 (select)="onSelectAgricultores($event)" (activate)="onActivate($event)">
-                                <ngx-datatable-column name="Nombre" prop="NombreCompleto" width="100">
+                                <ngx-datatable-column name="Nombre" prop="NombreCompleto">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Tipo Documento" prop="TipoDocumento" width="100">
+                                <ngx-datatable-column name="Tipo Documento" prop="TipoDocumento">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Número Documento" prop="NumeroDocumento" width="100">
+                                <ngx-datatable-column name="Número Documento" prop="NumeroDocumento">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Celular" prop="NumeroTelefonoCelular" width="100">
+                                <ngx-datatable-column name="Celular" prop="NumeroTelefonoCelular">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Finca" prop="Finca" width="100">
+                                <ngx-datatable-column name="Finca" prop="Finca">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Certificación" prop="TipoCertificacion" width="100">
+                                <ngx-datatable-column name="Certificación" prop="TipoCertificacion">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Total Cosecha" prop="TotalCosecha" width="100"
+                                <ngx-datatable-column name="Total Cosecha" prop="TotalCosecha"
                                     *ngIf="locCodigoEstado === '03'">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Cantidad Solicitada" prop="CantidadSolicitada" width="100"
+                                <ngx-datatable-column name="Cantidad Solicitada" prop="CantidadSolicitada"
                                     *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString"
                                     width="100" *ngIf="locCodigoEstado === '03'">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro" width="100"
+                                <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro"
                                     *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroString" width="100"
+                                <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroString"
                                     *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
@@ -328,13 +329,22 @@
                                     *ngIf="userSession.RolId === 7 && locCodigoEstado === '03'">
                                 </ngx-datatable-column>
                             </ngx-datatable>
-                            <fieldset class="form-group" *ngIf="locCodigoEstado === '03'">
-                                <label>Total: {{locTotalCosechaSeleccionada}}</label>
-                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="form-row text-right" *ngIf="locCodigoEstado === '03'">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group row">
+                                <label for="sumaCosechaSeleccionada" class="col-lg-10 col-form-label">TOTAL</label>
+                                <div class="col-lg-2">
+                                    <input type="number" name="sumaCosechaSeleccionada" id="sumaCosechaSeleccionada"
+                                        formControlName="sumaCosechaSeleccionada" class="form-control text-right"
+                                        placeholder="Total de cosecha seleccionado" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.sumaCosechaSeleccionada.invalid, 'is-valid': !f.sumaCosechaSeleccionada.invalid }">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

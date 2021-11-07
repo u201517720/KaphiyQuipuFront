@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { DateUtil } from '../../../../../services/util/date-util';
+import { AlertUtil } from '../../../../../services/util/alert-util';
 import { ContratoService } from '../../../../../services/contrato.service';
 
 @Component({
@@ -19,15 +20,17 @@ export class ContratoComponent implements OnInit {
   limitRef = 10;
   rows = [];
   @ViewChild(DatatableComponent) table: DatatableComponent;
-  tempData = [];
   userSession: any;
+  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
 
   constructor(private fb: FormBuilder,
     private dateUtil: DateUtil,
     private contratoService: ContratoService,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private alertUtil: AlertUtil) { }
 
   ngOnInit(): void {
+    this.errorGeneral = { isError: false, msgError: '' };
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
@@ -37,8 +40,8 @@ export class ContratoComponent implements OnInit {
 
   LoadForm() {
     this.frmContratoCompraVenta = this.fb.group({
-      fechaInicial: [],
-      fechaFinal: []
+      fechaInicial: [, Validators.required],
+      fechaFinal: [, Validators.required]
     });
     this.frmContratoCompraVenta.controls.fechaInicial.setValue(this.dateUtil.currentMonthAgo());
     this.frmContratoCompraVenta.controls.fechaFinal.setValue(this.dateUtil.currentDate());
@@ -50,15 +53,6 @@ export class ContratoComponent implements OnInit {
 
   updateLimit(e) {
     this.limitRef = e.target.value;
-  }
-
-  filterUpdate(e) {
-    const val = e.target.value.toLowerCase();
-    const temp = this.tempData.filter(function (d) {
-      return d.Numero.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-    this.rows = temp;
-    this.table.offset = 0;
   }
 
   RequestBuscar() {
@@ -73,22 +67,30 @@ export class ContratoComponent implements OnInit {
 
   Buscar() {
     if (!this.frmContratoCompraVenta.invalid) {
+      this.errorGeneral = { isError: false, msgError: '' };
       this.spinner.show();
       this.rows = [];
-      this.tempData = [];
       const request = this.RequestBuscar();
       this.contratoService.Search(request)
         .subscribe((res) => {
           this.spinner.hide();
-          if (res.Result.Success) {
-            this.rows = res.Result.Data;
-            this.tempData = res.Result.Data;
+          if (res) {
+            if (res.Result.Success) {
+              if (!res.Result.Message) {
+                this.rows = res.Result.Data;
+              } else {
+                this.errorGeneral = { isError: true, msgError: res.Result.Message };
+              }
+            } else {
+              this.errorGeneral = { isError: true, msgError: res.Result.Message };
+            }
           } else {
-
+            this.errorGeneral = { isError: true, msgError: this.mensajeGenerico };
           }
         }, (err) => {
           this.spinner.hide();
           console.log(err);
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
         });
     }
   }

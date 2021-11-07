@@ -54,7 +54,6 @@ export class ContratoEditComponent implements OnInit {
   locId = 0;
   locCodigoEstado;
   locFechaRegistroString;
-  locTotalCosechaSeleccionada = 0;
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -122,7 +121,8 @@ export class ContratoEditComponent implements OnInit {
       distribuidora: [],
       fechaRegistro: [],
       estado: [],
-      correlativo: []
+      correlativo: [],
+      sumaCosechaSeleccionada: []
     });
   }
 
@@ -388,11 +388,7 @@ export class ContratoEditComponent implements OnInit {
       this.locCodigoEstado = data.EstadoId
       this.locFechaRegistroString = data.FechaRegistroString;
       this.CalcularCostoTotal();
-      if (this.locCodigoEstado === '03') {
-        this.ObtenerAgricultoresDisponibles();
-      } else {
-        this.ObtenerAgricultores();
-      }
+      this.ActualizarListaAgricultores();
     }
     this.spinner.hide();
   }
@@ -431,44 +427,56 @@ export class ContratoEditComponent implements OnInit {
     this.router.navigate(['/acopio/operaciones/contrato/list']);
   }
 
-  ObtenerAgricultoresDisponibles() {
-    const request = {
-      TipoCertificacionId: this.frmContratoCompraVenta.value.certificacion
+  ActualizarListaAgricultores() {
+    if (this.locCodigoEstado === '03') {
+      const request = {
+        TipoCertificacionId: this.frmContratoCompraVenta.value.certificacion
+      }
+      this.agricultorService.Consultar(request)
+        .subscribe((res) => {
+          if (res && res.Result.Success) {
+            this.rows = res.Result.Data;
+          }
+        }, (err) => {
+          console.log(err);
+        });
+    } else {
+      this.ObtenerAgricultores();
     }
-    this.agricultorService.Consultar(request)
-      .subscribe((res) => {
-        if (res && res.Result.Success) {
-          this.rows = res.Result.Data;
-        }
-      }, (err) => {
-        console.log(err);
-      });
   }
 
   onSelectAgricultores(e) {
     const pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
+    const sumaCosecha = this.frmContratoCompraVenta.value.sumaCosechaSeleccionada;
     let sumaSelected = 0;
-    if (e.selected.length > 0) {
-      if (this.locTotalCosechaSeleccionada < pesoKilos) {
-        e.selected.forEach(x => {
-          if (sumaSelected < pesoKilos) {
-            sumaSelected += x.TotalCosecha
-          }
-        });
-        if (sumaSelected >= pesoKilos) {
-          // this.selectedAgricultores.pop();
-          // e.selected.pop()
-          // this.selectedAgricultores = [...e.selected];
-          // this.selectedAgricultores = e.selected;
+    if (e && e.selected.length > 0) {
+      // if (pesoKilos !== sumaCosecha) {
+      let colTotalCosecha = 0;
+      for (let i = 0; i < e.selected.length; i++) {
+        if (pesoKilos === sumaCosecha || pesoKilos === sumaSelected) {
+          this.selectedAgricultores.pop();
         }
-      } else {
-        sumaSelected = this.locTotalCosechaSeleccionada;
-        // this.selectedAgricultores.pop();
-        // e.selected.pop()
-        // this.selectedAgricultores = e.selected;
+        if (sumaSelected < pesoKilos) {
+          colTotalCosecha = e.selected[i].TotalCosecha;
+          if (colTotalCosecha) {
+            if (colTotalCosecha > pesoKilos) {
+              if (sumaSelected) {
+                sumaSelected += (pesoKilos - sumaSelected);
+              } else {
+                sumaSelected = pesoKilos;
+              }
+            } else {
+              sumaSelected += colTotalCosecha;
+            }
+          }
+        }
       }
+      // } else {
+      //   sumaSelected = sumaCosecha;
+      //   this.selectedAgricultores.pop();
+      // }
     }
-    this.locTotalCosechaSeleccionada = sumaSelected;
+    this.frmContratoCompraVenta.controls.sumaCosechaSeleccionada.setValue(sumaSelected);
   }
 
   onActivate(e) {
@@ -540,13 +548,17 @@ export class ContratoEditComponent implements OnInit {
   }
 
   ObtenerAgricultores() {
+    this.spinner.show();
+    this.rows = [];
     this.contratoService.ObtenerAgricultores({ ContratoId: this.locId })
       .subscribe((res) => {
+        this.spinner.hide();
         if (res.Result.Success) {
           this.rows = res.Result.Data;
         }
       }, (err) => {
         console.log(err);
+        this.spinner.hide();
       });
   }
 }

@@ -22,7 +22,7 @@
             </div>
 
             <small class="form-text text-muted danger mb-1"
-                *ngIf="errorGeneral.isError">{{errorGeneral.msgError}}</small>
+                *ngIf="errorGeneral.isError font-weight-bolder">{{errorGeneral.msgError}}</small>
             <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()"
                 [disabled]="frmContratoCompraVenta.invalid">Buscar</button>
 
@@ -35,7 +35,7 @@
 <div class="card">
     <div class="card-body">
         <fieldset class="form-group">
-            <label>Show
+            <label>Mostrar
                 <select name="users-list-select"
                     class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
                     (click)="updateLimit($event)">
@@ -44,11 +44,7 @@
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
-                entries</label>
-            <label for="ngx-filter-ref" class="float-right">Search:
-                <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200 ml-1"
-                    type="text" (keyup)="filterUpdate($event)" />
-            </label>
+                filas</label>
         </fieldset>
         <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
             rowHeight="'auto'" [limit]="limitRef" [rows]="rows" [scrollbarH]="true">
