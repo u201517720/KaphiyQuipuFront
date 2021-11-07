@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -43,18 +43,33 @@ export class MateriaprimaComponent implements OnInit {
 
     this.frmSolicitudesMateriaPrima.controls.fechaInicio.setValue(this.dateUtil.currentMonthAgo());
     this.frmSolicitudesMateriaPrima.controls.fechaFin.setValue(this.dateUtil.currentDate());
+    this.frmSolicitudesMateriaPrima.setValidators(this.comparisonValidator());
   }
 
   get f() {
     return this.frmSolicitudesMateriaPrima.controls;
   }
 
+  public comparisonValidator(): ValidatorFn {
+    return (group: FormGroup): ValidationErrors => {
+      if (!group.value.fechaInicio || !group.value.fechaFin) {
+        this.errorGeneral = { isError: true, errorMessage: 'La fechas inicio y fin son obligatorias. Por favor, ingresarlas.' };
+      } else {
+        this.errorGeneral = { isError: false, errorMessage: '' };
+      }
+      return;
+    };
+  }
+
   compararFechas() {
     var anioFechaInicio = new Date(this.frmSolicitudesMateriaPrima.value.fechaInicio).getFullYear()
     var anioFechaFin = new Date(this.frmSolicitudesMateriaPrima.value.fechaFin).getFullYear()
 
-    if (anioFechaFin < anioFechaInicio) {
-      this.errorGeneral = { isError: true, errorMessage: 'La fecha fin no puede ser anterior a la fecha inicio' };
+    if (!this.frmSolicitudesMateriaPrima.value.fechaInicio || !this.frmSolicitudesMateriaPrima.value.fechaFin) {
+      this.errorGeneral = { isError: true, errorMessage: 'La fechas inicio y fin son obligatorias. Por favor, ingresarlas.' };
+    }
+    else if (anioFechaFin < anioFechaInicio) {
+      this.errorGeneral = { isError: true, errorMessage: 'La fecha fin no puede ser menor a la fecha inicio.' };
       this.frmSolicitudesMateriaPrima.controls.fechaFin.setErrors({ isError: true })
     } else {
       this.errorGeneral = { isError: false, errorMessage: '' };

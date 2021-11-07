@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -49,10 +49,22 @@ export class SolicitudcompraComponent implements OnInit {
     });
     this.frmListaSolicitudeCompra.controls.fechaInicial.setValue(this.dateUtil.currentMonthAgo());
     this.frmListaSolicitudeCompra.controls.fechaFinal.setValue(this.dateUtil.currentDate());
+    this.frmListaSolicitudeCompra.setValidators(this.comparisonValidator());
   }
 
   get f() {
     return this.frmListaSolicitudeCompra.controls;
+  }
+
+  public comparisonValidator(): ValidatorFn {
+    return (group: FormGroup): ValidationErrors => {
+      if (!group.value.fechaInicial || !group.value.fechaFinal) {
+        this.errorGeneral = { isError: true, msgError: 'La fechas inicio y fin son obligatorias. Por favor, ingresarlas.' };
+      } else {
+        this.errorGeneral = { isError: false, msgError: '' };
+      }
+      return;
+    };
   }
 
   updateLimit(e: any) {
