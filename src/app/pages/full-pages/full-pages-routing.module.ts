@@ -9,31 +9,6 @@ const routes: Routes = [
     loadChildren: () => import('../../pages/full-pages/acopio/acopio.module').then(m => m.AcopioModule)
   },
   {
-    path: 'productor',
-    loadChildren: () => import('./productor/productor.module').then(m => m.ProductorModule)
-  },
-  {
-    path: 'agropecuario',
-    loadChildren: () => import('./agropecuario/agropecuario.module').then(m => m.AgropecuarioModule)
-  },
-  {
-    path: 'planta',
-    loadChildren: () => import('./planta/planta.module').then(m => m.PlantaModule)
-  },
-  {
-    path: 'exportador',
-    loadChildren: () => import('./exportador/exportador.module').then(m => m.ExportadorModule)
-  },
-
-  {
-    path: 'cliente',
-    loadChildren: () => import('./cliente/cliente.module').then(m => m.ClienteModule)
-  },
-  {
-    path: 'tesoreria',
-    loadChildren: () => import('./tesoreria/tesoreria.module').then(m => m.TesoreriaModule)
-  },
-  {
     path: '',
     children: [
       {

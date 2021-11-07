@@ -25,8 +25,6 @@ import { MapasFincaComponent } from '../modals/mapasfinca/mapas-finca.component'
 import { MListaDocumentosComponent } from './listadocumentos/lista-documentos.component';
 import { MAgregarArchivoComponent } from './agregararchivo/agregar-archivo.component';
 import { MConsultarOrganizacionComponent } from '../modals/consultarOrganizacion/consultar-organizacion.component';
-import { MAsignacionContratoAcopioComponent } from '../modals/asignacioncontratoacopio/asignacion-contrato-acopio.component';
-import {MConsultarTransportista} from '../modals/consultarTransportista/consultar-transportista.component';
 import { SharedModule } from '../../../shared/shared.module';
 
 @NgModule({
@@ -59,8 +57,6 @@ import { SharedModule } from '../../../shared/shared.module';
     MConsultarContratoComponent,
     MAgregarArchivoComponent,
     MConsultarOrganizacionComponent,
-    MAsignacionContratoAcopioComponent,
-    MConsultarTransportista
   ],
   exports: [
     MConsultarLotesComponent,
@@ -71,8 +67,6 @@ import { SharedModule } from '../../../shared/shared.module';
     MConsultarContratoComponent,
     MAgregarArchivoComponent,
     MConsultarOrganizacionComponent,
-    MAsignacionContratoAcopioComponent,
-    MConsultarTransportista
   ],
   providers: [
     { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }

@@ -9,7 +9,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from "@angular/common
 import { HttpInterceptorImpl } from './shared/http-interceptor-impl';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { StoreModule } from "@ngrx/store";
 import { DragulaService } from "ng2-dragula";
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -31,10 +30,8 @@ import { MaestroUtil } from "./services/util/maestro-util";
 import { AlertUtil } from "./services/util/alert-util";
 import { DateUtil } from "./services/util/date-util";
 import { AcopioService, FiltrosMateriaPrima, FiltrosProveedor } from "./services/acopio.service";
-import { NotaIngresoAlmacenService } from "./services/nota-ingreso-almacen.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
-import { NotaCompraService } from './services/nota-compra.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -87,7 +84,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AcopioService,
     FiltrosMateriaPrima,
     FiltrosProveedor,
-    NotaIngresoAlmacenService,
     MaestroService,
     MaestroUtil,
     AlertUtil,
@@ -95,7 +91,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AuthService,
     AuthGuard,
     DragulaService,
-    NotaCompraService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorImpl,

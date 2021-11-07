@@ -7,7 +7,6 @@ import swal from 'sweetalert2';
 
 import { MaestroUtil } from '../../../../../services/util/maestro-util';
 import { DateUtil } from '../../../../../services/util/date-util';
-import { NotaIngresoAlmacenService } from '../../../../../services/nota-ingreso-almacen.service';
 import { LoteService } from '../../../../../services/lote.service';
 import { AlertUtil } from '../../../../../services/util/alert-util';
 
@@ -38,7 +37,6 @@ export class IngresoAlmacenComponent implements OnInit {
     private maestroUtil: MaestroUtil,
     private dateUtil: DateUtil,
     private spinner: NgxSpinnerService,
-    private ingresoAlmacenService: NotaIngresoAlmacenService,
     private loteService: LoteService,
     private alertUtil: AlertUtil) {
     // this.singleSelectCheck = this.singleSelectCheck.bind(this);

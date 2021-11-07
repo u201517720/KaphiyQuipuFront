@@ -12,15 +12,9 @@ import { InvoicePageComponent } from "./invoice/invoice-page.component";
 import { HomeComponent } from "./home/home.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { AcopioModule } from "./acopio/acopio.module";
-import { PlantaModule } from "./planta/planta.module";
-import { ProductorModule } from './productor/productor.module';
-import { AgropecuarioModule } from './agropecuario/agropecuario.module';
 import { MConsultarProductorComponent } from './modals/consultarproductor/m-consultar-productor.component';
 import { ListFilterPipe } from '../../shared/pipes/listFilter.pipe';
-import { ExportadorModule } from './exportador/exportador.module';
 import { FileUploadModule } from 'ng2-file-upload';
-import { ClienteModule } from "./cliente/cliente.module";
-import { TesoreriaModule } from "./tesoreria/tesoreria.module";
 import { ComprasModule } from './compras/compras.module';
 import { SolicitudesModule } from './solicitud/solicitudes.module';
 
@@ -37,13 +31,7 @@ import { SolicitudesModule } from './solicitud/solicitudes.module';
     SwiperModule,
     NgxDatatableModule,
     AcopioModule,
-    PlantaModule,
-    ProductorModule,
-    AgropecuarioModule,
-    ExportadorModule,
     FileUploadModule,
-    ClienteModule,
-    TesoreriaModule,
     ComprasModule,
     SolicitudesModule
   ],

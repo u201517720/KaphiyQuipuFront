@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidationErrors, ValidatorFn, FormBuilder } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
 import { MaestroUtil } from '../../../../../../services/util/maestro-util';
-import { NotaIngresoAlmacenService } from '../../../../../../services/nota-ingreso-almacen.service';
 import { ILogin } from '../../../../../../services/models/login';
 import { ActivatedRoute } from '@angular/router';
 import { DateUtil } from '../../../../../../services/util/date-util';
@@ -43,7 +42,6 @@ export class IngresoAlmacenEditComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private maestroUtil: MaestroUtil,
-    private notaIngresoAlmacenService: NotaIngresoAlmacenService,
     private route: ActivatedRoute,
     private dateUtil: DateUtil,
     private maestroService: MaestroService,
@@ -155,28 +153,28 @@ export class IngresoAlmacenEditComponent implements OnInit {
   }
 
   obtenerDetalle() {
-    this.spinner.show();
-    this.notaIngresoAlmacenService.obtenerDetalle(Number(this.id))
-      .subscribe(res => {
-        if (res.Result.Success) {
-          if (res.Result.ErrCode == "") {
-            this.cargarDataFormulario(res.Result.Data);
-          } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
-            this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
-          } else {
-            this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-          }
-        } else {
-          this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-          this.spinner.hide();
-        }
-      },
-        err => {
-          this.spinner.hide();
-          console.log(err);
-          this.errorGeneral = { isError: false, errorMessage: this.mensajeErrorGenerico };
-        }
-      );
+    // this.spinner.show();
+    // this.notaIngresoAlmacenService.obtenerDetalle(Number(this.id))
+    //   .subscribe(res => {
+    //     if (res.Result.Success) {
+    //       if (res.Result.ErrCode == "") {
+    //         this.cargarDataFormulario(res.Result.Data);
+    //       } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
+    //         this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+    //       } else {
+    //         this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
+    //       }
+    //     } else {
+    //       this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
+    //       this.spinner.hide();
+    //     }
+    //   },
+    //     err => {
+    //       this.spinner.hide();
+    //       console.log(err);
+    //       this.errorGeneral = { isError: false, errorMessage: this.mensajeErrorGenerico };
+    //     }
+    //   );
   }
 
   async cargarDataFormulario(data: any) {
@@ -272,44 +270,44 @@ export class IngresoAlmacenEditComponent implements OnInit {
           fullScreen: true
         });
 
-        this.alertUtil.alertRegistro('Confirmación', '¿Está seguro de continuar con el registro?.' , function (result) {
-          if (result.isConfirmed) {
-            form.actualizarService();
-          }
-        });  
+      this.alertUtil.alertRegistro('Confirmación', '¿Está seguro de continuar con el registro?.', function (result) {
+        if (result.isConfirmed) {
+          form.actualizarService();
+        }
+      });
 
     }
   }
   actualizarService() {
 
-    this.notaIngresoAlmacenService.actualizar(Number(this.id), this.usuario, this.consultaMateriaPrimaFormEdit.controls["almacen"].value)
-      .subscribe(res => {
-        this.spinner.hide();
-        if (res.Result.Success) {
-          if (res.Result.ErrCode == "") {
-            var form = this;
-            this.alertUtil.alertOkCallback('Actualizado!', 'Ingreso Almacén Actualizado.', function (result) {
-              //if(result.isConfirmed){
-              form.router.navigate(['/operaciones/ingresoalmacen-list']);
-              //}
-            }
-            );
+    // this.notaIngresoAlmacenService.actualizar(Number(this.id), this.usuario, this.consultaMateriaPrimaFormEdit.controls["almacen"].value)
+    //   .subscribe(res => {
+    //     this.spinner.hide();
+    //     if (res.Result.Success) {
+    //       if (res.Result.ErrCode == "") {
+    //         var form = this;
+    //         this.alertUtil.alertOkCallback('Actualizado!', 'Ingreso Almacén Actualizado.', function (result) {
+    //           //if(result.isConfirmed){
+    //           form.router.navigate(['/operaciones/ingresoalmacen-list']);
+    //           //}
+    //         }
+    //         );
 
-          } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
-            this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
-          } else {
-            this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-          }
-        } else {
-          this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-        }
-      },
-        err => {
-          this.spinner.hide();
-          console.log(err);
-          this.errorGeneral = { isError: false, errorMessage: this.mensajeErrorGenerico };
-        }
-      );
+    //       } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
+    //         this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+    //       } else {
+    //         this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
+    //       }
+    //     } else {
+    //       this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
+    //     }
+    //   },
+    //     err => {
+    //       this.spinner.hide();
+    //       console.log(err);
+    //       this.errorGeneral = { isError: false, errorMessage: this.mensajeErrorGenerico };
+    //     }
+    //   );
   }
   cancelar() {
     this.router.navigate(['/operaciones/ingresoalmacen-list']);

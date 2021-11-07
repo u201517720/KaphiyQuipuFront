@@ -11,8 +11,6 @@ import { host } from '../../../../shared/hosts/main.host';
 import { AlertUtil } from '../../../../services/util/alert-util';
 import { SocioDocumentoService } from '../../../../services/socio-documento.service';
 import { ProductorDocumentoService } from '../../../../services/productor-documento.service';
-import { NotaIngresoPlantaDocumentoAdjuntoService } from '../../../../services/nota-ingreso-planta-documento-adjunto.service';
-import { AduanaDocumentoAdjuntoService } from '../../../../services/aduana-documento.service';
 import { ModalDocumentosTranslate } from '../../../../services/translate/modal/modal-documentos-translate';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -60,8 +58,6 @@ export class MListaDocumentosComponent implements OnInit {
     private alertUtil: AlertUtil,
     private socioDocumentoService: SocioDocumentoService,
     private productorDocumentoService: ProductorDocumentoService,
-    private notaIngresoPlantaDocumentoAdjuntoService: NotaIngresoPlantaDocumentoAdjuntoService,
-    private aduanaDocumentoAdjuntoService: AduanaDocumentoAdjuntoService,
     public translate: TranslateService,
     private route: ActivatedRoute
   ) {
@@ -320,69 +316,69 @@ export class MListaDocumentosComponent implements OnInit {
   }
 
   DeleteDocumentPlantEntryNote(id: any) {
-    this.spinner.show(undefined,
-      {
-        type: 'ball-triangle-path',
-        size: 'medium',
-        bdColor: 'rgba(0, 0, 0, 0.8)',
-        color: '#fff',
-        fullScreen: true
-      });
-    this.notaIngresoPlantaDocumentoAdjuntoService.Delete(id)
-      .subscribe(res => {
-        this.spinner.hide();
-        if (res.Result.Success) {
-          if (res.Result.ErrCode == "") {
-            this.alertUtil.alertOk(this.translate.instant(this.modalDocumentosTranslate.Eliminado), this.translate.instant(this.modalDocumentosTranslate.DocumentoEliminado));
-            this.LoadFiles();
-          } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
-            this.alertUtil.alertError('Error', res.Result.Message);
-          } else {
-            this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
-          }
-        } else {
-          this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
-        }
-      },
-        err => {
-          this.spinner.hide();
-          console.log(err);
-          this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
-        }
-      );
+    // this.spinner.show(undefined,
+    //   {
+    //     type: 'ball-triangle-path',
+    //     size: 'medium',
+    //     bdColor: 'rgba(0, 0, 0, 0.8)',
+    //     color: '#fff',
+    //     fullScreen: true
+    //   });
+    // this.notaIngresoPlantaDocumentoAdjuntoService.Delete(id)
+    //   .subscribe(res => {
+    //     this.spinner.hide();
+    //     if (res.Result.Success) {
+    //       if (res.Result.ErrCode == "") {
+    //         this.alertUtil.alertOk(this.translate.instant(this.modalDocumentosTranslate.Eliminado), this.translate.instant(this.modalDocumentosTranslate.DocumentoEliminado));
+    //         this.LoadFiles();
+    //       } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
+    //         this.alertUtil.alertError('Error', res.Result.Message);
+    //       } else {
+    //         this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
+    //       }
+    //     } else {
+    //       this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
+    //     }
+    //   },
+    //     err => {
+    //       this.spinner.hide();
+    //       console.log(err);
+    //       this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
+    //     }
+    //   );
   }
 
   DeleteDocumentAduana(id: any) {
-    this.spinner.show(undefined,
-      {
-        type: 'ball-triangle-path',
-        size: 'medium',
-        bdColor: 'rgba(0, 0, 0, 0.8)',
-        color: '#fff',
-        fullScreen: true
-      });
-    this.aduanaDocumentoAdjuntoService.Delete(id)
-      .subscribe(res => {
-        this.spinner.hide();
-        if (res.Result.Success) {
-          if (res.Result.ErrCode == "") {
-            this.alertUtil.alertOk(this.translate.instant(this.modalDocumentosTranslate.Eliminado), this.translate.instant(this.modalDocumentosTranslate.DocumentoEliminado));
-            this.LoadFiles();
-          } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
-            this.alertUtil.alertError('Error', res.Result.Message);
-          } else {
-            this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
-          }
-        } else {
-          this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
-        }
-      },
-        err => {
-          this.spinner.hide();
-          console.log(err);
-          this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
-        }
-      );
+    // this.spinner.show(undefined,
+    //   {
+    //     type: 'ball-triangle-path',
+    //     size: 'medium',
+    //     bdColor: 'rgba(0, 0, 0, 0.8)',
+    //     color: '#fff',
+    //     fullScreen: true
+    //   });
+    // this.aduanaDocumentoAdjuntoService.Delete(id)
+    //   .subscribe(res => {
+    //     this.spinner.hide();
+    //     if (res.Result.Success) {
+    //       if (res.Result.ErrCode == "") {
+    //         this.alertUtil.alertOk(this.translate.instant(this.modalDocumentosTranslate.Eliminado), this.translate.instant(this.modalDocumentosTranslate.DocumentoEliminado));
+    //         this.LoadFiles();
+    //       } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
+    //         this.alertUtil.alertError('Error', res.Result.Message);
+    //       } else {
+    //         this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
+    //       }
+    //     } else {
+    //       this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
+    //     }
+    //   },
+    //     err => {
+    //       this.spinner.hide();
+    //       console.log(err);
+    //       this.alertUtil.alertError('Error', this.mensajeErrorGenerico);
+    //     }
+    //   );
   }
 
   modalResponse(event) {
@@ -474,37 +470,37 @@ export class MListaDocumentosComponent implements OnInit {
   }
 
   GetDocumentsPlantEntryNote(): void {
-    this.spinner.show();
-    this.errorGeneral = { isError: false, errorMessage: '' };
-    this.notaIngresoPlantaDocumentoAdjuntoService.SearchForPlantEntryNoteById(this.code).subscribe((res: any) => {
-      this.spinner.hide();
-      if (res.Result.Success) {
-        this.rows = res.Result.Data;
-      } else {
-        this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
-      }
-    }, (err: any) => {
-      console.log(err);
-      this.spinner.hide();
-      this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-    });
+    // this.spinner.show();
+    // this.errorGeneral = { isError: false, errorMessage: '' };
+    // this.notaIngresoPlantaDocumentoAdjuntoService.SearchForPlantEntryNoteById(this.code).subscribe((res: any) => {
+    //   this.spinner.hide();
+    //   if (res.Result.Success) {
+    //     this.rows = res.Result.Data;
+    //   } else {
+    //     this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+    //   }
+    // }, (err: any) => {
+    //   console.log(err);
+    //   this.spinner.hide();
+    //   this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
+    // });
   }
 
   GetDocumentsAduana(): void {
-    this.spinner.show();
-    this.errorGeneral = { isError: false, errorMessage: '' };
-    this.aduanaDocumentoAdjuntoService.ConsultarPorAduanaId(this.code).subscribe((res: any) => {
-      this.spinner.hide();
-      if (res.Result.Success) {
-        this.rows = res.Result.Data;
-      } else {
-        this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
-      }
-    }, (err: any) => {
-      console.log(err);
-      this.spinner.hide();
-      this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-    });
+    // this.spinner.show();
+    // this.errorGeneral = { isError: false, errorMessage: '' };
+    // this.aduanaDocumentoAdjuntoService.ConsultarPorAduanaId(this.code).subscribe((res: any) => {
+    //   this.spinner.hide();
+    //   if (res.Result.Success) {
+    //     this.rows = res.Result.Data;
+    //   } else {
+    //     this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+    //   }
+    // }, (err: any) => {
+    //   console.log(err);
+    //   this.spinner.hide();
+    //   this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
+    // });
   }
 
   LoadFormAddFiles(): void {
