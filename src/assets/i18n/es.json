@@ -150,6 +150,12 @@
 			"Label": "Solicitud de Compra"
 		}
 	},
+	"Solicitudes": {
+		"Label": "Solicitudes",
+		"MateriaPrima": {
+			"Label": "Materia Prima"
+		}
+	},
 	"CONTRATO": {
 		"LIST": {
 			"Title": "BANDEJA DE CONTRATOS",

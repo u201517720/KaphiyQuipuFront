@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -37,8 +37,8 @@ export class MateriaprimaComponent implements OnInit {
 
   LoadForm() {
     this.frmSolicitudesMateriaPrima = this.fb.group({
-      fechaInicio: [],
-      fechaFin: []
+      fechaInicio: [, Validators.required],
+      fechaFin: [, Validators.required]
     });
 
     this.frmSolicitudesMateriaPrima.controls.fechaInicio.setValue(this.dateUtil.currentMonthAgo());

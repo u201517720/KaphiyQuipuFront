@@ -60,7 +60,8 @@ export class ContratoComponent implements OnInit {
       FechaInicio: this.frmContratoCompraVenta.value.fechaInicial,
       FechaFin: this.frmContratoCompraVenta.value.fechaFinal,
       RolId: this.userSession.RolId,
-      CodigoDistribuidor: this.userSession.CodigoCliente
+      CodigoDistribuidor: this.userSession.CodigoCliente,
+      UserId: this.userSession.IdUsuario
     };
     return request;
   }

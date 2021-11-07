@@ -76,5 +76,10 @@ export class ContratoService {
     const url = `${this.url}/Agricultores`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  RegistrarControlCalidad(request: any): Observable<any> {
+    const url = `${this.url}/ControlCalidad`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
 

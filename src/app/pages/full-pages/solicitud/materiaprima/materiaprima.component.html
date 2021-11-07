@@ -29,7 +29,8 @@
 
                             <small class="form-text text-muted danger mb-1"
                                 *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
-                            <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()">Buscar</button>
+                            <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()"
+                                [disabled]="frmSolicitudesMateriaPrima.invalid">Buscar</button>
                         </form>
                     </div>
                 </div>
@@ -60,10 +61,9 @@
                                 </select>
                                 filas</label>
                         </fieldset>
-                        <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'"
-                            [headerHeight]="50" [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows"
-                            [scrollbarH]="true">
-                            <ngx-datatable-column name="Solicitante" prop="RazonSocial" width="130">
+                        <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows" [scrollbarH]="true">
+                            <ngx-datatable-column name="Solicitante" prop="RazonSocial">
                                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                                     <div class="d-flex align-items-center">
                                         <div class="cell-line-height">
@@ -74,15 +74,15 @@
                                     </div>
                                 </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="RUC Acopiador" prop="Ruc" width="100">
+                            <ngx-datatable-column name="RUC Acopiador" prop="Ruc">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Pero Por Saco" prop="PesoSaco" width="100">
+                            <ngx-datatable-column name="Pero Por Saco" prop="PesoSaco">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Cantidad Solicitada" prop="CantidadSolicitada" width="180">
+                            <ngx-datatable-column name="Cantidad Solicitada" prop="CantidadSolicitada">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Estado" prop="Estado" width="180">
+                            <ngx-datatable-column name="Estado" prop="Estado">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString" width="300">
+                            <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString">
                             </ngx-datatable-column>
                         </ngx-datatable>
                     </div>

@@ -36,6 +36,8 @@ export class ContratoEditComponent implements OnInit {
   listGradosPreparacion: any[];
   listCertificaciones: any[];
   listCalidad: any[];
+  listOlores: any[];
+  listColores: any[];
   selectedPais: any;
   selectedCiudad: any;
   selectedMoneda: any;
@@ -52,8 +54,13 @@ export class ContratoEditComponent implements OnInit {
   rows = [];
   selectedAgricultores = [];
   locId = 0;
-  locCodigoEstado;
+  locCodigoEstado = '';
   locFechaRegistroString;
+  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistema.';
+  listaControlesCalidad = [];
+  oloresSels = [];
+  coloresSels = [];
+  detalleControlesCalidad = [];
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -73,7 +80,6 @@ export class ContratoEditComponent implements OnInit {
     if (this.locId > 0) {
       this.ConsultarPorId();
       this.frmTitle = 'DETALLE DEL CONTRATO ';
-
     }
   }
 
@@ -101,8 +107,6 @@ export class ContratoEditComponent implements OnInit {
       observaciones: [],
       costoUnitario: [],
       costoTotal: [],
-      porcHumedadAF: [],
-      observacionesAF: [],
       sacosPC: [],
       kilosBrutosPC: [],
       taraSacoPC: [],
@@ -122,7 +126,8 @@ export class ContratoEditComponent implements OnInit {
       fechaRegistro: [],
       estado: [],
       correlativo: [],
-      sumaCosechaSeleccionada: []
+      sumaCosechaSeleccionada: [],
+      responsable: []
     });
   }
 
@@ -238,6 +243,22 @@ export class ContratoEditComponent implements OnInit {
     const res = await this.maestroService.obtenerMaestros('TipoCertificacion').toPromise();
     if (res.Result.Success) {
       this.listCertificaciones = res.Result.Data;
+    }
+  }
+
+  async GetOlores() {
+    this.listOlores = [];
+    const res = await this.maestroService.obtenerMaestros('Olor').toPromise();
+    if (res.Result.Success) {
+      this.listOlores = res.Result.Data;
+    }
+  }
+
+  async GetColores() {
+    this.listColores = [];
+    const res = await this.maestroService.obtenerMaestros('Color').toPromise();
+    if (res.Result.Success) {
+      this.listColores = res.Result.Data;
     }
   }
 
@@ -381,6 +402,11 @@ export class ContratoEditComponent implements OnInit {
       if (data.Observaciones) {
         this.frmContratoCompraVenta.controls.observaciones.setValue(data.Observaciones);
       }
+
+      if (data.Responsable) {
+        this.frmContratoCompraVenta.controls.responsable.setValue(data.Responsable);
+      }
+      
       this.frmContratoCompraVenta.controls.fechaRegistro.setValue(data.FechaRegistro);
       this.frmContratoCompraVenta.controls.distribuidora.setValue(data.Distribuidor);
       this.frmContratoCompraVenta.controls.estado.setValue(data.DescripcionEstado);
@@ -389,6 +415,11 @@ export class ContratoEditComponent implements OnInit {
       this.locFechaRegistroString = data.FechaRegistroString;
       this.CalcularCostoTotal();
       this.ActualizarListaAgricultores();
+      if (parseInt(this.locCodigoEstado) >= 5) {
+        this.GetOlores();
+        this.GetColores();
+      }
+      this.detalleControlesCalidad = data.controles;
     }
     this.spinner.hide();
   }
@@ -491,8 +522,12 @@ export class ContratoEditComponent implements OnInit {
         '¿Está seguro de solicitar la materia prima a los agricultores seleccionados?', () => {
           this.GuardarAgricultores();
         });
-    } else if (this.locCodigoEstado === '06') {
-
+    } else if (this.locCodigoEstado === '05' && this.userSession.RolId === 9) {
+      this.alertUtil.alertSiNoCallback('Confirmación',
+        '¿Está seguro de guardar los datos ingresados para el control de calidad?',
+        () => {
+          this.GuardarControlCalidad();
+        });
     }
   }
 
@@ -555,10 +590,97 @@ export class ContratoEditComponent implements OnInit {
         this.spinner.hide();
         if (res.Result.Success) {
           this.rows = res.Result.Data;
+          if (parseInt(this.locCodigoEstado) === 5) {
+            this.detalleControlesCalidad = this.rows;
+            this.rows.forEach(x => {
+              this.listaControlesCalidad.push({
+                ContratoSocioFincaId: x.ContratoSocioFincaId,
+                Humedad: 0,
+                Observaciones: '',
+                ListaOlores: '',
+                ListaColores: '',
+                UsuarioCreacion: this.userSession.NombreUsuario,
+                Agricultor: x.NombreCompleto
+              });
+            });
+          }
         }
       }, (err) => {
         console.log(err);
         this.spinner.hide();
       });
+  }
+
+  GuardarControlCalidad() {
+    const valHumedad = this.listaControlesCalidad.filter(x => x.Humedad <= 0);
+    const valOlores = this.listaControlesCalidad.filter(x => x.ListaOlores === '');
+    const valColores = this.listaControlesCalidad.filter(x => x.ListaColores === '');
+    if (valHumedad.length > 0) {
+      this.alertUtil.alertWarning('Validación', `Ingresar la humedad del agricultor ${valHumedad[0].Agricultor}.`);
+      return;
+    } else if (valOlores.length > 0) {
+      this.alertUtil.alertWarning('Validación', `Seleccionar los olores del agricultor ${valOlores[0].Agricultor}.`);
+      return;
+    } else if (valColores.length > 0) {
+      this.alertUtil.alertWarning('Validación', `Seleccionar los colores del agricultor ${valColores[0].Agricultor}.`);
+      return;
+    }
+    this.spinner.show();
+    const request = {
+      controles: this.listaControlesCalidad
+    }
+    this.contratoService.RegistrarControlCalidad(request)
+      .subscribe((res) => {
+        this.spinner.hide();
+        if (res) {
+          if (res.Result.Success) {
+            this.alertUtil.alertOkCallback('Confirmación',
+              'Se ha registrado el control de calidad realizado a la materia prima de los agricultores.',
+              () => {
+                this.ConsultarPorId();
+              });
+          }
+        }
+      }, (err) => {
+        console.log(err);
+        this.spinner.hide();
+        this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+      })
+  }
+
+  changeOlores(e, id) {
+    if (e.currentTarget.checked) {
+      this.oloresSels.push(e.currentTarget.value);
+    } else {
+      this.oloresSels.splice(this.oloresSels.indexOf(e.currentTarget.value), 1);
+    }
+
+    this.listaControlesCalidad.forEach(x => {
+      if (x.ContratoSocioFincaId === id) {
+        x.ListaOlores = this.oloresSels.join(',');
+      }
+    });
+  }
+
+  changeColores(e, id) {
+    if (e.currentTarget.checked) {
+      this.coloresSels.push(e.currentTarget.value);
+    } else {
+      this.coloresSels.splice(this.coloresSels.indexOf(e.currentTarget.value), 1);
+    }
+    this.listaControlesCalidad.forEach(x => {
+      if (x.ContratoSocioFincaId === id) {
+        x.ListaColores = this.coloresSels.join(',');
+      }
+    });
+  }
+
+  changeValorCalidad(e, id, tipo) {
+    this.listaControlesCalidad.forEach(x => {
+      if (x.ContratoSocioFincaId === id) {
+        x.Humedad = tipo === 'hmd' ? parseFloat(e.currentTarget.value) : x.Humedad;
+        x.Observaciones = tipo === 'obs' ? e.currentTarget.value : x.Observaciones;
+      }
+    });
   }
 }
