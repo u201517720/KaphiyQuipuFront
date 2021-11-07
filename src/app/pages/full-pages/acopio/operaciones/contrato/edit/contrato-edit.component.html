@@ -391,7 +391,7 @@
                                                             HUMEDAD</label>
                                                         <div class="col-lg-8">
                                                             <input type="number" name="porcHumedadAF" id="porcHumedadAF"
-                                                                class="form-control" placeholder="Porcentaje de humedad"
+                                                                class="form-control form-control-sm" placeholder="Porcentaje de humedad"
                                                                 [readonly]="locCodigoEstado === '06'"
                                                                 [value]="item.Humedad"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
@@ -405,7 +405,7 @@
                                                         <label for="observacionesAF"
                                                             class="col-lg-4 col-form-label font-weight-bold">OBSERVACIONES</label>
                                                         <div class="col-lg-8">
-                                                            <textarea class="form-control" id="observacionesAF" rows="2"
+                                                            <textarea class="form-control form-control-sm" id="observacionesAF" rows="2"
                                                                 placeholder="Observaciones" maxlength="500"
                                                                 [readonly]="locCodigoEstado === '06'"
                                                                 [value]="item.Observaciones"
@@ -491,7 +491,7 @@
                                         <div class="col-lg-2 col-md-1"></div>
                                         <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                                             <div class="row">
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             <h6 class="text-center">PESADO DEL CAFÉ</h6>
@@ -500,7 +500,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             <div class="table-responsive">
-                                                                <table class="table table-borderless">
+                                                                <table class="table table-borderless table-sm">
                                                                     <tbody>
                                                                         <tr>
                                                                             <td>
@@ -510,7 +510,7 @@
                                                                                 <input type="number" name="sacosPC"
                                                                                     id="sacosPC"
                                                                                     formControlName="sacosPC"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control form-control-sm text-right"
                                                                                     placeholder="Sacos"
                                                                                     [ngClass]="{ 'is-invalid': f.sacosPC.invalid, 'is-valid': !f.sacosPC.invalid }">
                                                                             </td>
@@ -524,7 +524,7 @@
                                                                                     name="kilosBrutosPC"
                                                                                     id="kilosBrutosPC"
                                                                                     formControlName="kilosBrutosPC"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     placeholder="Kilos brutos"
                                                                                     [ngClass]="{ 'is-invalid': f.kilosBrutosPC.invalid, 'is-valid': !f.kilosBrutosPC.invalid }">
                                                                             </td>
@@ -537,7 +537,7 @@
                                                                                 <input type="number" name="taraSacoPC"
                                                                                     id="taraSacoPC"
                                                                                     formControlName="taraSacoPC"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     placeholder="Tara de saco"
                                                                                     [ngClass]="{ 'is-invalid': f.taraSacoPC.invalid, 'is-valid': !f.taraSacoPC.invalid }">
                                                                             </td>
@@ -550,7 +550,7 @@
                                                                                 <input type="number" name="kilosNetosPC"
                                                                                     id="kilosNetosPC"
                                                                                     formControlName="kilosNetosPC"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     placeholder="Kilos netos"
                                                                                     [ngClass]="{ 'is-invalid': f.kilosNetosPC.invalid, 'is-valid': !f.kilosNetosPC.invalid }">
                                                                             </td>
@@ -563,7 +563,7 @@
                                                                                 <input type="number" name="qq55KgPC"
                                                                                     id="qq55KgPC"
                                                                                     formControlName="qq55KgPC"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     placeholder="QQ55,2/Kg"
                                                                                     [ngClass]="{ 'is-invalid': f.qq55KgPC.invalid, 'is-valid': !f.qq55KgPC.invalid }">
                                                                             </td>
@@ -574,7 +574,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                                                     <div class="row">
                                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                             <h6 class="text-center">ANÁLISIS FÍSICO DEL CAFÉ</h6>
@@ -583,7 +583,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                             <div class="table-responsive">
-                                                                <table class="table table-borderless">
+                                                                <table class="table table-borderless table-sm">
                                                                     <thead>
                                                                         <th class="text-center">Detalle</th>
                                                                         <th class="text-center">Gramos</th>
@@ -599,7 +599,7 @@
                                                                                     name="cafeExportacionGramos"
                                                                                     id="cafeExportacionGramos"
                                                                                     formControlName="cafeExportacionGramos"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': f.cafeExportacionGramos.invalid, 'is-valid': !f.cafeExportacionGramos.invalid }">
                                                                             </td>
                                                                             <td>
@@ -607,7 +607,7 @@
                                                                                     name="cafeExportacionPorc"
                                                                                     id="cafeExportacionPorc"
                                                                                     formControlName="cafeExportacionPorc"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': f.cafeExportacionPorc.invalid, 'is-valid': !f.cafeExportacionPorc.invalid }">
                                                                             </td>
                                                                         </tr>
@@ -620,7 +620,7 @@
                                                                                     name="descarteGramos"
                                                                                     id="descarteGramos"
                                                                                     formControlName="descarteGramos"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': f.descarteGramos.invalid, 'is-valid': !f.descarteGramos.invalid }">
                                                                             </td>
                                                                             <td>
@@ -628,7 +628,7 @@
                                                                                     name="descartePorcentaje"
                                                                                     id="descartePorcentaje"
                                                                                     formControlName="descartePorcentaje"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': f.descartePorcentaje.invalid, 'is-valid': !f.descartePorcentaje.invalid }">
                                                                             </td>
                                                                         </tr>
@@ -641,7 +641,7 @@
                                                                                     name="cascaraGramos"
                                                                                     id="cascaraGramos"
                                                                                     formControlName="cascaraGramos"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': f.cascaraGramos.invalid, 'is-valid': !f.cascaraGramos.invalid }">
                                                                             </td>
                                                                             <td>
@@ -649,7 +649,7 @@
                                                                                     name="cascaraPorcentaje"
                                                                                     id="cascaraPorcentaje"
                                                                                     formControlName="cascaraPorcentaje"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': f.cascaraPorcentaje.invalid, 'is-valid': !f.cascaraPorcentaje.invalid }">
                                                                             </td>
                                                                         </tr>
@@ -661,7 +661,7 @@
                                                                                 <input type="number" name="totalGramos"
                                                                                     id="totalGramos"
                                                                                     formControlName="totalGramos"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': f.totalGramos.invalid, 'is-valid': !f.totalGramos.invalid }">
                                                                             </td>
                                                                             <td>
@@ -669,7 +669,7 @@
                                                                                     name="totalPorcentaje"
                                                                                     id="totalPorcentaje"
                                                                                     formControlName="totalPorcentaje"
-                                                                                    class="form-control text-right"
+                                                                                    class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': f.totalPorcentaje.invalid, 'is-valid': !f.totalPorcentaje.invalid }">
                                                                             </td>
                                                                         </tr>
@@ -687,7 +687,7 @@
                                                                     <input type="number" name="humedadProcenPC"
                                                                         id="humedadProcenPC"
                                                                         formControlName="humedadProcenPC"
-                                                                        class="form-control text-right"
+                                                                        class="form-control text-right form-control-sm"
                                                                         placeholder="Humedad %"
                                                                         [ngClass]="{ 'is-invalid': f.humedadProcenPC.invalid, 'is-valid': !f.humedadProcenPC.invalid }">
                                                                 </div>
@@ -702,7 +702,7 @@
                                                         <label for="observacionesPC"
                                                             class="col-lg-4 col-form-label">OBSERVACIONES</label>
                                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                            <textarea class="form-control" id="observacionesPC"
+                                                            <textarea class="form-control form-control-sm" id="observacionesPC"
                                                                 formControlName="observacionesPC" rows="4"
                                                                 placeholder="observacionesPC" maxlength="500"
                                                                 [ngClass]="{ 'is-invalid': f.observacionesPC.invalid, 'is-valid': !f.observacionesPC.invalid }"></textarea>
