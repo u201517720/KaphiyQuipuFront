@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
 import { ContratoComponent } from './operaciones/contrato/contrato.component';
 import { ContratoEditComponent } from './operaciones/contrato/edit/contrato-edit.component';
+import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
+import { GuiaRecepcionEditComponent } from './operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,13 @@ const routes: Routes = [
         component: GuiaRecepcionComponent,
         data: {
           title: 'Guías de Recepción'
+        }
+      },
+      {
+        path: 'guiarecepcion/update/:id',
+        component: GuiaRecepcionEditComponent,
+        data: {
+          title: 'Detalle Guía Recepción'
         }
       },
       {

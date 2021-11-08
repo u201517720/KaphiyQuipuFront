@@ -25,12 +25,13 @@
                                         [ngClass]="{ 'is-invalid': f.fechaFin.invalid, 'is-valid': !f.fechaFin.invalid }"
                                         (blur)="compareTwoDates()" />
                                 </div>
-                                <small class="form-text text-muted danger"
-                                    *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
                             </div>
-
+                            <small class="form-text text-muted danger font-weight-bolder"
+                                *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
                             <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()"
                                 [disabled]="frmListGuiaRecepcion.invalid">Buscar</button>
+                            <button class="btn btn-primary mr-1 mb-1" type="button" (click)="EnviarAlmacen()"
+                                [disabled]="selected.length <= 0">Enviar Almacén</button>
                         </form>
                     </div>
                 </div>
@@ -62,32 +63,38 @@
                                 filas</label>
                         </fieldset>
                         <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
-                            [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
-                            [selected]="selected" [selectionType]="'single'">
-                            <ngx-datatable-column name="Numero" prop="Numero" width="120">
+                            [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
+                            [selected]="selected" [selectionType]="'single'" [selectCheck]="onSelectCheck">
+                            <ngx-datatable-column name="Nro Guia Recepción" prop="Correlativo">
                                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                                     <div class="d-flex align-items-center">
                                         <div class="cell-line-height">
-                                            <a class="line-height-1 mb-0" routerLink="/operaciones/guiarecepcion/update"
-                                                [queryParams]="{ id: row.ID}">{{
+                                            <a class="line-height-1 mb-0"
+                                                [routerLink]="['/acopio/operaciones/guiarecepcion/update', row.GuiaRecepcionId]">{{
                                                 name }}</a>
                                         </div>
                                     </div>
                                 </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Distribuidora" prop="CodigoSocio" width="120">
+                            <ngx-datatable-column name="Nro. Contrato" prop="CorrelativoContrato">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Producto" prop="TipoDocumento" width="150">
+                            <ngx-datatable-column name="Distribuidora" prop="RazonSocial">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Unidad de Medida" prop="NumeroDocumento" width="170">
+                            <ngx-datatable-column name="Total Sacos" prop="TotalSacos">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Cantidad" prop="NombreRazonSocial" width="250">
+                            <ngx-datatable-column name="Peso por Saco" prop="PesoSaco">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Kilos Brutos" prop="Producto" width="200">
+                            <ngx-datatable-column name="Calidad" prop="Calidad">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroCadena" width="120">
+                            <ngx-datatable-column name="Certificación" prop="Certificacion">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Usuario Registro" prop="FechaRegistroCadena" width="120">
+                            <ngx-datatable-column name="Estado" prop="Estado">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Hash Blokchain" prop="HashBC">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Fecha Registro" prop="FechaRegistro">
                             </ngx-datatable-column>
                         </ngx-datatable>
                     </div>

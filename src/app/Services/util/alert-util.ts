@@ -53,9 +53,9 @@ export class AlertUtil {
       confirmButtonText: 'Si',
       cancelButtonText: 'No'
     }).then((result) => {
-
-      callback(result); // this should execute now
-
+      if (result.value) {
+        callback(result); // this should execute now
+      }
     })
   }
 

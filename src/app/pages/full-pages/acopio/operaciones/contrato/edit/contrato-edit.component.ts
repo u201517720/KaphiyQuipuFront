@@ -10,6 +10,7 @@ import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { ContratoService } from '../../../../../../services/contrato.service';
 import { AgricultorService } from '../../../../../../services/agricultor.service';
 import { TransactionReponse } from '../../../../../../services/models/transaction-response';
+import { GuiarecepcionacopioService } from '../../../../../../services/guiarecepcionacopio.service';
 
 @Component({
   selector: 'app-contrato-edit',
@@ -21,6 +22,7 @@ export class ContratoEditComponent implements OnInit {
 
   active = 1;
   frmContratoCompraVenta: FormGroup;
+  // frmContratoCompraVentaPesadoCafe: FormGroup;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   frmTitle = 'DETALLE DEL CONTRATO';
   limitRef = 50;
@@ -61,6 +63,7 @@ export class ContratoEditComponent implements OnInit {
   oloresSels = [];
   coloresSels = [];
   detalleControlesCalidad = [];
+  submittedPesadoCafe = false;
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -70,7 +73,8 @@ export class ContratoEditComponent implements OnInit {
     private route: ActivatedRoute,
     private alertUtil: AlertUtil,
     private contratoService: ContratoService,
-    private agricultorService: AgricultorService) {
+    private agricultorService: AgricultorService,
+    private guiarecepcionacopioService: GuiarecepcionacopioService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
@@ -107,6 +111,12 @@ export class ContratoEditComponent implements OnInit {
       observaciones: [],
       costoUnitario: [],
       costoTotal: [],
+      distribuidora: [],
+      fechaRegistro: [],
+      estado: [],
+      correlativo: [],
+      sumaCosechaSeleccionada: [],
+      responsable: [],
       sacosPC: [],
       kilosBrutosPC: [],
       taraSacoPC: [],
@@ -121,15 +131,29 @@ export class ContratoEditComponent implements OnInit {
       totalGramos: [],
       totalPorcentaje: [],
       humedadProcenPC: [],
-      observacionesPC: [],
-      distribuidora: [],
-      fechaRegistro: [],
-      estado: [],
-      correlativo: [],
-      sumaCosechaSeleccionada: [],
-      responsable: []
+      observacionesPC: []
     });
   }
+
+  // async LoadFormPesadoCafe() {
+  //   this.frmContratoCompraVentaPesadoCafe = this.fb.group({
+  //     sacosPC: [, Validators.required],
+  //     kilosBrutosPC: [, Validators.required],
+  //     taraSacoPC: [, Validators.required],
+  //     kilosNetosPC: [, Validators.required],
+  //     qq55KgPC: [, Validators.required],
+  //     cafeExportacionGramos: [, Validators.required],
+  //     cafeExportacionPorc: [, Validators.required],
+  //     descarteGramos: [, Validators.required],
+  //     descartePorcentaje: [, Validators.required],
+  //     cascaraGramos: [, Validators.required],
+  //     cascaraPorcentaje: [, Validators.required],
+  //     totalGramos: [, Validators.required],
+  //     totalPorcentaje: [, Validators.required],
+  //     humedadProcenPC: [, Validators.required],
+  //     observacionesPC: []
+  //   });
+  // }
 
   LoadCombos() {
     if (!this.locId) {
@@ -150,6 +174,9 @@ export class ContratoEditComponent implements OnInit {
     return this.frmContratoCompraVenta.controls;
   }
 
+  // get fpc() {
+  //   return this.frmContratoCompraVentaPesadoCafe.controls;
+  // }
 
   async GetCountries() {
     this.listPaises = [];
@@ -406,7 +433,7 @@ export class ContratoEditComponent implements OnInit {
       if (data.Responsable) {
         this.frmContratoCompraVenta.controls.responsable.setValue(data.Responsable);
       }
-      
+
       this.frmContratoCompraVenta.controls.fechaRegistro.setValue(data.FechaRegistro);
       this.frmContratoCompraVenta.controls.distribuidora.setValue(data.Distribuidor);
       this.frmContratoCompraVenta.controls.estado.setValue(data.DescripcionEstado);
@@ -420,6 +447,55 @@ export class ContratoEditComponent implements OnInit {
         this.GetColores();
       }
       this.detalleControlesCalidad = data.controles;
+      if (this.locCodigoEstado === '06') {
+        // await this.LoadFormPesadoCafe();
+        const locsacosPC = this.frmContratoCompraVenta.controls.sacosPC;
+        const lockilosBrutosPC = this.frmContratoCompraVenta.controls.kilosBrutosPC;
+        const loctaraSacoPC = this.frmContratoCompraVenta.controls.taraSacoPC;
+        const lockilosNetosPC = this.frmContratoCompraVenta.controls.kilosNetosPC;
+        const locqq55KgPC = this.frmContratoCompraVenta.controls.qq55KgPC;
+        const loccafeExportacionGramos = this.frmContratoCompraVenta.controls.cafeExportacionGramos;
+        const loccafeExportacionPorc = this.frmContratoCompraVenta.controls.cafeExportacionPorc;
+        const locdescarteGramos = this.frmContratoCompraVenta.controls.descarteGramos;
+        const locdescartePorcentaje = this.frmContratoCompraVenta.controls.descartePorcentaje;
+        const loccascaraGramos = this.frmContratoCompraVenta.controls.cascaraGramos;
+        const loccascaraPorcentaje = this.frmContratoCompraVenta.controls.cascaraPorcentaje;
+        const loctotalGramos = this.frmContratoCompraVenta.controls.totalGramos;
+        const loctotalPorcentaje = this.frmContratoCompraVenta.controls.totalPorcentaje;
+        const lochumedadProcenPC = this.frmContratoCompraVenta.controls.humedadProcenPC;
+
+        locsacosPC.setValidators(Validators.required);
+        lockilosBrutosPC.setValidators(Validators.required);
+        loctaraSacoPC.setValidators(Validators.required);
+        lockilosNetosPC.setValidators(Validators.required);
+        locqq55KgPC.setValidators(Validators.required);
+        loccafeExportacionGramos.setValidators(Validators.required);
+        loccafeExportacionPorc.setValidators(Validators.required);
+        locdescarteGramos.setValidators(Validators.required);
+        locdescartePorcentaje.setValidators(Validators.required);
+        loccascaraGramos.setValidators(Validators.required);
+        loccascaraPorcentaje.setValidators(Validators.required);
+        loctotalGramos.setValidators(Validators.required);
+        loctotalPorcentaje.setValidators(Validators.required);
+        lochumedadProcenPC.setValidators(Validators.required);
+        locsacosPC.updateValueAndValidity();
+        lockilosBrutosPC.updateValueAndValidity();
+        loctaraSacoPC.updateValueAndValidity();
+        lockilosNetosPC.updateValueAndValidity();
+        locqq55KgPC.updateValueAndValidity();
+        loccafeExportacionGramos.updateValueAndValidity();
+        loccafeExportacionPorc.updateValueAndValidity();
+        locdescarteGramos.updateValueAndValidity();
+        locdescartePorcentaje.updateValueAndValidity();
+        loccascaraGramos.updateValueAndValidity();
+        loccascaraPorcentaje.updateValueAndValidity();
+        loctotalGramos.updateValueAndValidity();
+        loctotalPorcentaje.updateValueAndValidity();
+        lochumedadProcenPC.updateValueAndValidity();
+
+        this.frmContratoCompraVenta.controls.sacosPC.setValue(data.TotalSacos);
+        this.frmContratoCompraVenta.controls.kilosBrutosPC.setValue(data.PesoKilos);
+      }
     }
     this.spinner.hide();
   }
@@ -682,5 +758,128 @@ export class ContratoEditComponent implements OnInit {
         x.Observaciones = tipo === 'obs' ? e.currentTarget.value : x.Observaciones;
       }
     });
+  }
+
+  GuardarPesadoCafe() {
+    if (this.userSession.RolId === 7 && this.locCodigoEstado === '06') {
+      this.submittedPesadoCafe = false;
+      this.spinner.show();
+      const request = {
+        ContratoId: this.locId,
+        SacosPC: this.frmContratoCompraVenta.value.sacosPC,
+        KilosBrutosPC: this.frmContratoCompraVenta.value.kilosBrutosPC,
+        TaraSacoPC: this.frmContratoCompraVenta.value.taraSacoPC,
+        KilosNetos: this.frmContratoCompraVenta.value.kilosNetosPC,
+        QQ55KG: this.frmContratoCompraVenta.value.qq55KgPC,
+        CafeExportacionGramosAFC: this.frmContratoCompraVenta.value.cafeExportacionGramos,
+        CafeExportacionPorcAFC: this.frmContratoCompraVenta.value.cafeExportacionPorc,
+        DescarteGramosAFC: this.frmContratoCompraVenta.value.descarteGramos,
+        DescartePorcAFC: this.frmContratoCompraVenta.value.descartePorcentaje,
+        CascaraGramosAFC: this.frmContratoCompraVenta.value.cascaraGramos,
+        CascaraPorcAFC: this.frmContratoCompraVenta.value.cascaraPorcentaje,
+        TotalGramosAFC: this.frmContratoCompraVenta.value.totalGramos,
+        TotalPorcAFC: this.frmContratoCompraVenta.value.totalPorcentaje,
+        Humedad: this.frmContratoCompraVenta.value.humedadProcenPC,
+        Observaciones: this.frmContratoCompraVenta.value.observacionesPC,
+        UsuarioRegistro: this.userSession.NombreUsuario,
+      }
+      this.guiarecepcionacopioService.Save(request)
+        .subscribe((res) => {
+          this.spinner.hide();
+          if (res) {
+            if (res.Result.Success) {
+              if (res.Result.Message) {
+                this.alertUtil.alertError('ERROR', res.Result.Message);
+              } else {
+                this.alertUtil.alertOkCallback('Confirmación',
+                  `Se ha generado guía de recepción ${res.Result.Data}`,
+                  () => {
+                    this.Cancelar();
+                  });
+              }
+            } else {
+              this.alertUtil.alertError('ERROR', res.Result.Message);
+            }
+          } else {
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+          }
+        }, (err) => {
+          console.log(err);
+          this.spinner.hide();
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+        })
+    }
+  }
+
+  GenerarGuiaRecepcion() {
+    if (this.userSession.RolId === 7 && this.locCodigoEstado === '06') {
+      this.submittedPesadoCafe = false;
+      if (!this.frmContratoCompraVenta.invalid) {
+        this.alertUtil.alertSiNoCallback('Confirmación',
+          '¿Está seguro de generar guía de recepción?',
+          () => {
+            this.GuardarPesadoCafe();
+          });
+      } else {
+        this.submittedPesadoCafe = true;
+      }
+    }
+  }
+
+  CalcularAnalisisFisico() {
+    const locCafeExport = this.frmContratoCompraVenta.value.cafeExportacionGramos ? this.frmContratoCompraVenta.value.cafeExportacionGramos : 0;
+    const locDescarte = this.frmContratoCompraVenta.value.descarteGramos ? this.frmContratoCompraVenta.value.descarteGramos : 0;
+    const locCascara = this.frmContratoCompraVenta.value.cascaraGramos ? this.frmContratoCompraVenta.value.cascaraGramos : 0;
+    const suma = locCafeExport + locDescarte + locCascara;
+    if (suma) {
+      this.frmContratoCompraVenta.controls.totalGramos.setValue(suma);
+    }
+
+    let loccafeExportacionPorc = 0, locdescartePorcentaje = 0, loccascaraPorcentaje = 0;
+
+    if (locCafeExport && suma) {
+      loccafeExportacionPorc = ((locCafeExport * 100) / suma);
+    }
+
+    if (locDescarte && suma) {
+      locdescartePorcentaje = ((locDescarte * 100) / suma);
+    }
+
+    if (locCascara && suma) {
+      loccascaraPorcentaje = ((locCascara * 100) / suma);
+    }
+
+    if (loccafeExportacionPorc) {
+      this.frmContratoCompraVenta.controls.cafeExportacionPorc.setValue(loccafeExportacionPorc);
+    } else {
+      this.frmContratoCompraVenta.controls.cafeExportacionPorc.reset();
+    }
+    if (locdescartePorcentaje) {
+      this.frmContratoCompraVenta.controls.descartePorcentaje.setValue(locdescartePorcentaje);
+    } else {
+      this.frmContratoCompraVenta.controls.descartePorcentaje.reset();
+    }
+    if (loccascaraPorcentaje) {
+      this.frmContratoCompraVenta.controls.cascaraPorcentaje.setValue(loccascaraPorcentaje);
+    } else {
+      this.frmContratoCompraVenta.controls.cascaraPorcentaje.reset();
+    }
+
+    const locCafeExpoPorc = this.frmContratoCompraVenta.value.cafeExportacionPorc ?? 0;
+    const locDescPorcen = this.frmContratoCompraVenta.value.descartePorcentaje ?? 0;
+    const locCascaraPorc = this.frmContratoCompraVenta.value.cascaraPorcentaje ?? 0;
+
+    const suma2 = locCafeExpoPorc + locDescPorcen + locCascaraPorc;
+    if (suma2) {
+      this.frmContratoCompraVenta.controls.totalPorcentaje.setValue(suma2);
+    }
+  }
+
+  CalcularPesadoCafe() {
+    const loCKilosBrutos = this.frmContratoCompraVenta.value.kilosBrutosPC ? this.frmContratoCompraVenta.value.kilosBrutosPC : 0;
+    const locTaraSaco = this.frmContratoCompraVenta.value.taraSacoPC ? this.frmContratoCompraVenta.value.taraSacoPC : 0;
+    if (loCKilosBrutos && locTaraSaco) {
+      this.frmContratoCompraVenta.controls.kilosNetosPC.setValue(loCKilosBrutos - locTaraSaco);
+    }
   }
 }

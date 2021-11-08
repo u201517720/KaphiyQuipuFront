@@ -1,1 +1,769 @@
-<p>guia-recepcion-edit works!</p>
+<!-- <form class="needs-validation" [formGroup]="frmGuiaRecepcionDetalle" novalidate>
+    <div class="form-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card mt-0">
+                <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
+                    {{frmTitle}}{{frmGuiaRecepcionDetalle.value.correlativo}}
+                </h5>
+                <div class="card-body">
+                    <div class="form-row"
+                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                            <div class="form-group row">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">FECHA REGISTRO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">{{locFechaRegistroString}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row"
+                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-2 col-form-label pr-0">DISTRIBUIDORA</label>
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <label class="col-form-label">{{frmGuiaRecepcionDetalle.value.distribuidora}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">ESTADO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">{{frmGuiaRecepcionDetalle.value.estado}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                        <label class="text-white ml-1">DATOS GENERALES</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-2 col-form-label pr-0">DESTINO</label>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <ng-select [items]="listPaises" formControlName="pais" class="form-control"
+                                        bindLabel="Descripcion" bindValue="Codigo" id="pais" placeholder="País"
+                                        [ngClass]="{ 'is-invalid': f.pais.invalid, 'is-valid': !f.pais.invalid }"
+                                        [(ngModel)]="selectedPais" (change)="onChangePais($event)" [readonly]="true">
+                                    </ng-select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <ng-select [items]="listCiudades" formControlName="ciudad" class="form-control"
+                                        bindLabel="Descripcion" bindValue="Codigo" id="ciudad" placeholder="Ciudad"
+                                        [ngClass]="{ 'is-invalid': f.ciudad.invalid, 'is-valid': !f.ciudad.invalid }"
+                                        [(ngModel)]="selectedCiudad" [readonly]="true">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="moneda" class="col-lg-4 col-form-label">MONEDA</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listMonedas" formControlName="moneda" class="form-control"
+                                        bindLabel="Label" bindValue="Codigo" id="moneda" placeholder="Moneda"
+                                        [ngClass]="{ 'is-invalid': f.moneda.invalid, 'is-valid': !f.moneda.invalid }"
+                                        [(ngModel)]="selectedMoneda" (change)="ChangeMoneda()" [readonly]="true">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="unidadMedida" class="col-lg-5 col-form-label pr-0">UNI.
+                                    MEDIDA</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <ng-select [items]="listUniMedida" formControlName="unidadMedida"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="unidadMedida"
+                                        placeholder="Unidad de medida" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.unidadMedida.invalid, 'is-valid': !f.unidadMedida.invalid }"
+                                        [(ngModel)]="selectedUniMedida">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="tipoProduccion" class="col-lg-4 col-form-label pr-0">TIPO DE
+                                    PRODUCCIÓN</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listTipoProduccion" formControlName="tipoProduccion"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="tipoProduccion"
+                                        placeholder="Tipo de producción" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.tipoProduccion.invalid, 'is-valid': !f.tipoProduccion.invalid }"
+                                        [(ngModel)]="selectedTipoProduccion">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="empaque" class="col-lg-4 col-form-label pr-0">EMPAQUE</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listEmpaques" formControlName="empaque" class="form-control"
+                                        bindLabel="Label" bindValue="Codigo" id="empaque" placeholder="Empaque"
+                                        [(ngModel)]="selectedEmpaque" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.empaque.invalid, 'is-valid': !f.empaque.invalid }">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="tipoEmpaque" class="col-lg-5 col-form-label pr-0">TIPO EMPAQUE</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <ng-select [items]="listTiposEmpaques" formControlName="tipoEmpaque"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="tipoEmpaque"
+                                        placeholder="Tipo Empaque" [(ngModel)]="selectedTipoEmpaque" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.tipoEmpaque.invalid, 'is-valid': !f.tipoEmpaque.invalid }">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="producto" class="col-lg-4 col-form-label">PRODUCTO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listProductos" formControlName="producto" class="form-control"
+                                        bindLabel="Label" bindValue="Codigo" id="producto" placeholder="Producto"
+                                        [ngClass]="{ 'is-invalid': f.producto.invalid, 'is-valid': !f.producto.invalid }"
+                                        [(ngModel)]="selectedProducto" (change)="ChangeProduct($event)"
+                                        [readonly]="true">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="subProducto" class="col-lg-4 col-form-label">SUB PRODUCTO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listSubProductos" formControlName="subProducto"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="subProducto"
+                                        placeholder="Sub Producto" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.subProducto.invalid, 'is-valid': !f.subProducto.invalid }"
+                                        [(ngModel)]="selectedSubProducto">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="gradoPreparacion" class="col-lg-5 col-form-label">GRADO PREPARACIÓN</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <ng-select [items]="listGradosPreparacion" formControlName="gradoPreparacion"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="gradoPreparacion"
+                                        placeholder="Grado Preparación" [(ngModel)]="selectedGradoPreparacion"
+                                        [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.gradoPreparacion.invalid, 'is-valid': !f.gradoPreparacion.invalid }">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="calidad" class="col-lg-4 col-form-label">CALIDAD</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listCalidad" formControlName="calidad" class="form-control"
+                                        bindLabel="Label" bindValue="Codigo" id="calidad" placeholder="Calidad"
+                                        [ngClass]="{ 'is-invalid': f.calidad.invalid, 'is-valid': !f.calidad.invalid }"
+                                        [(ngModel)]="selectedCalidad" [readonly]="true">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="certificacion" class="col-lg-4 col-form-label">CERTIFICACIÓN</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listCertificaciones" formControlName="certificacion"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="calidad"
+                                        placeholder="certificacion"
+                                        [ngClass]="{ 'is-invalid': f.certificacion.invalid, 'is-valid': !f.certificacion.invalid }"
+                                        [(ngModel)]="selectedCertificacion" [readonly]="true">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="cantASolicitar" class="col-lg-5 col-form-label pr-0">CANTIDAD A
+                                    SOLICITAR</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <input type="number" name="cantASolicitar" id="cantASolicitar"
+                                        formControlName="cantASolicitar" class="form-control text-right"
+                                        placeholder="Cantidad a solicitar" (blur)="CalcularPesoEnKilos()"
+                                        [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.cantASolicitar.invalid, 'is-valid': !f.cantASolicitar.invalid }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="pesoXSaco" class="col-lg-4 col-form-label">PESO POR SACO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" name="pesoXSaco" id="pesoXSaco" formControlName="pesoXSaco"
+                                        class="form-control text-right" placeholder="Peso por saco"
+                                        (blur)="CalcularPesoEnKilos()" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.pesoXSaco.invalid, 'is-valid': !f.pesoXSaco.invalid }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="pesoEnKilos" class="col-lg-4 col-form-label">PESO EN KILOS</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" name="pesoEnKilos" id="pesoEnKilos"
+                                        formControlName="pesoEnKilos" class="form-control text-right"
+                                        placeholder="Peso en kilos" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.pesoEnKilos.invalid, 'is-valid': !f.pesoEnKilos.invalid }">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="observaciones" class="col-lg-4 col-form-label">OBSERVACIONES</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <textarea class="form-control" id="observaciones" formControlName="observaciones"
+                                        rows="4" placeholder="Observaciones" maxlength="500"
+                                        [readonly]="locCodigoEstado === '03' || locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'"
+                                        [ngClass]="{ 'is-invalid': f.observaciones.invalid, 'is-valid': !f.observaciones.invalid }"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row" *ngIf="locId > 0">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="costoUnitario" class="col-lg-5 col-form-label">COSTO UNITARIO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <input type="number" name="costoUnitario" id="costoUnitario"
+                                        formControlName="costoUnitario" class="form-control text-right"
+                                        placeholder="Costo unitario" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.costoUnitario.invalid, 'is-valid': !f.costoUnitario.invalid }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="costoTotal" class="col-lg-4 col-form-label">COSTO TOTAL</label>
+                                <div class="col-lg-8">
+                                    <input type="number" name="costoTotal" id="costoTotal" formControlName="costoTotal"
+                                        class="form-control text-right" placeholder="Costo unitario" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.costoTotal.invalid, 'is-valid': !f.costoTotal.invalid }">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1"
+                        *ngIf="(userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9) && (locCodigoEstado === '03' || locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06')">
+                        <label class="text-white ml-1">SELECCIONAR AGRICULTORES</label>
+                    </div>
+                    <div class="form-row"
+                        *ngIf="(userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9) && (locCodigoEstado === '03' || locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06')">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <fieldset class="form-group">
+                                <label>Mostrar
+                                    <select name="users-list-select"
+                                        class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                                        (click)="updateLimit($event)">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    Filas</label>
+                                <button type="button" class="btn btn-sm float-right btn-primary"
+                                    (click)="ActualizarListaAgricultores()">Actualizar Lista</button>
+                            </fieldset>
+                            <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
+                                [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows"
+                                [scrollbarH]="true" [selected]="selectedAgricultores" [selectionType]="'checkbox'"
+                                (select)="onSelectAgricultores($event)" (activate)="onActivate($event)">
+                                <ngx-datatable-column name="Nombre" prop="NombreCompleto">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Tipo Documento" prop="TipoDocumento">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Número Documento" prop="NumeroDocumento">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Celular" prop="NumeroTelefonoCelular">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Finca" prop="Finca">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Certificación" prop="TipoCertificacion">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Total Cosecha" prop="TotalCosecha"
+                                    *ngIf="locCodigoEstado === '03'">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Cantidad Solicitada" prop="CantidadSolicitada"
+                                    *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString"
+                                    width="100" *ngIf="locCodigoEstado === '03'">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro"
+                                    *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroString"
+                                    *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
+                                    checkboxable="true" width="30" sortable="false"
+                                    *ngIf="userSession.RolId === 7 && locCodigoEstado === '03'">
+                                </ngx-datatable-column>
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                    <div class="form-row text-right" *ngIf="locCodigoEstado === '03'">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group row">
+                                <label for="sumaCosechaSeleccionada" class="col-lg-10 col-form-label">TOTAL</label>
+                                <div class="col-lg-2">
+                                    <input type="number" name="sumaCosechaSeleccionada" id="sumaCosechaSeleccionada"
+                                        formControlName="sumaCosechaSeleccionada" class="form-control text-right"
+                                        placeholder="Total de cosecha seleccionado" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': f.sumaCosechaSeleccionada.invalid, 'is-valid': !f.sumaCosechaSeleccionada.invalid }">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row"
+        *ngIf="(userSession.RolId === 9 || userSession.RolId === 8 || userSession.RolId === 7) && (locCodigoEstado === '05' || locCodigoEstado === '06')">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <ul ngbNav #nav="ngbNav" [activeId]="1" [destroyOnHide]="false"
+                            class="nav-pills justify-content-left">
+                            <li [ngbNavItem]="1" [destroyOnHide]="true">
+                                <a ngbNavLink class="nav-link d-flex align-items-center">
+                                    <span class="d-none d-sm-block" style="font-size: 1.1rem;">Control de Calidad</span>
+                                </a>
+                                <ng-template ngbNavContent>
+                                    <div class="row" *ngFor="let item of detalleControlesCalidad">
+                                        <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
+
+                                        <div
+                                            class="col-lg-6 col-md-8 col-sm-12 col-xs-12 mb-2 border border-primary rounded-lg">
+                                            <div class="row mb-2 mt-1">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <h4 class="text-center font-weight-bolder">ANÁLISIS FÍSICO</h4>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group row">
+                                                        <label for="observacionesAF"
+                                                            class="col-lg-4 col-form-label font-weight-bold">AGRICULTOR:</label>
+                                                        <div class="col-lg-8">
+                                                            <label
+                                                                class="col-form-label">{{item.NombreCompleto}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group row">
+                                                        <label for="porcHumedadAF"
+                                                            class="col-lg-4 col-form-label font-weight-bold">%
+                                                            HUMEDAD</label>
+                                                        <div class="col-lg-8">
+                                                            <input type="number" name="porcHumedadAF" id="porcHumedadAF"
+                                                                class="form-control form-control-sm"
+                                                                placeholder="Porcentaje de humedad"
+                                                                [readonly]="locCodigoEstado === '06'"
+                                                                [value]="item.Humedad"
+                                                                (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group row">
+                                                        <label for="observacionesAF"
+                                                            class="col-lg-4 col-form-label font-weight-bold">OBSERVACIONES</label>
+                                                        <div class="col-lg-8">
+                                                            <textarea class="form-control form-control-sm"
+                                                                id="observacionesAF" rows="2"
+                                                                placeholder="Observaciones" maxlength="500"
+                                                                [readonly]="locCodigoEstado === '06'"
+                                                                [value]="item.Observaciones"
+                                                                (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'obs')"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <table class="table table-sm">
+                                                        <thead>
+                                                            <th class="text-center">OLOR</th>
+                                                            <th class="text-center">SELECCIÓN</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let olor of  listOlores">
+                                                                <td>
+                                                                    {{olor.Label}}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <input type="checkbox" [value]="olor.Codigo"
+                                                                        [disabled]="locCodigoEstado === '06'"
+                                                                        [checked]="item.ListaOlores.includes(olor.Codigo)"
+                                                                        (change)="changeOlores($event, item.ContratoSocioFincaId)">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <table class="table table-sm">
+                                                        <thead>
+                                                            <th class="text-center">COLOR</th>
+                                                            <th class="text-center">SELECCIÓN</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let color of  listColores">
+                                                                <td>{{color.Label}}</td>
+                                                                <td class="text-center">
+                                                                    <input type="checkbox" [value]="color.Codigo"
+                                                                        [disabled]="locCodigoEstado === '06'"
+                                                                        [checked]="item.ListaColores.includes(color.Codigo)"
+                                                                        (change)="changeColores($event, item.ContratoSocioFincaId)">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
+                                        <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group row">
+                                                        <label for="observacionesAF"
+                                                            class="col-lg-6 col-form-label font-weight-bold">RESPONSABLE
+                                                            DEL CONTROL DE
+                                                            CALIDAD</label>
+                                                        <div class="col-lg-6">
+                                                            <label
+                                                                class="col-form-label">{{frmGuiaRecepcionDetalle.value.responsable}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
+                                    </div>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="2" *ngIf="userSession.RolId === 7 && locCodigoEstado === '06'">
+                                <a ngbNavLink class="nav-link d-flex align-items-center">
+                                    <span class="d-none d-sm-block" style="font-size: 1.1rem;">Pesado del Café</span>
+                                </a>
+                                <ng-template ngbNavContent>
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-1"></div>
+                                        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="row">
+                                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <h6 class="text-center">PESADO DEL CAFÉ</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-borderless table-sm">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h6>Sacos</h6>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number" name="sacosPC"
+                                                                                    id="sacosPC"
+                                                                                    formControlName="sacosPC"
+                                                                                    class="form-control form-control-sm text-right"
+                                                                                    placeholder="Sacos"
+                                                                                    [readonly]="true"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.sacosPC.invalid, 'is-valid': !submittedPesadoCafe && !f.sacosPC.invalid }">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h6>Kilos brutos</h6>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    name="kilosBrutosPC"
+                                                                                    id="kilosBrutosPC" [readonly]="true"
+                                                                                    formControlName="kilosBrutosPC"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    placeholder="Kilos brutos"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.kilosBrutosPC.invalid, 'is-valid': !submittedPesadoCafe && !f.kilosBrutosPC.invalid }">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h6>Tara de saco</h6>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number" name="taraSacoPC"
+                                                                                    id="taraSacoPC"
+                                                                                    formControlName="taraSacoPC"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    placeholder="Tara de saco"
+                                                                                    (blur)="CalcularPesadoCafe()"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.taraSacoPC.invalid, 'is-valid': !submittedPesadoCafe && !f.taraSacoPC.invalid }">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h6>Kilos netos</h6>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number" name="kilosNetosPC"
+                                                                                    id="kilosNetosPC"
+                                                                                    formControlName="kilosNetosPC"
+                                                                                    [readonly]="true"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    placeholder="Kilos netos"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.kilosNetosPC.invalid, 'is-valid': !submittedPesadoCafe && !f.kilosNetosPC.invalid }">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h6>QQ55,2/Kg</h6>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number" name="qq55KgPC"
+                                                                                    id="qq55KgPC"
+                                                                                    formControlName="qq55KgPC"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    placeholder="QQ55,2/Kg"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.qq55KgPC.invalid, 'is-valid': !submittedPesadoCafe && !f.qq55KgPC.invalid }">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <h6 class="text-center">ANÁLISIS FÍSICO DEL CAFÉ</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-borderless table-sm">
+                                                                    <thead>
+                                                                        <th class="text-center">Detalle</th>
+                                                                        <th class="text-center">Gramos</th>
+                                                                        <th class="text-center">%</th>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h6>Café exportación</h6>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    name="cafeExportacionGramos"
+                                                                                    id="cafeExportacionGramos"
+                                                                                    formControlName="cafeExportacionGramos"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cafeExportacionGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.cafeExportacionGramos.invalid }"
+                                                                                    (blur)="CalcularAnalisisFisico()">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    name="cafeExportacionPorc"
+                                                                                    id="cafeExportacionPorc"
+                                                                                    formControlName="cafeExportacionPorc"
+                                                                                    [readonly]="true"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cafeExportacionPorc.invalid, 'is-valid': !submittedPesadoCafe && !f.cafeExportacionPorc.invalid }">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h6>Descarte</h6>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    name="descarteGramos"
+                                                                                    id="descarteGramos"
+                                                                                    formControlName="descarteGramos"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.descarteGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.descarteGramos.invalid }"
+                                                                                    (blur)="CalcularAnalisisFisico()">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    name="descartePorcentaje"
+                                                                                    id="descartePorcentaje"
+                                                                                    formControlName="descartePorcentaje"
+                                                                                    [readonly]="true"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.descartePorcentaje.invalid, 'is-valid': !submittedPesadoCafe && !f.descartePorcentaje.invalid }">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h6>Cascara</h6>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    name="cascaraGramos"
+                                                                                    id="cascaraGramos"
+                                                                                    formControlName="cascaraGramos"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cascaraGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.cascaraGramos.invalid }"
+                                                                                    (blur)="CalcularAnalisisFisico()">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    name="cascaraPorcentaje"
+                                                                                    id="cascaraPorcentaje"
+                                                                                    formControlName="cascaraPorcentaje"
+                                                                                    [readonly]="true"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cascaraPorcentaje.invalid, 'is-valid': !submittedPesadoCafe && !f.cascaraPorcentaje.invalid }">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <h6>Total</h6>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number" name="totalGramos"
+                                                                                    id="totalGramos"
+                                                                                    formControlName="totalGramos"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    [readonly]="true"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.totalGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.totalGramos.invalid }">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    name="totalPorcentaje"
+                                                                                    id="totalPorcentaje"
+                                                                                    formControlName="totalPorcentaje"
+                                                                                    [readonly]="true"
+                                                                                    class="form-control text-right form-control-sm"
+                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.totalPorcentaje.invalid, 'is-valid': !submittedPesadoCafe && !f.totalPorcentaje.invalid }">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="form-group row">
+                                                                <label for="humedadProcenPC"
+                                                                    class="col-lg-4 col-form-label">HUMEDAD (%)</label>
+                                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                                    <input type="number" name="humedadProcenPC"
+                                                                        id="humedadProcenPC"
+                                                                        formControlName="humedadProcenPC"
+                                                                        class="form-control text-right form-control-sm"
+                                                                        placeholder="Humedad %"
+                                                                        [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.humedadProcenPC.invalid, 'is-valid': !submittedPesadoCafe && !f.humedadProcenPC.invalid }">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group row">
+                                                        <label for="observacionesPC"
+                                                            class="col-lg-4 col-form-label">OBSERVACIONES</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                            <textarea class="form-control form-control-sm"
+                                                                id="observacionesPC" formControlName="observacionesPC"
+                                                                rows="4" placeholder="observacionesPC"
+                                                                maxlength="500"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-1"></div>
+                                    </div>
+                                </ng-template>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div [ngbNavOutlet]="nav"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="card-footer">
+                <div class="form-row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group row m-0">
+                            <div class="col-lg-12 text-right">
+                                <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
+                                    *ngIf="(locCodigoEstado === '03' &&  userSession.RolId === 7) || (locCodigoEstado === '04' &&  userSession.RolId === 9) || locCodigoEstado === '05'">Guardar</button>
+                                <button type="button" class="btn btn-primary mr-1"
+                                    *ngIf="locCodigoEstado === '06' && userSession.RolId === 7"
+                                    (click)="GenerarGuiaRecepcion()">Generar Guía de
+                                    Recepción</button>
+                                <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarContrato()"
+                                    *ngIf="locCodigoEstado === '02' && userSession.RolId === 6">Confirmar
+                                    Contrato</button>
+                                <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div> -->

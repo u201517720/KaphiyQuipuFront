@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-guia-recepcion-edit',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GuiaRecepcionEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
+
+  frmGuiaRecepcionDetalle: FormGroup;
 
   ngOnInit(): void {
+  }
+
+  LoadForm() {
+    this.frmGuiaRecepcionDetalle = this.fb.group({
+
+    });
   }
 
 }

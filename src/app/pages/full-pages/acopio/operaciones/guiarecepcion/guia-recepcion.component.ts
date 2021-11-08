@@ -5,6 +5,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 import { DateUtil } from '../../../../../services/util/date-util';
 import { AlertUtil } from '../../../../../services/util/alert-util';
+import { GuiarecepcionacopioService } from '../../../../../services/guiarecepcionacopio.service';
+import { NotaingresoacopioService } from '../../../../../services/notaingresoacopio.service';
 
 @Component({
   selector: 'app-guia-recepcion',
@@ -18,14 +20,22 @@ export class GuiaRecepcionComponent implements OnInit {
   errorGeneral = { isError: false, errorMessage: '' };
   @ViewChild(DatatableComponent) table: DatatableComponent;
   limitRef = 10;
-  selected: [];
-  rows: [];
+  selected = [];
+  rows = [];
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
+  userSession: any;
 
   constructor(private fb: FormBuilder,
     private dateUtil: DateUtil,
     private spinner: NgxSpinnerService,
-    private alertUtil: AlertUtil) {
+    private alertUtil: AlertUtil,
+    private guiarecepcionacopioService: GuiarecepcionacopioService,
+    private notaingresoacopioService: NotaingresoacopioService) {
+    this.errorGeneral = { isError: false, errorMessage: '' };
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
+    if (this.userSession) {
+      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+    }
   }
 
   ngOnInit(): void {
@@ -62,8 +72,11 @@ export class GuiaRecepcionComponent implements OnInit {
     const anioFechaInicio = new Date(this.frmListGuiaRecepcion.value.fechaInicio).getFullYear()
     const anioFechaFin = new Date(this.frmListGuiaRecepcion.value.fechaFin).getFullYear()
 
-    if (anioFechaFin < anioFechaInicio) {
-      this.errorGeneral = { isError: true, errorMessage: 'La fecha fin no puede ser menor a la fecha inicio' };
+    if (!this.frmListGuiaRecepcion.value.fechaInicio || !this.frmListGuiaRecepcion.value.fechaFin) {
+      this.errorGeneral = { isError: true, errorMessage: 'La fechas inicio y fin son obligatorias. Por favor, ingresarlas.' };
+    }
+    else if (anioFechaFin < anioFechaInicio) {
+      this.errorGeneral = { isError: true, errorMessage: 'La fecha fin no puede ser menor a la fecha inicio.' };
     } else {
       this.errorGeneral = { isError: false, errorMessage: '' };
     }
@@ -73,36 +86,85 @@ export class GuiaRecepcionComponent implements OnInit {
     this.limitRef = e.target.value;
   }
 
+  onSelectCheck(row: any) {
+    return this.selected.indexOf(row) === -1;
+  }
+
   Buscar() {
     if (!this.frmListGuiaRecepcion.invalid) {
       this.errorGeneral = { isError: false, errorMessage: '' };
       this.spinner.show();
       this.rows = [];
       const request = {
-        FechaInicio: '',
-        FechaFin: ''
+        FechaInicio: this.frmListGuiaRecepcion.value.fechaInicio,
+        FechaFin: this.frmListGuiaRecepcion.value.fechaFin
       };
-      // this.contratoService.Search(request)
-      //   .subscribe((res) => {
-      //     this.spinner.hide();
-      //     if (res) {
-      //       if (res.Result.Success) {
-      //         if (!res.Result.Message) {
-      //           this.rows = res.Result.Data;
-      //         } else {
-      //           this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
-      //         }
-      //       } else {
-      //         this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
-      //       }
-      //     } else {
-      //       this.errorGeneral = { isError: true, errorMessage: this.mensajeGenerico };
-      //     }
-      //   }, (err) => {
-      //     this.spinner.hide();
-      //     console.log(err);
-      //     this.alertUtil.alertError('ERROR', this.mensajeGenerico);
-      //   });
+      this.guiarecepcionacopioService.Search(request)
+        .subscribe((res) => {
+          this.spinner.hide();
+          if (res) {
+            if (res.Result.Success) {
+              if (!res.Result.Message) {
+                this.rows = res.Result.Data;
+              } else {
+                this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+              }
+            } else {
+              this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+            }
+          } else {
+            this.errorGeneral = { isError: true, errorMessage: this.mensajeGenerico };
+          }
+        }, (err) => {
+          this.spinner.hide();
+          console.log(err);
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+        });
     }
   }
+
+  EnviarAlmacen() {
+    if (this.selected.length > 0) {
+      if (this.selected[0].EstadoId === '01') {
+        this.alertUtil.alertSiNoCallback('Confirmar',
+          '¿Está seguro de generar nota de ingreso a almacén?',
+          () => {
+            this.spinner.show();
+            const request = {
+              GuiaRecepcionId: this.selected[0].GuiaRecepcionId,
+              UsuarioRegistro: this.userSession.NombreUsuario
+            }
+            this.notaingresoacopioService.Save(request)
+              .subscribe((res) => {
+                this.spinner.hide();
+                if (res) {
+                  if (res.Result.Success) {
+                    if (!res.Result.Message) {
+                      this.alertUtil.alertOkCallback('Confirmación',
+                        `Se ha generado nota de ingreso ${res.Result.Data}`,
+                        () => {
+                          this.Buscar();
+                        });
+                    } else {
+                      this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+                    }
+                  } else {
+                    this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+                  }
+                } else {
+                  this.errorGeneral = { isError: true, errorMessage: this.mensajeGenerico };
+                }
+              }, (err) => {
+                this.spinner.hide();
+                console.log(err);
+                this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+              });
+          });
+      } else {
+        this.alertUtil.alertWarning('Validación',
+          `La guia ${this.selected[0].Correlativo} ya se ha enviado a almacén..`);
+      }
+    }
+  }
+
 }

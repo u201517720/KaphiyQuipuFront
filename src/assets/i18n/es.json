@@ -138,6 +138,9 @@
 			"Label": "Operaciones",
 			"ListaContratos": {
 				"Label": "Contratos"
+			},
+			"ListaGuiaRecepcion": {
+				"Label": "Guías Recepción"
 			}
 		}
 	},
