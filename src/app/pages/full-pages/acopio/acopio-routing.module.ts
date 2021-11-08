@@ -5,6 +5,7 @@ import { ContratoComponent } from './operaciones/contrato/contrato.component';
 import { ContratoEditComponent } from './operaciones/contrato/edit/contrato-edit.component';
 import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
 import { GuiaRecepcionEditComponent } from './operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
+import { IngresoAlmacenComponent } from './operaciones/ingresoalmacen/ingreso-almacen.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,14 @@ const routes: Routes = [
         data: {
           title: 'Lista Contratos'
         }
-      }
+      },
+      {
+        path: 'notaingresoalmacen/list',
+        component: IngresoAlmacenComponent,
+        data: {
+          title: 'Lista Nota Ingreso'
+        }
+      },
     ]
   }
 ];

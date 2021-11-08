@@ -141,6 +141,9 @@
 			},
 			"ListaGuiaRecepcion": {
 				"Label": "Guías Recepción"
+			},
+			"NotaIngreso": {
+				"Label": "Lista Notas Ingreso"
 			}
 		}
 	},

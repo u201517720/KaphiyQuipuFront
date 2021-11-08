@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, ValidatorFn, ValidationErrors } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { NgxSpinnerService } from "ngx-spinner";
 import { DatatableComponent } from "@swimlane/ngx-datatable";
-import swal from 'sweetalert2';
 
 import { MaestroUtil } from '../../../../../services/util/maestro-util';
 import { DateUtil } from '../../../../../services/util/date-util';
 import { LoteService } from '../../../../../services/lote.service';
 import { AlertUtil } from '../../../../../services/util/alert-util';
+import { NotaingresoacopioService } from '../../../../../services/notaingresoacopio.service';
 
 @Component({
   selector: 'app-ingreso-almacen',
@@ -22,7 +21,6 @@ export class IngresoAlmacenComponent implements OnInit {
   selectedTypeDocument: any;
   error: any = { isError: false, errorMessage: '' };
   errorGeneral: any = { isError: false, errorMessage: '' };
-  mensajeErrorGenerico: string = "Ocurrio un error interno.";
   errorFecha: any = { isError: false, errorMessage: '' };
   rows: any[] = [];
   tempData = [];
@@ -32,14 +30,17 @@ export class IngresoAlmacenComponent implements OnInit {
   selected = [];
   userSession: any = {};
   @Output() agregarEvent = new EventEmitter<any>();
+  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
 
   constructor(private fb: FormBuilder,
-    private maestroUtil: MaestroUtil,
     private dateUtil: DateUtil,
     private spinner: NgxSpinnerService,
-    private loteService: LoteService,
-    private alertUtil: AlertUtil) {
-    // this.singleSelectCheck = this.singleSelectCheck.bind(this);
+    private alertUtil: AlertUtil,
+    private notaingresoacopioService: NotaingresoacopioService) {
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
+    if (this.userSession) {
+      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+    }
   }
 
   ngOnInit(): void {
@@ -94,20 +95,41 @@ export class IngresoAlmacenComponent implements OnInit {
     this.limitRef = e.target.value;
   }
 
-  filterUpdate(event) {
-    const val = event.target.value.toLowerCase();
-    const temp = this.tempData.filter(function (d) {
-      return d.Numero.toLowerCase().indexOf(val) !== -1 || !val;
-    });
-    this.rows = temp;
-    this.table.offset = 0;
-  }
-
   onSelect(event: any): void {
     this.selected = event.selected;
   }
 
-  Buscar(): void {
 
+  Buscar() {
+    if (!this.frmNotaIngresoAlmacen.invalid) {
+      this.errorGeneral = { isError: false, errorMessage: '' };
+      this.spinner.show();
+      this.rows = [];
+      const request = {
+        FechaInicio: this.frmNotaIngresoAlmacen.value.fechaInicio,
+        FechaFin: this.frmNotaIngresoAlmacen.value.fechaFin
+      };
+      this.notaingresoacopioService.Search(request)
+        .subscribe((res) => {
+          this.spinner.hide();
+          if (res) {
+            if (res.Result.Success) {
+              if (!res.Result.Message) {
+                this.rows = res.Result.Data;
+              } else {
+                this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+              }
+            } else {
+              this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
+            }
+          } else {
+            this.errorGeneral = { isError: true, errorMessage: this.mensajeGenerico };
+          }
+        }, (err) => {
+          this.spinner.hide();
+          console.log(err);
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+        });
+    }
   }
 }
