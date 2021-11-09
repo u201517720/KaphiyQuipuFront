@@ -6,6 +6,7 @@ import { ContratoEditComponent } from './operaciones/contrato/edit/contrato-edit
 import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
 import { GuiaRecepcionEditComponent } from './operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
 import { IngresoAlmacenComponent } from './operaciones/ingresoalmacen/ingreso-almacen.component';
+import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,13 @@ const routes: Routes = [
           title: 'Lista Nota Ingreso'
         }
       },
+      {
+        path: 'notaingresoalmacen/update/:id',
+        component: IngresoAlmacenEditComponent,
+        data: {
+          title: 'Detalle Nota Ingreso'
+        }
+      }
     ]
   }
 ];

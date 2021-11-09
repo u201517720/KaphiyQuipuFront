@@ -25,6 +25,7 @@ export class GuiaRecepcionEditComponent implements OnInit {
     private maestroService: MaestroService,
     private notaingresoacopioService: NotaingresoacopioService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
     }

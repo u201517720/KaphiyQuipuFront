@@ -24,4 +24,14 @@ export class NotaingresoacopioService {
     const url = `${this.url}/Consultar`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  SearchById(request: any): Observable<any> {
+    const url = `${this.url}/ConsultarPorId`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  UbicarAlmacen(request: any): Observable<any> {
+    const url = `${this.url}/UbicarAlmacen`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

@@ -1,16 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators, ValidationErrors, ValidatorFn, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
-import { MaestroUtil } from '../../../../../../services/util/maestro-util';
-import { ILogin } from '../../../../../../services/models/login';
 import { ActivatedRoute } from '@angular/router';
-import { DateUtil } from '../../../../../../services/util/date-util';
-import { formatDate } from '@angular/common';
-import { MaestroService } from '../../../../../../services/maestro.service';
-import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { Router } from "@angular/router"
 
-import { AnalisisSensorialDefectoDetalleList } from '../../../../../../services/models/req-controlcalidad-actualizar'
+import { MaestroService } from '../../../../../../services/maestro.service';
+import { AlertUtil } from '../../../../../../services/util/alert-util';
+import { MaestroUtil } from '../../../../../../services/util/maestro-util';
+import { NotaingresoacopioService } from '../../../../../../services/notaingresoacopio.service';
 
 @Component({
   selector: 'app-ingresoalmacen-edit',
@@ -20,296 +17,231 @@ import { AnalisisSensorialDefectoDetalleList } from '../../../../../../services/
 })
 
 export class IngresoAlmacenEditComponent implements OnInit {
-  esEdit = true;
-  consultaMateriaPrimaFormEdit: FormGroup;
-  submittedEdit = false;
-  login: ILogin;
-  listaAlmacen: any[];
-  selectAlmacen: any;
-  id: Number = 0;
-  errorGeneral: any = { isError: false, errorMessage: '' };
-  mensajeErrorGenerico = "Ocurrio un error interno.";
-  numeroGuia: "";
-  fechaRegistro: any;
-  fechaPesado: any;
-  responsable: "";
-  numeroNota: "";
-  listaSensorialDefectos: any[];
-  tableSensorialDefectos: FormGroup;
-  usuario: "";
 
-  constructor(
-    private fb: FormBuilder,
-    private spinner: NgxSpinnerService,
-    private maestroUtil: MaestroUtil,
+  constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
-    private dateUtil: DateUtil,
-    private maestroService: MaestroService,
-    private alertUtil: AlertUtil,
     private router: Router,
-  ) {
-
+    private alertUtil: AlertUtil,
+    private spinner: NgxSpinnerService,
+    private maestroService: MaestroService,
+    private notaingresoacopioService: NotaingresoacopioService,
+    private maestroUtil: MaestroUtil) {
+    this.locId = parseInt(this.route.snapshot.params['id']);
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
+    if (this.userSession) {
+      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+    }
+    this.LoadForm();
+    if (this.locId > 0) {
+      this.ConsultarPorId();
+    } else {
+      this.Cancelar();
+    }
   }
+
+  frmNotaIngresoAcopioDetalle: FormGroup;
+  locId = 0;
+  userSession: any;
+  rows = [];
+  limitRef = 10000;
+  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistema.';
+  listOlores = [];
+  listColores = [];
+  detalleControlesCalidad;
+  locEstado = 0;
+  listaAlmacenes = [];
+  selectedAlmacen: any;
+  submitted = false;
 
   ngOnInit(): void {
-    this.cargarForm();
-    this.cargarcombos();
-    this.login = JSON.parse(sessionStorage.getItem("user"));
-    this.route.queryParams
-      .subscribe(params => {
-        if (Number(params.id)) {
-          this.id = Number(params.id);
-          this.esEdit = true;
-          this.obtenerDetalle();
-
-        }
-      }
-      );
+    this.GetAlmacenes();
   }
 
-  cargarcombos() {
-    var form = this;
-    this.maestroUtil.obtenerMaestros("Almacen", function (res) {
-      if (res.Result.Success) {
-        form.listaAlmacen = res.Result.Data;
-      }
+  LoadForm() {
+    this.frmNotaIngresoAcopioDetalle = this.fb.group({
+      correlativo: [],
+      FechaRegistro: [],
+      RazonSocial: [],
+      EstadoGuiaRecepcion: [],
+      Pais: [],
+      Departamento: [],
+      Moneda: [],
+      UnidadMedida: [],
+      TipoProduccion: [],
+      Empaque: [],
+      TipoEmpaque: [],
+      Producto: [],
+      SubProducto: [],
+      Grado: [],
+      Calidad: [],
+      TipoCertificacion: [],
+      TotalSacos: [],
+      PesoSaco: [],
+      PesoKilos: [],
+      responsable: [],
+      sacosPC: [],
+      kilosBrutosPC: [],
+      taraSacoPC: [],
+      kilosNetosPC: [],
+      qq55KgPC: [],
+      cafeExportacionGramos: [],
+      cafeExportacionPorc: [],
+      descarteGramos: [],
+      descartePorcentaje: [],
+      cascaraGramos: [],
+      cascaraPorcentaje: [],
+      totalGramos: [],
+      totalPorcentaje: [],
+      humedadProcenPC: [],
+      observacionesPC: [],
+      ObservacionesSolicitudCompra: [],
+      referencia: [],
+      AlmacenId: [, Validators.required]
     });
-
-  }
-  async cargarDefectoSensorial() {
-    var form = this;
-    var res = await this.maestroService.obtenerMaestros("SensorialDefectos").toPromise();
-    if (res.Result.Success) {
-      form.listaSensorialDefectos = res.Result.Data;
-      let group = {}
-      form.listaSensorialDefectos.forEach(input_template => {
-        group['checkboxSenDefectos%' + input_template.Codigo] = new FormControl('', []);
-      })
-      form.tableSensorialDefectos = new FormGroup(group);
-    }
   }
 
-  cargarForm() {
-    this.consultaMateriaPrimaFormEdit = this.fb.group(
-      {
-        tipoProveedorId: ['',],
-        socioId: ['',],
-        terceroId: ['',],
-        intermediarioId: ['',],
-        numGuia: ['',],
-        numReferencia: ['',],
-        producto: ['',],
-        subproducto: ['',],
-        tipoProduccion: ['',],
-        provNombre: ['',],
-        provDocumento: ['',],
-        provTipoSocio: new FormControl({ value: '', disabled: true }, []),
-        provCodigo: ['',],
-        provDepartamento: ['',],
-        provProvincia: ['',],
-        provDistrito: ['',],
-        provZona: ['',],
-        provFinca: ['',],
-        fechaCosecha: ['',],
-        guiaReferencia: new FormControl('', []),
-        fechaPesado: ['',],
-
-        unidadMedida: new FormControl('', []),
-        cantidad: new FormControl('', []),
-        kilosBruto: new FormControl('', []),
-        tara: new FormControl('', []),
-        observacionPesado: new FormControl('', []),
-        exportGramos: new FormControl('', []),
-        exportPorcentaje: new FormControl('', []),
-        descarteGramos: new FormControl('', []),
-        descartePorcentaje: new FormControl('', []),
-        cascarillaGramos: new FormControl('', []),
-        cascarillaPorcentaje: new FormControl('', []),
-        totalGramos: new FormControl('', []),
-        totalPorcentaje: new FormControl('', []),
-        humedad: new FormControl('', []),
-        ObservacionAnalisisFisico: new FormControl('', []),
-        ObservacionRegTostado: new FormControl('', []),
-        ObservacionAnalisisSensorial: new FormControl('', []),
-
-
-        estado: ['',],
-        socioFincaId: ['',],
-        terceroFincaId: ['',],
-
-        provTipoSocioDesc: ['',],
-        productoDesc: ['',],
-        subproductoDesc: ['',],
-        tipoProduccionDesc: ['',],
-        unidadMedidaDesc: ['',],
-        puntajeFinal: ['',],
-        almacen: ['', Validators.required]
-
-      });
+  get f() {
+    return this.frmNotaIngresoAcopioDetalle.controls;
   }
 
-  get fedit() {
-    return this.consultaMateriaPrimaFormEdit.controls;
-  }
-
-  obtenerDetalle() {
-    // this.spinner.show();
-    // this.notaIngresoAlmacenService.obtenerDetalle(Number(this.id))
-    //   .subscribe(res => {
-    //     if (res.Result.Success) {
-    //       if (res.Result.ErrCode == "") {
-    //         this.cargarDataFormulario(res.Result.Data);
-    //       } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
-    //         this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
-    //       } else {
-    //         this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-    //       }
-    //     } else {
-    //       this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-    //       this.spinner.hide();
-    //     }
-    //   },
-    //     err => {
-    //       this.spinner.hide();
-    //       console.log(err);
-    //       this.errorGeneral = { isError: false, errorMessage: this.mensajeErrorGenerico };
-    //     }
-    //   );
-  }
-
-  async cargarDataFormulario(data: any) {
-    await this.cargarDefectoSensorial();
-    this.consultaMateriaPrimaFormEdit.controls["producto"].setValue(data.ProductoId);
-    this.consultaMateriaPrimaFormEdit.controls["productoDesc"].setValue(data.Producto);
-    this.consultaMateriaPrimaFormEdit.controls["subproducto"].setValue(data.SubProductoId);
-    this.consultaMateriaPrimaFormEdit.controls["subproductoDesc"].setValue(data.SubProducto);
-
-    this.consultaMateriaPrimaFormEdit.controls["guiaReferencia"].setValue(data.NumeroReferencia);
-    this.numeroGuia = data.NumeroGuiaRecepcionMateriaPrima;
-    this.numeroNota = data.Numero;
-    this.usuario = data.UsuarioRegistro;
-    this.fechaRegistro = this.dateUtil.formatDate(new Date(data.FechaRegistro), "/");
-    this.consultaMateriaPrimaFormEdit.controls["provNombre"].setValue(data.NombreRazonSocial);
-    this.consultaMateriaPrimaFormEdit.controls["provDocumento"].setValue(data.TipoDocumento + "-" + data.NumeroDocumento);
-
-
-    this.consultaMateriaPrimaFormEdit.controls["tipoProduccion"].setValue(data.TipoProduccionId);
-    this.consultaMateriaPrimaFormEdit.controls["tipoProduccionDesc"].setValue(data.TipoProduccion);
-    this.consultaMateriaPrimaFormEdit.controls["provTipoSocio"].setValue(data.TipoProvedorId);
-    this.consultaMateriaPrimaFormEdit.controls["provTipoSocioDesc"].setValue(data.TipoProveedor);
-
-    this.consultaMateriaPrimaFormEdit.controls["provCodigo"].setValue(data.CodigoSocio);
-    this.consultaMateriaPrimaFormEdit.controls["provDepartamento"].setValue(data.Departamento);
-    this.consultaMateriaPrimaFormEdit.controls["provProvincia"].setValue(data.Provincia);
-    this.consultaMateriaPrimaFormEdit.controls["provDistrito"].setValue(data.Distrito);
-    this.consultaMateriaPrimaFormEdit.controls["provZona"].setValue(data.Zona);
-    this.consultaMateriaPrimaFormEdit.controls["provFinca"].setValue(data.Finca);
-    this.consultaMateriaPrimaFormEdit.controls["fechaCosecha"].setValue(formatDate(data.FechaCosecha, 'yyyy-MM-dd', 'en'));
-    this.consultaMateriaPrimaFormEdit.controls["unidadMedida"].setValue(data.UnidadMedidaIdPesado);
-    this.consultaMateriaPrimaFormEdit.controls["unidadMedidaDesc"].setValue(data.UnidadMedida);
-    this.consultaMateriaPrimaFormEdit.controls["cantidad"].setValue(data.CantidadPesado);
-    this.consultaMateriaPrimaFormEdit.controls["kilosBruto"].setValue(data.KilosBrutosPesado);
-    this.consultaMateriaPrimaFormEdit.controls["tara"].setValue(data.TaraPesado);
-    this.fechaPesado = this.dateUtil.formatDate(new Date(data.FechaCosecha), "/");
-    this.responsable = data.UsuarioPesado;
-    this.consultaMateriaPrimaFormEdit.controls['tipoProveedorId'].setValue(data.TipoProvedorId);
-    this.consultaMateriaPrimaFormEdit.controls['socioFincaId'].setValue(data.SocioFincaId);
-    this.consultaMateriaPrimaFormEdit.controls['terceroFincaId'].setValue(data.TerceroFincaId);
-
-    this.consultaMateriaPrimaFormEdit.controls['socioId'].setValue(data.SocioId);
-    this.consultaMateriaPrimaFormEdit.controls['terceroId'].setValue(data.TerceroId);
-    this.consultaMateriaPrimaFormEdit.controls['intermediarioId'].setValue(data.IntermediarioId);
-
-    this.consultaMateriaPrimaFormEdit.controls["exportGramos"].setValue(data.ExportableGramosAnalisisFisico);
-    if (data.ExportablePorcentajeAnalisisFisico != null) {
-      this.consultaMateriaPrimaFormEdit.controls["exportPorcentaje"].setValue(data.ExportablePorcentajeAnalisisFisico + "%");
-    }
-    this.consultaMateriaPrimaFormEdit.controls["descarteGramos"].setValue(data.DescarteGramosAnalisisFisico);
-    if (data.DescartePorcentajeAnalisisFisico != null) {
-      this.consultaMateriaPrimaFormEdit.controls["descartePorcentaje"].setValue(data.DescartePorcentajeAnalisisFisico + "%");
-    }
-    this.consultaMateriaPrimaFormEdit.controls["cascarillaGramos"].setValue(data.CascarillaGramosAnalisisFisico);
-    if (data.CascarillaPorcentajeAnalisisFisico != null) {
-      this.consultaMateriaPrimaFormEdit.controls["cascarillaPorcentaje"].setValue(data.CascarillaPorcentajeAnalisisFisico + "%");
-    }
-    this.consultaMateriaPrimaFormEdit.controls["totalGramos"].setValue(data.TotalGramosAnalisisFisico);
-    if (data.TotalPorcentajeAnalisisFisico != null) {
-      this.consultaMateriaPrimaFormEdit.controls["totalPorcentaje"].setValue(data.TotalPorcentajeAnalisisFisico + "%");
-    }
-    this.consultaMateriaPrimaFormEdit.controls["humedad"].setValue(data.HumedadPorcentajeAnalisisFisico);
-    this.consultaMateriaPrimaFormEdit.controls["puntajeFinal"].setValue(data.TotalAnalisisSensorial);
-    this.consultaMateriaPrimaFormEdit.controls["almacen"].setValue(data.AlmacenId);
-
-
-    var form = this;
-    if (data.AnalisisSensorialDefectoDetalle != null) {
-      let analisisSensorialDefectoDetalleList: AnalisisSensorialDefectoDetalleList[] = data.AnalisisSensorialDefectoDetalle;
-      analisisSensorialDefectoDetalleList.forEach(function (value) {
-        form.tableSensorialDefectos.controls["checkboxSenDefectos%" + value.DefectoDetalleId].setValue(value.Valor);
-      });
-    }
-
-    this.spinner.hide();
-
-
-  }
-
-
-  guardar() {
-    const form = this;
-    if (this.consultaMateriaPrimaFormEdit.invalid) {
-      this.submittedEdit = true;
-      return;
-    } else {
-      this.spinner.show(undefined,
-        {
-          type: 'ball-triangle-path',
-          size: 'medium',
-          bdColor: 'rgba(0, 0, 0, 0.8)',
-          color: '#fff',
-          fullScreen: true
-        });
-
-      this.alertUtil.alertRegistro('Confirmación', '¿Está seguro de continuar con el registro?.', function (result) {
-        if (result.isConfirmed) {
-          form.actualizarService();
+  ConsultarPorId() {
+    this.spinner.show();
+    this.notaingresoacopioService.SearchById({ NotaIngresoAcopioId: this.locId })
+      .subscribe((res) => {
+        if (res) {
+          if (res.Result.Success) {
+            this.CompletarForm(res.Result.Data);
+          } else {
+            this.alertUtil.alertWarningCallback('ERROR', res.Result.Message,
+              () => {
+                this.Cancelar();
+              });
+          }
         }
-      });
+      }, (err) => {
+        console.log(err);
+        this.spinner.hide();
+        this.alertUtil.alertError('ERROR', err.Result.Message);
+      })
+  }
 
+  async CompletarForm(data) {
+    if (data) {
+      this.locEstado = parseInt(data.EstadoId);
+      await this.GetOlores();
+      await this.GetColores();
+      await this.GetAlmacenes();
+      this.rows = data.agricultores;
+      this.detalleControlesCalidad = data.controlesCalidad;
+      this.frmNotaIngresoAcopioDetalle.controls.referencia.setValue(data.CorrelativoGuiaRecepcion);
+      this.frmNotaIngresoAcopioDetalle.controls.correlativo.setValue(data.Correlativo);
+      this.frmNotaIngresoAcopioDetalle.controls.FechaRegistro.setValue(data.FechaRegistro);
+      this.frmNotaIngresoAcopioDetalle.controls.RazonSocial.setValue(data.RazonSocial);
+      this.frmNotaIngresoAcopioDetalle.controls.EstadoGuiaRecepcion.setValue(data.EstadoNotaIngreso);
+      this.frmNotaIngresoAcopioDetalle.controls.Pais.setValue(data.Pais);
+      this.frmNotaIngresoAcopioDetalle.controls.Departamento.setValue(data.Departamento);
+      this.frmNotaIngresoAcopioDetalle.controls.Moneda.setValue(data.Moneda);
+      this.frmNotaIngresoAcopioDetalle.controls.UnidadMedida.setValue(data.UnidadMedida);
+      this.frmNotaIngresoAcopioDetalle.controls.TipoProduccion.setValue(data.TipoProduccion);
+      this.frmNotaIngresoAcopioDetalle.controls.Empaque.setValue(data.Empaque);
+      this.frmNotaIngresoAcopioDetalle.controls.TipoEmpaque.setValue(data.TipoEmpaque);
+      this.frmNotaIngresoAcopioDetalle.controls.Producto.setValue(data.Producto);
+      this.frmNotaIngresoAcopioDetalle.controls.SubProducto.setValue(data.SubProducto);
+      this.frmNotaIngresoAcopioDetalle.controls.Grado.setValue(data.Grado);
+      this.frmNotaIngresoAcopioDetalle.controls.Calidad.setValue(data.Calidad);
+      this.frmNotaIngresoAcopioDetalle.controls.TipoCertificacion.setValue(data.TipoCertificacion);
+      this.frmNotaIngresoAcopioDetalle.controls.TotalSacos.setValue(data.TotalSacos);
+      this.frmNotaIngresoAcopioDetalle.controls.PesoSaco.setValue(data.PesoSaco);
+      this.frmNotaIngresoAcopioDetalle.controls.PesoKilos.setValue(data.PesoKilos);
+      this.frmNotaIngresoAcopioDetalle.controls.ObservacionesSolicitudCompra.setValue(data.ObservacionesSolicitudCompra);
+      this.frmNotaIngresoAcopioDetalle.controls.responsable.setValue(data.Responsable);
+      this.frmNotaIngresoAcopioDetalle.controls.sacosPC.setValue(data.SacosPC);
+      this.frmNotaIngresoAcopioDetalle.controls.kilosBrutosPC.setValue(data.KilosBrutosPC);
+      this.frmNotaIngresoAcopioDetalle.controls.taraSacoPC.setValue(data.TaraSacoPC);
+      this.frmNotaIngresoAcopioDetalle.controls.kilosNetosPC.setValue(data.KilosNetos);
+      this.frmNotaIngresoAcopioDetalle.controls.qq55KgPC.setValue(data.QQ55KG);
+      this.frmNotaIngresoAcopioDetalle.controls.cafeExportacionGramos.setValue(data.CafeExportacionGramosAFC);
+      this.frmNotaIngresoAcopioDetalle.controls.cafeExportacionPorc.setValue(data.CafeExportacionPorcAFC);
+      this.frmNotaIngresoAcopioDetalle.controls.descarteGramos.setValue(data.DescarteGramosAFC);
+      this.frmNotaIngresoAcopioDetalle.controls.descartePorcentaje.setValue(data.DescartePorcAFC);
+      this.frmNotaIngresoAcopioDetalle.controls.cascaraGramos.setValue(data.CascaraGramosAFC);
+      this.frmNotaIngresoAcopioDetalle.controls.cascaraPorcentaje.setValue(data.CascaraPorcAFC);
+      this.frmNotaIngresoAcopioDetalle.controls.totalGramos.setValue(data.TotalGramosAFC);
+      this.frmNotaIngresoAcopioDetalle.controls.totalPorcentaje.setValue(data.TotalPorcAFC);
+      this.frmNotaIngresoAcopioDetalle.controls.humedadProcenPC.setValue(data.Humedad);
+      this.frmNotaIngresoAcopioDetalle.controls.observacionesPC.setValue(data.Observaciones);
+      this.frmNotaIngresoAcopioDetalle.controls.AlmacenId.setValue(data.AlmacenId);
+    }
+    this.spinner.hide();
+  }
+
+  async GetOlores() {
+    this.listOlores = [];
+    const res = await this.maestroService.obtenerMaestros('Olor').toPromise();
+    if (res.Result.Success) {
+      this.listOlores = res.Result.Data;
     }
   }
-  actualizarService() {
 
-    // this.notaIngresoAlmacenService.actualizar(Number(this.id), this.usuario, this.consultaMateriaPrimaFormEdit.controls["almacen"].value)
-    //   .subscribe(res => {
-    //     this.spinner.hide();
-    //     if (res.Result.Success) {
-    //       if (res.Result.ErrCode == "") {
-    //         var form = this;
-    //         this.alertUtil.alertOkCallback('Actualizado!', 'Ingreso Almacén Actualizado.', function (result) {
-    //           //if(result.isConfirmed){
-    //           form.router.navigate(['/operaciones/ingresoalmacen-list']);
-    //           //}
-    //         }
-    //         );
+  async GetColores() {
+    this.listColores = [];
+    const res = await this.maestroService.obtenerMaestros('Color').toPromise();
+    if (res.Result.Success) {
+      this.listColores = res.Result.Data;
+    }
+  }
 
-    //       } else if (res.Result.Message != "" && res.Result.ErrCode != "") {
-    //         this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
-    //       } else {
-    //         this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-    //       }
-    //     } else {
-    //       this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
-    //     }
-    //   },
-    //     err => {
-    //       this.spinner.hide();
-    //       console.log(err);
-    //       this.errorGeneral = { isError: false, errorMessage: this.mensajeErrorGenerico };
-    //     }
-    //   );
+  async GetAlmacenes() {
+    this.listaAlmacenes = [];
+    const res = await this.maestroService.obtenerMaestros('Almacen').toPromise();
+    if (res.Result.Success) {
+      this.listaAlmacenes = res.Result.Data;
+    }
   }
-  cancelar() {
-    this.router.navigate(['/operaciones/ingresoalmacen-list']);
+
+  Guardar() {
+    if (this.locEstado === 1) {
+      this.submitted = false;
+      if (!this.frmNotaIngresoAcopioDetalle.invalid) {
+        this.alertUtil.alertSiNoCallback('Confirmación',
+          '¿Está seguro de ubicar la materia prima en el almacén seleccionado?',
+          () => {
+            this.spinner.show();
+            const request = {
+              NotaIngresoAcopioId: this.locId,
+              AlmacenId: this.frmNotaIngresoAcopioDetalle.value.AlmacenId,
+              Usuario: this.userSession.NombreUsuario
+            };
+            this.notaingresoacopioService.UbicarAlmacen(request)
+              .subscribe((res) => {
+                this.spinner.hide();
+                if (res) {
+                  if (res.Result.Success) {
+                    this.alertUtil.alertOkCallback('Confirmación',
+                      'Se ha ubicado la materia prima correctamente.',
+                      () => {
+                        this.ConsultarPorId();
+                      });
+                  } else {
+                    this.alertUtil.alertError('ERROR', res.Result.Message);
+                  }
+                } else {
+                  this.alertUtil.alertError('ERROR', res.Result.Message);
+                }
+              }, (err) => {
+                this.spinner.hide();
+                console.log(err);
+                this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+              });
+          });
+      } else {
+        this.submitted = true;
+      }
+    }
   }
+
+  Cancelar() {
+    this.router.navigate(['/acopio/operaciones/notaingresoalmacen/list']);
+  }
+
 }
