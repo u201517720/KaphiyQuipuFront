@@ -64,6 +64,8 @@ export class ContratoEditComponent implements OnInit {
   coloresSels = [];
   detalleControlesCalidad = [];
   submittedPesadoCafe = false;
+  msgAgricultores = '';
+  locCodigoEstadoInt = 0;
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -88,6 +90,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.msgAgricultores = '';
     this.LoadCombos();
   }
 
@@ -439,16 +442,19 @@ export class ContratoEditComponent implements OnInit {
       this.frmContratoCompraVenta.controls.estado.setValue(data.DescripcionEstado);
       this.frmContratoCompraVenta.controls.correlativo.setValue(data.Correlativo);
       this.locCodigoEstado = data.EstadoId
+      this.locCodigoEstadoInt = parseInt(this.locCodigoEstado);
       this.locFechaRegistroString = data.FechaRegistroString;
       this.CalcularCostoTotal();
       this.ActualizarListaAgricultores();
-      if (parseInt(this.locCodigoEstado) >= 5) {
-        this.GetOlores();
-        this.GetColores();
+      if (parseInt(this.locCodigoEstado) === 5) {
+        await this.GetOlores();
+        await this.GetColores();
+      } else {
+        await this.GetOlores();
+        await this.GetColores();
+        this.detalleControlesCalidad = data.controles;
       }
-      this.detalleControlesCalidad = data.controles;
       if (this.locCodigoEstado === '06') {
-        // await this.LoadFormPesadoCafe();
         const locsacosPC = this.frmContratoCompraVenta.controls.sacosPC;
         const lockilosBrutosPC = this.frmContratoCompraVenta.controls.kilosBrutosPC;
         const loctaraSacoPC = this.frmContratoCompraVenta.controls.taraSacoPC;
@@ -542,7 +548,11 @@ export class ContratoEditComponent implements OnInit {
       this.agricultorService.Consultar(request)
         .subscribe((res) => {
           if (res && res.Result.Success) {
-            this.rows = res.Result.Data;
+            if (res.Result.Data.length > 0) {
+              this.rows = res.Result.Data;
+            } else {
+              this.msgAgricultores = 'NO EXISTEN AGRICULTORES CON LA CERTIFICACIÓN SOLICITADA.';
+            }
           }
         }, (err) => {
           console.log(err);
@@ -715,6 +725,9 @@ export class ContratoEditComponent implements OnInit {
               () => {
                 this.ConsultarPorId();
               });
+          } else {
+            this.alertUtil.alertError('ERROR',
+              res.Result.Message);
           }
         }
       }, (err) => {

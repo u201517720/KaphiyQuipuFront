@@ -331,11 +331,17 @@
                             </ngx-datatable>
                         </div>
                     </div>
-                    <div class="form-row text-right" *ngIf="locCodigoEstado === '03'">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-row" *ngIf="locCodigoEstado === '03'">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <div class="form-group row">
-                                <label for="sumaCosechaSeleccionada" class="col-lg-10 col-form-label">TOTAL</label>
-                                <div class="col-lg-2">
+                                <label
+                                    class="col-lg-10 col-form-label text-danger font-weight-bolder">{{msgAgricultores}}</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                            <div class="form-group row">
+                                <label for="sumaCosechaSeleccionada" class="col-lg-8 col-form-label">TOTAL</label>
+                                <div class="col-lg-4">
                                     <input type="number" name="sumaCosechaSeleccionada" id="sumaCosechaSeleccionada"
                                         formControlName="sumaCosechaSeleccionada" class="form-control text-right"
                                         placeholder="Total de cosecha seleccionado" [readonly]="true"
@@ -394,7 +400,13 @@
                                                                 class="form-control form-control-sm"
                                                                 placeholder="Porcentaje de humedad"
                                                                 [readonly]="locCodigoEstado === '06'"
-                                                                [value]="item.Humedad"
+                                                                *ngIf="locCodigoEstadoInt === 5"
+                                                                (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
+                                                            <input type="number" name="porcHumedadAF" id="porcHumedadAF"
+                                                                class="form-control form-control-sm"
+                                                                placeholder="Porcentaje de humedad"
+                                                                [readonly]="locCodigoEstado === '06'"
+                                                                [value]="item.Humedad" *ngIf="locCodigoEstadoInt >= 6"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
                                                         </div>
                                                     </div>
@@ -410,7 +422,14 @@
                                                                 id="observacionesAF" rows="2"
                                                                 placeholder="Observaciones" maxlength="500"
                                                                 [readonly]="locCodigoEstado === '06'"
+                                                                *ngIf="locCodigoEstadoInt === 5"
+                                                                (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'obs')"></textarea>
+                                                            <textarea class="form-control form-control-sm"
+                                                                id="observacionesAF" rows="2"
+                                                                placeholder="Observaciones" maxlength="500"
+                                                                [readonly]="locCodigoEstado === '06'"
                                                                 [value]="item.Observaciones"
+                                                                *ngIf="locCodigoEstadoInt >= 6"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'obs')"></textarea>
                                                         </div>
                                                     </div>
@@ -424,15 +443,18 @@
                                                             <th class="text-center">SELECCIÓN</th>
                                                         </thead>
                                                         <tbody>
-                                                            <tr *ngFor="let olor of  listOlores">
+                                                            <tr *ngFor="let olor of listOlores">
                                                                 <td>
                                                                     {{olor.Label}}
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="olor.Codigo"
-                                                                        [disabled]="locCodigoEstado === '06'"
-                                                                        [checked]="item.ListaOlores.includes(olor.Codigo)"
+                                                                        *ngIf="locCodigoEstadoInt === 5"
                                                                         (change)="changeOlores($event, item.ContratoSocioFincaId)">
+                                                                    <input type="checkbox" [value]="olor.Codigo"
+                                                                        [disabled]="locCodigoEstadoInt === 6"
+                                                                        [checked]="item.ListaOlores.includes(olor.Codigo)"
+                                                                        *ngIf="locCodigoEstadoInt >= 6">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -445,13 +467,16 @@
                                                             <th class="text-center">SELECCIÓN</th>
                                                         </thead>
                                                         <tbody>
-                                                            <tr *ngFor="let color of  listColores">
+                                                            <tr *ngFor="let color of listColores">
                                                                 <td>{{color.Label}}</td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="color.Codigo"
+                                                                        *ngIf="locCodigoEstadoInt === 5"
+                                                                        (change)="changeColores($event, item.ContratoSocioFincaId)">
+                                                                    <input type="checkbox" [value]="color.Codigo"
                                                                         [disabled]="locCodigoEstado === '06'"
                                                                         [checked]="item.ListaColores.includes(color.Codigo)"
-                                                                        (change)="changeColores($event, item.ContratoSocioFincaId)">
+                                                                        *ngIf="locCodigoEstadoInt >= 6">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
