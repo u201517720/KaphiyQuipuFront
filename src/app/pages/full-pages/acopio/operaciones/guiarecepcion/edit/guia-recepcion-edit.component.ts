@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GuiarecepcionacopioService } from '../../../../../../services/guiarecepcionacopio.service';
+import { NotaingresoacopioService } from '../../../../../../services/notaingresoacopio.service';
 import { MaestroService } from '../../../../../../services/maestro.service';
 import { AlertUtil } from '../../../../../../services/util/alert-util';
 
@@ -21,7 +22,8 @@ export class GuiaRecepcionEditComponent implements OnInit {
     private router: Router,
     private alertUtil: AlertUtil,
     private spinner: NgxSpinnerService,
-    private maestroService: MaestroService) {
+    private maestroService: MaestroService,
+    private notaingresoacopioService: NotaingresoacopioService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
@@ -171,7 +173,40 @@ export class GuiaRecepcionEditComponent implements OnInit {
   }
 
   GenerarNotaIngreso() {
-
+    this.alertUtil.alertSiNoCallback('Confirmar',
+      '¿Está seguro de generar nota de ingreso a almacén?',
+      () => {
+        this.spinner.show();
+        const request = {
+          GuiaRecepcionId: this.locId,
+          UsuarioRegistro: this.userSession.NombreUsuario
+        }
+        this.notaingresoacopioService.Save(request)
+          .subscribe((res) => {
+            this.spinner.hide();
+            if (res) {
+              if (res.Result.Success) {
+                if (!res.Result.Message) {
+                  this.alertUtil.alertOkCallback('Confirmación',
+                    `Se ha generado nota de ingreso ${res.Result.Data}`,
+                    () => {
+                      this.Cancelar();
+                    });
+                } else {
+                  this.alertUtil.alertError('ERROR', res.Result.Message);
+                }
+              } else {
+                this.alertUtil.alertError('ERROR', res.Result.Message);
+              }
+            } else {
+              this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+            }
+          }, (err) => {
+            this.spinner.hide();
+            console.log(err);
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+          });
+      });
   }
 
   Cancelar() {
