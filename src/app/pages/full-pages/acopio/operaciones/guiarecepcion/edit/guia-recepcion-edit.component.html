@@ -1,13 +1,12 @@
-<!-- <form class="needs-validation" [formGroup]="frmGuiaRecepcionDetalle" novalidate>
+<form class="needs-validation" [formGroup]="frmGuiaRecepcionDetalle" novalidate>
     <div class="form-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card mt-0">
                 <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
-                    {{frmTitle}}{{frmGuiaRecepcionDetalle.value.correlativo}}
+                    DETALLE GUÍA RECEPCIÓN {{frmGuiaRecepcionDetalle.value.correlativo}}
                 </h5>
                 <div class="card-body">
-                    <div class="form-row"
-                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9">
+                    <div class="form-row">
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                             <div class="form-group row">
                             </div>
@@ -16,18 +15,18 @@
                             <div class="form-group row">
                                 <label for="destino" class="col-lg-5 col-form-label pr-0">FECHA REGISTRO</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <label class="col-form-label">{{locFechaRegistroString}}</label>
+                                    <label
+                                        class="col-form-label">{{frmGuiaRecepcionDetalle.value.FechaRegistro}}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-row"
-                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9">
+                    <div class="form-row">
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                             <div class="form-group row">
                                 <label for="destino" class="col-lg-2 col-form-label pr-0">DISTRIBUIDORA</label>
                                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                    <label class="col-form-label">{{frmGuiaRecepcionDetalle.value.distribuidora}}</label>
+                                    <label class="col-form-label">{{frmGuiaRecepcionDetalle.value.RazonSocial}}</label>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +34,8 @@
                             <div class="form-group row">
                                 <label for="destino" class="col-lg-5 col-form-label pr-0">ESTADO</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <label class="col-form-label">{{frmGuiaRecepcionDetalle.value.estado}}</label>
+                                    <label
+                                        class="col-form-label">{{frmGuiaRecepcionDetalle.value.EstadoGuiaRecepcion}}</label>
                                 </div>
                             </div>
                         </div>
@@ -46,32 +46,23 @@
                     <div class="form-row">
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                             <div class="form-group row">
-                                <label for="destino" class="col-lg-2 col-form-label pr-0">DESTINO</label>
+                                <label for="Pais" class="col-lg-2 col-form-label pr-0">DESTINO</label>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    <ng-select [items]="listPaises" formControlName="pais" class="form-control"
-                                        bindLabel="Descripcion" bindValue="Codigo" id="pais" placeholder="País"
-                                        [ngClass]="{ 'is-invalid': f.pais.invalid, 'is-valid': !f.pais.invalid }"
-                                        [(ngModel)]="selectedPais" (change)="onChangePais($event)" [readonly]="true">
-                                    </ng-select>
+                                    <input type="text" formControlName="Pais" class="form-control form-control-sm"
+                                        [readonly]="true">
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <ng-select [items]="listCiudades" formControlName="ciudad" class="form-control"
-                                        bindLabel="Descripcion" bindValue="Codigo" id="ciudad" placeholder="Ciudad"
-                                        [ngClass]="{ 'is-invalid': f.ciudad.invalid, 'is-valid': !f.ciudad.invalid }"
-                                        [(ngModel)]="selectedCiudad" [readonly]="true">
-                                    </ng-select>
+                                    <input type="text" formControlName="Departamento"
+                                        class="form-control form-control-sm" [readonly]="true">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="moneda" class="col-lg-4 col-form-label">MONEDA</label>
+                                <label for="Moneda" class="col-lg-4 col-form-label">MONEDA</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <ng-select [items]="listMonedas" formControlName="moneda" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" id="moneda" placeholder="Moneda"
-                                        [ngClass]="{ 'is-invalid': f.moneda.invalid, 'is-valid': !f.moneda.invalid }"
-                                        [(ngModel)]="selectedMoneda" (change)="ChangeMoneda()" [readonly]="true">
-                                    </ng-select>
+                                    <input type="text" formControlName="Moneda" class="form-control form-control-sm"
+                                        [readonly]="true">
                                 </div>
                             </div>
                         </div>
@@ -79,81 +70,30 @@
                     <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="unidadMedida" class="col-lg-5 col-form-label pr-0">UNI.
+                                <label for="UnidadMedida" class="col-lg-5 col-form-label pr-0">UNI.
                                     MEDIDA</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <ng-select [items]="listUniMedida" formControlName="unidadMedida"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="unidadMedida"
-                                        placeholder="Unidad de medida" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.unidadMedida.invalid, 'is-valid': !f.unidadMedida.invalid }"
-                                        [(ngModel)]="selectedUniMedida">
-                                    </ng-select>
+                                    <input type="text" formControlName="UnidadMedida"
+                                        class="form-control form-control-sm" [readonly]="true">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="tipoProduccion" class="col-lg-4 col-form-label pr-0">TIPO DE
+                                <label for="TipoProduccion" class="col-lg-4 col-form-label pr-0">TIPO DE
                                     PRODUCCIÓN</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <ng-select [items]="listTipoProduccion" formControlName="tipoProduccion"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="tipoProduccion"
-                                        placeholder="Tipo de producción" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.tipoProduccion.invalid, 'is-valid': !f.tipoProduccion.invalid }"
-                                        [(ngModel)]="selectedTipoProduccion">
-                                    </ng-select>
+                                    <input type="text" formControlName="TipoProduccion"
+                                        class="form-control form-control-sm" [readonly]="true">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="empaque" class="col-lg-4 col-form-label pr-0">EMPAQUE</label>
+                                <label for="Empaque" class="col-lg-4 col-form-label pr-0">EMPAQUE</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <ng-select [items]="listEmpaques" formControlName="empaque" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" id="empaque" placeholder="Empaque"
-                                        [(ngModel)]="selectedEmpaque" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.empaque.invalid, 'is-valid': !f.empaque.invalid }">
-                                    </ng-select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <div class="form-group row">
-                                <label for="tipoEmpaque" class="col-lg-5 col-form-label pr-0">TIPO EMPAQUE</label>
-                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <ng-select [items]="listTiposEmpaques" formControlName="tipoEmpaque"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="tipoEmpaque"
-                                        placeholder="Tipo Empaque" [(ngModel)]="selectedTipoEmpaque" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.tipoEmpaque.invalid, 'is-valid': !f.tipoEmpaque.invalid }">
-                                    </ng-select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <div class="form-group row">
-                                <label for="producto" class="col-lg-4 col-form-label">PRODUCTO</label>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <ng-select [items]="listProductos" formControlName="producto" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" id="producto" placeholder="Producto"
-                                        [ngClass]="{ 'is-invalid': f.producto.invalid, 'is-valid': !f.producto.invalid }"
-                                        [(ngModel)]="selectedProducto" (change)="ChangeProduct($event)"
+                                    <input type="text" formControlName="Empaque" class="form-control form-control-sm"
                                         [readonly]="true">
-                                    </ng-select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <div class="form-group row">
-                                <label for="subProducto" class="col-lg-4 col-form-label">SUB PRODUCTO</label>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <ng-select [items]="listSubProductos" formControlName="subProducto"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="subProducto"
-                                        placeholder="Sub Producto" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.subProducto.invalid, 'is-valid': !f.subProducto.invalid }"
-                                        [(ngModel)]="selectedSubProducto">
-                                    </ng-select>
                                 </div>
                             </div>
                         </div>
@@ -161,39 +101,28 @@
                     <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="gradoPreparacion" class="col-lg-5 col-form-label">GRADO PREPARACIÓN</label>
+                                <label for="TipoEmpaque" class="col-lg-5 col-form-label pr-0">TIPO EMPAQUE</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <ng-select [items]="listGradosPreparacion" formControlName="gradoPreparacion"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="gradoPreparacion"
-                                        placeholder="Grado Preparación" [(ngModel)]="selectedGradoPreparacion"
-                                        [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.gradoPreparacion.invalid, 'is-valid': !f.gradoPreparacion.invalid }">
-                                    </ng-select>
+                                    <input type="text" formControlName="TipoEmpaque"
+                                        class="form-control form-control-sm" [readonly]="true">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="calidad" class="col-lg-4 col-form-label">CALIDAD</label>
+                                <label for="Producto" class="col-lg-4 col-form-label">PRODUCTO</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <ng-select [items]="listCalidad" formControlName="calidad" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" id="calidad" placeholder="Calidad"
-                                        [ngClass]="{ 'is-invalid': f.calidad.invalid, 'is-valid': !f.calidad.invalid }"
-                                        [(ngModel)]="selectedCalidad" [readonly]="true">
-                                    </ng-select>
+                                    <input type="text" formControlName="Producto" class="form-control form-control-sm"
+                                        [readonly]="true">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="certificacion" class="col-lg-4 col-form-label">CERTIFICACIÓN</label>
+                                <label for="SubProducto" class="col-lg-4 col-form-label">SUB PRODUCTO</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <ng-select [items]="listCertificaciones" formControlName="certificacion"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="calidad"
-                                        placeholder="certificacion"
-                                        [ngClass]="{ 'is-invalid': f.certificacion.invalid, 'is-valid': !f.certificacion.invalid }"
-                                        [(ngModel)]="selectedCertificacion" [readonly]="true">
-                                    </ng-select>
+                                    <input type="text" formControlName="SubProducto"
+                                        class="form-control form-control-sm" [readonly]="true">
                                 </div>
                             </div>
                         </div>
@@ -201,36 +130,58 @@
                     <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="cantASolicitar" class="col-lg-5 col-form-label pr-0">CANTIDAD A
+                                <label for="Grado" class="col-lg-5 col-form-label">GRADO PREPARACIÓN</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <input type="text" formControlName="Grado" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="Calidad" class="col-lg-4 col-form-label">CALIDAD</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="Calidad" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="TipoCertificacion" class="col-lg-4 col-form-label">CERTIFICACIÓN</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="TipoCertificacion"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="TotalSacos" class="col-lg-5 col-form-label pr-0">CANTIDAD A
                                     SOLICITAR</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <input type="number" name="cantASolicitar" id="cantASolicitar"
-                                        formControlName="cantASolicitar" class="form-control text-right"
-                                        placeholder="Cantidad a solicitar" (blur)="CalcularPesoEnKilos()"
-                                        [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.cantASolicitar.invalid, 'is-valid': !f.cantASolicitar.invalid }">
+                                    <input type="number" formControlName="TotalSacos"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="pesoXSaco" class="col-lg-4 col-form-label">PESO POR SACO</label>
+                                <label for="PesoSaco" class="col-lg-4 col-form-label">PESO POR SACO</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="number" name="pesoXSaco" id="pesoXSaco" formControlName="pesoXSaco"
-                                        class="form-control text-right" placeholder="Peso por saco"
-                                        (blur)="CalcularPesoEnKilos()" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.pesoXSaco.invalid, 'is-valid': !f.pesoXSaco.invalid }">
+                                    <input type="number" formControlName="PesoSaco"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="pesoEnKilos" class="col-lg-4 col-form-label">PESO EN KILOS</label>
+                                <label for="PesoKilos" class="col-lg-4 col-form-label">PESO EN KILOS</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="number" name="pesoEnKilos" id="pesoEnKilos"
-                                        formControlName="pesoEnKilos" class="form-control text-right"
-                                        placeholder="Peso en kilos" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.pesoEnKilos.invalid, 'is-valid': !f.pesoEnKilos.invalid }">
+                                    <input type="number" formControlName="PesoKilos"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
                                 </div>
                             </div>
                         </div>
@@ -239,25 +190,23 @@
                     <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="observaciones" class="col-lg-4 col-form-label">OBSERVACIONES</label>
+                                <label for="ObservacionesSolicitudCompra"
+                                    class="col-lg-4 col-form-label">OBSERVACIONES</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <textarea class="form-control" id="observaciones" formControlName="observaciones"
-                                        rows="4" placeholder="Observaciones" maxlength="500"
-                                        [readonly]="locCodigoEstado === '03' || locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'"
-                                        [ngClass]="{ 'is-invalid': f.observaciones.invalid, 'is-valid': !f.observaciones.invalid }"></textarea>
+                                    <textarea class="form-control form-control-sm"
+                                        formControlName="ObservacionesSolicitudCompra" rows="2"
+                                        placeholder="Observaciones" maxlength="500" [readonly]="true"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-row" *ngIf="locId > 0">
+                    <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="costoUnitario" class="col-lg-5 col-form-label">COSTO UNITARIO</label>
+                                <label for="CostoUnitario" class="col-lg-5 col-form-label">COSTO UNITARIO</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <input type="number" name="costoUnitario" id="costoUnitario"
-                                        formControlName="costoUnitario" class="form-control text-right"
-                                        placeholder="Costo unitario" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.costoUnitario.invalid, 'is-valid': !f.costoUnitario.invalid }">
+                                    <input type="number" formControlName="CostoUnitario"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
                                 </div>
                             </div>
                         </div>
@@ -265,38 +214,21 @@
                             <div class="form-group row">
                                 <label for="costoTotal" class="col-lg-4 col-form-label">COSTO TOTAL</label>
                                 <div class="col-lg-8">
-                                    <input type="number" name="costoTotal" id="costoTotal" formControlName="costoTotal"
-                                        class="form-control text-right" placeholder="Costo unitario" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.costoTotal.invalid, 'is-valid': !f.costoTotal.invalid }">
+                                    <input type="number" formControlName="costoTotal"
+                                        class="form-control form-control-sm text-right" placeholder="Costo unitario"
+                                        [readonly]="true">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1"
-                        *ngIf="(userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9) && (locCodigoEstado === '03' || locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06')">
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
                         <label class="text-white ml-1">SELECCIONAR AGRICULTORES</label>
                     </div>
-                    <div class="form-row"
-                        *ngIf="(userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9) && (locCodigoEstado === '03' || locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06')">
+                    <div class="form-row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <fieldset class="form-group">
-                                <label>Mostrar
-                                    <select name="users-list-select"
-                                        class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
-                                        (click)="updateLimit($event)">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                    Filas</label>
-                                <button type="button" class="btn btn-sm float-right btn-primary"
-                                    (click)="ActualizarListaAgricultores()">Actualizar Lista</button>
-                            </fieldset>
                             <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
                                 [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows"
-                                [scrollbarH]="true" [selected]="selectedAgricultores" [selectionType]="'checkbox'"
-                                (select)="onSelectAgricultores($event)" (activate)="onActivate($event)">
+                                [scrollbarH]="true">
                                 <ngx-datatable-column name="Nombre" prop="NombreCompleto">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Tipo Documento" prop="TipoDocumento">
@@ -309,47 +241,20 @@
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Certificación" prop="TipoCertificacion">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Total Cosecha" prop="TotalCosecha"
-                                    *ngIf="locCodigoEstado === '03'">
+                                <ngx-datatable-column name="Cantidad Solicitada" prop="CantidadSolicitada">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Cantidad Solicitada" prop="CantidadSolicitada"
-                                    *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
+                                <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString"
-                                    width="100" *ngIf="locCodigoEstado === '03'">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro"
-                                    *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroString"
-                                    *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
-                                    checkboxable="true" width="30" sortable="false"
-                                    *ngIf="userSession.RolId === 7 && locCodigoEstado === '03'">
+                                <ngx-datatable-column name="Fecha Registro" prop="FechaRegistro">
                                 </ngx-datatable-column>
                             </ngx-datatable>
-                        </div>
-                    </div>
-                    <div class="form-row text-right" *ngIf="locCodigoEstado === '03'">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group row">
-                                <label for="sumaCosechaSeleccionada" class="col-lg-10 col-form-label">TOTAL</label>
-                                <div class="col-lg-2">
-                                    <input type="number" name="sumaCosechaSeleccionada" id="sumaCosechaSeleccionada"
-                                        formControlName="sumaCosechaSeleccionada" class="form-control text-right"
-                                        placeholder="Total de cosecha seleccionado" [readonly]="true"
-                                        [ngClass]="{ 'is-invalid': f.sumaCosechaSeleccionada.invalid, 'is-valid': !f.sumaCosechaSeleccionada.invalid }">
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="form-row"
-        *ngIf="(userSession.RolId === 9 || userSession.RolId === 8 || userSession.RolId === 7) && (locCodigoEstado === '05' || locCodigoEstado === '06')">
+    <div class="form-row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="card-content">
@@ -390,12 +295,8 @@
                                                             class="col-lg-4 col-form-label font-weight-bold">%
                                                             HUMEDAD</label>
                                                         <div class="col-lg-8">
-                                                            <input type="number" name="porcHumedadAF" id="porcHumedadAF"
-                                                                class="form-control form-control-sm"
-                                                                placeholder="Porcentaje de humedad"
-                                                                [readonly]="locCodigoEstado === '06'"
-                                                                [value]="item.Humedad"
-                                                                (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                [readonly]="true" [value]="item.Humedad">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -406,12 +307,9 @@
                                                         <label for="observacionesAF"
                                                             class="col-lg-4 col-form-label font-weight-bold">OBSERVACIONES</label>
                                                         <div class="col-lg-8">
-                                                            <textarea class="form-control form-control-sm"
-                                                                id="observacionesAF" rows="2"
-                                                                placeholder="Observaciones" maxlength="500"
-                                                                [readonly]="locCodigoEstado === '06'"
-                                                                [value]="item.Observaciones"
-                                                                (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'obs')"></textarea>
+                                                            <textarea class="form-control form-control-sm" rows="2"
+                                                                maxlength="500" [readonly]="true"
+                                                                [value]="item.Observaciones"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -430,9 +328,8 @@
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="olor.Codigo"
-                                                                        [disabled]="locCodigoEstado === '06'"
-                                                                        [checked]="item.ListaOlores.includes(olor.Codigo)"
-                                                                        (change)="changeOlores($event, item.ContratoSocioFincaId)">
+                                                                        [disabled]="true"
+                                                                        [checked]="item.ListaOlores.includes(olor.Codigo)">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -449,9 +346,8 @@
                                                                 <td>{{color.Label}}</td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="color.Codigo"
-                                                                        [disabled]="locCodigoEstado === '06'"
-                                                                        [checked]="item.ListaColores.includes(color.Codigo)"
-                                                                        (change)="changeColores($event, item.ContratoSocioFincaId)">
+                                                                        [disabled]="true"
+                                                                        [checked]="item.ListaColores.includes(color.Codigo)">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -484,7 +380,7 @@
                                     </div>
                                 </ng-template>
                             </li>
-                            <li [ngbNavItem]="2" *ngIf="userSession.RolId === 7 && locCodigoEstado === '06'">
+                            <li [ngbNavItem]="2">
                                 <a ngbNavLink class="nav-link d-flex align-items-center">
                                     <span class="d-none d-sm-block" style="font-size: 1.1rem;">Pesado del Café</span>
                                 </a>
@@ -509,13 +405,10 @@
                                                                                 <h6>Sacos</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="sacosPC"
-                                                                                    id="sacosPC"
+                                                                                <input type="number"
                                                                                     formControlName="sacosPC"
                                                                                     class="form-control form-control-sm text-right"
-                                                                                    placeholder="Sacos"
-                                                                                    [readonly]="true"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.sacosPC.invalid, 'is-valid': !submittedPesadoCafe && !f.sacosPC.invalid }">
+                                                                                    [readonly]="true">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -523,13 +416,9 @@
                                                                                 <h6>Kilos brutos</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number"
-                                                                                    name="kilosBrutosPC"
-                                                                                    id="kilosBrutosPC" [readonly]="true"
+                                                                                <input type="number" [readonly]="true"
                                                                                     formControlName="kilosBrutosPC"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    placeholder="Kilos brutos"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.kilosBrutosPC.invalid, 'is-valid': !submittedPesadoCafe && !f.kilosBrutosPC.invalid }">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -537,13 +426,9 @@
                                                                                 <h6>Tara de saco</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="taraSacoPC"
-                                                                                    id="taraSacoPC"
+                                                                                <input type="number" [readonly]="true"
                                                                                     formControlName="taraSacoPC"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    placeholder="Tara de saco"
-                                                                                    (blur)="CalcularPesadoCafe()"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.taraSacoPC.invalid, 'is-valid': !submittedPesadoCafe && !f.taraSacoPC.invalid }">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -551,13 +436,10 @@
                                                                                 <h6>Kilos netos</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="kilosNetosPC"
-                                                                                    id="kilosNetosPC"
+                                                                                <input type="number"
                                                                                     formControlName="kilosNetosPC"
                                                                                     [readonly]="true"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    placeholder="Kilos netos"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.kilosNetosPC.invalid, 'is-valid': !submittedPesadoCafe && !f.kilosNetosPC.invalid }">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -565,12 +447,10 @@
                                                                                 <h6>QQ55,2/Kg</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="qq55KgPC"
-                                                                                    id="qq55KgPC"
+                                                                                <input type="number"
                                                                                     formControlName="qq55KgPC"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    placeholder="QQ55,2/Kg"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.qq55KgPC.invalid, 'is-valid': !submittedPesadoCafe && !f.qq55KgPC.invalid }">
+                                                                                    [readonly]="true"
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -600,22 +480,15 @@
                                                                                 <h6>Café exportación</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number"
-                                                                                    name="cafeExportacionGramos"
-                                                                                    id="cafeExportacionGramos"
+                                                                                <input type="number" [readonly]="true"
                                                                                     formControlName="cafeExportacionGramos"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cafeExportacionGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.cafeExportacionGramos.invalid }"
-                                                                                    (blur)="CalcularAnalisisFisico()">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="cafeExportacionPorc"
-                                                                                    id="cafeExportacionPorc"
                                                                                     formControlName="cafeExportacionPorc"
                                                                                     [readonly]="true"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cafeExportacionPorc.invalid, 'is-valid': !submittedPesadoCafe && !f.cafeExportacionPorc.invalid }">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -624,21 +497,14 @@
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="descarteGramos"
-                                                                                    id="descarteGramos"
                                                                                     formControlName="descarteGramos"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.descarteGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.descarteGramos.invalid }"
-                                                                                    (blur)="CalcularAnalisisFisico()">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="descartePorcentaje"
-                                                                                    id="descartePorcentaje"
                                                                                     formControlName="descartePorcentaje"
                                                                                     [readonly]="true"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.descartePorcentaje.invalid, 'is-valid': !submittedPesadoCafe && !f.descartePorcentaje.invalid }">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -646,22 +512,15 @@
                                                                                 <h6>Cascara</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number"
-                                                                                    name="cascaraGramos"
-                                                                                    id="cascaraGramos"
+                                                                                <input type="number" [readonly]="true"
                                                                                     formControlName="cascaraGramos"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cascaraGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.cascaraGramos.invalid }"
-                                                                                    (blur)="CalcularAnalisisFisico()">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="cascaraPorcentaje"
-                                                                                    id="cascaraPorcentaje"
                                                                                     formControlName="cascaraPorcentaje"
                                                                                     [readonly]="true"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cascaraPorcentaje.invalid, 'is-valid': !submittedPesadoCafe && !f.cascaraPorcentaje.invalid }">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -669,21 +528,16 @@
                                                                                 <h6>Total</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="totalGramos"
-                                                                                    id="totalGramos"
+                                                                                <input type="number"
                                                                                     formControlName="totalGramos"
                                                                                     class="form-control text-right form-control-sm"
-                                                                                    [readonly]="true"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.totalGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.totalGramos.invalid }">
+                                                                                    [readonly]="true">
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="totalPorcentaje"
-                                                                                    id="totalPorcentaje"
                                                                                     formControlName="totalPorcentaje"
                                                                                     [readonly]="true"
-                                                                                    class="form-control text-right form-control-sm"
-                                                                                    [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.totalPorcentaje.invalid, 'is-valid': !submittedPesadoCafe && !f.totalPorcentaje.invalid }">
+                                                                                    class="form-control text-right form-control-sm">
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -697,12 +551,10 @@
                                                                 <label for="humedadProcenPC"
                                                                     class="col-lg-4 col-form-label">HUMEDAD (%)</label>
                                                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                                    <input type="number" name="humedadProcenPC"
-                                                                        id="humedadProcenPC"
+                                                                    <input type="number"
                                                                         formControlName="humedadProcenPC"
-                                                                        class="form-control text-right form-control-sm"
-                                                                        placeholder="Humedad %"
-                                                                        [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.humedadProcenPC.invalid, 'is-valid': !submittedPesadoCafe && !f.humedadProcenPC.invalid }">
+                                                                        [readonly]="true"
+                                                                        class="form-control text-right form-control-sm">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -716,9 +568,8 @@
                                                             class="col-lg-4 col-form-label">OBSERVACIONES</label>
                                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                             <textarea class="form-control form-control-sm"
-                                                                id="observacionesPC" formControlName="observacionesPC"
-                                                                rows="4" placeholder="observacionesPC"
-                                                                maxlength="500"></textarea>
+                                                                formControlName="observacionesPC" rows="2"
+                                                                maxlength="500" [readonly]="true"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -746,15 +597,9 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="form-group row m-0">
                             <div class="col-lg-12 text-right">
-                                <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
-                                    *ngIf="(locCodigoEstado === '03' &&  userSession.RolId === 7) || (locCodigoEstado === '04' &&  userSession.RolId === 9) || locCodigoEstado === '05'">Guardar</button>
-                                <button type="button" class="btn btn-primary mr-1"
-                                    *ngIf="locCodigoEstado === '06' && userSession.RolId === 7"
-                                    (click)="GenerarGuiaRecepcion()">Generar Guía de
-                                    Recepción</button>
-                                <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarContrato()"
-                                    *ngIf="locCodigoEstado === '02' && userSession.RolId === 6">Confirmar
-                                    Contrato</button>
+                                <button type="button" class="btn btn-primary mr-1" *ngIf="locEstado === 1"
+                                    (click)="GenerarNotaIngreso()">Generar Nota
+                                    Ingreso</button>
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                             </div>
                         </div>
@@ -766,4 +611,4 @@
 </div>
 <div class="d-flex justify-content-between align-items-center">
     <ngx-spinner></ngx-spinner>
-</div> -->
+</div>

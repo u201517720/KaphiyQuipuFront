@@ -659,7 +659,7 @@ export class ContratoEditComponent implements OnInit {
           }, (err) => {
             console.log(err);
             this.spinner.hide();
-            this.alertUtil.alertError('ERROR', err.Result.Message);
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
           });
       }
     } else {
