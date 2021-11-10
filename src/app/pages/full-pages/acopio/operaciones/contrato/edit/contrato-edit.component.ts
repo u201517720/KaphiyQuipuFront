@@ -575,10 +575,12 @@ export class ContratoEditComponent implements OnInit {
     const sumaCosecha = this.frmContratoCompraVenta.value.sumaCosechaSeleccionada;
     let sumaSelected = 0;
     if (e && e.selected.length > 0) {
-      // if (pesoKilos !== sumaCosecha) {
       let colTotalCosecha = 0;
       for (let i = 0; i < e.selected.length; i++) {
-        if (pesoKilos === sumaCosecha || pesoKilos === sumaSelected) {
+        // if (pesoKilos === sumaCosecha || pesoKilos === sumaSelected) {
+        //   this.selectedAgricultores.pop();
+        // }
+        if (pesoKilos === sumaSelected) {
           this.selectedAgricultores.pop();
         }
         if (sumaSelected < pesoKilos) {
@@ -596,10 +598,6 @@ export class ContratoEditComponent implements OnInit {
           }
         }
       }
-      // } else {
-      //   sumaSelected = sumaCosecha;
-      //   this.selectedAgricultores.pop();
-      // }
     }
     this.frmContratoCompraVenta.controls.sumaCosechaSeleccionada.setValue(sumaSelected);
   }
@@ -636,7 +634,7 @@ export class ContratoEditComponent implements OnInit {
         } else {
           cosecha = pesoKilos;
         }
-        // sumaTotalCosecha += x.TotalCosecha;
+
         request.agricultores.push({
           ContratoId: this.locId,
           SocioFincaId: x.SocioFincaId,
@@ -645,24 +643,32 @@ export class ContratoEditComponent implements OnInit {
         });
       });
 
-      if (request.agricultores.length > 0) {
-        this.contratoService.RegistrarAgricultores(request)
-          .subscribe((res) => {
-            this.spinner.hide();
-            if (res.Result.Success) {
-              this.alertUtil.alertOkCallback('Confirmación',
-                'Se ha solicitado materia prima a lo agricultores seleccionados correctamente.',
-                () => {
-                  this.ConsultarPorId();
-                });
-            } else {
+      if (cosecha == this.frmContratoCompraVenta.value.pesoEnKilos) {
+        if (request.agricultores.length > 0) {
+          this.contratoService.RegistrarAgricultores(request)
+            .subscribe((res) => {
+              this.spinner.hide();
+              if (res.Result.Success) {
+                this.alertUtil.alertOkCallback('Confirmación',
+                  'Se ha solicitado materia prima a lo agricultores seleccionados correctamente.',
+                  () => {
+                    this.ConsultarPorId();
+                  });
+              } else {
 
-            }
-          }, (err) => {
-            console.log(err);
-            this.spinner.hide();
-            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
-          });
+              }
+            }, (err) => {
+              console.log(err);
+              this.spinner.hide();
+              this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+            });
+        }
+      } else if (cosecha < this.frmContratoCompraVenta.value.pesoEnKilos) {
+        this.spinner.hide();
+        this.alertUtil.alertWarning('Validación', 'Falta seleccionar más agricultores.');
+      } else if (cosecha > this.frmContratoCompraVenta.value.pesoEnKilos) {
+        this.spinner.hide();
+        this.alertUtil.alertWarning('Validación', 'Se ha seleccionado demasiados agricultores.');
       }
     } else {
       this.spinner.hide();

@@ -210,7 +210,9 @@ export class IngresoAlmacenEditComponent implements OnInit {
             const request = {
               NotaIngresoAcopioId: this.locId,
               AlmacenId: this.frmNotaIngresoAcopioDetalle.value.AlmacenId,
-              Usuario: this.userSession.NombreUsuario
+              Usuario: this.userSession.NombreUsuario,
+              Correlativo: this.frmNotaIngresoAcopioDetalle.value.correlativo,
+              Almacen: this.selectedAlmacen[0].Label
             };
             this.notaingresoacopioService.UbicarAlmacen(request)
               .subscribe((res) => {
