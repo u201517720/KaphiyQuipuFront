@@ -48,7 +48,7 @@
         </fieldset>
         <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
             rowHeight="'auto'" [limit]="limitRef" [rows]="rows" [scrollbarH]="true">
-            <ngx-datatable-column name="Nro Contrato" prop="CorrelativoContrato" width="150">
+            <ngx-datatable-column name="Nro Contrato" prop="CorrelativoContrato">
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                     <div class="d-flex align-items-center">
                         <div class="cell-line-height">
@@ -59,23 +59,25 @@
                     </div>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Nro Solicitud" prop="CorrelativoSolicitud" width="150">
+            <ngx-datatable-column name="Nro Solicitud" prop="CorrelativoSolicitud">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Distribuidora" prop="RazonSocial" width="300">
+            <ngx-datatable-column name="Distribuidora" prop="RazonSocial">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Producto" prop="Producto" width="150">
+            <ngx-datatable-column name="Producto" prop="Producto">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Sub Producto" prop="SubProducto" width="130">
+            <ngx-datatable-column name="Sub Producto" prop="SubProducto">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Calidad" prop="Calidad" width="100">
+            <ngx-datatable-column name="Calidad" prop="Calidad">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Estado" prop="DescripcionEstado" width="200">
+            <ngx-datatable-column name="Estado" prop="DescripcionEstado">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroString" width="150">
+            <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroString">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Usuario Actualización" prop="UsuarioActualizacion" width="200">
+            <ngx-datatable-column name="Usuario Actualización" prop="UsuarioActualizacion">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString" width="250">
+            <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString">
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Hash Blockchain" prop="HashBC">
             </ngx-datatable-column>
         </ngx-datatable>
     </div>

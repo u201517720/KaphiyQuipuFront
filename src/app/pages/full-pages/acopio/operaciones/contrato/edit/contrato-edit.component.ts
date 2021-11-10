@@ -509,29 +509,37 @@ export class ContratoEditComponent implements OnInit {
   ConfirmarContrato() {
     if (this.locCodigoEstado === '02' && this.userSession.RolId === 6) {
       if (!this.frmContratoCompraVenta.invalid) {
-        this.alertUtil.alertSiNoCallback('Confirmación', '¿Está seguro de confirmar el contrato?', () => {
-          const request = {
-            Id: this.locId,
-            NroContrato: this.frmContratoCompraVenta.value.correlativo,
-            Distribuidor: this.frmContratoCompraVenta.value.distribuidora,
-            Producto: this.listProductos.find(x => x.Codigo == this.selectedProducto).Label,
-            SubProducto: this.listSubProductos.find(x => x.Codigo == this.selectedSubProducto).Label,
-            TipoProduccion: this.listTipoProduccion.find(x => x.Codigo == this.selectedTipoProduccion).Label,
-            Calidad: this.listCalidad.find(x => x.Codigo == this.selectedCalidad).Label,
-            GradoPreparacion: this.listGradosPreparacion.find(x => x.Codigo == this.selectedGradoPreparacion).Label,
-            Usuario: this.userSession.NombreUsuario
-          }
-
-          this.contratoService.confirmar(request).subscribe((response: TransactionReponse<string>) => {
-            console.log(response);
-            if (response.Result.Success) {
-              this.alertUtil.alertOk('Confirmación', `El contrato ha sido confirmado correctamente.`);
-              this.router.navigate(['/home']);
-            } else {
-              this.alertUtil.alertError('Error', "Ocurrió un error en el proceso: " + response.Result.Message)
+        this.alertUtil.alertSiNoCallback('Confirmación',
+          '¿Está seguro de confirmar el contrato?',
+          () => {
+            this.spinner.show();
+            const request = {
+              Id: this.locId,
+              NroContrato: this.frmContratoCompraVenta.value.correlativo,
+              Distribuidor: this.frmContratoCompraVenta.value.distribuidora,
+              Producto: this.listProductos.find(x => x.Codigo == this.selectedProducto).Label,
+              SubProducto: this.listSubProductos.find(x => x.Codigo == this.selectedSubProducto).Label,
+              TipoProduccion: this.listTipoProduccion.find(x => x.Codigo == this.selectedTipoProduccion).Label,
+              Calidad: this.listCalidad.find(x => x.Codigo == this.selectedCalidad).Label,
+              GradoPreparacion: this.listGradosPreparacion.find(x => x.Codigo == this.selectedGradoPreparacion).Label,
+              Usuario: this.userSession.NombreUsuario
             }
+
+            this.contratoService.confirmar(request)
+              .subscribe((response: TransactionReponse<string>) => {
+                this.spinner.hide();
+                if (response.Result.Success) {
+                  this.alertUtil.alertOk('Confirmación', `El contrato ha sido confirmado correctamente.`);
+                  this.router.navigate(['/home']);
+                } else {
+                  this.alertUtil.alertError('Error', "Ocurrió un error en el proceso: " + response.Result.Message)
+                }
+              }, (err) => {
+                console.log(err);
+                this.spinner.hide();
+                this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+              });
           })
-        })
       }
     }
   }
@@ -594,12 +602,6 @@ export class ContratoEditComponent implements OnInit {
       // }
     }
     this.frmContratoCompraVenta.controls.sumaCosechaSeleccionada.setValue(sumaSelected);
-  }
-
-  onActivate(e) {
-    if (e.type === 'click') {
-      var hh = e;
-    }
   }
 
   Guardar() {
