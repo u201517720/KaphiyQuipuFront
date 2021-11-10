@@ -212,7 +212,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
               AlmacenId: this.frmNotaIngresoAcopioDetalle.value.AlmacenId,
               Usuario: this.userSession.NombreUsuario,
               Correlativo: this.frmNotaIngresoAcopioDetalle.value.correlativo,
-              Almacen: this.selectedAlmacen[0].Label
+              Almacen: this.listaAlmacenes.find(x => x.Codigo === this.selectedAlmacen).Label
             };
             this.notaingresoacopioService.UbicarAlmacen(request)
               .subscribe((res) => {

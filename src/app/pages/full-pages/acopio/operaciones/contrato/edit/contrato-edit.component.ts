@@ -594,6 +594,9 @@ export class ContratoEditComponent implements OnInit {
               }
             } else {
               sumaSelected += colTotalCosecha;
+              if (sumaSelected > pesoKilos) {
+                sumaSelected = pesoKilos;
+              }
             }
           }
         }
@@ -624,7 +627,7 @@ export class ContratoEditComponent implements OnInit {
     };
     if (this.selectedAgricultores && this.selectedAgricultores.length > 0) {
       let pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
-      let cosecha = 0;
+      let cosecha = 0, cosechaAux = 0;
 
       this.selectedAgricultores.forEach(x => {
 
@@ -635,6 +638,8 @@ export class ContratoEditComponent implements OnInit {
           cosecha = pesoKilos;
         }
 
+        cosechaAux += cosecha;
+
         request.agricultores.push({
           ContratoId: this.locId,
           SocioFincaId: x.SocioFincaId,
@@ -643,7 +648,7 @@ export class ContratoEditComponent implements OnInit {
         });
       });
 
-      if (cosecha == this.frmContratoCompraVenta.value.pesoEnKilos) {
+      if (cosechaAux == this.frmContratoCompraVenta.value.pesoEnKilos) {
         if (request.agricultores.length > 0) {
           this.contratoService.RegistrarAgricultores(request)
             .subscribe((res) => {
