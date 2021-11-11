@@ -88,7 +88,9 @@ export class GuiaRecepcionEditComponent implements OnInit {
       totalPorcentaje: [],
       humedadProcenPC: [],
       observacionesPC: [],
-      ObservacionesSolicitudCompra: []
+      ObservacionesSolicitudCompra: [],
+      CostoUnitario: [],
+      costoTotal: []
     });
   }
 
@@ -153,6 +155,8 @@ export class GuiaRecepcionEditComponent implements OnInit {
       this.frmGuiaRecepcionDetalle.controls.totalPorcentaje.setValue(data.TotalPorcAFC);
       this.frmGuiaRecepcionDetalle.controls.humedadProcenPC.setValue(data.Humedad);
       this.frmGuiaRecepcionDetalle.controls.observacionesPC.setValue(data.Observaciones);
+      this.frmGuiaRecepcionDetalle.controls.CostoUnitario.setValue(7.46);
+      await this.CalcularCostoTotal();
     }
     this.spinner.hide();
   }
@@ -174,7 +178,7 @@ export class GuiaRecepcionEditComponent implements OnInit {
   }
 
   GenerarNotaIngreso() {
-    this.alertUtil.alertSiNoCallback('Confirmar',
+    this.alertUtil.alertSiNoCallback('Pregunta',
       '¿Está seguro de generar nota de ingreso a almacén?',
       () => {
         this.spinner.show();
@@ -212,5 +216,24 @@ export class GuiaRecepcionEditComponent implements OnInit {
 
   Cancelar() {
     this.router.navigate(['/acopio/operaciones/guiarecepcion/list']);
+  }
+
+  // async MostrarCostoUnitario() {
+  //   const moneda = this.frmGuiaRecepcionDetalle.value.moneda;
+  //   if (moneda === '01') {
+  //     this.frmGuiaRecepcionDetalle.controls.CostoUnitario.setValue(7.46);
+  //   }
+  // }
+
+  async CalcularCostoTotal() {
+    const cantidad = this.frmGuiaRecepcionDetalle.value.TotalSacos;
+    if (cantidad) {
+      let costoUnitario = this.frmGuiaRecepcionDetalle.value.CostoUnitario;
+
+      const costoTotal = cantidad * costoUnitario;
+      if (costoTotal) {
+        this.frmGuiaRecepcionDetalle.controls.costoTotal.setValue(costoTotal);
+      }
+    }
   }
 }

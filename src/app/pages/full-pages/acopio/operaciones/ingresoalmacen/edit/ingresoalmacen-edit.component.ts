@@ -96,7 +96,9 @@ export class IngresoAlmacenEditComponent implements OnInit {
       observacionesPC: [],
       ObservacionesSolicitudCompra: [],
       referencia: [],
-      AlmacenId: [, Validators.required]
+      AlmacenId: [, Validators.required],
+      CostoUnitario: [],
+      costoTotal: []
     });
   }
 
@@ -171,6 +173,8 @@ export class IngresoAlmacenEditComponent implements OnInit {
       this.frmNotaIngresoAcopioDetalle.controls.humedadProcenPC.setValue(data.Humedad);
       this.frmNotaIngresoAcopioDetalle.controls.observacionesPC.setValue(data.Observaciones);
       this.frmNotaIngresoAcopioDetalle.controls.AlmacenId.setValue(data.AlmacenId);
+      this.frmNotaIngresoAcopioDetalle.controls.CostoUnitario.setValue(7.46);
+      await this.CalcularCostoTotal();
     }
     this.spinner.hide();
   }
@@ -203,7 +207,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
     if (this.locEstado === 1) {
       this.submitted = false;
       if (!this.frmNotaIngresoAcopioDetalle.invalid) {
-        this.alertUtil.alertSiNoCallback('Confirmación',
+        this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de ubicar la materia prima en el almacén seleccionado?',
           () => {
             this.spinner.show();
@@ -246,4 +250,15 @@ export class IngresoAlmacenEditComponent implements OnInit {
     this.router.navigate(['/acopio/operaciones/notaingresoalmacen/list']);
   }
 
+  async CalcularCostoTotal() {
+    const cantidad = this.frmNotaIngresoAcopioDetalle.value.TotalSacos;
+    if (cantidad) {
+      let costoUnitario = this.frmNotaIngresoAcopioDetalle.value.CostoUnitario;
+
+      const costoTotal = cantidad * costoUnitario;
+      if (costoTotal) {
+        this.frmNotaIngresoAcopioDetalle.controls.costoTotal.setValue(costoTotal);
+      }
+    }
+  }
 }

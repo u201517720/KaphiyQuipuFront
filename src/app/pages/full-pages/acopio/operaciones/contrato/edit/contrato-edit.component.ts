@@ -429,8 +429,8 @@ export class ContratoEditComponent implements OnInit {
         this.frmContratoCompraVenta.controls.pesoEnKilos.setValue(data.PesoKilos);
       }
 
-      if (data.Observaciones) {
-        this.frmContratoCompraVenta.controls.observaciones.setValue(data.Observaciones);
+      if (data.ObservacionesContrato) {
+        this.frmContratoCompraVenta.controls.observaciones.setValue(data.ObservacionesContrato);
       }
 
       if (data.Responsable) {
@@ -441,7 +441,7 @@ export class ContratoEditComponent implements OnInit {
       this.frmContratoCompraVenta.controls.distribuidora.setValue(data.Distribuidor);
       this.frmContratoCompraVenta.controls.estado.setValue(data.DescripcionEstado);
       this.frmContratoCompraVenta.controls.correlativo.setValue(data.Correlativo);
-      this.locCodigoEstado = data.EstadoId
+      this.locCodigoEstado = data.EstadoId;
       this.locCodigoEstadoInt = parseInt(this.locCodigoEstado);
       this.locFechaRegistroString = data.FechaRegistroString;
       this.CalcularCostoTotal();
@@ -509,7 +509,7 @@ export class ContratoEditComponent implements OnInit {
   ConfirmarContrato() {
     if (this.locCodigoEstado === '02' && this.userSession.RolId === 6) {
       if (!this.frmContratoCompraVenta.invalid) {
-        this.alertUtil.alertSiNoCallback('Confirmación',
+        this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de confirmar el contrato?',
           () => {
             this.spinner.show();
@@ -607,16 +607,19 @@ export class ContratoEditComponent implements OnInit {
 
   Guardar() {
     if (this.locCodigoEstado === '03' && this.userSession.RolId === 7) {
-      this.alertUtil.alertSiNoCallback('Confirmación',
+      this.alertUtil.alertSiNoCallback('Pregunta',
         '¿Está seguro de solicitar la materia prima a los agricultores seleccionados?', () => {
           this.GuardarAgricultores();
         });
     } else if (this.locCodigoEstado === '05' && this.userSession.RolId === 9) {
-      this.alertUtil.alertSiNoCallback('Confirmación',
-        '¿Está seguro de guardar los datos ingresados para el control de calidad?',
+      this.alertUtil.alertSiNoCallback('Pregunta',
+        '¿Está seguro de registrar el control de calidad realizado a la materia prima de los agricultores?',
         () => {
           this.GuardarControlCalidad();
         });
+    } else {
+      this.alertUtil.alertWarning('Advertencia',
+        'No tiene permisos para realizar esta acción.');
     }
   }
 
@@ -787,7 +790,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GuardarPesadoCafe() {
-    if (this.userSession.RolId === 7 && this.locCodigoEstado === '06') {
+    if (this.userSession.RolId === 8 && this.locCodigoEstado === '06') {
       this.submittedPesadoCafe = false;
       this.spinner.show();
       const request = {
@@ -838,10 +841,10 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GenerarGuiaRecepcion() {
-    if (this.userSession.RolId === 7 && this.locCodigoEstado === '06') {
+    if (this.userSession.RolId === 8 && this.locCodigoEstado === '06') {
       this.submittedPesadoCafe = false;
       if (!this.frmContratoCompraVenta.invalid) {
-        this.alertUtil.alertSiNoCallback('Confirmación',
+        this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de generar guía de recepción?',
           () => {
             this.GuardarPesadoCafe();

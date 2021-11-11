@@ -110,7 +110,7 @@ export class MateriaprimaEditComponent implements OnInit {
   }
 
   ConfirmarEnvio() {
-    this.alertUtil.alertSiNoCallback('Confirmación',
+    this.alertUtil.alertSiNoCallback('Pregunta',
       '¿Está seguro de confirmar envío de materia prima solicitada al acopiador?',
       () => {
         this.spinner.show();
@@ -136,7 +136,7 @@ export class MateriaprimaEditComponent implements OnInit {
   }
 
   ConfirmarCantidad() {
-    this.alertUtil.alertSiNoCallback('Confirmación',
+    this.alertUtil.alertSiNoCallback('Pregunta',
       '¿Está seguro de confirmar disponibilidad de cantidad de materia prima solicitada?',
       () => {
         this.spinner.show();

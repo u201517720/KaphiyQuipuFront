@@ -235,7 +235,7 @@ export class SolicitudcompraEditComponent implements OnInit {
     if (this.userSession.RolId === 6) {
       this.submitted = false;
       if (!this.frmSolicitudCompraNew.invalid) {
-        this.alertUtil.alertRegistro('Confirmación',
+        this.alertUtil.alertRegistro('Pregunta',
           '¿Está seguro de enviar la solicitud de compra?', () => {
             this.GuardarSolicitud();
           });
@@ -458,9 +458,10 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   GenerarContrato() {
-    this.alertUtil.alertSiNoCallback('Pregunta', '¿Está seguro de generar el contrato?', () => {
-      this.RegistrarContrato();
-    });
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de generar el contrato?', () => {
+        this.RegistrarContrato();
+      });
   }
 
   RegistrarContrato() {

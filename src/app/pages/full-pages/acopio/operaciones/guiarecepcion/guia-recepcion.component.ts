@@ -126,7 +126,7 @@ export class GuiaRecepcionComponent implements OnInit {
   EnviarAlmacen() {
     if (this.selected.length > 0) {
       if (this.selected[0].EstadoId === '01') {
-        this.alertUtil.alertSiNoCallback('Confirmar',
+        this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de generar nota de ingreso a almacén?',
           () => {
             this.spinner.show();
