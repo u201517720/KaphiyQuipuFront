@@ -21,7 +21,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { IngresoAlmacenComponent } from './operaciones/ingresoalmacen/ingreso-almacen.component';
 import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
-import { ModalModule } from '../modals/modal.module'
 import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
 import { GuiaRecepcionEditComponent } from './operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
 import { ContratoComponent } from './operaciones/contrato/contrato.component';
@@ -46,8 +45,7 @@ import { ContratoEditComponent } from './operaciones/contrato/edit/contrato-edit
     TagInputModule,
     QuillModule,
     MatchHeightModule,
-    NgxSpinnerModule,
-    ModalModule
+    NgxSpinnerModule
   ],
   declarations: [
     IngresoAlmacenComponent,

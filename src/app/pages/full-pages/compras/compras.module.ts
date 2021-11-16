@@ -19,7 +19,6 @@ import { MatchHeightModule } from "../../../shared/directives/match-height.direc
 import { NgbDateCustomParserFormatter } from "../../../shared/util/NgbDateCustomParserFormatter";
 import { FileUploadModule } from 'ng2-file-upload';
 import { SharedModule } from '../../../shared/shared.module';
-import { ModalModule } from '../modals/modal.module'
 
 import { SolicitudcompraComponent } from './solicitudcompra/solicitudcompra.component';
 import { SolicitudcompraEditComponent } from './solicitudcompra/edit/solicitudcompra-edit.component';
@@ -46,7 +45,6 @@ import { CompraRoutingModule } from './compras-routing.module';
     QuillModule,
     PipeModule,
     MatchHeightModule,
-    ModalModule,
     FileUploadModule,
     CompraRoutingModule
   ],

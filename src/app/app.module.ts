@@ -29,7 +29,6 @@ import { MaestroService } from "./services/maestro.service";
 import { MaestroUtil } from "./services/util/maestro-util";
 import { AlertUtil } from "./services/util/alert-util";
 import { DateUtil } from "./services/util/date-util";
-import { AcopioService, FiltrosMateriaPrima, FiltrosProveedor } from "./services/acopio.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
 
@@ -81,9 +80,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     })
   ],
   providers: [
-    AcopioService,
-    FiltrosMateriaPrima,
-    FiltrosProveedor,
     MaestroService,
     MaestroUtil,
     AlertUtil,

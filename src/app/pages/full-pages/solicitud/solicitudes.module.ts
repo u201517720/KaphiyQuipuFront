@@ -20,7 +20,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { SharedModule } from '../../../shared/shared.module';
-import { ModalModule } from '../modals/modal.module'
 import { SolicitudRoutingModule } from './solicitudes-routing.module';
 import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
 import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit.component';
@@ -46,7 +45,6 @@ import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit
         QuillModule,
         PipeModule,
         MatchHeightModule,
-        ModalModule,
         FileUploadModule,
         SolicitudRoutingModule
     ],

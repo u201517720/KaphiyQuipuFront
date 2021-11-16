@@ -8,11 +8,9 @@ import { AgmCoreModule } from "@agm/core";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { SwiperModule } from "ngx-swiper-wrapper";
-import { InvoicePageComponent } from "./invoice/invoice-page.component";
 import { HomeComponent } from "./home/home.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { AcopioModule } from "./acopio/acopio.module";
-import { MConsultarProductorComponent } from './modals/consultarproductor/m-consultar-productor.component';
 import { ListFilterPipe } from '../../shared/pipes/listFilter.pipe';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ComprasModule } from './compras/compras.module';
@@ -36,9 +34,7 @@ import { SolicitudesModule } from './solicitud/solicitudes.module';
     SolicitudesModule
   ],
   declarations: [
-    InvoicePageComponent,
     HomeComponent,
-    MConsultarProductorComponent,
     ListFilterPipe
   ]
 })
