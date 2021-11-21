@@ -349,11 +349,11 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   CalcularCostoTotal() {
-    const cantidad = this.frmSolicitudCompraNew.value.cantASolicitar;
-    if (cantidad) {
+    const pesoKilos = this.frmSolicitudCompraNew.value.pesoEnKilos;
+    if (pesoKilos) {
       let costoUnitario = this.frmSolicitudCompraNew.value.costoUnitario;
 
-      const costoTotal = cantidad * costoUnitario;
+      const costoTotal = pesoKilos * costoUnitario;
       if (costoTotal) {
         this.frmSolicitudCompraNew.controls.costoTotal.setValue(costoTotal);
       } else {
@@ -454,7 +454,11 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   Cancelar() {
-    this.router.navigate(['/compras/solicitudcompra/list']);
+    if (this.userSession.RolId === 6) {
+      this.router.navigate(['/home']);
+    } else {
+      this.router.navigate(['/compras/solicitudcompra/list']);
+    }
   }
 
   GenerarContrato() {

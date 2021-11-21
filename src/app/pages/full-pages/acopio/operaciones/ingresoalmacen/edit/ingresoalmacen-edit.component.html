@@ -53,7 +53,7 @@
                 <label for="AlmacenId" class="col-lg-4 col-form-label pr-0">ALMACÉN</label>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                   <ng-select [items]="listaAlmacenes" formControlName="AlmacenId" class="form-control" bindLabel="Label"
-                    bindValue="Codigo" placeholder="Almacén" [readonly]="locEstado === 2"
+                    bindValue="Codigo" placeholder="Almacén" [readonly]="locEstado >= 3"
                     [ngClass]="{ 'is-invalid': submitted && f.AlmacenId.invalid, 'is-valid': !submitted && !f.AlmacenId.invalid }"
                     [(ngModel)]="selectedAlmacen">
                   </ng-select>
@@ -267,7 +267,7 @@
       <div class="card">
         <div class="card-content">
           <div class="card-body">
-            <ul ngbNav #nav="ngbNav" [activeId]="1" [destroyOnHide]="false" class="nav-pills justify-content-left">
+            <ul ngbNav #nav="ngbNav" [activeId]="2" [destroyOnHide]="false" class="nav-pills justify-content-left">
               <li [ngbNavItem]="1" [destroyOnHide]="true">
                 <a ngbNavLink class="nav-link d-flex align-items-center">
                   <span class="d-none d-sm-block" style="font-size: 1.1rem;">Control de Calidad</span>
@@ -570,7 +570,14 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="form-group row m-0">
               <div class="col-lg-12 text-right">
-                <button type="button" class="btn btn-primary mr-1" (click)="Guardar()" *ngIf="locEstado === 1">Guardar</button>
+                <button type="button" class="btn btn-primary mr-1" (click)="GenerarOrdenProceso()"
+                  *ngIf="userSession.RolId == 10 && locEstado === 3">Generar Orden Proceso</button>
+                <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarTerminoEtiquetado()"
+                  *ngIf="userSession.RolId == 8 && locEstado === 2">Confirmar Etiquetado</button>
+                <button type="button" class="btn btn-primary mr-1" (click)="GenerarEtiquetas()"
+                  *ngIf="userSession.RolId == 8 && locEstado === 2">Generar Etiquetas</button>
+                <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
+                  *ngIf="locEstado === 1">Guardar</button>
                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
               </div>
             </div>

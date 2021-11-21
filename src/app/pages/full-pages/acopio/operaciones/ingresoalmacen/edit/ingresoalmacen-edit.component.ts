@@ -44,7 +44,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
   userSession: any;
   rows = [];
   limitRef = 10000;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistema.';
+  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
   listOlores = [];
   listColores = [];
   detalleControlesCalidad;
@@ -52,6 +52,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
   listaAlmacenes = [];
   selectedAlmacen: any;
   submitted = false;
+  tabActive = 1;
 
   ngOnInit(): void {
     this.GetAlmacenes();
@@ -260,5 +261,46 @@ export class IngresoAlmacenEditComponent implements OnInit {
         this.frmNotaIngresoAcopioDetalle.controls.costoTotal.setValue(costoTotal);
       }
     }
+  }
+
+  GenerarEtiquetas() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      `¿Está seguro de generar las etiquetas de la ${this.frmNotaIngresoAcopioDetalle.value.correlativo}`,
+      () => {
+
+      });
+  }
+
+  ConfirmarTerminoEtiquetado() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      `¿Está seguro de confirmar la finalización del etiquetado de sacos?`,
+      () => {
+        this.spinner.show();
+        const request = {
+          NotaIngresoId: this.locId,
+          Usuario: this.userSession.NombreUsuario,
+          Correlativo: this.frmNotaIngresoAcopioDetalle.value.correlativo
+        };
+        this.notaingresoacopioService.ConfirmarEtiquetado(request)
+          .subscribe((res) => {
+            if (res.Result.Success) {
+              this.alertUtil.alertOkCallback('Confirmación',
+                'Se ha confirmado el etiquetado de los sacos.',
+                () => {
+                  this.ConsultarPorId();
+                });
+            }
+          }, (err) => {
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico)
+          });
+      });
+  }
+
+  GenerarOrdenProceso() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      `¿Está seguro de generar la orden de proceso?`,
+      () => {
+
+      });
   }
 }

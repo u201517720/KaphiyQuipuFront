@@ -49,14 +49,14 @@
                                 <label for="destino" class="col-lg-2 col-form-label pr-0">DESTINO</label>
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                     <ng-select [items]="listPaises" formControlName="pais" class="form-control"
-                                        bindLabel="Descripcion" bindValue="Codigo" id="pais" placeholder="País"
+                                        bindLabel="Descripcion" bindValue="Codigo" placeholder="País"
                                         [ngClass]="{ 'is-invalid': f.pais.invalid, 'is-valid': !f.pais.invalid }"
                                         [(ngModel)]="selectedPais" (change)="onChangePais($event)" [readonly]="true">
                                     </ng-select>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <ng-select [items]="listCiudades" formControlName="ciudad" class="form-control"
-                                        bindLabel="Descripcion" bindValue="Codigo" id="ciudad" placeholder="Ciudad"
+                                        bindLabel="Descripcion" bindValue="Codigo" placeholder="Ciudad"
                                         [ngClass]="{ 'is-invalid': f.ciudad.invalid, 'is-valid': !f.ciudad.invalid }"
                                         [(ngModel)]="selectedCiudad" [readonly]="true">
                                     </ng-select>
@@ -68,7 +68,7 @@
                                 <label for="moneda" class="col-lg-4 col-form-label">MONEDA</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <ng-select [items]="listMonedas" formControlName="moneda" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" id="moneda" placeholder="Moneda"
+                                        bindLabel="Label" bindValue="Codigo" placeholder="Moneda"
                                         [ngClass]="{ 'is-invalid': f.moneda.invalid, 'is-valid': !f.moneda.invalid }"
                                         [(ngModel)]="selectedMoneda" (change)="ChangeMoneda()" [readonly]="true">
                                     </ng-select>
@@ -83,7 +83,7 @@
                                     MEDIDA</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                                     <ng-select [items]="listUniMedida" formControlName="unidadMedida"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="unidadMedida"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo"
                                         placeholder="Unidad de medida" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.unidadMedida.invalid, 'is-valid': !f.unidadMedida.invalid }"
                                         [(ngModel)]="selectedUniMedida">
@@ -97,7 +97,7 @@
                                     PRODUCCIÓN</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <ng-select [items]="listTipoProduccion" formControlName="tipoProduccion"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="tipoProduccion"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo"
                                         placeholder="Tipo de producción" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.tipoProduccion.invalid, 'is-valid': !f.tipoProduccion.invalid }"
                                         [(ngModel)]="selectedTipoProduccion">
@@ -110,7 +110,7 @@
                                 <label for="empaque" class="col-lg-4 col-form-label pr-0">EMPAQUE</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <ng-select [items]="listEmpaques" formControlName="empaque" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" id="empaque" placeholder="Empaque"
+                                        bindLabel="Label" bindValue="Codigo" placeholder="Empaque"
                                         [(ngModel)]="selectedEmpaque" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.empaque.invalid, 'is-valid': !f.empaque.invalid }">
                                     </ng-select>
@@ -124,7 +124,7 @@
                                 <label for="tipoEmpaque" class="col-lg-5 col-form-label pr-0">TIPO EMPAQUE</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                                     <ng-select [items]="listTiposEmpaques" formControlName="tipoEmpaque"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="tipoEmpaque"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo"
                                         placeholder="Tipo Empaque" [(ngModel)]="selectedTipoEmpaque" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.tipoEmpaque.invalid, 'is-valid': !f.tipoEmpaque.invalid }">
                                     </ng-select>
@@ -136,7 +136,7 @@
                                 <label for="producto" class="col-lg-4 col-form-label">PRODUCTO</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <ng-select [items]="listProductos" formControlName="producto" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" id="producto" placeholder="Producto"
+                                        bindLabel="Label" bindValue="Codigo" placeholder="Producto"
                                         [ngClass]="{ 'is-invalid': f.producto.invalid, 'is-valid': !f.producto.invalid }"
                                         [(ngModel)]="selectedProducto" (change)="ChangeProduct($event)"
                                         [readonly]="true">
@@ -149,7 +149,7 @@
                                 <label for="subProducto" class="col-lg-4 col-form-label">SUB PRODUCTO</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <ng-select [items]="listSubProductos" formControlName="subProducto"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="subProducto"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo"
                                         placeholder="Sub Producto" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.subProducto.invalid, 'is-valid': !f.subProducto.invalid }"
                                         [(ngModel)]="selectedSubProducto">
@@ -164,7 +164,7 @@
                                 <label for="gradoPreparacion" class="col-lg-5 col-form-label">GRADO PREPARACIÓN</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                                     <ng-select [items]="listGradosPreparacion" formControlName="gradoPreparacion"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="gradoPreparacion"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo"
                                         placeholder="Grado Preparación" [(ngModel)]="selectedGradoPreparacion"
                                         [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.gradoPreparacion.invalid, 'is-valid': !f.gradoPreparacion.invalid }">
@@ -177,7 +177,7 @@
                                 <label for="calidad" class="col-lg-4 col-form-label">CALIDAD</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <ng-select [items]="listCalidad" formControlName="calidad" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" id="calidad" placeholder="Calidad"
+                                        bindLabel="Label" bindValue="Codigo" placeholder="Calidad"
                                         [ngClass]="{ 'is-invalid': f.calidad.invalid, 'is-valid': !f.calidad.invalid }"
                                         [(ngModel)]="selectedCalidad" [readonly]="true">
                                     </ng-select>
@@ -189,7 +189,7 @@
                                 <label for="certificacion" class="col-lg-4 col-form-label">CERTIFICACIÓN</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <ng-select [items]="listCertificaciones" formControlName="certificacion"
-                                        class="form-control" bindLabel="Label" bindValue="Codigo" id="calidad"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo"
                                         placeholder="certificacion"
                                         [ngClass]="{ 'is-invalid': f.certificacion.invalid, 'is-valid': !f.certificacion.invalid }"
                                         [(ngModel)]="selectedCertificacion" [readonly]="true">
@@ -204,10 +204,9 @@
                                 <label for="cantASolicitar" class="col-lg-5 col-form-label pr-0">CANTIDAD A
                                     SOLICITAR</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <input type="number" name="cantASolicitar" id="cantASolicitar"
-                                        formControlName="cantASolicitar" class="form-control text-right"
-                                        placeholder="Cantidad a solicitar" (blur)="CalcularPesoEnKilos()"
-                                        [readonly]="true"
+                                    <input type="number" formControlName="cantASolicitar"
+                                        class="form-control text-right" placeholder="Cantidad a solicitar"
+                                        (blur)="CalcularPesoEnKilos()" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.cantASolicitar.invalid, 'is-valid': !f.cantASolicitar.invalid }">
                                 </div>
                             </div>
@@ -216,9 +215,8 @@
                             <div class="form-group row">
                                 <label for="pesoXSaco" class="col-lg-4 col-form-label">PESO POR SACO</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="number" name="pesoXSaco" id="pesoXSaco" formControlName="pesoXSaco"
-                                        class="form-control text-right" placeholder="Peso por saco"
-                                        (blur)="CalcularPesoEnKilos()" [readonly]="true"
+                                    <input type="number" formControlName="pesoXSaco" class="form-control text-right"
+                                        placeholder="Peso por saco" (blur)="CalcularPesoEnKilos()" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.pesoXSaco.invalid, 'is-valid': !f.pesoXSaco.invalid }">
                                 </div>
                             </div>
@@ -227,8 +225,7 @@
                             <div class="form-group row">
                                 <label for="pesoEnKilos" class="col-lg-4 col-form-label">PESO EN KILOS</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="number" name="pesoEnKilos" id="pesoEnKilos"
-                                        formControlName="pesoEnKilos" class="form-control text-right"
+                                    <input type="number" formControlName="pesoEnKilos" class="form-control text-right"
                                         placeholder="Peso en kilos" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.pesoEnKilos.invalid, 'is-valid': !f.pesoEnKilos.invalid }">
                                 </div>
@@ -241,9 +238,8 @@
                             <div class="form-group row">
                                 <label for="observaciones" class="col-lg-4 col-form-label">OBSERVACIONES</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <textarea class="form-control" id="observaciones" formControlName="observaciones"
-                                        rows="4" placeholder="Observaciones" maxlength="500"
-                                        [readonly]="locCodigoEstadoInt >= 2"
+                                    <textarea class="form-control" formControlName="observaciones" rows="4"
+                                        placeholder="Observaciones" maxlength="500" [readonly]="locCodigoEstadoInt >= 2"
                                         [ngClass]="{ 'is-invalid': f.observaciones.invalid, 'is-valid': !f.observaciones.invalid }"></textarea>
                                 </div>
                             </div>
@@ -254,8 +250,7 @@
                             <div class="form-group row">
                                 <label for="costoUnitario" class="col-lg-5 col-form-label">COSTO UNITARIO</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <input type="number" name="costoUnitario" id="costoUnitario"
-                                        formControlName="costoUnitario" class="form-control text-right"
+                                    <input type="number" formControlName="costoUnitario" class="form-control text-right"
                                         placeholder="Costo unitario" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.costoUnitario.invalid, 'is-valid': !f.costoUnitario.invalid }">
                                 </div>
@@ -265,8 +260,8 @@
                             <div class="form-group row">
                                 <label for="costoTotal" class="col-lg-4 col-form-label">COSTO TOTAL</label>
                                 <div class="col-lg-8">
-                                    <input type="number" name="costoTotal" id="costoTotal" formControlName="costoTotal"
-                                        class="form-control text-right" placeholder="Costo unitario" [readonly]="true"
+                                    <input type="number" formControlName="costoTotal" class="form-control text-right"
+                                        placeholder="Costo unitario" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.costoTotal.invalid, 'is-valid': !f.costoTotal.invalid }">
                                 </div>
                             </div>
@@ -341,9 +336,9 @@
                             <div class="form-group row">
                                 <label for="sumaCosechaSeleccionada" class="col-lg-8 col-form-label">TOTAL</label>
                                 <div class="col-lg-4">
-                                    <input type="number" name="sumaCosechaSeleccionada" id="sumaCosechaSeleccionada"
-                                        formControlName="sumaCosechaSeleccionada" class="form-control text-right"
-                                        placeholder="Total de cosecha seleccionado" [readonly]="true"
+                                    <input type="number" formControlName="sumaCosechaSeleccionada"
+                                        class="form-control text-right" placeholder="Total de cosecha seleccionado"
+                                        [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.sumaCosechaSeleccionada.invalid, 'is-valid': !f.sumaCosechaSeleccionada.invalid }">
                                 </div>
                             </div>
@@ -395,14 +390,12 @@
                                                             class="col-lg-4 col-form-label font-weight-bold">%
                                                             HUMEDAD</label>
                                                         <div class="col-lg-8">
-                                                            <input type="number" name="porcHumedadAF" id="porcHumedadAF"
-                                                                class="form-control form-control-sm"
+                                                            <input type="number" class="form-control form-control-sm"
                                                                 placeholder="Porcentaje de humedad"
                                                                 [readonly]="locCodigoEstado === '06'"
                                                                 *ngIf="locCodigoEstadoInt === 5"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
-                                                            <input type="number" name="porcHumedadAF" id="porcHumedadAF"
-                                                                class="form-control form-control-sm"
+                                                            <input type="number" class="form-control form-control-sm"
                                                                 placeholder="Porcentaje de humedad"
                                                                 [readonly]="locCodigoEstado === '06'"
                                                                 [value]="item.Humedad" *ngIf="locCodigoEstadoInt >= 6"
@@ -533,8 +526,7 @@
                                                                                 <h6>Sacos</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="sacosPC"
-                                                                                    id="sacosPC"
+                                                                                <input type="number"
                                                                                     formControlName="sacosPC"
                                                                                     class="form-control form-control-sm text-right"
                                                                                     placeholder="Sacos"
@@ -547,9 +539,7 @@
                                                                                 <h6>Kilos brutos</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number"
-                                                                                    name="kilosBrutosPC"
-                                                                                    id="kilosBrutosPC" [readonly]="true"
+                                                                                <input type="number" [readonly]="true"
                                                                                     formControlName="kilosBrutosPC"
                                                                                     class="form-control text-right form-control-sm"
                                                                                     placeholder="Kilos brutos"
@@ -561,8 +551,7 @@
                                                                                 <h6>Tara de saco</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="taraSacoPC"
-                                                                                    id="taraSacoPC"
+                                                                                <input type="number"
                                                                                     formControlName="taraSacoPC"
                                                                                     class="form-control text-right form-control-sm"
                                                                                     placeholder="Tara de saco"
@@ -575,8 +564,7 @@
                                                                                 <h6>Kilos netos</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="kilosNetosPC"
-                                                                                    id="kilosNetosPC"
+                                                                                <input type="number"
                                                                                     formControlName="kilosNetosPC"
                                                                                     [readonly]="true"
                                                                                     class="form-control text-right form-control-sm"
@@ -589,8 +577,7 @@
                                                                                 <h6>QQ55,2/Kg</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="qq55KgPC"
-                                                                                    id="qq55KgPC"
+                                                                                <input type="number"
                                                                                     formControlName="qq55KgPC"
                                                                                     class="form-control text-right form-control-sm"
                                                                                     placeholder="QQ55,2/Kg"
@@ -625,8 +612,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="cafeExportacionGramos"
-                                                                                    id="cafeExportacionGramos"
                                                                                     formControlName="cafeExportacionGramos"
                                                                                     class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cafeExportacionGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.cafeExportacionGramos.invalid }"
@@ -634,8 +619,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="cafeExportacionPorc"
-                                                                                    id="cafeExportacionPorc"
                                                                                     formControlName="cafeExportacionPorc"
                                                                                     [readonly]="true"
                                                                                     class="form-control text-right form-control-sm"
@@ -648,8 +631,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="descarteGramos"
-                                                                                    id="descarteGramos"
                                                                                     formControlName="descarteGramos"
                                                                                     class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.descarteGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.descarteGramos.invalid }"
@@ -657,8 +638,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="descartePorcentaje"
-                                                                                    id="descartePorcentaje"
                                                                                     formControlName="descartePorcentaje"
                                                                                     [readonly]="true"
                                                                                     class="form-control text-right form-control-sm"
@@ -671,8 +650,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="cascaraGramos"
-                                                                                    id="cascaraGramos"
                                                                                     formControlName="cascaraGramos"
                                                                                     class="form-control text-right form-control-sm"
                                                                                     [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.cascaraGramos.invalid, 'is-valid': !submittedPesadoCafe && !f.cascaraGramos.invalid }"
@@ -680,8 +657,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="cascaraPorcentaje"
-                                                                                    id="cascaraPorcentaje"
                                                                                     formControlName="cascaraPorcentaje"
                                                                                     [readonly]="true"
                                                                                     class="form-control text-right form-control-sm"
@@ -693,8 +668,7 @@
                                                                                 <h6>Total</h6>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="number" name="totalGramos"
-                                                                                    id="totalGramos"
+                                                                                <input type="number"
                                                                                     formControlName="totalGramos"
                                                                                     class="form-control text-right form-control-sm"
                                                                                     [readonly]="true"
@@ -702,8 +676,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number"
-                                                                                    name="totalPorcentaje"
-                                                                                    id="totalPorcentaje"
                                                                                     formControlName="totalPorcentaje"
                                                                                     [readonly]="true"
                                                                                     class="form-control text-right form-control-sm"
@@ -721,8 +693,7 @@
                                                                 <label for="humedadProcenPC"
                                                                     class="col-lg-4 col-form-label">HUMEDAD (%)</label>
                                                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                                                    <input type="number" name="humedadProcenPC"
-                                                                        id="humedadProcenPC"
+                                                                    <input type="number"
                                                                         formControlName="humedadProcenPC"
                                                                         class="form-control text-right form-control-sm"
                                                                         placeholder="Humedad %"
@@ -740,8 +711,8 @@
                                                             class="col-lg-4 col-form-label">OBSERVACIONES</label>
                                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                             <textarea class="form-control form-control-sm"
-                                                                id="observacionesPC" formControlName="observacionesPC"
-                                                                rows="4" placeholder="observacionesPC"
+                                                                formControlName="observacionesPC" rows="4"
+                                                                placeholder="observacionesPC"
                                                                 maxlength="500"></textarea>
                                                         </div>
                                                     </div>

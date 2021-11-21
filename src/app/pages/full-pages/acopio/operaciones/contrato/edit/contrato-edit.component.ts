@@ -343,11 +343,11 @@ export class ContratoEditComponent implements OnInit {
   }
 
   CalcularCostoTotal() {
-    const cantidad = this.frmContratoCompraVenta.value.cantASolicitar;
-    if (cantidad) {
+    const pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
+    if (pesoKilos) {
       let costoUnitario = this.frmContratoCompraVenta.value.costoUnitario;
 
-      const costoTotal = cantidad * costoUnitario;
+      const costoTotal = pesoKilos * costoUnitario;
       if (costoTotal) {
         this.frmContratoCompraVenta.controls.costoTotal.setValue(costoTotal);
       }

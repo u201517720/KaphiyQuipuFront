@@ -34,4 +34,9 @@ export class NotaingresoacopioService {
     const url = `${this.url}/UbicarAlmacen`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConfirmarEtiquetado(request: any): Observable<any> {
+    const url = `${this.url}/ConfirmarEtiquetado`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
