@@ -1,1 +1,102 @@
-<p>ordenproceso works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="content-header text-center">ORDENES DE PROCESOS</div>
+    </div>
+</div>
+
+<section id="tooltip-validation">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="needs-validation" [formGroup]="frmOrdenProcesoAcopio" novalidate>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-4 form-group mb-2">
+                                    <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+                                    <input type="date" class="form-control" formControlName="fechaInicio"
+                                        placeholder="date" date
+                                        [ngClass]="{ 'is-invalid': f.fechaInicio.invalid, 'is-valid': !f.fechaInicio.invalid }"
+                                        (blur)="compareTwoDates()" />
+                                </div>
+                                <div class="col-md-4 mb-4 form-group mb-2">
+                                    <label for="fechaFin" class="form-label">Fecha Fin</label>
+                                    <input type="date" class="form-control" formControlName="fechaFin"
+                                        placeholder="date" date
+                                        [ngClass]="{ 'is-invalid': f.fechaFin.invalid, 'is-valid': !f.fechaFin.invalid }"
+                                        (blur)="compareTwoDates()" />
+                                </div>
+                            </div>
+
+                            <small class="form-text text-muted danger mb-1"
+                                *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
+                            <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()"
+                                [disabled]="frmOrdenProcesoAcopio.invalid">Buscar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>
+<section id="ngx-datatable-filter">
+    <div class="row">
+        <div class="col-12">
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <fieldset class="form-group">
+                            <label>Mostrar
+                                <select name="users-list-select"
+                                    class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                                    (click)="updateLimit($event)">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                filas</label>
+                        </fieldset>
+                        <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows" [scrollbarH]="true">
+                            <ngx-datatable-column name="N° Orden Proceso" prop="CorrelativoOP">
+                                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                                    <div class="d-flex align-items-center">
+                                        <div class="cell-line-height">
+                                            <a class="line-height-1 mb-0"
+                                                [routerLink]="['/acopio/operaciones/ordenproceso/update', row.OrdenProcesoId]">{{
+                                                name }}</a>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="N° Nota Ingreso" prop="CorrelativoNIA">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Tipo Proceso" prop="TipoProceso">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Responsable" prop="Responsable">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="F. Inicio Proceso" prop="FechaInicioProceso">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="F. Fin Proceso" prop="FechaFinProceso">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="F. Registro" prop="FechaRegistro">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Usuario Actualización" prop="UsuarioActualizacion">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="F. Actualización" prop="FechaActualizacion">
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

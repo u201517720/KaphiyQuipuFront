@@ -7,6 +7,8 @@ import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepci
 import { GuiaRecepcionEditComponent } from './operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
 import { IngresoAlmacenComponent } from './operaciones/ingresoalmacen/ingreso-almacen.component';
 import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
+import { OrdenprocesoComponent } from './operaciones/ordenproceso/ordenproceso.component';
+import { OrdenprocesoEditComponent } from './operaciones/ordenproceso/edit/ordenproceso-edit.component';
 
 const routes: Routes = [
   {
@@ -52,6 +54,20 @@ const routes: Routes = [
         component: IngresoAlmacenEditComponent,
         data: {
           title: 'Detalle Nota Ingreso'
+        }
+      },
+      {
+        path: 'ordenproceso/list',
+        component: OrdenprocesoComponent,
+        data: {
+          title: 'Ordenes de Procesos'
+        }
+      },
+      {
+        path: 'ordenproceso/update/:id',
+        component: OrdenprocesoEditComponent,
+        data: {
+          title: 'Orden de Proceso'
         }
       }
     ]

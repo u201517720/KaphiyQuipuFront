@@ -8,6 +8,7 @@ import { MaestroService } from '../../../../../../services/maestro.service';
 import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { MaestroUtil } from '../../../../../../services/util/maestro-util';
 import { NotaingresoacopioService } from '../../../../../../services/notaingresoacopio.service';
+import { OrdenprocesoacopioService } from '../../../../../../services/ordenprocesoacopio.service';
 
 @Component({
   selector: 'app-ingresoalmacen-edit',
@@ -25,7 +26,8 @@ export class IngresoAlmacenEditComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private maestroService: MaestroService,
     private notaingresoacopioService: NotaingresoacopioService,
-    private maestroUtil: MaestroUtil) {
+    private maestroUtil: MaestroUtil,
+    private ordenprocesoacopioService: OrdenprocesoacopioService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     if (this.userSession) {
@@ -300,7 +302,27 @@ export class IngresoAlmacenEditComponent implements OnInit {
     this.alertUtil.alertSiNoCallback('Pregunta',
       `¿Está seguro de generar la orden de proceso?`,
       () => {
-
+        this.spinner.show();
+        const request = {
+          NotaIngresoAcopioId: this.locId,
+          UsuarioRegistro: this.userSession.NombreUsuario
+        }
+        this.ordenprocesoacopioService.Registrar(request)
+          .subscribe((res) => {
+            this.spinner.hide();
+            if (res.Result.Success) {
+              this.alertUtil.alertOkCallback('Confirmación',
+                `Se ha generado la orden de proceso ${res.Result.Data}`,
+                () => {
+                  this.router.navigate(['/acopio/operaciones/ordenproceso/list']);
+                });
+            } else {
+              this.alertUtil.alertError('ERROR', res.Result.Message);
+            }
+          }, (err) => {
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+            this.spinner.hide();
+          });
       });
   }
 }

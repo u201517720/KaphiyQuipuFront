@@ -28,9 +28,9 @@ import { ContratoEditComponent } from './operaciones/contrato/edit/contrato-edit
 import { OrdenprocesoComponent } from './operaciones/ordenproceso/ordenproceso.component';
 import { MarcadosacosComponent } from './operaciones/marcadosacos/marcadosacos.component';
 import { GuiaremisionComponent } from './operaciones/guiaremision/guiaremision.component';
-import { GuiaremisionEditComponent } from './operaciones/guiaremision/guiaremision-edit/guiaremision-edit.component';
-import { MarcadosacosEditComponent } from './operaciones/marcadosacos/marcadosacos-edit/marcadosacos-edit.component';
-import { OrdenprocesoEditComponent } from './operaciones/ordenproceso/ordenproceso-edit/ordenproceso-edit.component';
+import { GuiaremisionEditComponent } from './operaciones/guiaremision/edit/guiaremision-edit.component';
+import { MarcadosacosEditComponent } from './operaciones/marcadosacos/edit/marcadosacos-edit.component';
+import { OrdenprocesoEditComponent } from './operaciones/ordenproceso/edit/ordenproceso-edit.component';
 
 @NgModule({
   imports: [
