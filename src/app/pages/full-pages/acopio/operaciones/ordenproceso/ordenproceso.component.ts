@@ -60,6 +60,22 @@ export class OrdenprocesoComponent implements OnInit {
     };
   }
 
+  compareTwoDates(): void {
+    let vBeginDate = new Date(this.frmOrdenProcesoAcopio.value.fechaInicio);
+    let vEndDate = new Date(this.frmOrdenProcesoAcopio.value.fechaFin);
+
+    var anioFechaInicio = vBeginDate.getFullYear()
+    var anioFechaFin = vEndDate.getFullYear()
+
+    if (vEndDate < vBeginDate) {
+      this.errorGeneral = { isError: true, errorMessage: 'La fecha fin no puede ser anterior a la fecha inicio.' };
+    } else if (this.dateUtil.restarAnio(anioFechaInicio, anioFechaFin) > 2) {
+      this.errorGeneral = { isError: true, errorMessage: 'Por favor el Rango de fechas no puede ser mayor a 2 años.' };
+    } else {
+      this.errorGeneral = { isError: false, errorMessage: '' };
+    }
+  }
+
   updateLimit(e: any) {
     this.limitRef = e.target.value;
   }

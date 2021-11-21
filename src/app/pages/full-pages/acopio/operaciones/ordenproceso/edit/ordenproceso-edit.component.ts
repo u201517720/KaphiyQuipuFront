@@ -6,6 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { OrdenprocesoacopioService } from '../../../../../../services/ordenprocesoacopio.service';
 import { MaestroService } from '../../../../../../services/maestro.service';
 import { AlertUtil } from '../../../../../../services/util/alert-util';
+import { GuiaremisionService } from '../../../../../../services/guiaremision.service';
 
 @Component({
   selector: 'app-ordenproceso-edit',
@@ -20,7 +21,8 @@ export class OrdenprocesoEditComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private ordenprocesoacopioService: OrdenprocesoacopioService,
     private maestroService: MaestroService,
-    private alertUtil: AlertUtil) { }
+    private alertUtil: AlertUtil,
+    private guiaremisionService: GuiaremisionService) { }
 
   frmOrdenProcesoAcopioDetalle: FormGroup;
   locId = 0;
@@ -65,7 +67,8 @@ export class OrdenprocesoEditComponent implements OnInit {
       inicioProceso: [],
       finProceso: [],
       responsable: [],
-      correlativoNI: []
+      correlativoNI: [],
+      codigoNotaIngreso: []
     });
     this.ObtenerTiposProcesos();
   }
@@ -98,6 +101,7 @@ export class OrdenprocesoEditComponent implements OnInit {
   async CompletarFormulario(data) {
     if (data) {
       this.locEstado = parseInt(data.EstadoId);
+      this.frmOrdenProcesoAcopioDetalle.controls.codigoNotaIngreso.setValue(data.NotaIngresoAcopioId);
       this.frmOrdenProcesoAcopioDetalle.controls.cooperativa.setValue(data.Empresa);
       this.frmOrdenProcesoAcopioDetalle.controls.direccion.setValue(data.Direccion);
       this.frmOrdenProcesoAcopioDetalle.controls.ruc.setValue(data.Ruc);
@@ -158,5 +162,31 @@ export class OrdenprocesoEditComponent implements OnInit {
 
   Cancelar() {
     this.router.navigate(['/acopio/operaciones/ordenproceso/list']);
+  }
+
+  GenerarGuiaRemision() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de generar guía de remisión?',
+      () => {
+        this.spinner.show();
+        const request = {
+          OrdenProcesoId: this.locId,
+          UsuarioRegistro: this.userSession.NombreUsuario
+        };
+        this.guiaremisionService.Registrar(request)
+          .subscribe((res) => {
+            this.spinner.hide();
+            if (res.Result.Success) {
+              this.alertUtil.alertOkCallback('Confirmación',
+                `Se ha generado la guía de remisión ${res.Result.Data}`,
+                () => {
+                  this.router.navigate(['/home']);
+                });
+            }
+          }, (err) => {
+            this.spinner.hide();
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+          });
+      });
   }
 }

@@ -55,7 +55,7 @@
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <ng-select [items]="listTipoProcesos" formControlName="tipoProceso"
                                         class="form-control" bindLabel="Label" bindValue="Codigo"
-                                        placeholder="Tipo de proceso" [readonly]="locEstado >= 1"
+                                        placeholder="Tipo de proceso" [readonly]="locEstado > 1"
                                         [ngClass]="{ 'is-invalid': submitted && f.tipoProceso.invalid, 'is-valid': !submitted && !f.tipoProceso.invalid }"
                                         [(ngModel)]="selectedTipoProceso">
                                     </ng-select>
@@ -219,9 +219,9 @@
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group row m-0">
                                 <div class="col-lg-12 text-right">
-                                    <button type="button" class="btn btn-primary mr-1" (click)="GenerarEtiquetas()"
-                                        *ngIf="userSession.RolId == 10 && locEstado === 2">Generar Marcado de
-                                        Sacos</button>
+                                    <button type="button" class="btn btn-primary mr-1" (click)="GenerarGuiaRemision()"
+                                        *ngIf="userSession.RolId == 10 && locEstado === 2">Generar Guía
+                                        Remisión</button>
                                     <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
                                         *ngIf="userSession.RolId == 10 && locEstado === 1">Guardar</button>
                                     <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
