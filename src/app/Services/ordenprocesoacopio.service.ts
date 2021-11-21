@@ -29,4 +29,9 @@ export class OrdenprocesoacopioService {
     const url = `${this.url}/ConsultarPorId`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ActualizarTipoProceso(request: any): Observable<any> {
+    const url = `${this.url}/TipoProceso`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

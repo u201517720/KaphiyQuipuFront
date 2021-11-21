@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -29,6 +29,7 @@ export class OrdenprocesoEditComponent implements OnInit {
   selectedTipoProceso = [];
   submitted = false;
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
+  locEstado = 0;
 
   ngOnInit(): void {
     this.locId = parseInt(this.route.snapshot.params['id']);
@@ -49,7 +50,7 @@ export class OrdenprocesoEditComponent implements OnInit {
       ruc: [],
       correlativo: [],
       fechaRegistro: [],
-      tipoProceso: [],
+      tipoProceso: [, Validators.required],
       tipoProduccion: [],
       certificacion: [],
       producto: [],
@@ -89,12 +90,14 @@ export class OrdenprocesoEditComponent implements OnInit {
           this.CompletarFormulario(res.Result.Data);
         }
       }, (err) => {
+        this.spinner.hide();
         this.alertUtil.alertError('ERROR', this.mensajeGenerico);
       });
   }
 
   async CompletarFormulario(data) {
     if (data) {
+      this.locEstado = parseInt(data.EstadoId);
       this.frmOrdenProcesoAcopioDetalle.controls.cooperativa.setValue(data.Empresa);
       this.frmOrdenProcesoAcopioDetalle.controls.direccion.setValue(data.Direccion);
       this.frmOrdenProcesoAcopioDetalle.controls.ruc.setValue(data.Ruc);
@@ -124,6 +127,36 @@ export class OrdenprocesoEditComponent implements OnInit {
   }
 
   Guardar() {
+    if (!this.frmOrdenProcesoAcopioDetalle.invalid) {
+      this.alertUtil.alertSiNoCallback('Pregunta',
+        '¿Está seguro de guardar el tipo de proceso seleccionado?',
+        () => {
+          this.spinner.show();
+          const request = {
+            OrdenProcesoId: this.locId,
+            TipoProceso: this.frmOrdenProcesoAcopioDetalle.value.tipoProceso,
+            Usuario: this.userSession.NombreUsuario
+          }
+          this.ordenprocesoacopioService.ActualizarTipoProceso(request)
+            .subscribe((res) => {
+              if (res.Result.Success) {
+                this.alertUtil.alertOkCallback('Confirmación',
+                  'Se ha guardado el tipo de proceso seleccionado.',
+                  () => {
+                    this.ConsultarPorId();
+                  })
+              }
+            }, (err) => {
+              this.spinner.hide();
+              this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+            });
+        });
+    } else {
+      this.submitted = true;
+    }
+  }
 
+  Cancelar() {
+    this.router.navigate(['/acopio/operaciones/ordenproceso/list']);
   }
 }
