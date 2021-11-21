@@ -1,1 +1,239 @@
-<p>ordenproceso-edit works!</p>
+<form class="needs-validation" [formGroup]="frmOrdenProcesoAcopioDetalle" novalidate>
+    <div class="form-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card mt-0">
+                <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
+                    ORDEN DE PROCESO {{frmOrdenProcesoAcopioDetalle.value.correlativo}}
+                </h5>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                            <div class="form-group row">
+                                <!-- <label for="destino" class="col-lg-2 col-form-label pr-0">REFERENCIA</label> -->
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <label
+                                        class="col-form-label">{{frmOrdenProcesoAcopioDetalle.value.cooperativa}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">RUC:</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label class="col-form-label">{{frmOrdenProcesoAcopioDetalle.value.ruc}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                            <div class="form-group row">
+                                <!-- <label for="destino" class="col-lg-5 col-form-label pr-0">FECHA REGISTRO</label> -->
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmOrdenProcesoAcopioDetalle.value.direccion}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">FECHA REGISTRO:</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmOrdenProcesoAcopioDetalle.value.fechaRegistro}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                        <label class="text-white ml-1">DATOS GENERALES</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="tipoProceso" class="col-lg-4 col-form-label pr-0">TIPO DE PROCESO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listTipoProcesos" formControlName="tipoProceso"
+                                        class="form-control" bindLabel="Label" bindValue="Codigo"
+                                        placeholder="Tipo de proceso"
+                                        [ngClass]="{ 'is-invalid': submitted && f.tipoProceso.invalid, 'is-valid': !submitted && !f.tipoProceso.invalid }"
+                                        [(ngModel)]="selectedTipoProceso">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="tipoProduccion" class="col-lg-4 col-form-label">TIPO PRODUCCIÓN</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="tipoProduccion"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="certificacion" class="col-lg-4 col-form-label">CERTIFICACIÓN</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="certificacion"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="producto" class="col-lg-4 col-form-label">PRODUCTO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="producto" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="subProducto" class="col-lg-4 col-form-label">SUB PRODUCTO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="subProducto"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="calidad" class="col-lg-4 col-form-label">CALIDAD</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="calidad" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="empaque" class="col-lg-4 col-form-label">EMPAQUE</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="empaque" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="tipoEmpaque" class="col-lg-4 col-form-label">TIPO EMPAQUE</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="tipoEmpaque"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="grado" class="col-lg-4 col-form-label">GRADO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="grado" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="cantidad" class="col-lg-4 col-form-label">CANTIDAD</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" formControlName="cantidad"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="pesoSaco" class="col-lg-4 col-form-label">PESO POR SACO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" formControlName="pesoSaco"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="kilosBrutos" class="col-lg-4 col-form-label">KILOS BRUTOS</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" formControlName="kilosBrutos"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="correlativoNI" class="col-lg-4 col-form-label">N° NOTA INGRESO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="correlativoNI"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="inicioProceso" class="col-lg-4 col-form-label">INICIO DEL PROCESO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="inicioProceso"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="finProceso" class="col-lg-4 col-form-label">FIN DEL PROCESO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="finProceso" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="responsable" class="col-lg-4 col-form-label">RESPONSABLE</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="responsable"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group row m-0">
+                                <div class="col-lg-12 text-right">
+                                    <button type="button" class="btn btn-primary mr-1" (click)="GenerarEtiquetas()"
+                                        *ngIf="userSession.RolId == 10">Generar Marcado de Sacos</button>
+                                    <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
+                                        *ngIf="userSession.RolId == 10">Guardar</button>
+                                    <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>
