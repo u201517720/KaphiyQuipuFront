@@ -25,6 +25,12 @@ import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepci
 import { GuiaRecepcionEditComponent } from './operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
 import { ContratoComponent } from './operaciones/contrato/contrato.component';
 import { ContratoEditComponent } from './operaciones/contrato/edit/contrato-edit.component';
+import { OrdenprocesoComponent } from './operaciones/ordenproceso/ordenproceso.component';
+import { MarcadosacosComponent } from './operaciones/marcadosacos/marcadosacos.component';
+import { GuiaremisionComponent } from './operaciones/guiaremision/guiaremision.component';
+import { GuiaremisionEditComponent } from './operaciones/guiaremision/guiaremision-edit/guiaremision-edit.component';
+import { MarcadosacosEditComponent } from './operaciones/marcadosacos/marcadosacos-edit/marcadosacos-edit.component';
+import { OrdenprocesoEditComponent } from './operaciones/ordenproceso/ordenproceso-edit/ordenproceso-edit.component';
 
 @NgModule({
   imports: [
@@ -54,7 +60,13 @@ import { ContratoEditComponent } from './operaciones/contrato/edit/contrato-edit
     GuiaRecepcionComponent,
     GuiaRecepcionEditComponent,
     ContratoComponent,
-    ContratoEditComponent
+    ContratoEditComponent,
+    OrdenprocesoComponent,
+    MarcadosacosComponent,
+    GuiaremisionComponent,
+    GuiaremisionEditComponent,
+    MarcadosacosEditComponent,
+    OrdenprocesoEditComponent
   ],
   exports: [],
   providers: [
