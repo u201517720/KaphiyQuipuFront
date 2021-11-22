@@ -15,8 +15,7 @@ import { ListFilterPipe } from '../../shared/pipes/listFilter.pipe';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ComprasModule } from './compras/compras.module';
 import { SolicitudesModule } from './solicitud/solicitudes.module';
-import { NotaIngresoPlantaComponent } from './planta/operaciones/notaingresoplanta/nota-ingreso-planta.component';
-import { NotaIngresoPlantaEditComponent } from './planta/operaciones/notaingresoplanta/edit/nota-ingreso-planta-edit.component';
+import { PlantaModule } from './planta/planta.module';
 
 @NgModule({
   imports: [
@@ -33,13 +32,12 @@ import { NotaIngresoPlantaEditComponent } from './planta/operaciones/notaingreso
     AcopioModule,
     FileUploadModule,
     ComprasModule,
-    SolicitudesModule
+    SolicitudesModule,
+    PlantaModule
   ],
   declarations: [
     HomeComponent,
-    ListFilterPipe,
-    NotaIngresoPlantaComponent,
-    NotaIngresoPlantaEditComponent
+    ListFilterPipe
   ]
 })
 export class FullPagesModule { }
