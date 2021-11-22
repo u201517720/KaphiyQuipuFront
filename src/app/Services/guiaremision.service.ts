@@ -19,4 +19,9 @@ export class GuiaremisionService {
     const url = `${this.url}/Registrar`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConsultarPorCorrelativo(request: any): Observable<any> {
+    const url = `${this.url}/ConsultarCorrelativo`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
