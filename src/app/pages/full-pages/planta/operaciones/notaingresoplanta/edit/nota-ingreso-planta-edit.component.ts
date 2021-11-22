@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ActivatedRoute } from '@angular/router';
 
 import { GuiaremisionService } from '../../../../../../services/guiaremision.service';
 import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { NotaingresoplantaService } from '../../../../../../services/notaingresoplanta.service';
-import { ActivatedRoute } from '@angular/router';
+import { MaestroService } from '../../../../../../services/maestro.service';
 
 @Component({
   selector: 'app-nota-ingreso-planta-edit',
@@ -19,15 +20,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private alertUtil: AlertUtil,
     private notaingresoplantaService: NotaingresoplantaService,
-    private route: ActivatedRoute) { }
-
-  frmNotaIngresoPlantaDetalle: FormGroup;
-  submitted = false;
-  locId = 0;
-  userSession: any;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
-
-  ngOnInit(): void {
+    private route: ActivatedRoute,
+    private maestroService: MaestroService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     if (this.userSession) {
@@ -39,6 +33,21 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     } else {
 
     }
+  }
+
+  frmNotaIngresoPlantaDetalle: FormGroup;
+  submitted = false;
+  locId = 0;
+  userSession: any;
+  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
+  listOlores: any[];
+  listColores: any[];
+  locEstado = 0;
+  oloresSels = [];
+  coloresSels = [];
+
+  ngOnInit(): void {
+
   }
 
   LoadForm() {
@@ -57,12 +66,42 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       tara: [],
       kilosNetos: [],
       observaciones: [],
-      codGuiaRemision: []
+      codGuiaRemision: [],
+      cafeExportacionGramos: [, Validators.required],
+      cafeExportacionPorc: [, Validators.required],
+      descarteGramos: [, Validators.required],
+      descartePorcentaje: [, Validators.required],
+      cascaraGramos: [, Validators.required],
+      cascaraPorcentaje: [, Validators.required],
+      totalGramos: [, Validators.required],
+      totalPorcentaje: [, Validators.required],
+      humedadProcenPC: [, Validators.required],
+      responsable: [],
+      listaOlores: [],
+      listaColores: []
     });
+    this.GetOlores();
+    this.GetColores();
   }
 
   get f() {
     return this.frmNotaIngresoPlantaDetalle.controls;
+  }
+
+  async GetOlores() {
+    this.listOlores = [];
+    const res = await this.maestroService.obtenerMaestros('Olor').toPromise();
+    if (res.Result.Success) {
+      this.listOlores = res.Result.Data;
+    }
+  }
+
+  async GetColores() {
+    this.listColores = [];
+    const res = await this.maestroService.obtenerMaestros('Color').toPromise();
+    if (res.Result.Success) {
+      this.listColores = res.Result.Data;
+    }
   }
 
   BuscarGuiaRemision(e) {
@@ -91,6 +130,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
   CompletarForm(data) {
     if (data) {
+      this.locEstado = parseInt(data.EstadoId);
       if (data.Correlativo) {
         this.frmNotaIngresoPlantaDetalle.controls.nroGuiaRemision.setValue(data.Correlativo);
       }
@@ -113,6 +153,42 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       }
       if (data.FechaRegistro) {
         this.frmNotaIngresoPlantaDetalle.controls.FechaRegistro.setValue(data.FechaRegistro);
+      }
+      if (data.Responsable) {
+        this.frmNotaIngresoPlantaDetalle.controls.responsable.setValue(data.Responsable);
+      }
+      if (data.Olores) {
+        this.frmNotaIngresoPlantaDetalle.controls.listaOlores.setValue(data.Olores);
+      }
+      if (data.Colores) {
+        this.frmNotaIngresoPlantaDetalle.controls.listaColores.setValue(data.Colores);
+      }
+      if (data.ExportableGramos) {
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionGramos.setValue(data.ExportableGramos);
+      }
+      if (data.ExportablePorcentaje) {
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.setValue(data.ExportablePorcentaje);
+      }
+      if (data.DescarteGramos) {
+        this.frmNotaIngresoPlantaDetalle.controls.descarteGramos.setValue(data.DescarteGramos);
+      }
+      if (data.DescartePorcentaje) {
+        this.frmNotaIngresoPlantaDetalle.controls.descartePorcentaje.setValue(data.DescartePorcentaje);
+      }
+      if (data.CascarillaGramos) {
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraGramos.setValue(data.CascarillaGramos);
+      }
+      if (data.CascarillaPorcentaje) {
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraPorcentaje.setValue(data.CascarillaPorcentaje);
+      }
+      if (data.TotalGramos) {
+        this.frmNotaIngresoPlantaDetalle.controls.totalGramos.setValue(data.TotalGramos);
+      }
+      if (data.TotalPorcentaje) {
+        this.frmNotaIngresoPlantaDetalle.controls.totalPorcentaje.setValue(data.TotalPorcentaje);
+      }
+      if (data.HumedadPorcentaje) {
+        this.frmNotaIngresoPlantaDetalle.controls.humedadProcenPC.setValue(data.HumedadPorcentaje);
       }
     }
     this.spinner.hide();
@@ -165,5 +241,24 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
   Cancelar() {
 
+  }
+
+  changeOlores(e) {
+    if (e.currentTarget.checked) {
+      this.oloresSels.push(e.currentTarget.value);
+    } else {
+      this.oloresSels.splice(this.oloresSels.indexOf(e.currentTarget.value), 1);
+    }
+
+    this.frmNotaIngresoPlantaDetalle.controls.listaOlores.setValue(this.oloresSels.join(','));
+  }
+
+  changeColores(e) {
+    if (e.currentTarget.checked) {
+      this.coloresSels.push(e.currentTarget.value);
+    } else {
+      this.coloresSels.splice(this.coloresSels.indexOf(e.currentTarget.value), 1);
+    }
+    this.frmNotaIngresoPlantaDetalle.controls.listaColores.setValue(this.coloresSels.join(','));
   }
 }

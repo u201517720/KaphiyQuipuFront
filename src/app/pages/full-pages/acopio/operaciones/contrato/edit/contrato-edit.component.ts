@@ -138,26 +138,6 @@ export class ContratoEditComponent implements OnInit {
     });
   }
 
-  // async LoadFormPesadoCafe() {
-  //   this.frmContratoCompraVentaPesadoCafe = this.fb.group({
-  //     sacosPC: [, Validators.required],
-  //     kilosBrutosPC: [, Validators.required],
-  //     taraSacoPC: [, Validators.required],
-  //     kilosNetosPC: [, Validators.required],
-  //     qq55KgPC: [, Validators.required],
-  //     cafeExportacionGramos: [, Validators.required],
-  //     cafeExportacionPorc: [, Validators.required],
-  //     descarteGramos: [, Validators.required],
-  //     descartePorcentaje: [, Validators.required],
-  //     cascaraGramos: [, Validators.required],
-  //     cascaraPorcentaje: [, Validators.required],
-  //     totalGramos: [, Validators.required],
-  //     totalPorcentaje: [, Validators.required],
-  //     humedadProcenPC: [, Validators.required],
-  //     observacionesPC: []
-  //   });
-  // }
-
   LoadCombos() {
     if (!this.locId) {
       this.GetCountries();

@@ -163,6 +163,202 @@
             </div>
         </div>
     </div>
+    <div class="form-row" *ngIf="locId > 0">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <ul ngbNav #nav="ngbNav" [activeId]="1" [destroyOnHide]="false"
+                            class="nav-pills justify-content-left">
+                            <li [ngbNavItem]="1" [destroyOnHide]="true">
+                                <a ngbNavLink class="nav-link d-flex align-items-center">
+                                    <span class="d-none d-sm-block" style="font-size: 1.1rem;">Control de Calidad</span>
+                                </a>
+                                <ng-template ngbNavContent>
+                                    <div class="row">
+                                        <div
+                                            class="col-lg-8 col-md-8 col-sm-12 col-xs-12 mb-2 border border-primary rounded-lg">
+                                            <div class="row mb-2 mt-1">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <h4 class="text-center font-weight-bolder">ANÁLISIS FÍSICO</h4>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <table class="table table-sm">
+                                                        <thead>
+                                                            <th class="text-center">OLOR</th>
+                                                            <th class="text-center">SELECCIÓN</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let olor of listOlores">
+                                                                <td>
+                                                                    {{olor.Label}}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <input type="checkbox" [value]="olor.Codigo"
+                                                                        (change)="changeOlores($event)"
+                                                                        [disabled]="locEstado > 2"
+                                                                        [checked]="frmNotaIngresoPlantaDetalle.value.listaOlores && frmNotaIngresoPlantaDetalle.value.listaOlores.includes(color.Codigo)">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                    <table class="table table-sm">
+                                                        <thead>
+                                                            <th class="text-center">COLOR</th>
+                                                            <th class="text-center">SELECCIÓN</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let color of listColores">
+                                                                <td>{{color.Label}}</td>
+                                                                <td class="text-center">
+                                                                    <input type="checkbox" [value]="color.Codigo"
+                                                                        (change)="changeColores($event)"
+                                                                        [disabled]="locEstado > 2"
+                                                                        [checked]="frmNotaIngresoPlantaDetalle.value.listaColores && frmNotaIngresoPlantaDetalle.value.listaColores.includes(color.Codigo)">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-2 col-sm-1 col-xs-0">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <h4 class="text-center">RENDIMIENTO EXPORTABLE</h4>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-borderless table-sm">
+                                                            <thead>
+                                                                <th class="text-center">Detalle</th>
+                                                                <th class="text-center">Gramos</th>
+                                                                <th class="text-center">%</th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h6>Café exportación</h6>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number" [readonly]="locEstado > 1"
+                                                                            formControlName="cafeExportacionGramos"
+                                                                            class="form-control text-right form-control-sm">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            formControlName="cafeExportacionPorc"
+                                                                            [readonly]="true"
+                                                                            class="form-control text-right form-control-sm">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h6>Descarte</h6>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number" [readonly]="locEstado > 1"
+                                                                            formControlName="descarteGramos"
+                                                                            class="form-control text-right form-control-sm">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            formControlName="descartePorcentaje"
+                                                                            [readonly]="true"
+                                                                            class="form-control text-right form-control-sm">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h6>Cáscara</h6>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number" [readonly]="locEstado > 1"
+                                                                            formControlName="cascaraGramos"
+                                                                            class="form-control text-right form-control-sm">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            formControlName="cascaraPorcentaje"
+                                                                            [readonly]="true"
+                                                                            class="form-control text-right form-control-sm">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <h6>Total</h6>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            formControlName="totalGramos"
+                                                                            class="form-control text-right form-control-sm"
+                                                                            [readonly]="true">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            formControlName="totalPorcentaje"
+                                                                            [readonly]="true"
+                                                                            class="form-control text-right form-control-sm">
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group row">
+                                                        <label for="humedadProcenPC"
+                                                            class="col-lg-4 col-form-label">HUMEDAD (%)</label>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                            <input type="number" formControlName="humedadProcenPC"
+                                                                [readonly]="locEstado > 1"
+                                                                class="form-control text-right form-control-sm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
+                                        <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group row">
+                                                        <label for="observacionesAF"
+                                                            class="col-lg-6 col-form-label font-weight-bold">RESPONSABLE
+                                                            DEL CONTROL DE
+                                                            CALIDAD</label>
+                                                        <div class="col-lg-6">
+                                                            <label
+                                                                class="col-form-label">{{frmNotaIngresoPlantaDetalle.value.responsable}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-2 col-sm-1 col-xs-0"></div>
+                                    </div>
+                                </ng-template>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div [ngbNavOutlet]="nav"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 <div class="d-flex justify-content-between align-items-center">
     <ngx-spinner></ngx-spinner>
