@@ -1,1 +1,169 @@
-<p>nota-ingreso-planta-edit works!</p>
+<form class="needs-validation" [formGroup]="frmNotaIngresoPlantaDetalle" novalidate>
+    <div class="form-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card mt-0">
+                <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
+                    NOTA DE INGRESO {{frmNotaIngresoPlantaDetalle.value.correlativo}}
+                </h5>
+                <div class="card-body">
+                    <div class="form-row" *ngIf="locId > 0">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">FECHA REGISTRO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmNotaIngresoPlantaDetalle.value.FechaRegistro}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                        <label class="text-white ml-1">DATOS GENERALES</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="nroGuiaRemision" class="col-lg-4 col-form-label pr-0">N° GUÍA
+                                    REMISIÓN</label>
+                                <div class="col-lg-6 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="nroGuiaRemision" [readonly]="locId > 0"
+                                        [ngClass]="{ 'is-invalid': submitted && f.nroGuiaRemision.invalid, 'is-valid': !submitted && !f.nroGuiaRemision.invalid }"
+                                        class="form-control form-control-sm" (keypress)="BuscarGuiaRemision($event)">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" *ngIf="locId == 0">
+                                    <button type="button" class="btn btn-sm btn-primary"
+                                        (click)="ConsultarGuiaRemision()">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label for="cliente" class="col-lg-2 col-form-label pr-0">CLIENTE</label>
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <input type="text" formControlName="cliente" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label for="direccion" class="col-lg-2 col-form-label">DIRECCIÓN</label>
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <input type="text" formControlName="direccion" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="certificacion" class="col-lg-4 col-form-label pr-0">CERTIFICACIÓN</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="certificacion"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="transportista" class="col-lg-4 col-form-label pr-0">TRANSPORTISTA</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="transportista"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="vehiculo" class="col-lg-4 col-form-label pr-0">VEHÍCULO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="vehiculo" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="producto" class="col-lg-4 col-form-label pr-0">PRODUCTO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="producto" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="numeroSacos" class="col-lg-4 col-form-label">N° SACOS</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" formControlName="numeroSacos"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="kilosBrutos" class="col-lg-4 col-form-label">KILOS BRUTOS</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="kilosBrutos"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="tara" class="col-lg-4 col-form-label">TARA</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="tara"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="kilosNetos" class="col-lg-4 col-form-label">KILOS NETOS</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" formControlName="kilosNetos"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="observaciones" class="col-lg-4 col-form-label">OBSERVACIONES</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <textarea class="form-control form-control-sm" formControlName="observaciones"
+                                        rows="2" placeholder="Observaciones" maxlength="500"
+                                        [readonly]="locId > 0"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group row m-0">
+                                <div class="col-lg-12 text-right">
+                                    <button type="button" class="btn btn-primary mr-1"
+                                        (click)="Guardar()">Guardar</button>
+                                    <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>
