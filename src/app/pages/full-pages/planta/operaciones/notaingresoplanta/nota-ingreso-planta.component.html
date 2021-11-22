@@ -32,6 +32,7 @@
                                 *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
                             <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()"
                                 [disabled]="frmNotaIngresoPlanta.invalid">Buscar</button>
+                            <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Nuevo()">Nuevo</button>
                         </form>
                     </div>
                 </div>
@@ -64,34 +65,28 @@
                         </fieldset>
                         <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
                             [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows" [scrollbarH]="true">
-                            <ngx-datatable-column name="Nota Ingreso" prop="Correlativo">
+                            <ngx-datatable-column name="N° Nota Ingreso" prop="Correlativo">
                                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                                     <div class="d-flex align-items-center">
                                         <div class="cell-line-height">
                                             <a class="line-height-1 mb-0"
-                                                [routerLink]="['/planta/operaciones/notaingreso/update', row.NotaIngresoAcopioId]">{{
+                                                [routerLink]="['/planta/operaciones/notaingreso/update', row.NotaIngresoPlantaId]">{{
                                                 name }}</a>
                                         </div>
                                     </div>
                                 </ng-template>
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Guia Recepción" prop="CorrelativoGR">
+                            <ngx-datatable-column name="N° Guía Remisión" prop="CorrelativoGRA">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Distribuidora" prop="RazonSocial">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Total Sacos" prop="TotalSacos">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Peso por Saco" prop="PesoSaco">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Calidad" prop="Calidad">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Certificación" prop="Certificacion">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Estado" prop="Estado">
+                            <ngx-datatable-column name="Conductor" prop="Conductor">
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro">
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Fecha Registro" prop="FechaRegistro">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Usuario Actualización" prop="UsuarioActualizacion">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="F. Actualización" prop="FechaActualizacion">
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Hash Blokchain" prop="HashBC">
                             </ngx-datatable-column>

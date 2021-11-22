@@ -16,6 +16,13 @@ const routes: Routes = [
                 }
             },
             {
+                path: 'notaingreso/create',
+                component: NotaIngresoPlantaEditComponent,
+                data: {
+                    title: 'Nota de Ingreso'
+                }
+            },
+            {
                 path: 'notaingreso/update/:id',
                 component: NotaIngresoPlantaEditComponent,
                 data: {

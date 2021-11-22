@@ -5,6 +5,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 
 import { DateUtil } from '../../../../../services/util/date-util';
 import { AlertUtil } from '../../../../../services/util/alert-util';
+import { NotaingresoplantaService } from '../../../../../services/notaingresoplanta.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nota-ingreso-planta',
@@ -17,7 +19,9 @@ export class NotaIngresoPlantaComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private alertUtil: AlertUtil,
     private dateUtil: DateUtil,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private notaingresoplantaService: NotaingresoplantaService,
+    private router: Router) { }
 
   frmNotaIngresoPlanta: FormGroup;
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -79,6 +83,29 @@ export class NotaIngresoPlantaComponent implements OnInit {
   }
 
   Buscar() {
+    if (!this.frmNotaIngresoPlanta.invalid) {
+      this.spinner.show();
+      this.rows = [];
+      const request = {
+        FechaInicio: this.frmNotaIngresoPlanta.value.fechaInicio,
+        FechaFin: this.frmNotaIngresoPlanta.value.fechaFin
+      }
+      this.notaingresoplantaService.Consultar(request)
+        .subscribe((res) => {
+          this.spinner.hide();
+          if (res.Result.Success) {
+            this.rows = res.Result.Data;
+          }
+        }, (err) => {
+          this.spinner.hide();
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+        });
+    } else {
+      this.submitted = true;
+    }
+  }
 
+  Nuevo() {
+    this.router.navigate(['/planta/operaciones/notaingreso/create']);
   }
 }
