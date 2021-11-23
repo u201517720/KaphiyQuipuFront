@@ -29,7 +29,8 @@
                                 <div class="col-lg-6 col-md-8 col-sm-8 col-xs-8">
                                     <input type="text" formControlName="nroGuiaRemision" [readonly]="locId > 0"
                                         [ngClass]="{ 'is-invalid': submitted && f.nroGuiaRemision.invalid, 'is-valid': !submitted && !f.nroGuiaRemision.invalid }"
-                                        class="form-control form-control-sm" (keypress)="BuscarGuiaRemision($event)">
+                                        class="form-control form-control-sm"
+                                        (keypress)="locId == 0 && BuscarGuiaRemision($event)">
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" *ngIf="locId == 0">
                                     <button type="button" class="btn btn-sm btn-primary"
@@ -148,17 +149,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="form-group row m-0">
-                                <div class="col-lg-12 text-right">
-                                    <button type="button" class="btn btn-primary mr-1"
-                                        (click)="Guardar()">Guardar</button>
-                                    <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -193,13 +183,13 @@
                                                         <tbody>
                                                             <tr *ngFor="let olor of listOlores">
                                                                 <td>
-                                                                    {{olor.Label}}
+                                                                    <label>{{olor.Label}}</label>
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <input type="checkbox" [value]="olor.Codigo"
-                                                                        (change)="changeOlores($event)"
-                                                                        [disabled]="locEstado > 2"
-                                                                        [checked]="frmNotaIngresoPlantaDetalle.value.listaOlores && frmNotaIngresoPlantaDetalle.value.listaOlores.includes(color.Codigo)">
+                                                                    <input type="checkbox" [disabled]="locEstado > 1"
+                                                                        (change)="locEstado < 2 && changeOlores($event)"
+                                                                        [value]="olor.Codigo"
+                                                                        [checked]="oloresSeleccionados.includes(olor.Codigo)">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -213,12 +203,14 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr *ngFor="let color of listColores">
-                                                                <td>{{color.Label}}</td>
+                                                                <td>
+                                                                    <label for="">{{color.Label}}</label>
+                                                                </td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="color.Codigo"
-                                                                        (change)="changeColores($event)"
-                                                                        [disabled]="locEstado > 2"
-                                                                        [checked]="frmNotaIngresoPlantaDetalle.value.listaColores && frmNotaIngresoPlantaDetalle.value.listaColores.includes(color.Codigo)">
+                                                                        (change)="locEstado < 2 && changeColores($event)"
+                                                                        [disabled]="locEstado > 1"
+                                                                        [checked]="coloresSeleccionados.includes(color.Codigo)">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -226,11 +218,11 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-lg-4 col-md-2 col-sm-1 col-xs-0">
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <h4 class="text-center">RENDIMIENTO EXPORTABLE</h4>
+                                                    <h4 class="text-center font-weight-bolder">RENDIMIENTO EXPORTABLE
+                                                    </h4>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -250,6 +242,8 @@
                                                                     <td>
                                                                         <input type="number" [readonly]="locEstado > 1"
                                                                             formControlName="cafeExportacionGramos"
+                                                                            (blur)="locEstado < 2 && CalcularAnalisisFisico()"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.cafeExportacionGramos.invalid, 'is-valid': !submitted && !f.cafeExportacionGramos.invalid }"
                                                                             class="form-control text-right form-control-sm">
                                                                     </td>
                                                                     <td>
@@ -266,6 +260,8 @@
                                                                     <td>
                                                                         <input type="number" [readonly]="locEstado > 1"
                                                                             formControlName="descarteGramos"
+                                                                            (blur)="locEstado < 2 && CalcularAnalisisFisico()"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.descarteGramos.invalid, 'is-valid': !submitted && !f.descarteGramos.invalid }"
                                                                             class="form-control text-right form-control-sm">
                                                                     </td>
                                                                     <td>
@@ -282,6 +278,8 @@
                                                                     <td>
                                                                         <input type="number" [readonly]="locEstado > 1"
                                                                             formControlName="cascaraGramos"
+                                                                            (blur)="locEstado < 2 && CalcularAnalisisFisico()"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.cascaraGramos.invalid, 'is-valid': !submitted && !f.cascaraGramos.invalid }"
                                                                             class="form-control text-right form-control-sm">
                                                                     </td>
                                                                     <td>
@@ -321,6 +319,7 @@
                                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                             <input type="number" formControlName="humedadProcenPC"
                                                                 [readonly]="locEstado > 1"
+                                                                [ngClass]="{ 'is-invalid': submitted && f.humedadProcenPC.invalid, 'is-valid': !submitted && !f.humedadProcenPC.invalid }"
                                                                 class="form-control text-right form-control-sm">
                                                         </div>
                                                     </div>
@@ -360,6 +359,33 @@
         </div>
     </div>
 </form>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="card-footer">
+                <div class="form-row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group row m-0">
+                            <div class="col-lg-12 text-right">
+                                <button type="button" class="btn btn-primary mr-1" (click)="AutorizarTransformacion()"
+                                    *ngIf="userSession.RolId == 11 && locEstado === 4">Autorizar Transformación</button>
+                                <button type="button" class="btn btn-primary mr-1" (click)="FinalizarEtiquetado()"
+                                    *ngIf="userSession.RolId == 13 && locEstado === 3">Finalizar Etiquetado</button>
+                                <button type="button" class="btn btn-primary mr-1" (click)="ImprimirEtiquetas()"
+                                    *ngIf="userSession.RolId == 13 && locEstado === 3">Imprimir Etiquetas</button>
+                                <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarRecepcion()"
+                                    *ngIf="userSession.RolId == 13 && locEstado === 2">Confirmar Recepción</button>
+                                <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
+                                    *ngIf="(userSession.RolId == 12 || userSession.RolId == 11) && locEstado < 2">Guardar</button>
+                                <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="d-flex justify-content-between align-items-center">
     <ngx-spinner></ngx-spinner>
 </div>

@@ -29,4 +29,24 @@ export class NotaingresoplantaService {
     const url = `${this.url}/Registrar`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  RegistrarControlCalidad(request: any): Observable<any> {
+    const url = `${this.url}/ControlCalidad`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  ConfirmarRecepcionMateriaPrima(request: any): Observable<any> {
+    const url = `${this.url}/ConfirmarRecepcion`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  AutorizarTransformacion(request: any): Observable<any> {
+    const url = `${this.url}/AutorizarTransformacion`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  FinalizarEtiquetado(request: any): Observable<any> {
+    const url = `${this.url}/FinalizarEtiquetado`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
