@@ -27,6 +27,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   coloresSels = [];
   oloresSeleccionados = '';
   coloresSeleccionados = '';
+  activeTab = 1;
 
   constructor(private fb: FormBuilder,
     private guiaremisionService: GuiaremisionService,
@@ -84,7 +85,73 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       humedadProcenPC: [, Validators.required],
       responsable: [],
       listaOlores: [],
-      listaColores: []
+      listaColores: [],
+
+      cafeExportSacos: [, Validators.required],
+      cafeExportKilos: [, Validators.required],
+      cafeExportKgNetos: [],
+      cafeExportQQS: [],
+      cafeExportPorc: [],
+
+      cafeExportMCSacos: [, Validators.required],
+      cafeExportMCKilos: [, Validators.required],
+      cafeExportMCKgNetos: [],
+      cafeExportMCQQS: [],
+      cafeExportMCPorc: [],
+
+      cafeSegundaSacos: [, Validators.required],
+      cafeSegundaKilos: [, Validators.required],
+      cafeSegundaKgNetos: [],
+      cafeSegundaQQS: [],
+      cafeSegundaPorc: [],
+
+      cafeDescarteMaquinaSacos: [, Validators.required],
+      cafeDescarteMaquinaKilos: [, Validators.required],
+      cafeDescarteMaquinaKgNetos: [],
+      cafeDescarteMaquinaQQS: [],
+      cafeDescarteMaquinaPorcen: [],
+
+      cafeDescarteEscojoSacos: [, Validators.required],
+      cafeDescarteEscojoKilos: [, Validators.required],
+      cafeDescarteEscojoKgNetos: [],
+      cafeDescarteEscojoQQS: [],
+      cafeDescarteEscojoPorcen: [],
+
+      cafeBolaSacos: [, Validators.required],
+      cafeBolaKilos: [, Validators.required],
+      cafeBolaKgNetos: [],
+      cafeBolaQQS: [],
+      cafeBolaPorcen: [],
+
+      cafeCiscoSacos: [, Validators.required],
+      cafeCiscoKilos: [, Validators.required],
+      cafeCiscoKgNetos: [],
+      cafeCiscoQQS: [],
+      cafeCiscoPorcen: [],
+
+      totalCafeSacos: [],
+      totalCafeKilos: [],
+      totalCafeKgNetos: [],
+      totalCafeQQS: [],
+      totalCafePorcen: [],
+
+      piedrasOtrosSacos: [],
+      piedrasOtrosKilos: [],
+      piedrasOtrosKgNetos: [, Validators.required],
+      piedrasOtrosQQS: [],
+      piedrasOtrosPorcen: [],
+
+      cascaraOtrosSacos: [],
+      cascaraOtrosKilos: [],
+      cascaraOtrosKgNetos: [],
+      cascaraOtrosQQS: [],
+      cascaraOtrosPorcen: [],
+
+      totalesSacos: [],
+      totalesKilos: [],
+      totalesKgNetos: [],
+      totalesQQS: [],
+      totalesPorcen: []
     });
   }
 
@@ -162,6 +229,9 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       }
       if (data.CorrelativoGRA) {
         this.frmNotaIngresoPlantaDetalle.controls.nroGuiaRemision.setValue(data.CorrelativoGRA);
+      }
+      if (this.locEstado === 6) {
+        this.activeTab = 2;
       }
       this.frmNotaIngresoPlantaDetalle.controls.codGuiaRemision.setValue(data.GuiaRemisionId);
       this.frmNotaIngresoPlantaDetalle.controls.cliente.setValue(data.Empresa);
@@ -281,6 +351,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
         } else {
           this.alertUtil.alertWarning('Validación', 'Seleccionar como minimo un olor del análisis fisico.');
         }
+      } else if (this.userSession.RolId == 14 && this.locEstado === 6) {
+
       }
     } else {
       this.submitted = true;
@@ -445,5 +517,281 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
             this.alertUtil.alertError('ERROR', this.mensajeGenerico);
           });
       });
+  }
+
+  CalcularResultadosProcesos() {
+    const kilosXSaco = this.frmNotaIngresoPlantaDetalle.value.numeroSacos;
+    const totalKilos = this.frmNotaIngresoPlantaDetalle.value.kilosBrutos;
+    let locKilosnetos, locPorcentaje, locTotalSacos = 0, locTotalPorcentaje = 0, locTotalCafeKgnetos = 0, locTotalesPorcen = 0;
+
+    const locCafeExporSacos = this.frmNotaIngresoPlantaDetalle.value.cafeExportSacos;
+    const locCafeExporKilos = this.frmNotaIngresoPlantaDetalle.value.cafeExportKilos;
+
+    //PRIMERA FILA
+    if (locCafeExporSacos) {
+      locTotalSacos = locTotalSacos + locCafeExporSacos;
+      if (locCafeExporKilos) {
+        locKilosnetos = (locCafeExporSacos * kilosXSaco) + locCafeExporKilos;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportKgNetos.setValue(locKilosnetos);
+      } else {
+        locKilosnetos = locCafeExporSacos * kilosXSaco;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportKgNetos.setValue(locKilosnetos);
+      }
+    } else {
+      locKilosnetos = 0;
+      this.frmNotaIngresoPlantaDetalle.controls.cafeExportKgNetos.reset();
+    }
+
+    locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
+
+    if (locKilosnetos) {
+      locPorcentaje = (locKilosnetos * 100) / totalKilos;
+      this.frmNotaIngresoPlantaDetalle.controls.cafeExportPorc.setValue(parseFloat(locPorcentaje.toFixed(2)));
+    } else {
+      locPorcentaje = 0;
+      this.frmNotaIngresoPlantaDetalle.controls.cafeExportPorc.reset();
+    }
+
+    locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
+
+    if (locTotalCafeKgnetos < totalKilos) {
+      //SEGUNDA FILA
+      const locCafeExporMCSacos = this.frmNotaIngresoPlantaDetalle.value.cafeExportMCSacos;
+      const locCafeExporMCKilos = this.frmNotaIngresoPlantaDetalle.value.cafeExportMCKilos;
+
+      if (locCafeExporMCSacos) {
+        locTotalSacos = locTotalSacos + locCafeExporMCSacos;
+        if (locCafeExporMCKilos) {
+          locKilosnetos = (locCafeExporMCSacos * kilosXSaco) + locCafeExporMCKilos;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCKgNetos.setValue(locKilosnetos);
+        } else {
+          locKilosnetos = locCafeExporMCSacos * kilosXSaco;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCKgNetos.setValue(locKilosnetos);
+        }
+      } else {
+        locKilosnetos = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCKgNetos.reset();
+      }
+
+      locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
+
+      if (locKilosnetos) {
+        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCPorc.setValue(parseFloat(locPorcentaje.toFixed(2)));
+      } else {
+        locPorcentaje = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCPorc.reset();
+      }
+
+      locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
+
+      //TERCERA FILA
+      const locCafeSegundaSacos = this.frmNotaIngresoPlantaDetalle.value.cafeSegundaSacos;
+      const locCafeSegundaKilos = this.frmNotaIngresoPlantaDetalle.value.cafeSegundaKilos;
+
+      if (locCafeSegundaSacos) {
+        locTotalSacos = locTotalSacos + locCafeSegundaSacos;
+        if (locCafeSegundaKilos) {
+          locKilosnetos = (locCafeSegundaSacos * kilosXSaco) + locCafeSegundaKilos;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaKgNetos.setValue(locKilosnetos);
+        } else {
+          locKilosnetos = locCafeSegundaSacos * kilosXSaco;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaKgNetos.setValue(locKilosnetos);
+        }
+      } else {
+        locKilosnetos = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaKgNetos.reset();
+      }
+
+      locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
+
+      if (locKilosnetos) {
+        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaPorc.setValue(parseFloat(locPorcentaje.toFixed(2)));
+      } else {
+        locPorcentaje = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaPorc.reset();
+      }
+
+      locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
+
+      //CUARTA FILA
+      const locCafeDesMaquinaSacos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaSacos;
+      const locCafeDesMaquinaKilos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaKilos;
+
+      if (locCafeDesMaquinaSacos) {
+        locTotalSacos = locTotalSacos + locCafeDesMaquinaSacos;
+        if (locCafeDesMaquinaKilos) {
+          locKilosnetos = (locCafeDesMaquinaSacos * kilosXSaco) + locCafeDesMaquinaKilos;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaKgNetos.setValue(locKilosnetos);
+        } else {
+          locKilosnetos = locCafeDesMaquinaSacos * kilosXSaco;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaKgNetos.setValue(locKilosnetos);
+        }
+      } else {
+        locKilosnetos = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaKgNetos.reset();
+      }
+
+      locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
+
+      if (locKilosnetos) {
+        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
+      } else {
+        locPorcentaje = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaPorcen.reset();
+      }
+
+      locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
+
+      //QUINTA FILA
+      const locCafeDesEscojoSacos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoSacos;
+      const locCafeDesEscojoKilos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoKilos;
+
+      if (locCafeDesEscojoSacos) {
+        locTotalSacos = locTotalSacos + locCafeDesEscojoSacos;
+        if (locCafeDesEscojoKilos) {
+          locKilosnetos = (locCafeDesEscojoSacos * kilosXSaco) + locCafeDesEscojoKilos;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoKgNetos.setValue(locKilosnetos);
+        } else {
+          locKilosnetos = locCafeDesEscojoSacos * kilosXSaco;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoKgNetos.setValue(locKilosnetos);
+        }
+      } else {
+        locKilosnetos = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoKgNetos.reset();
+      }
+
+      locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
+
+      if (locKilosnetos) {
+        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
+      } else {
+        locPorcentaje = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoPorcen.reset();
+      }
+
+      locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
+
+      //SEXTA FILA
+      const locCafeBolaSacos = this.frmNotaIngresoPlantaDetalle.value.cafeBolaSacos;
+      const locCafeBolaKilos = this.frmNotaIngresoPlantaDetalle.value.cafeBolaKilos;
+
+      if (locCafeBolaSacos) {
+        locTotalSacos = locTotalSacos + locCafeBolaSacos;
+        if (locCafeBolaKilos) {
+          locKilosnetos = (locCafeBolaSacos * kilosXSaco) + locCafeBolaKilos;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeBolaKgNetos.setValue(locKilosnetos);
+        } else {
+          locKilosnetos = locCafeBolaSacos * kilosXSaco;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeBolaKgNetos.setValue(locKilosnetos);
+        }
+      } else {
+        locKilosnetos = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeBolaKgNetos.reset();
+      }
+
+      locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
+
+      if (locKilosnetos) {
+        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeBolaPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
+      } else {
+        locPorcentaje = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeBolaPorcen.reset();
+      }
+
+      locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
+
+      //SEPTIMA FILA
+      const locCafeCiscoSacos = this.frmNotaIngresoPlantaDetalle.value.cafeCiscoSacos;
+      const locCafeCiscoKilos = this.frmNotaIngresoPlantaDetalle.value.cafeCiscoKilos;
+
+      if (locCafeCiscoSacos) {
+        locTotalSacos = locTotalSacos + locCafeCiscoSacos;
+        if (locCafeCiscoKilos) {
+          locKilosnetos = (locCafeCiscoSacos * kilosXSaco) + locCafeCiscoKilos;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoKgNetos.setValue(locKilosnetos);
+        } else {
+          locKilosnetos = locCafeCiscoSacos * kilosXSaco;
+          this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoKgNetos.setValue(locKilosnetos);
+        }
+      } else {
+        locKilosnetos = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoKgNetos.reset();
+      }
+
+      locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
+
+      if (locKilosnetos) {
+        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
+      } else {
+        locPorcentaje = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoPorcen.reset();
+      }
+
+      locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
+
+      const locPiedrasOtrosKgNetos = this.frmNotaIngresoPlantaDetalle.value.piedrasOtrosKgNetos;
+      if (locPiedrasOtrosKgNetos) {
+        locPorcentaje = (locPiedrasOtrosKgNetos * 100) / totalKilos;
+        this.frmNotaIngresoPlantaDetalle.controls.piedrasOtrosPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
+      } else {
+        locPorcentaje = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.piedrasOtrosPorcen.reset();
+      }
+
+      locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
+
+      //RESTO
+      if (locTotalSacos) {
+        this.frmNotaIngresoPlantaDetalle.controls.totalCafeSacos.setValue(locTotalSacos);
+      } else {
+        this.frmNotaIngresoPlantaDetalle.controls.totalCafeSacos.reset();
+      }
+
+      if (locTotalCafeKgnetos) {
+        this.frmNotaIngresoPlantaDetalle.controls.totalCafeKgNetos.setValue(parseFloat(locTotalCafeKgnetos.toFixed(2)));
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosKgNetos.setValue(parseFloat((totalKilos - (locTotalCafeKgnetos + locPiedrasOtrosKgNetos)).toFixed(2)));
+      } else {
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosKgNetos.setValue(parseFloat((totalKilos - locPiedrasOtrosKgNetos).toFixed(2)));
+        this.frmNotaIngresoPlantaDetalle.controls.totalCafeKgNetos.reset();
+      }
+
+      const locCascaraOtrosKgnetos = this.frmNotaIngresoPlantaDetalle.value.cascaraOtrosKgNetos;
+
+      if (locCascaraOtrosKgnetos) {
+        locPorcentaje = (locCascaraOtrosKgnetos * 100) / totalKilos;
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
+      } else {
+        locPorcentaje = 0;
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosPorcen.reset();
+      }
+
+      locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
+
+      if (locTotalPorcentaje) {
+        this.frmNotaIngresoPlantaDetalle.controls.totalesPorcen.setValue(parseFloat(locTotalPorcentaje.toFixed(2)));
+      } else {
+        this.frmNotaIngresoPlantaDetalle.controls.totalesPorcen.reset();
+      }
+
+      if (locTotalCafeKgnetos) {
+        if (locCascaraOtrosKgnetos) {
+          if (locPiedrasOtrosKgNetos) {
+            this.frmNotaIngresoPlantaDetalle.controls.totalesKgNetos.setValue((locTotalCafeKgnetos + locCascaraOtrosKgnetos + locPiedrasOtrosKgNetos).toFixed(2));
+          } else {
+            this.frmNotaIngresoPlantaDetalle.controls.totalesKgNetos.setValue((locTotalCafeKgnetos + locCascaraOtrosKgnetos).toFixed(2));
+          }
+        } else {
+          this.frmNotaIngresoPlantaDetalle.controls.totalesKgNetos.setValue(locTotalCafeKgnetos.toFixed(2));
+        }
+      } else {
+        this.frmNotaIngresoPlantaDetalle.controls.totalesKgNetos.reset();
+      }
+    }
   }
 }

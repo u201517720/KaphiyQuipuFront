@@ -7,6 +7,7 @@ import { OrdenprocesoacopioService } from '../../../../../../services/ordenproce
 import { MaestroService } from '../../../../../../services/maestro.service';
 import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { GuiaremisionService } from '../../../../../../services/guiaremision.service';
+import { NotaingresoplantaService } from '../../../../../../services/notaingresoplanta.service';
 
 @Component({
   selector: 'app-ordenproceso-edit',
@@ -22,7 +23,8 @@ export class OrdenprocesoEditComponent implements OnInit {
     private ordenprocesoacopioService: OrdenprocesoacopioService,
     private maestroService: MaestroService,
     private alertUtil: AlertUtil,
-    private guiaremisionService: GuiaremisionService) { }
+    private guiaremisionService: GuiaremisionService,
+    private notaingresoplantaService: NotaingresoplantaService) { }
 
   frmOrdenProcesoAcopioDetalle: FormGroup;
   locId = 0;
@@ -189,4 +191,31 @@ export class OrdenprocesoEditComponent implements OnInit {
           });
       });
   }
+
+  IniciarTransformacion() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de confirmar el inicio de la transformación?',
+      () => {
+        this.spinner.show();
+        const request = {
+          Id: this.locId,
+          Usuario: this.userSession.NombreUsuario
+        };
+        this.ordenprocesoacopioService.IniciarTransformacion(request)
+          .subscribe((res) => {
+            this.spinner.hide();
+            if (res.Result.Success) {
+              this.alertUtil.alertOkCallback('Confirmación',
+                `Se ha confirmado el inicio de la transformación`,
+                () => {
+                  this.router.navigate(['/planta/operaciones/notaingreso/list']);
+                });
+            }
+          }, (err) => {
+            this.spinner.hide();
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+          });
+      });
+  }
+
 }
