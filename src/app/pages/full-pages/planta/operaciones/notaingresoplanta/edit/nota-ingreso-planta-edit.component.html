@@ -357,17 +357,16 @@
                                 <ng-template ngbNavContent>
                                     <div class="row">
                                         <div class="col-lg-1"></div>
-                                        <div
-                                            class="col-lg-10 col-md-12 col-sm-12 col-xs-12 mb-2 border border-primary rounded-lg">
+                                        <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 mb-2">
                                             <div class="table-responsive">
-                                                <table class="table table-sm table-bordered">
+                                                <table class="table table-sm table-bordered table-striped table-hover">
                                                     <thead>
-                                                        <tr>
+                                                        <tr class="bg-primary text-white">
                                                             <th colspan="7" class="text-center align-middle"
                                                                 scope="colgroup">
                                                                 Resultado de proceso</th>
                                                         </tr>
-                                                        <tr>
+                                                        <tr class="bg-primary text-white">
                                                             <th scope="col" class="text-center align-middle">Item N°
                                                             </th>
                                                             <th scope="col" class="text-center align-middle">Producto
@@ -391,12 +390,14 @@
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportSacos.invalid, 'is-valid': !submitted && !f.cafeExportSacos.invalid }"
+                                                                    [readonly]="locEstado > 6"
                                                                     class="form-control form-control-sm text-right"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportKilos.invalid, 'is-valid': !submitted && !f.cafeExportKilos.invalid }"
+                                                                    [readonly]="locEstado > 6"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
@@ -418,12 +419,14 @@
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportMCSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportMCSacos.invalid, 'is-valid': !submitted && !f.cafeExportMCSacos.invalid }"
+                                                                    [readonly]="locEstado > 6"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportMCKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportMCKilos.invalid, 'is-valid': !submitted && !f.cafeExportMCKilos.invalid }"
+                                                                    [readonly]="locEstado > 6"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
@@ -445,12 +448,14 @@
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeSegundaSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeSegundaSacos.invalid, 'is-valid': !submitted && !f.cafeSegundaSacos.invalid }"
+                                                                    [readonly]="locEstado > 6"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeSegundaKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeSegundaKilos.invalid, 'is-valid': !submitted && !f.cafeSegundaKilos.invalid }"
+                                                                    [readonly]="locEstado > 6"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
@@ -474,6 +479,7 @@
                                                                     formControlName="cafeDescarteMaquinaSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteMaquinaSacos.invalid, 'is-valid': !submitted && !f.cafeDescarteMaquinaSacos.invalid }"
                                                                     (blur)="CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 6"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
@@ -481,6 +487,7 @@
                                                                     formControlName="cafeDescarteMaquinaKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteMaquinaKilos.invalid, 'is-valid': !submitted && !f.cafeDescarteMaquinaKilos.invalid }"
                                                                     (blur)="CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 6"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -503,6 +510,7 @@
                                                                     formControlName="cafeDescarteEscojoSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteEscojoSacos.invalid, 'is-valid': !submitted && !f.cafeDescarteEscojoSacos.invalid }"
                                                                     (blur)="CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 6"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
@@ -510,6 +518,7 @@
                                                                     formControlName="cafeDescarteEscojoKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteEscojoKilos.invalid, 'is-valid': !submitted && !f.cafeDescarteEscojoKilos.invalid }"
                                                                     (blur)="CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 6"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -531,12 +540,14 @@
                                                                 <input type="number" formControlName="cafeBolaSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeBolaSacos.invalid, 'is-valid': !submitted && !f.cafeBolaSacos.invalid }"
                                                                     class="form-control form-control-sm text-right"
+                                                                    [readonly]="locEstado > 6"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeBolaKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeBolaKilos.invalid, 'is-valid': !submitted && !f.cafeBolaKilos.invalid }"
                                                                     class="form-control form-control-sm text-right"
+                                                                    [readonly]="locEstado > 6"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -558,12 +569,14 @@
                                                                 <input type="number" formControlName="cafeCiscoSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeCiscoSacos.invalid, 'is-valid': !submitted && !f.cafeCiscoSacos.invalid }"
                                                                     class="form-control form-control-sm text-right"
+                                                                    [readonly]="locEstado > 6"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeCiscoKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeCiscoKilos.invalid, 'is-valid': !submitted && !f.cafeCiscoKilos.invalid }"
                                                                     class="form-control form-control-sm text-right"
+                                                                    [readonly]="locEstado > 6"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -612,6 +625,7 @@
                                                                 <input type="number"
                                                                     formControlName="piedrasOtrosKgNetos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.piedrasOtrosKgNetos.invalid, 'is-valid': !submitted && !f.piedrasOtrosKgNetos.invalid }"
+                                                                    [readonly]="locEstado > 6"
                                                                     class="form-control form-control-sm text-right"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
@@ -645,22 +659,27 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2" class="text-center align-middle">
-                                                                <label>TOTALES</label>
+                                                                <label class="font-weight-bold">TOTALES</label>
                                                             </td>
                                                             <td class="text-right align-middle">
-                                                                <label>{{frmNotaIngresoPlantaDetalle.value.totalesSacos}}</label>
+                                                                <label
+                                                                    class="font-weight-bold">{{frmNotaIngresoPlantaDetalle.value.totalesSacos}}</label>
                                                             </td>
                                                             <td class="text-right align-middle">
-                                                                <label>{{frmNotaIngresoPlantaDetalle.value.totalesKilos}}</label>
+                                                                <label
+                                                                    class="font-weight-bold">{{frmNotaIngresoPlantaDetalle.value.totalesKilos}}</label>
                                                             </td>
                                                             <td class="text-right align-middle">
-                                                                <label>{{frmNotaIngresoPlantaDetalle.value.totalesKgNetos}}</label>
+                                                                <label
+                                                                    class="font-weight-bold">{{frmNotaIngresoPlantaDetalle.value.totalesKgNetos}}</label>
                                                             </td>
                                                             <td class="text-right align-middle">
-                                                                <label>{{frmNotaIngresoPlantaDetalle.value.totalesQQS}}</label>
+                                                                <label
+                                                                    class="font-weight-bold">{{frmNotaIngresoPlantaDetalle.value.totalesQQS}}</label>
                                                             </td>
                                                             <td class="text-right align-middle">
-                                                                <label>{{frmNotaIngresoPlantaDetalle.value.totalesPorcen}}</label>
+                                                                <label
+                                                                    class="font-weight-bold">{{frmNotaIngresoPlantaDetalle.value.totalesPorcen}}</label>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -689,6 +708,8 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="form-group row m-0">
                             <div class="col-lg-12 text-right">
+                                <button type="button" class="btn btn-primary mr-1" (click)="FinalizarTransformacion()"
+                                    *ngIf="userSession.RolId == 14 && locEstado === 7">Finalizar Transformación</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="AutorizarTransformacion()"
                                     *ngIf="userSession.RolId == 11 && locEstado === 4">Autorizar Transformación</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="FinalizarEtiquetado()"
