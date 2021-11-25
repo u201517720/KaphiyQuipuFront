@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { NotaIngresoPlantaComponent } from './operaciones/notaingresoplanta/nota-ingreso-planta.component';
 import { NotaIngresoPlantaEditComponent } from './operaciones/notaingresoplanta/edit/nota-ingreso-planta-edit.component';
+import { NotaSalidaPlantaComponent } from './operaciones/notasalidaplanta/nota-salida-planta.component';
+import { NotaSalidaPlantaEditComponent } from './operaciones/notasalidaplanta/edit/nota-salida-planta-edit.component';
 
 const routes: Routes = [
     {
@@ -27,6 +29,20 @@ const routes: Routes = [
                 component: NotaIngresoPlantaEditComponent,
                 data: {
                     title: 'Nota de Ingreso'
+                }
+            },
+            {
+                path: 'notasalida/list',
+                component: NotaSalidaPlantaComponent,
+                data: {
+                    title: 'Nota de Salida'
+                }
+            },
+            {
+                path: 'notasalida/update/:id',
+                component: NotaSalidaPlantaEditComponent,
+                data: {
+                    title: 'Nota de Salida'
                 }
             }
         ]
