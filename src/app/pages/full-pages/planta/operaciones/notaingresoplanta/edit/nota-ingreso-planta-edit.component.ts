@@ -7,6 +7,7 @@ import { GuiaremisionService } from '../../../../../../services/guiaremision.ser
 import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { NotaingresoplantaService } from '../../../../../../services/notaingresoplanta.service';
 import { MaestroService } from '../../../../../../services/maestro.service';
+import { NotasalidaplantaService } from '../../../../../../services/notasalidaplanta.service';
 
 @Component({
   selector: 'app-nota-ingreso-planta-edit',
@@ -36,7 +37,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     private notaingresoplantaService: NotaingresoplantaService,
     private route: ActivatedRoute,
     private maestroService: MaestroService,
-    private router: Router) {
+    private router: Router,
+    private notasalidaplantaService: NotasalidaplantaService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
@@ -914,10 +916,26 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       () => {
         this.spinner.show();
         const request = {
-          Id: this.locId,
-          Usuario: this.userSession.NombreUsuario
+          NotaIngresoPlantaId: this.locId,
+          UsuarioRegistro: this.userSession.NombreUsuario
         }
-
+        this.notasalidaplantaService.Registrar(request)
+          .subscribe((res) => {
+            this.spinner.hide();
+            if (res.Result.Success) {
+              this.alertUtil.alertOkCallback('Confirmación',
+                `Se ha generado la nota de salida ${res.Result.Data}.`,
+                () => {
+                  this.ConsultarPorId();
+                });
+            } else {
+              this.alertUtil.alertError('ERROR', res.Result.Message);
+            }
+          }, (err) => {
+            this.spinner.hide();
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+          });
       });
   }
+  
 }
