@@ -907,4 +907,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
           });
       });
   }
+
+  GenerarGuiaSalida() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de generar la guía de salida?',
+      () => {
+        this.spinner.show();
+        const request = {
+          Id: this.locId,
+          Usuario: this.userSession.NombreUsuario
+        }
+
+      });
+  }
 }
