@@ -21,6 +21,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { NotaIngresoPlantaComponent } from './operaciones/notaingresoplanta/nota-ingreso-planta.component';
 import { NotaIngresoPlantaEditComponent } from './operaciones/notaingresoplanta/edit/nota-ingreso-planta-edit.component';
+import { NotaSalidaPlantaComponent } from './operaciones/notasalidaplanta/nota-salida-planta.component';
+import { GuiaRemisionPlantaComponent } from './operaciones/guiaremisionplanta/guia-remision-planta.component';
+import { NotaSalidaPlantaEditComponent } from './operaciones/notasalidaplanta/edit/nota-salida-planta-edit.component';
+import { GuiaRemisionPlantaEditComponent } from './operaciones/guiaremisionplanta/edit/guia-remision-planta-edit.component';
 
 @NgModule({
   imports: [
@@ -45,7 +49,11 @@ import { NotaIngresoPlantaEditComponent } from './operaciones/notaingresoplanta/
   ],
   declarations: [
     NotaIngresoPlantaComponent,
-    NotaIngresoPlantaEditComponent
+    NotaIngresoPlantaEditComponent,
+    NotaSalidaPlantaComponent,
+    GuiaRemisionPlantaComponent,
+    NotaSalidaPlantaEditComponent,
+    GuiaRemisionPlantaEditComponent
   ],
   exports: [],
   providers: [
