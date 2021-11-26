@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -15,11 +16,13 @@ export class NotaSalidaPlantaEditComponent implements OnInit {
   constructor(private guiaremisionplantaService: GuiaremisionplantaService,
     private alertUtil: AlertUtil,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService,
+    private fb: FormBuilder) { }
 
   locId = 0;
   userSession: any;
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
+  frmNotaSalidaPlantaDetalle: FormGroup;
 
   ngOnInit(): void {
     this.locId = parseInt(this.route.snapshot.params['id']);
@@ -27,6 +30,13 @@ export class NotaSalidaPlantaEditComponent implements OnInit {
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
     }
+    this.LoadForm();
+  }
+
+  LoadForm() {
+    this.frmNotaSalidaPlantaDetalle = this.fb.group({
+
+    });
   }
 
   GenerarGuiaRemision() {
@@ -36,7 +46,8 @@ export class NotaSalidaPlantaEditComponent implements OnInit {
         this.spinner.show();
         const request = {
           NotaSalidaPlantaId: this.locId,
-          UsuarioRegistro: this.userSession.NombreUsuario
+          UsuarioRegistro: this.userSession.NombreUsuario,
+          Empresa: this.userSession.RazonSocialEmpresa
         }
         this.guiaremisionplantaService.Registrar(request)
           .subscribe((res) => {
