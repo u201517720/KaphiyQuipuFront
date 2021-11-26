@@ -31,6 +31,10 @@ import { GuiaremisionComponent } from './operaciones/guiaremision/guiaremision.c
 import { GuiaremisionEditComponent } from './operaciones/guiaremision/edit/guiaremision-edit.component';
 import { MarcadosacosEditComponent } from './operaciones/marcadosacos/edit/marcadosacos-edit.component';
 import { OrdenprocesoEditComponent } from './operaciones/ordenproceso/edit/ordenproceso-edit.component';
+import { NotaIngresoDevolucionComponent } from './operaciones/notaingresodevolucion/nota-ingreso-devolucion.component';
+import { GuiaRemisionDevolucionComponent } from './operaciones/guiaremisiondevolucion/guia-remision-devolucion.component';
+import { NotaIngresoDevolucionEditComponent } from './operaciones/notaingresodevolucion/edit/nota-ingreso-devolucion-edit.component';
+import { GuiaRemisionDevolucionEditComponent } from './operaciones/guiaremisiondevolucion/edit/guia-remision-devolucion-edit.component';
 
 @NgModule({
   imports: [
@@ -66,7 +70,11 @@ import { OrdenprocesoEditComponent } from './operaciones/ordenproceso/edit/orden
     GuiaremisionComponent,
     GuiaremisionEditComponent,
     MarcadosacosEditComponent,
-    OrdenprocesoEditComponent
+    OrdenprocesoEditComponent,
+    NotaIngresoDevolucionComponent,
+    GuiaRemisionDevolucionComponent,
+    NotaIngresoDevolucionEditComponent,
+    GuiaRemisionDevolucionEditComponent
   ],
   exports: [],
   providers: [
