@@ -10,7 +10,7 @@ import { NotaingresoacopioService } from '../../../../../services/notaingresoaco
 @Component({
   selector: 'app-ingreso-almacen',
   templateUrl: './ingreso-almacen.component.html',
-  styleUrls: ['./ingreso-almacen.component.scss', "/assets/sass/libs/datatables.scss"],
+  styleUrls: ['./ingreso-almacen.component.scss', '/assets/sass/libs/datatables.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class IngresoAlmacenComponent implements OnInit {
@@ -26,7 +26,6 @@ export class IngresoAlmacenComponent implements OnInit {
   limitRef = 10;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   selected = [];
-  userSession: any = {};
   @Output() agregarEvent = new EventEmitter<any>();
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
 
@@ -34,16 +33,10 @@ export class IngresoAlmacenComponent implements OnInit {
     private dateUtil: DateUtil,
     private spinner: NgxSpinnerService,
     private alertUtil: AlertUtil,
-    private notaingresoacopioService: NotaingresoacopioService) {
-    this.userSession = JSON.parse(sessionStorage.getItem('user'));
-    if (this.userSession) {
-      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
-    }
-  }
+    private notaingresoacopioService: NotaingresoacopioService) { }
 
   ngOnInit(): void {
     this.LoadForm();
-    this.userSession = JSON.parse(sessionStorage.getItem('user'));
   }
 
   LoadForm() {

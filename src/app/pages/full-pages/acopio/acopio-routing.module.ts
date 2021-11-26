@@ -9,6 +9,10 @@ import { IngresoAlmacenComponent } from './operaciones/ingresoalmacen/ingreso-al
 import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
 import { OrdenprocesoComponent } from './operaciones/ordenproceso/ordenproceso.component';
 import { OrdenprocesoEditComponent } from './operaciones/ordenproceso/edit/ordenproceso-edit.component';
+import { NotaIngresoDevolucionComponent } from './operaciones/notaingresodevolucion/nota-ingreso-devolucion.component';
+import { NotaIngresoDevolucionEditComponent } from './operaciones/notaingresodevolucion/edit/nota-ingreso-devolucion-edit.component';
+import { GuiaRemisionDevolucionComponent } from './operaciones/guiaremisiondevolucion/guia-remision-devolucion.component';
+import { GuiaRemisionDevolucionEditComponent } from './operaciones/guiaremisiondevolucion/edit/guia-remision-devolucion-edit.component';
 
 const routes: Routes = [
   {
@@ -68,6 +72,41 @@ const routes: Routes = [
         component: OrdenprocesoEditComponent,
         data: {
           title: 'Orden de Proceso'
+        }
+      },
+      {
+        path: 'notaingresodevolucion/list',
+        component: NotaIngresoDevolucionComponent,
+        data: {
+          title: 'Nota Ingreso Devolución'
+        }
+      },
+      {
+        path: 'notaingresodevolucion/create',
+        component: NotaIngresoDevolucionEditComponent,
+        data: {
+          title: 'Nota Ingreso Devolución'
+        }
+      },
+      {
+        path: 'notaingresodevolucion/update/:id',
+        component: NotaIngresoDevolucionEditComponent,
+        data: {
+          title: 'Nota Ingreso Devolución'
+        }
+      },
+      {
+        path: 'guiaremisiondevolucion/list',
+        component: GuiaRemisionDevolucionComponent,
+        data: {
+          title: 'Guía Remisión Devolución'
+        }
+      },
+      {
+        path: 'guiaremisiondevolucion/update/:id',
+        component: GuiaRemisionDevolucionEditComponent,
+        data: {
+          title: 'Guía Remisión Devolución'
         }
       }
     ]

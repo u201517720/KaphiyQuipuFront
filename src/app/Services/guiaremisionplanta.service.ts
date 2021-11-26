@@ -19,4 +19,9 @@ export class GuiaremisionplantaService {
     const url = `${this.url}/Registrar`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConsultarCorrelativo(request: any): Observable<any> {
+    const url = `${this.url}/ConsultarCorrelativo`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

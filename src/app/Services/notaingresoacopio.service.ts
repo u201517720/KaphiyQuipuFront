@@ -39,4 +39,24 @@ export class NotaingresoacopioService {
     const url = `${this.url}/ConfirmarEtiquetado`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConsultarDevolucion(request: any): Observable<any> {
+    const url = `${this.url}/ConsultarDevolucion`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  RegistrarDevolucion(request: any): Observable<any> {
+    const url = `${this.url}/RegistrarDevolucion`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  ConsultarDevolucionPorId(request: any): Observable<any> {
+    const url = `${this.url}/ConsultarDevolucionPorId`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  ConfirmarAtencionCompleta(request: any): Observable<any> {
+    const url = `${this.url}/ConfirmarAtencionCompleta`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

@@ -1,1 +1,113 @@
-<p>nota-ingreso-devolucion-edit works!</p>
+<form class="needs-validation" [formGroup]="frmNotaIngresoDevolucionDetalle" novalidate>
+    <div class="form-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card mt-0">
+                <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
+                    NOTA INGRESO DEVOLUCIÓN {{frmNotaIngresoDevolucionDetalle.value.correlativo}}
+                </h5>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">FECHA REGISTRO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmNotaIngresoDevolucionDetalle.value.fechaRegistro}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                        <label class="text-white ml-1">DATOS GENERALES</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group row">
+                                <label for="correlativo" class="col-lg-2 col-form-label pr-0">N° GUÍA REMISIÓN
+                                    PLANTA</label>
+                                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                                    <input type="text" class="form-control form-control-sm"
+                                        formControlName="correlativoGRP" placeholder="Correlativo"
+                                        [readonly]="locId > 0"
+                                        [ngClass]="{ 'is-invalid': submitted && f.correlativoGRP.invalid, 'is-valid': !submitted && !f.correlativoGRP.invalid }"
+                                        (keypress)="ConsultarCorrelativo($event)">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <button type="button" class="btn btn-primary btn-sm" *ngIf="locId <= 0"
+                                        (click)="BuscarCorrelativo()">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="producto" class="col-lg-3 col-form-label pr-0">PRODUCTO</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" class="form-control form-control-sm" formControlName="producto"
+                                        [ngClass]="{ 'is-invalid': submitted && f.producto.invalid, 'is-valid': !submitted && !f.producto.invalid }"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="almacen" class="col-lg-3 col-form-label pr-0">ALMACÉN</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listaAlmacenes" formControlName="almacen" class="form-control"
+                                        bindLabel="Label" bindValue="Codigo" placeholder="Almacén"
+                                        [ngClass]="{ 'is-invalid': submitted && f.almacen.invalid, 'is-valid': !submitted && !f.almacen.invalid }"
+                                        [(ngModel)]="selectedAlmacen" [readonly]="locId > 0">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="cantidad" class="col-lg-3 col-form-label pr-0">CANTIDAD</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" class="form-control form-control-sm" formControlName="cantidad"
+                                        [ngClass]="{ 'is-invalid': submitted && f.cantidad.invalid, 'is-valid': !submitted && !f.cantidad.invalid }"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="observaciones" class="col-lg-3 col-form-label pr-0">OBSERVACIONES</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="text" class="form-control form-control-sm"
+                                        formControlName="observaciones" [readonly]="locId > 0"
+                                        [ngClass]="{ 'is-invalid': submitted && f.observaciones.invalid, 'is-valid': !submitted && !f.observaciones.invalid }">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group row m-0">
+                                <div class="col-lg-12 text-right">
+                                    <button type="button" class="btn btn-primary mr-1" (click)="GenerarGuiaRemision()"
+                                        *ngIf="userSession.RolId == 8 && locId > 0">Generar Guía Remisión</button>
+                                    <button type="button" class="btn btn-primary mr-1"
+                                        (click)="ConfirmarAtencionCompleta()"
+                                        *ngIf="userSession.RolId == 7 && locId > 0 && locEstado <= 1">Confirmar Atención
+                                        Completa</button>
+                                    <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
+                                        *ngIf="userSession.RolId == 8 && locId <= 0">Guardar</button>
+                                    <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>
