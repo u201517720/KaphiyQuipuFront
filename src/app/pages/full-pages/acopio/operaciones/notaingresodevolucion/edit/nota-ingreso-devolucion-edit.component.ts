@@ -7,6 +7,7 @@ import { MaestroService } from '../../../../../../services/maestro.service';
 import { GuiaremisionplantaService } from '../../../../../../services/guiaremisionplanta.service';
 import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { NotaingresoacopioService } from '../../../../../../services/notaingresoacopio.service';
+import { GuiaremisionService } from '../../../../../../services/guiaremision.service';
 
 @Component({
   selector: 'app-nota-ingreso-devolucion-edit',
@@ -22,7 +23,8 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private notaingresoacopioService: NotaingresoacopioService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private guiaremisionService: GuiaremisionService) { }
 
   frmNotaIngresoDevolucionDetalle: FormGroup;
   listaAlmacenes = [];
@@ -191,6 +193,30 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
   }
 
   GenerarGuiaRemision() {
-
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de generar la guía de remisión?',
+      () => {
+        this.spinner.show();
+        const request = {
+          NotaIngresoDevolucionId: this.locId,
+          UsuarioRegistro: this.userSession.NombreUsuario
+        }
+        this.guiaremisionService.RegistrarDevolucion(request)
+          .subscribe((res) => {
+            this.spinner.hide();
+            if (res.Result.Success) {
+              this.alertUtil.alertOkCallback('Confirmación',
+                `La ha generado la guía de remisión ${res.Result.Data}.`,
+                () => {
+                  this.Cancelar();
+                });
+            } else {
+              this.alertUtil.alertError('ERROR', res.Result.Message);
+            }
+          }, (err) => {
+            this.spinner.hide();
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+          });
+      });
   }
 }
