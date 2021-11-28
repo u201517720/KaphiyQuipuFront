@@ -1,1 +1,180 @@
-<p>guiaremision-edit works!</p>
+<form class="needs-validation" [formGroup]="frmGuiaRemisionAcopioDetalle" novalidate>
+    <div class="form-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card mt-0">
+                <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
+                    DETALLE GUÍA REMISIÓN {{frmGuiaRemisionAcopioDetalle.value.correlativo}}
+                </h5>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                            <div class="form-group row">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.razonSocial}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">RUC</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.rucAcopio}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                            <div class="form-group row">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.direccionAcopio}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                        <label class="text-white ml-1">DATOS GENERALES</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">DESTINATARIO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.razonSocialDestino}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">RUC</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.rucDestino}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">FECHA TRASLADO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.fechaTraslado}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">DIRECCIÓN PUNTO DE
+                                    PARTIDA</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.puntoPartida}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">FECHA EMISIÓN</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.fechaEmision}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">DIRECCIÓN PUNTO DE
+                                    LLEGADA</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.puntoLlegada}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="table-responsive">
+                                <table class="table-sm table table-bordered">
+                                    <thead class="bg-primary text-white">
+                                        <tr>
+                                            <th>Contrato</th>
+                                            <th>Descripción</th>
+                                            <th>Unidad de Medida</th>
+                                            <th>Cantidad</th>
+                                            <th>Peso en KG</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.correlativoContrato}}</td>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.descripcion}}</td>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.unidadMedida}}</td>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.cantidad}}</td>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.pesoKGs}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <div class="form-group row">
+                                <label for="destino" class="col-lg-5 col-form-label pr-0">MOTIVO DEL
+                                    TRASLADO</label>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <label
+                                        class="col-form-label">{{frmGuiaRemisionAcopioDetalle.value.motivoTraslado}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="table-responsive">
+                                <table class="table-sm table table-bordered">
+                                    <thead class="bg-primary text-white">
+                                        <tr>
+                                            <th>Transportista</th>
+                                            <th>Número RUC</th>
+                                            <th>Placa</th>
+                                            <th>Número Licencia</th>
+                                            <th>Vehiculo Marca</th>
+                                            <th>Const. Inscrip. MTC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.transportista}}</td>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.rucTransportista}}</td>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.placa}}</td>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.numeroLicencia}}</td>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.marca}}</td>
+                                            <td>{{frmGuiaRemisionAcopioDetalle.value.constanciaMTC}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                            <button class="btn btn-danger" type="button" (click)="Cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

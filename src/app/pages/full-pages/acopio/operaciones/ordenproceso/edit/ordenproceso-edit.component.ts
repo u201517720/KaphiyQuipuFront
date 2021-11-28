@@ -70,7 +70,10 @@ export class OrdenprocesoEditComponent implements OnInit {
       finProceso: [],
       responsable: [],
       correlativoNI: [],
-      codigoNotaIngreso: []
+      codigoNotaIngreso: [],
+      correlativoOP: [],
+      correlativoCon: [],
+      fechaEntrega: []
     });
     this.ObtenerTiposProcesos();
   }
@@ -102,7 +105,7 @@ export class OrdenprocesoEditComponent implements OnInit {
 
   async CompletarFormulario(data) {
     if (data) {
-      this.locEstado = parseInt(data.EstadoId);
+      this.locEstado = data.EstadoId ? parseInt(data.EstadoId) : 0;
       this.frmOrdenProcesoAcopioDetalle.controls.codigoNotaIngreso.setValue(data.NotaIngresoAcopioId);
       this.frmOrdenProcesoAcopioDetalle.controls.cooperativa.setValue(data.Empresa);
       this.frmOrdenProcesoAcopioDetalle.controls.direccion.setValue(data.Direccion);
@@ -128,6 +131,12 @@ export class OrdenprocesoEditComponent implements OnInit {
       this.frmOrdenProcesoAcopioDetalle.controls.inicioProceso.setValue(data.FechaInicioProceso);
       this.frmOrdenProcesoAcopioDetalle.controls.finProceso.setValue(data.FechaFinProceso);
       this.frmOrdenProcesoAcopioDetalle.controls.responsable.setValue(data.Responsable);
+
+      if (data.CorrelativoContrato) {
+        this.frmOrdenProcesoAcopioDetalle.controls.correlativoCon.setValue(data.CorrelativoContrato);
+      }
+      if (data.FechaEntrega)
+        this.frmOrdenProcesoAcopioDetalle.controls.fechaEntrega.setValue(data.FechaEntrega);
     }
     this.spinner.hide();
   }

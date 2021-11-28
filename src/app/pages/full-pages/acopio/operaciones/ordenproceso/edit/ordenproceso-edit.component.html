@@ -214,6 +214,65 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="locEstado >= 4">
+                        <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                            <label class="text-white ml-1 text-center">MARCADO DE SACOS
+                                {{frmOrdenProcesoAcopioDetalle.value.correlativoOP}}</label>
+                        </div>
+                        <div class="form-row">
+                            <label for="">Señores: Cooperativa de Servicios Multiples Cenfrocafe</label>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <label for="">Estimados señores,<br>Por medio del presente, solicitamos se sirvan a realizar
+                                el
+                                siguiente proceso de marcado de sacos, según se detalla.</label>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th class="text-center">Cantidad Sacos</th>
+                                                <th class="text-center">Marcas</th>
+                                                <th class="text-center">Fecha Entrega</th>
+                                                <th class="text-center">Lugar Entrega</th>
+                                                <th class="text-center">Observación</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label
+                                                        for="">{{frmOrdenProcesoAcopioDetalle.value.cantidad}}</label>
+                                                </td>
+                                                <td class="text-center">
+                                                    <label for="">Cooperativa de Servicios Múltiples Aprocassi <br>
+                                                        “Organic Green
+                                                        Coffee of Peru” <br> Certified
+                                                        Organic by Control Union<br>
+                                                        CU835641<br><br>PE-BIO 123
+                                                        30/861/1544/<br>{{frmOrdenProcesoAcopioDetalle.value.correlativoCon}}<br>{{frmOrdenProcesoAcopioDetalle.value.pesoSaco}}</label>
+
+                                                </td>
+                                                <td class="text-center">
+                                                    <label for="">{{frmOrdenProcesoAcopioDetalle.value.fechaEntrega}}</label>
+                                                </td>
+                                                <td class="text-center">
+                                                    <label for="">Cooperativa de Servicios Multiples Cenfrocafe</label>
+                                                </td>
+                                                <td class="text-center">
+                                                    <label for="">Marcado a 01 color</label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-row">
                         <div class="col-lg-12 col-md-12 col-sm-12">

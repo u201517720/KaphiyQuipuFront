@@ -39,7 +39,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     private maestroService: MaestroService,
     private router: Router,
     private notasalidaplantaService: NotasalidaplantaService) {
-    this.locId = parseInt(this.route.snapshot.params['id']);
+    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     if (this.userSession) {
@@ -76,57 +76,60 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       kilosNetos: [],
       observaciones: [],
       codGuiaRemision: [],
-      cafeExportacionGramos: [, Validators.required],
-      cafeExportacionPorc: [, Validators.required],
-      descarteGramos: [, Validators.required],
-      descartePorcentaje: [, Validators.required],
-      cascaraGramos: [, Validators.required],
-      cascaraPorcentaje: [, Validators.required],
-      totalGramos: [, Validators.required],
-      totalPorcentaje: [, Validators.required],
-      humedadProcenPC: [, Validators.required],
+      pesoPorSaco: [],
+
+      cafeExportacionGramos: [],
+      cafeExportacionPorc: [],
+      descarteGramos: [],
+      descartePorcentaje: [],
+      cascaraGramos: [],
+      cascaraPorcentaje: [],
+      totalGramos: [],
+      totalPorcentaje: [],
+      humedadProcenPC: [],
+
       responsable: [],
       listaOlores: [],
       listaColores: [],
 
-      cafeExportSacos: [, Validators.required],
-      cafeExportKilos: [, Validators.required],
+      cafeExportSacos: [],
+      cafeExportKilos: [],
       cafeExportKgNetos: [],
       cafeExportQQS: [],
       cafeExportPorc: [],
 
-      cafeExportMCSacos: [, Validators.required],
-      cafeExportMCKilos: [, Validators.required],
+      cafeExportMCSacos: [],
+      cafeExportMCKilos: [],
       cafeExportMCKgNetos: [],
       cafeExportMCQQS: [],
       cafeExportMCPorc: [],
 
-      cafeSegundaSacos: [, Validators.required],
-      cafeSegundaKilos: [, Validators.required],
+      cafeSegundaSacos: [],
+      cafeSegundaKilos: [],
       cafeSegundaKgNetos: [],
       cafeSegundaQQS: [],
       cafeSegundaPorc: [],
 
-      cafeDescarteMaquinaSacos: [, Validators.required],
-      cafeDescarteMaquinaKilos: [, Validators.required],
+      cafeDescarteMaquinaSacos: [],
+      cafeDescarteMaquinaKilos: [],
       cafeDescarteMaquinaKgNetos: [],
       cafeDescarteMaquinaQQS: [],
       cafeDescarteMaquinaPorcen: [],
 
-      cafeDescarteEscojoSacos: [, Validators.required],
-      cafeDescarteEscojoKilos: [, Validators.required],
+      cafeDescarteEscojoSacos: [],
+      cafeDescarteEscojoKilos: [],
       cafeDescarteEscojoKgNetos: [],
       cafeDescarteEscojoQQS: [],
       cafeDescarteEscojoPorcen: [],
 
-      cafeBolaSacos: [, Validators.required],
-      cafeBolaKilos: [, Validators.required],
+      cafeBolaSacos: [],
+      cafeBolaKilos: [],
       cafeBolaKgNetos: [],
       cafeBolaQQS: [],
       cafeBolaPorcen: [],
 
-      cafeCiscoSacos: [, Validators.required],
-      cafeCiscoKilos: [, Validators.required],
+      cafeCiscoSacos: [],
+      cafeCiscoKilos: [],
       cafeCiscoKgNetos: [],
       cafeCiscoQQS: [],
       cafeCiscoPorcen: [],
@@ -139,7 +142,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
       piedrasOtrosSacos: [],
       piedrasOtrosKilos: [],
-      piedrasOtrosKgNetos: [, Validators.required],
+      piedrasOtrosKgNetos: [],
       piedrasOtrosQQS: [],
       piedrasOtrosPorcen: [],
 
@@ -189,6 +192,9 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       this.guiaremisionService.ConsultarPorCorrelativo({ Correlativo: this.frmNotaIngresoPlantaDetalle.value.nroGuiaRemision })
         .subscribe((res) => {
           if (res.Result.Success) {
+            if (!res.Result.Data) {
+              this.frmNotaIngresoPlantaDetalle.reset();
+            }
             this.CompletarForm(res.Result.Data);
           }
         }, (err) => {
@@ -217,7 +223,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
   async CompletarForm(data) {
     if (data) {
-      this.locEstado = parseInt(data.EstadoId);
+      this.locEstado = data.EstadoId ? parseInt(data.EstadoId) : 0;
       await this.GetOlores();
       await this.GetColores();
       if (data.Olores) {
@@ -228,6 +234,9 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       }
       if (data.Correlativo) {
         this.frmNotaIngresoPlantaDetalle.controls.nroGuiaRemision.setValue(data.Correlativo);
+      }
+      if (data.PesoSaco) {
+        this.frmNotaIngresoPlantaDetalle.controls.pesoPorSaco.setValue(data.PesoSaco);
       }
       if (data.CorrelativoGRA) {
         this.frmNotaIngresoPlantaDetalle.controls.nroGuiaRemision.setValue(data.CorrelativoGRA);
@@ -322,6 +331,60 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
           this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosKgNetos.setValue(data.CascaraOtrosKgNetos);
         this.CalcularResultadosProcesos();
       }
+
+      if (this.locEstado === 1) {
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionGramos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.descarteGramos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.descartePorcentaje.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraGramos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraPorcentaje.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.totalGramos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.totalPorcentaje.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.humedadProcenPC.setValidators(Validators.required);
+
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionGramos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.descarteGramos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.descartePorcentaje.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraGramos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraPorcentaje.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.totalGramos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.totalPorcentaje.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.humedadProcenPC.updateValueAndValidity();
+      } else if (this.locEstado === 2) {
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportSacos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportKilos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCSacos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCKilos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaSacos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaKilos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaSacos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaKilos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoSacos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoKilos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeBolaSacos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeBolaKilos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoSacos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoKilos.setValidators(Validators.required);
+        this.frmNotaIngresoPlantaDetalle.controls.piedrasOtrosKgNetos.setValidators(Validators.required);
+
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportSacos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportKilos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCSacos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCKilos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaSacos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaKilos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaSacos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaKilos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoSacos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoKilos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeBolaSacos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeBolaKilos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoSacos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoKilos.updateValueAndValidity();
+        this.frmNotaIngresoPlantaDetalle.controls.piedrasOtrosKgNetos.updateValueAndValidity();
+      }
     }
     this.spinner.hide();
   }
@@ -342,7 +405,11 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
               .subscribe((res) => {
                 this.spinner.hide();
                 if (res.Result.Success) {
-                  this.alertUtil.alertOk('Confirmación', `Se ha generado la nota de ingreso ${res.Result.Data}.`);
+                  this.alertUtil.alertOkCallback('Confirmación',
+                    `Se ha generado la nota de ingreso ${res.Result.Data}.`,
+                    () => {
+                      this.Cancelar();
+                    });
                 } else {
                   this.alertUtil.alertError('ERROR', res.Result.Message);
                 }
@@ -937,5 +1004,5 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
           });
       });
   }
-  
+
 }

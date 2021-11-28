@@ -283,7 +283,7 @@ export class ContratoEditComponent implements OnInit {
   CalcularPesoEnKilos() {
     const cantidad = this.frmContratoCompraVenta.value.cantASolicitar ? this.frmContratoCompraVenta.value.cantASolicitar : 0;
     const pesoSaco = this.frmContratoCompraVenta.value.pesoXSaco ? this.frmContratoCompraVenta.value.pesoXSaco : 0;
-    const total = cantidad * pesoSaco;
+    const total = cantidad * (pesoSaco + 9);
     if (total) {
       this.frmContratoCompraVenta.controls.pesoEnKilos.setValue(total);
     }
@@ -559,9 +559,6 @@ export class ContratoEditComponent implements OnInit {
     if (e && e.selected.length > 0) {
       let colTotalCosecha = 0;
       for (let i = 0; i < e.selected.length; i++) {
-        // if (pesoKilos === sumaCosecha || pesoKilos === sumaSelected) {
-        //   this.selectedAgricultores.pop();
-        // }
         if (pesoKilos === sumaSelected) {
           this.selectedAgricultores.pop();
         }

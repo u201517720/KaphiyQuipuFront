@@ -168,6 +168,14 @@
 			"Label": "Materia Prima"
 		}
 	},
+	"Planta": {
+		"Label": "Planta",
+		"Operaciones": {
+			"NotasIngreso": {
+				"Label": "Notas de Ingreso"
+			}
+		}
+	},
 	"CONTRATO": {
 		"LIST": {
 			"Title": "BANDEJA DE CONTRATOS",
