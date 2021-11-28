@@ -18,9 +18,8 @@ export class SolicitudcompraComponent implements OnInit {
   frmListaSolicitudeCompra: FormGroup;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   errorGeneral = { msgError: '', isError: false };
-  limitRef: 10;
+  limitRef = 10;
   rows = [];
-  selected = [];
   userSession: any;
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
   submitted = false;

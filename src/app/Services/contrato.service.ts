@@ -81,5 +81,10 @@ export class ContratoService {
     const url = `${this.url}/ControlCalidad`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConfirmarRecepcionCafeTerminado(request: any): Observable<any> {
+    const url = `${this.url}/ConfirmarRecepcion`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
 

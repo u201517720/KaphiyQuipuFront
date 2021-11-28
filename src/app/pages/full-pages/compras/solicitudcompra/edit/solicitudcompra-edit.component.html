@@ -72,8 +72,7 @@
                                     <ng-select [items]="listMonedas" formControlName="moneda" class="form-control"
                                         bindLabel="Label" bindValue="Codigo" placeholder="Moneda"
                                         [ngClass]="{ 'is-invalid': submitted && f.moneda.invalid, 'is-valid': !submitted && !f.moneda.invalid }"
-                                        [(ngModel)]="selectedMoneda" (change)="ChangeMoneda()"
-                                        [readonly]="userSession.RolId != 6">
+                                        [(ngModel)]="selectedMoneda" (change)="ChangeMoneda()" [readonly]="true">
                                     </ng-select>
                                 </div>
                             </div>

@@ -223,8 +223,13 @@ export class SolicitudcompraEditComponent implements OnInit {
     }
   }
 
-  onChangePais(e: any) {
+  async onChangePais(e: any) {
     this.GetCities();
+    if (e.Codigo === 'PE') {
+      this.frmSolicitudCompraNew.controls.moneda.setValue('01');
+    } else {
+      this.frmSolicitudCompraNew.controls.moneda.setValue('02');
+    }
   }
 
   ChangeProduct(e: any) {
@@ -248,7 +253,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   CalcularPesoEnKilos() {
     const cantidad = this.frmSolicitudCompraNew.value.cantASolicitar ? this.frmSolicitudCompraNew.value.cantASolicitar : 0;
     const pesoSaco = this.frmSolicitudCompraNew.value.pesoXSaco ? this.frmSolicitudCompraNew.value.pesoXSaco : 0;
-    const total = cantidad * pesoSaco;
+    const total = cantidad * (pesoSaco + 9);
     if (total) {
       this.frmSolicitudCompraNew.controls.pesoEnKilos.setValue(total);
     } else {
@@ -266,14 +271,14 @@ export class SolicitudcompraEditComponent implements OnInit {
 
   ChangeMoneda() {
     if (this.frmSolicitudCompraNew.value.moneda === '01') {
-      this.frmSolicitudCompraNew.controls.costoUnitario.setValue(7.46);
+      this.frmSolicitudCompraNew.controls.costoUnitario.setValue(13.5);
     } else if (this.frmSolicitudCompraNew.value.moneda === '02') {
-      this.frmSolicitudCompraNew.controls.costoUnitario.setValue(1.89);
+      this.frmSolicitudCompraNew.controls.costoUnitario.setValue(5.4);
     }
   }
 
   updateLimit(e) {
-
+    this.limitRef = e.target;
   }
 
   RequestEnviarSolicitud() {
@@ -344,7 +349,9 @@ export class SolicitudcompraEditComponent implements OnInit {
   async MostrarCostoUnitario() {
     const moneda = this.frmSolicitudCompraNew.value.moneda;
     if (moneda === '01') {
-      this.frmSolicitudCompraNew.controls.costoUnitario.setValue(7.46);
+      this.frmSolicitudCompraNew.controls.costoUnitario.setValue(13.5);
+    } else {
+      this.frmSolicitudCompraNew.controls.costoUnitario.setValue(5.4);
     }
   }
 
@@ -355,7 +362,7 @@ export class SolicitudcompraEditComponent implements OnInit {
 
       const costoTotal = pesoKilos * costoUnitario;
       if (costoTotal) {
-        this.frmSolicitudCompraNew.controls.costoTotal.setValue(costoTotal);
+        this.frmSolicitudCompraNew.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
       } else {
         this.frmSolicitudCompraNew.controls.costoTotal.reset();
       }
@@ -372,7 +379,7 @@ export class SolicitudcompraEditComponent implements OnInit {
       }
 
       if (data.DepartamentoId) {
-        await this.GetCities();
+        await this.onChangePais({ Codigo: data.PaisId });
         this.frmSolicitudCompraNew.controls.ciudad.setValue(data.DepartamentoId);
       }
 

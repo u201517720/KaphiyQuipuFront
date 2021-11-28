@@ -176,7 +176,11 @@ export class IngresoAlmacenEditComponent implements OnInit {
       this.frmNotaIngresoAcopioDetalle.controls.humedadProcenPC.setValue(data.Humedad);
       this.frmNotaIngresoAcopioDetalle.controls.observacionesPC.setValue(data.Observaciones);
       this.frmNotaIngresoAcopioDetalle.controls.AlmacenId.setValue(data.AlmacenId);
-      this.frmNotaIngresoAcopioDetalle.controls.CostoUnitario.setValue(7.46);
+      if (data.Moneda === '01') {
+        this.frmNotaIngresoAcopioDetalle.controls.CostoUnitario.setValue(13.5);
+      } else {
+        this.frmNotaIngresoAcopioDetalle.controls.CostoUnitario.setValue(5.4);
+      }
       await this.CalcularCostoTotal();
     }
     this.spinner.hide();
@@ -254,20 +258,20 @@ export class IngresoAlmacenEditComponent implements OnInit {
   }
 
   async CalcularCostoTotal() {
-    const cantidad = this.frmNotaIngresoAcopioDetalle.value.TotalSacos;
+    const cantidad = this.frmNotaIngresoAcopioDetalle.value.PesoKilos;
     if (cantidad) {
       let costoUnitario = this.frmNotaIngresoAcopioDetalle.value.CostoUnitario;
 
       const costoTotal = cantidad * costoUnitario;
       if (costoTotal) {
-        this.frmNotaIngresoAcopioDetalle.controls.costoTotal.setValue(costoTotal);
+        this.frmNotaIngresoAcopioDetalle.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
       }
     }
   }
 
   GenerarEtiquetas() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      `¿Está seguro de generar las etiquetas de la ${this.frmNotaIngresoAcopioDetalle.value.correlativo}`,
+      `¿Está seguro de generar las etiquetas de la nota de ingreso ${this.frmNotaIngresoAcopioDetalle.value.correlativo}?`,
       () => {
 
       });

@@ -13,6 +13,8 @@ import { NotaIngresoDevolucionComponent } from './operaciones/notaingresodevoluc
 import { NotaIngresoDevolucionEditComponent } from './operaciones/notaingresodevolucion/edit/nota-ingreso-devolucion-edit.component';
 import { GuiaRemisionDevolucionComponent } from './operaciones/guiaremisiondevolucion/guia-remision-devolucion.component';
 import { GuiaRemisionDevolucionEditComponent } from './operaciones/guiaremisiondevolucion/edit/guia-remision-devolucion-edit.component';
+import { GuiaremisionComponent } from './operaciones/guiaremision/guiaremision.component';
+import { GuiaremisionEditComponent } from './operaciones/guiaremision/edit/guiaremision-edit.component';
 
 const routes: Routes = [
   {
@@ -107,6 +109,20 @@ const routes: Routes = [
         component: GuiaRemisionDevolucionEditComponent,
         data: {
           title: 'Guía Remisión Devolución'
+        }
+      },
+      {
+        path: 'guiaremision/list',
+        component: GuiaremisionComponent,
+        data: {
+          title: 'Guía Remisión'
+        }
+      },
+      {
+        path: 'guiaremision/update/:id',
+        component: GuiaremisionEditComponent,
+        data: {
+          title: 'Guía Remisión'
         }
       }
     ]

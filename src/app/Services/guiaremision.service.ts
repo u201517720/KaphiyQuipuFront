@@ -29,4 +29,9 @@ export class GuiaremisionService {
     const url = `${this.url}/RegistrarDevolucion`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  Consultar(request: any): Observable<any> {
+    const url = `${this.url}/Consultar`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

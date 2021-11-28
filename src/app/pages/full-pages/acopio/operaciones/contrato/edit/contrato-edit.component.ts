@@ -291,15 +291,15 @@ export class ContratoEditComponent implements OnInit {
     const costo = this.frmContratoCompraVenta.value.costoUnitario ? this.frmContratoCompraVenta.value.costoUnitario : 0;
     const costoTotal = cantidad * costo;
     if (costoTotal) {
-      this.frmContratoCompraVenta.controls.costoTotal.setValue(costoTotal);
+      this.frmContratoCompraVenta.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
     }
   }
 
   ChangeMoneda() {
     if (this.frmContratoCompraVenta.value.moneda === '01') {
-      this.frmContratoCompraVenta.controls.costoUnitario.setValue(7.46);
+      this.frmContratoCompraVenta.controls.costoUnitario.setValue(13.5);
     } else if (this.frmContratoCompraVenta.value.moneda === '02') {
-      this.frmContratoCompraVenta.controls.costoUnitario.setValue(1.89);
+      this.frmContratoCompraVenta.controls.costoUnitario.setValue(5.4);
     }
   }
 
@@ -318,7 +318,9 @@ export class ContratoEditComponent implements OnInit {
   async MostrarCostoUnitario() {
     const moneda = this.frmContratoCompraVenta.value.moneda;
     if (moneda === '01') {
-      this.frmContratoCompraVenta.controls.costoUnitario.setValue(7.46);
+      this.frmContratoCompraVenta.controls.costoUnitario.setValue(13.5);
+    } else {
+      this.frmContratoCompraVenta.controls.costoUnitario.setValue(5.4);
     }
   }
 
@@ -329,7 +331,7 @@ export class ContratoEditComponent implements OnInit {
 
       const costoTotal = pesoKilos * costoUnitario;
       if (costoTotal) {
-        this.frmContratoCompraVenta.controls.costoTotal.setValue(costoTotal);
+        this.frmContratoCompraVenta.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
       }
     }
   }
@@ -803,7 +805,7 @@ export class ContratoEditComponent implements OnInit {
                 this.alertUtil.alertOkCallback('Confirmación',
                   `Se ha generado guía de recepción ${res.Result.Data}`,
                   () => {
-                    this.Cancelar();
+                    this.router.navigate(['/acopio/operaciones/guiarecepcion/list']);
                   });
               }
             } else {
@@ -890,5 +892,42 @@ export class ContratoEditComponent implements OnInit {
     if (loCKilosBrutos && locTaraSaco) {
       this.frmContratoCompraVenta.controls.kilosNetosPC.setValue(loCKilosBrutos - locTaraSaco);
     }
+
+    const locKilosNetos = this.frmContratoCompraVenta.value.kilosNetosPC;
+    if (locKilosNetos) {
+      this.frmContratoCompraVenta.controls.qq55KgPC.setValue(parseFloat((locKilosNetos/55.2).toFixed(2)));
+    }
+  }
+
+  ConfirmarRecepcion() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de confirmar la recepción del producto?',
+      () => {
+        this.spinner.show();
+        const request = {
+          Id: this.locId,
+          Usuario: this.userSession.NombreUsuario
+        }
+        this.contratoService.ConfirmarRecepcionCafeTerminado(request)
+          .subscribe((res) => {
+            this.spinner.hide();
+            if (res.Result.Success) {
+              this.alertUtil.alertOkCallback('Confirmación',
+                'Se ha confirmado la recepción del producto terminado.',
+                () => {
+                  this.ConsultarPorId();
+                });
+            } else {
+              this.alertUtil.alertError('ERROR', res.Result.Message);
+            }
+          }, (err) => {
+            this.spinner.hide();
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+          });
+      });
+  }
+
+  GenerarQRTrazabilidad() {
+
   }
 }

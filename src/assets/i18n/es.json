@@ -144,6 +144,12 @@
 			},
 			"NotaIngreso": {
 				"Label": "Lista Notas Ingreso"
+			},
+			"OrdenesProcesos": {
+				"Label": "Ordenes de Proceso"
+			},
+			"GuiasRemision": {
+				"Label": "Lista Guía Remisión"
 			}
 		}
 	},
