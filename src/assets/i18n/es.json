@@ -173,6 +173,12 @@
 		"Operaciones": {
 			"NotasIngreso": {
 				"Label": "Notas de Ingreso"
+			},
+			"NotasSalida": {
+				"Label": "Notas de Salida"
+			},
+			"GuiasRemision": {
+				"Label": "Guías de Remisión"
 			}
 		}
 	},

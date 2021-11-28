@@ -676,19 +676,21 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   CalcularResultadosProcesos() {
     const kilosXSaco = this.frmNotaIngresoPlantaDetalle.value.numeroSacos;
     const totalKilos = this.frmNotaIngresoPlantaDetalle.value.kilosBrutos;
+    const locPesoSaco = this.frmNotaIngresoPlantaDetalle.value.pesoPorSaco
     let locKilosnetos, locPorcentaje, locTotalSacos = 0, locTotalPorcentaje = 0, locTotalCafeKgnetos = 0, locTotalesPorcen = 0;
 
-    const locCafeExporSacos = this.frmNotaIngresoPlantaDetalle.value.cafeExportSacos;
+    let locCafeExporSacos = this.frmNotaIngresoPlantaDetalle.value.cafeExportSacos;
     const locCafeExporKilos = this.frmNotaIngresoPlantaDetalle.value.cafeExportKilos;
 
     //PRIMERA FILA
     if (locCafeExporSacos) {
+      locCafeExporSacos = locCafeExporSacos * locPesoSaco;
       locTotalSacos = locTotalSacos + locCafeExporSacos;
       if (locCafeExporKilos) {
-        locKilosnetos = (locCafeExporSacos * kilosXSaco) + locCafeExporKilos;
+        locKilosnetos = locCafeExporSacos + locCafeExporKilos;
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportKgNetos.setValue(locKilosnetos);
       } else {
-        locKilosnetos = locCafeExporSacos * kilosXSaco;
+        locKilosnetos = locCafeExporSacos;
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportKgNetos.setValue(locKilosnetos);
       }
     } else {
@@ -710,16 +712,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
     if (locTotalCafeKgnetos < totalKilos) {
       //SEGUNDA FILA
-      const locCafeExporMCSacos = this.frmNotaIngresoPlantaDetalle.value.cafeExportMCSacos;
+      let locCafeExporMCSacos = this.frmNotaIngresoPlantaDetalle.value.cafeExportMCSacos;
       const locCafeExporMCKilos = this.frmNotaIngresoPlantaDetalle.value.cafeExportMCKilos;
 
       if (locCafeExporMCSacos) {
+        locCafeExporMCSacos = locCafeExporMCSacos * locPesoSaco;
         locTotalSacos = locTotalSacos + locCafeExporMCSacos;
         if (locCafeExporMCKilos) {
-          locKilosnetos = (locCafeExporMCSacos * kilosXSaco) + locCafeExporMCKilos;
+          locKilosnetos = locCafeExporMCSacos + locCafeExporMCKilos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCKgNetos.setValue(locKilosnetos);
         } else {
-          locKilosnetos = locCafeExporMCSacos * kilosXSaco;
+          locKilosnetos = locCafeExporMCSacos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCKgNetos.setValue(locKilosnetos);
         }
       } else {
@@ -740,16 +743,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
 
       //TERCERA FILA
-      const locCafeSegundaSacos = this.frmNotaIngresoPlantaDetalle.value.cafeSegundaSacos;
+      let locCafeSegundaSacos = this.frmNotaIngresoPlantaDetalle.value.cafeSegundaSacos;
       const locCafeSegundaKilos = this.frmNotaIngresoPlantaDetalle.value.cafeSegundaKilos;
 
       if (locCafeSegundaSacos) {
+        locCafeSegundaSacos = locCafeSegundaSacos * locPesoSaco;
         locTotalSacos = locTotalSacos + locCafeSegundaSacos;
         if (locCafeSegundaKilos) {
-          locKilosnetos = (locCafeSegundaSacos * kilosXSaco) + locCafeSegundaKilos;
+          locKilosnetos = locCafeSegundaSacos + locCafeSegundaKilos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaKgNetos.setValue(locKilosnetos);
         } else {
-          locKilosnetos = locCafeSegundaSacos * kilosXSaco;
+          locKilosnetos = locCafeSegundaSacos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaKgNetos.setValue(locKilosnetos);
         }
       } else {
@@ -770,16 +774,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
 
       //CUARTA FILA
-      const locCafeDesMaquinaSacos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaSacos;
+      let locCafeDesMaquinaSacos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaSacos;
       const locCafeDesMaquinaKilos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaKilos;
 
       if (locCafeDesMaquinaSacos) {
+        locCafeDesMaquinaSacos = locCafeDesMaquinaSacos * locPesoSaco;
         locTotalSacos = locTotalSacos + locCafeDesMaquinaSacos;
         if (locCafeDesMaquinaKilos) {
-          locKilosnetos = (locCafeDesMaquinaSacos * kilosXSaco) + locCafeDesMaquinaKilos;
+          locKilosnetos = locCafeDesMaquinaSacos + locCafeDesMaquinaKilos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaKgNetos.setValue(locKilosnetos);
         } else {
-          locKilosnetos = locCafeDesMaquinaSacos * kilosXSaco;
+          locKilosnetos = locCafeDesMaquinaSacos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaKgNetos.setValue(locKilosnetos);
         }
       } else {
@@ -800,16 +805,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
 
       //QUINTA FILA
-      const locCafeDesEscojoSacos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoSacos;
+      let locCafeDesEscojoSacos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoSacos;
       const locCafeDesEscojoKilos = this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoKilos;
 
       if (locCafeDesEscojoSacos) {
+        locCafeDesEscojoSacos = locCafeDesEscojoSacos * locPesoSaco;
         locTotalSacos = locTotalSacos + locCafeDesEscojoSacos;
         if (locCafeDesEscojoKilos) {
-          locKilosnetos = (locCafeDesEscojoSacos * kilosXSaco) + locCafeDesEscojoKilos;
+          locKilosnetos = locCafeDesEscojoSacos + locCafeDesEscojoKilos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoKgNetos.setValue(locKilosnetos);
         } else {
-          locKilosnetos = locCafeDesEscojoSacos * kilosXSaco;
+          locKilosnetos = locCafeDesEscojoSacos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoKgNetos.setValue(locKilosnetos);
         }
       } else {
@@ -830,16 +836,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
 
       //SEXTA FILA
-      const locCafeBolaSacos = this.frmNotaIngresoPlantaDetalle.value.cafeBolaSacos;
+      let locCafeBolaSacos = this.frmNotaIngresoPlantaDetalle.value.cafeBolaSacos;
       const locCafeBolaKilos = this.frmNotaIngresoPlantaDetalle.value.cafeBolaKilos;
 
       if (locCafeBolaSacos) {
+        locCafeBolaSacos = locCafeBolaSacos * locPesoSaco;
         locTotalSacos = locTotalSacos + locCafeBolaSacos;
         if (locCafeBolaKilos) {
-          locKilosnetos = (locCafeBolaSacos * kilosXSaco) + locCafeBolaKilos;
+          locKilosnetos = locCafeBolaSacos + locCafeBolaKilos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeBolaKgNetos.setValue(locKilosnetos);
         } else {
-          locKilosnetos = locCafeBolaSacos * kilosXSaco;
+          locKilosnetos = locCafeBolaSacos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeBolaKgNetos.setValue(locKilosnetos);
         }
       } else {
@@ -860,16 +867,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
 
       //SEPTIMA FILA
-      const locCafeCiscoSacos = this.frmNotaIngresoPlantaDetalle.value.cafeCiscoSacos;
+      let locCafeCiscoSacos = this.frmNotaIngresoPlantaDetalle.value.cafeCiscoSacos;
       const locCafeCiscoKilos = this.frmNotaIngresoPlantaDetalle.value.cafeCiscoKilos;
 
       if (locCafeCiscoSacos) {
+        locCafeCiscoSacos = locCafeCiscoSacos * locPesoSaco;
         locTotalSacos = locTotalSacos + locCafeCiscoSacos;
         if (locCafeCiscoKilos) {
-          locKilosnetos = (locCafeCiscoSacos * kilosXSaco) + locCafeCiscoKilos;
+          locKilosnetos = locCafeCiscoSacos + locCafeCiscoKilos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoKgNetos.setValue(locKilosnetos);
         } else {
-          locKilosnetos = locCafeCiscoSacos * kilosXSaco;
+          locKilosnetos = locCafeCiscoSacos;
           this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoKgNetos.setValue(locKilosnetos);
         }
       } else {

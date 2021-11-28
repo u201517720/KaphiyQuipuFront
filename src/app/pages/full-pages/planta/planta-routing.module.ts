@@ -5,6 +5,8 @@ import { NotaIngresoPlantaComponent } from './operaciones/notaingresoplanta/nota
 import { NotaIngresoPlantaEditComponent } from './operaciones/notaingresoplanta/edit/nota-ingreso-planta-edit.component';
 import { NotaSalidaPlantaComponent } from './operaciones/notasalidaplanta/nota-salida-planta.component';
 import { NotaSalidaPlantaEditComponent } from './operaciones/notasalidaplanta/edit/nota-salida-planta-edit.component';
+import { GuiaRemisionPlantaComponent } from './operaciones/guiaremisionplanta/guia-remision-planta.component';
+import { GuiaRemisionPlantaEditComponent } from './operaciones/guiaremisionplanta/edit/guia-remision-planta-edit.component';
 
 const routes: Routes = [
     {
@@ -43,6 +45,20 @@ const routes: Routes = [
                 component: NotaSalidaPlantaEditComponent,
                 data: {
                     title: 'Nota de Salida'
+                }
+            },
+            {
+                path: 'guiaremision/list',
+                component: GuiaRemisionPlantaComponent,
+                data: {
+                    title: 'Guía de Remisión'
+                }
+            },
+            {
+                path: 'guiaremision/update/:id',
+                component: GuiaRemisionPlantaEditComponent,
+                data: {
+                    title: 'Guía de Remisión'
                 }
             }
         ]
