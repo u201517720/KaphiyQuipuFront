@@ -36,7 +36,7 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
   locEstado = 0;
 
   ngOnInit(): void {
-    this.locId = parseInt(this.route.snapshot.params['id']);
+    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     if (this.userSession) {
       this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
@@ -44,6 +44,8 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
     this.LoadForm();
     if (this.locId > 0) {
       this.ConsultarPorId();
+    } else {
+      this.GetAlmacenes();
     }
   }
 
@@ -56,7 +58,12 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
       cantidad: [],
       almacen: [, Validators.required],
       observaciones: [],
-      correlativoGRP: [, Validators.required]
+      correlativoGRP: [, Validators.required],
+      pesoNeto: [],
+      totalPagar: [],
+      tara: [],
+      pesoTotal: [],
+      pesoSaco: []
     });
   }
 
@@ -100,10 +107,14 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
       if (data.EstadoId) {
         this.locEstado = parseInt(data.EstadoId);
       }
+      this.frmNotaIngresoDevolucionDetalle.controls.fechaRegistro.setValue(data.FechaRegistro);
       this.frmNotaIngresoDevolucionDetalle.controls.guiaremisionplantaid.setValue(data.GuiaRemisionPlantaId);
       this.frmNotaIngresoDevolucionDetalle.controls.correlativoGRP.setValue(data.CorrelativoGRP);
       this.frmNotaIngresoDevolucionDetalle.controls.producto.setValue(data.Producto);
-      this.frmNotaIngresoDevolucionDetalle.controls.cantidad.setValue(data.TotalSacos);
+      if (data.TotalSacos) {
+        this.frmNotaIngresoDevolucionDetalle.controls.cantidad.setValue(data.TotalSacos);
+        this.frmNotaIngresoDevolucionDetalle.controls.tara.setValue(data.TotalSacos * 0.3);
+      }
       if (data.Observaciones) {
         this.frmNotaIngresoDevolucionDetalle.controls.observaciones.setValue(data.Observaciones);
       }
@@ -113,6 +124,13 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
       }
       if (data.FechaRegistro) {
         this.frmNotaIngresoDevolucionDetalle.controls.fechaRegistro.setValue(data.FechaRegistro);
+      }
+      if (data.PesoSaco) {
+        this.frmNotaIngresoDevolucionDetalle.controls.pesoSaco.setValue(data.PesoSaco);
+      }
+      if (data.TotalCafeKgNetos) {
+        this.frmNotaIngresoDevolucionDetalle.controls.pesoNeto.setValue(data.TotalCafeKgNetos);
+        this.frmNotaIngresoDevolucionDetalle.controls.pesoTotal.setValue(data.TotalCafeKgNetos);
       }
     }
     this.spinner.hide();

@@ -150,6 +150,9 @@
 			},
 			"GuiasRemision": {
 				"Label": "Lista Guía Remisión"
+			},
+			"Devoluciones": {
+				"Label": "Nota Ingreso Devolución"
 			}
 		}
 	},
