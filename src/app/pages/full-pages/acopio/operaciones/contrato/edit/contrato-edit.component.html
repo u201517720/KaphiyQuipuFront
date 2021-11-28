@@ -244,6 +244,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="tara" class="col-lg-4 col-form-label">TARA</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" formControlName="tara" class="form-control text-right"
+                                        placeholder="Costo unitario" [readonly]="true" *ngIf="locCodigoEstadoInt >= 3"
+                                        [ngClass]="{ 'is-invalid': f.tara.invalid, 'is-valid': !f.tara.invalid }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="kilosNetos" class="col-lg-4 col-form-label">KILOS NETOS</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" formControlName="kilosNetos" class="form-control text-right"
+                                        placeholder="Costo unitario" [readonly]="true" *ngIf="locCodigoEstadoInt >= 3"
+                                        [ngClass]="{ 'is-invalid': f.kilosNetos.invalid, 'is-valid': !f.kilosNetos.invalid }">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-row" *ngIf="locId > 0">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -580,7 +600,8 @@
                                                                                 <input type="number"
                                                                                     formControlName="qq55KgPC"
                                                                                     class="form-control text-right form-control-sm"
-                                                                                    placeholder="QQ55,2/Kg" [readonly]="true"
+                                                                                    placeholder="QQ55,2/Kg"
+                                                                                    [readonly]="true"
                                                                                     [ngClass]="{ 'is-invalid': submittedPesadoCafe && f.qq55KgPC.invalid, 'is-valid': !submittedPesadoCafe && !f.qq55KgPC.invalid }">
                                                                             </td>
                                                                         </tr>

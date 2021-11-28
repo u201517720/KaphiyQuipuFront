@@ -134,7 +134,9 @@ export class ContratoEditComponent implements OnInit {
       totalGramos: [],
       totalPorcentaje: [],
       humedadProcenPC: [],
-      observacionesPC: []
+      observacionesPC: [],
+      tara: [],
+      kilosNetos: []
     });
   }
 
@@ -283,7 +285,7 @@ export class ContratoEditComponent implements OnInit {
   CalcularPesoEnKilos() {
     const cantidad = this.frmContratoCompraVenta.value.cantASolicitar ? this.frmContratoCompraVenta.value.cantASolicitar : 0;
     const pesoSaco = this.frmContratoCompraVenta.value.pesoXSaco ? this.frmContratoCompraVenta.value.pesoXSaco : 0;
-    const total = cantidad * (pesoSaco + 9);
+    const total = cantidad * (pesoSaco + 9) + (cantidad * 0.3);
     if (total) {
       this.frmContratoCompraVenta.controls.pesoEnKilos.setValue(total);
     }
@@ -327,11 +329,15 @@ export class ContratoEditComponent implements OnInit {
   CalcularCostoTotal() {
     const pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
     if (pesoKilos) {
-      let costoUnitario = this.frmContratoCompraVenta.value.costoUnitario;
+      const cantidad = this.frmContratoCompraVenta.value.cantASolicitar;
+      const pesoSaco = this.frmContratoCompraVenta.value.pesoXSaco;
+      const costoUnitario = this.frmContratoCompraVenta.value.costoUnitario;
 
-      const costoTotal = pesoKilos * costoUnitario;
+      const costoTotal = pesoSaco * cantidad * costoUnitario;
       if (costoTotal) {
         this.frmContratoCompraVenta.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
+        this.frmContratoCompraVenta.controls.tara.setValue(parseFloat((cantidad * 0.3).toFixed(2)));
+        this.frmContratoCompraVenta.controls.kilosNetos.setValue(parseFloat((pesoKilos - (cantidad * 0.3)).toFixed(2)));
       }
     }
   }
@@ -553,28 +559,28 @@ export class ContratoEditComponent implements OnInit {
   }
 
   onSelectAgricultores(e) {
-    const pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
+    const pesoKilosNetos = this.frmContratoCompraVenta.value.kilosNetos;
     const sumaCosecha = this.frmContratoCompraVenta.value.sumaCosechaSeleccionada;
     let sumaSelected = 0;
     if (e && e.selected.length > 0) {
       let colTotalCosecha = 0;
       for (let i = 0; i < e.selected.length; i++) {
-        if (pesoKilos === sumaSelected) {
+        if (pesoKilosNetos === sumaSelected) {
           this.selectedAgricultores.pop();
         }
-        if (sumaSelected < pesoKilos) {
+        if (sumaSelected < pesoKilosNetos) {
           colTotalCosecha = e.selected[i].TotalCosecha;
           if (colTotalCosecha) {
-            if (colTotalCosecha > pesoKilos) {
+            if (colTotalCosecha > pesoKilosNetos) {
               if (sumaSelected) {
-                sumaSelected += (pesoKilos - sumaSelected);
+                sumaSelected += (pesoKilosNetos - sumaSelected);
               } else {
-                sumaSelected = pesoKilos;
+                sumaSelected = pesoKilosNetos;
               }
             } else {
               sumaSelected += colTotalCosecha;
-              if (sumaSelected > pesoKilos) {
-                sumaSelected = pesoKilos;
+              if (sumaSelected > pesoKilosNetos) {
+                sumaSelected = pesoKilosNetos;
               }
             }
           }
@@ -892,7 +898,7 @@ export class ContratoEditComponent implements OnInit {
 
     const locKilosNetos = this.frmContratoCompraVenta.value.kilosNetosPC;
     if (locKilosNetos) {
-      this.frmContratoCompraVenta.controls.qq55KgPC.setValue(parseFloat((locKilosNetos/55.2).toFixed(2)));
+      this.frmContratoCompraVenta.controls.qq55KgPC.setValue(parseFloat((locKilosNetos / 55.2).toFixed(2)));
     }
   }
 

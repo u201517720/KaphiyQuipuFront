@@ -232,8 +232,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       if (data.Colores) {
         this.coloresSeleccionados = data.Colores;
       }
-      if (data.Correlativo) {
-        this.frmNotaIngresoPlantaDetalle.controls.nroGuiaRemision.setValue(data.Correlativo);
+      if (data.CorrelativoNIP) {
+        this.frmNotaIngresoPlantaDetalle.controls.correlativo.setValue(data.CorrelativoNIP);
       }
       if (data.PesoSaco) {
         this.frmNotaIngresoPlantaDetalle.controls.pesoPorSaco.setValue(data.PesoSaco);

@@ -253,7 +253,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   CalcularPesoEnKilos() {
     const cantidad = this.frmSolicitudCompraNew.value.cantASolicitar ? this.frmSolicitudCompraNew.value.cantASolicitar : 0;
     const pesoSaco = this.frmSolicitudCompraNew.value.pesoXSaco ? this.frmSolicitudCompraNew.value.pesoXSaco : 0;
-    const total = cantidad * (pesoSaco + 9);
+    const total = cantidad * (pesoSaco + 9) + (cantidad * 0.3);
     if (total) {
       this.frmSolicitudCompraNew.controls.pesoEnKilos.setValue(total);
     } else {
@@ -358,9 +358,10 @@ export class SolicitudcompraEditComponent implements OnInit {
   CalcularCostoTotal() {
     const pesoKilos = this.frmSolicitudCompraNew.value.pesoEnKilos;
     if (pesoKilos) {
-      let costoUnitario = this.frmSolicitudCompraNew.value.costoUnitario;
-
-      const costoTotal = pesoKilos * costoUnitario;
+      const costoUnitario = this.frmSolicitudCompraNew.value.costoUnitario;
+      const cantidad = this.frmSolicitudCompraNew.value.cantASolicitar;
+      const pesoSaco = this.frmSolicitudCompraNew.value.pesoXSaco;  
+      const costoTotal = cantidad * pesoSaco * costoUnitario;
       if (costoTotal) {
         this.frmSolicitudCompraNew.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
       } else {
