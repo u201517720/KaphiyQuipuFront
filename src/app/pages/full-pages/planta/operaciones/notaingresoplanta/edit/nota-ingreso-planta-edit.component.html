@@ -715,13 +715,14 @@
                                 <button type="button" class="btn btn-primary mr-1" (click)="AutorizarTransformacion()"
                                     *ngIf="userSession.RolId == 11 && locEstado === 4">Autorizar Transformación</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="FinalizarEtiquetado()"
+                                    [disabled]="!flagGeneroEtiquetas"
                                     *ngIf="userSession.RolId == 13 && locEstado === 3">Finalizar Etiquetado</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ImprimirEtiquetas()"
-                                    *ngIf="userSession.RolId == 13 && locEstado === 3">Imprimir Etiquetas</button>
+                                    *ngIf="userSession.RolId == 13 && locEstado === 3">Generar Etiquetas</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarRecepcion()"
                                     *ngIf="userSession.RolId == 13 && locEstado === 2">Confirmar Recepción</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
-                                    *ngIf="(userSession.RolId == 12 || userSession.RolId == 11 || userSession.RolId == 14) && (locEstado < 2 || locEstado == 6)">Guardar</button>
+                                    *ngIf="(userSession.RolId == 11 && locEstado == 0) || (userSession.RolId == 12 || userSession.RolId == 14) && (locEstado < 2 || locEstado == 6)">Guardar</button>
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                             </div>
                         </div>

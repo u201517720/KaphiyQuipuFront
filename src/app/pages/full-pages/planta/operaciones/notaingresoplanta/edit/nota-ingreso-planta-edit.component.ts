@@ -29,6 +29,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   oloresSeleccionados = '';
   coloresSeleccionados = '';
   activeTab = 1;
+  flagGeneroEtiquetas = false;
 
   constructor(private fb: FormBuilder,
     private guiaremisionService: GuiaremisionService,
@@ -614,7 +615,11 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   }
 
   ImprimirEtiquetas() {
-
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de generar las etiquetas?',
+      () => {
+        this.flagGeneroEtiquetas = true;
+      });
   }
 
   FinalizarEtiquetado() {
@@ -675,7 +680,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
   CalcularResultadosProcesos() {
     const kilosXSaco = this.frmNotaIngresoPlantaDetalle.value.numeroSacos;
-    const totalKilos = this.frmNotaIngresoPlantaDetalle.value.kilosBrutos;
+    const locKilosNetos = this.frmNotaIngresoPlantaDetalle.value.kilosNetos;
     const locPesoSaco = this.frmNotaIngresoPlantaDetalle.value.pesoPorSaco
     let locKilosnetos, locPorcentaje, locTotalSacos = 0, locTotalPorcentaje = 0, locTotalCafeKgnetos = 0, locTotalesPorcen = 0;
 
@@ -701,7 +706,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
 
     if (locKilosnetos) {
-      locPorcentaje = (locKilosnetos * 100) / totalKilos;
+      locPorcentaje = (locKilosnetos * 100) / locKilosNetos;
       this.frmNotaIngresoPlantaDetalle.controls.cafeExportPorc.setValue(parseFloat(locPorcentaje.toFixed(2)));
     } else {
       locPorcentaje = 0;
@@ -710,7 +715,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
     locTotalPorcentaje = locTotalPorcentaje + locPorcentaje;
 
-    if (locTotalCafeKgnetos < totalKilos) {
+    if (locTotalCafeKgnetos < locKilosNetos) {
       //SEGUNDA FILA
       let locCafeExporMCSacos = this.frmNotaIngresoPlantaDetalle.value.cafeExportMCSacos;
       const locCafeExporMCKilos = this.frmNotaIngresoPlantaDetalle.value.cafeExportMCKilos;
@@ -733,7 +738,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
 
       if (locKilosnetos) {
-        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        locPorcentaje = (locKilosnetos * 100) / locKilosNetos;
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCPorc.setValue(parseFloat(locPorcentaje.toFixed(2)));
       } else {
         locPorcentaje = 0;
@@ -764,7 +769,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
 
       if (locKilosnetos) {
-        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        locPorcentaje = (locKilosnetos * 100) / locKilosNetos;
         this.frmNotaIngresoPlantaDetalle.controls.cafeSegundaPorc.setValue(parseFloat(locPorcentaje.toFixed(2)));
       } else {
         locPorcentaje = 0;
@@ -795,7 +800,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
 
       if (locKilosnetos) {
-        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        locPorcentaje = (locKilosnetos * 100) / locKilosNetos;
         this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteMaquinaPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
       } else {
         locPorcentaje = 0;
@@ -826,7 +831,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
 
       if (locKilosnetos) {
-        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        locPorcentaje = (locKilosnetos * 100) / locKilosNetos;
         this.frmNotaIngresoPlantaDetalle.controls.cafeDescarteEscojoPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
       } else {
         locPorcentaje = 0;
@@ -857,7 +862,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
 
       if (locKilosnetos) {
-        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        locPorcentaje = (locKilosnetos * 100) / locKilosNetos;
         this.frmNotaIngresoPlantaDetalle.controls.cafeBolaPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
       } else {
         locPorcentaje = 0;
@@ -888,7 +893,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       locTotalCafeKgnetos = locTotalCafeKgnetos + locKilosnetos;
 
       if (locKilosnetos) {
-        locPorcentaje = (locKilosnetos * 100) / totalKilos;
+        locPorcentaje = (locKilosnetos * 100) / locKilosNetos;
         this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
       } else {
         locPorcentaje = 0;
@@ -899,7 +904,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
       const locPiedrasOtrosKgNetos = this.frmNotaIngresoPlantaDetalle.value.piedrasOtrosKgNetos;
       if (locPiedrasOtrosKgNetos) {
-        locPorcentaje = (locPiedrasOtrosKgNetos * 100) / totalKilos;
+        locPorcentaje = (locPiedrasOtrosKgNetos * 100) / locKilosNetos;
         this.frmNotaIngresoPlantaDetalle.controls.piedrasOtrosPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
       } else {
         locPorcentaje = 0;
@@ -917,16 +922,16 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
       if (locTotalCafeKgnetos) {
         this.frmNotaIngresoPlantaDetalle.controls.totalCafeKgNetos.setValue(parseFloat(locTotalCafeKgnetos.toFixed(2)));
-        this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosKgNetos.setValue(parseFloat((totalKilos - (locTotalCafeKgnetos + locPiedrasOtrosKgNetos)).toFixed(2)));
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosKgNetos.setValue(parseFloat((locKilosNetos - (locTotalCafeKgnetos + locPiedrasOtrosKgNetos)).toFixed(2)));
       } else {
-        this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosKgNetos.setValue(parseFloat((totalKilos - locPiedrasOtrosKgNetos).toFixed(2)));
+        this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosKgNetos.setValue(parseFloat((locKilosNetos - locPiedrasOtrosKgNetos).toFixed(2)));
         this.frmNotaIngresoPlantaDetalle.controls.totalCafeKgNetos.reset();
       }
 
       const locCascaraOtrosKgnetos = this.frmNotaIngresoPlantaDetalle.value.cascaraOtrosKgNetos;
 
       if (locCascaraOtrosKgnetos) {
-        locPorcentaje = (locCascaraOtrosKgnetos * 100) / totalKilos;
+        locPorcentaje = (locCascaraOtrosKgnetos * 100) / locKilosNetos;
         this.frmNotaIngresoPlantaDetalle.controls.cascaraOtrosPorcen.setValue(parseFloat(locPorcentaje.toFixed(2)));
       } else {
         locPorcentaje = 0;

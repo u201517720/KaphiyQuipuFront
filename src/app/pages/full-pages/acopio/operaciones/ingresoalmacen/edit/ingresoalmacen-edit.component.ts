@@ -176,12 +176,8 @@ export class IngresoAlmacenEditComponent implements OnInit {
       this.frmNotaIngresoAcopioDetalle.controls.humedadProcenPC.setValue(data.Humedad);
       this.frmNotaIngresoAcopioDetalle.controls.observacionesPC.setValue(data.Observaciones);
       this.frmNotaIngresoAcopioDetalle.controls.AlmacenId.setValue(data.AlmacenId);
-      if (data.Moneda === '01') {
-        this.frmNotaIngresoAcopioDetalle.controls.CostoUnitario.setValue(13.5);
-      } else {
-        this.frmNotaIngresoAcopioDetalle.controls.CostoUnitario.setValue(5.4);
-      }
-      await this.CalcularCostoTotal();
+      this.frmNotaIngresoAcopioDetalle.controls.CostoUnitario.setValue(data.PrecioUnitario);
+      this.frmNotaIngresoAcopioDetalle.controls.costoTotal.setValue(data.CostoTotal);
     }
     this.spinner.hide();
   }
@@ -257,18 +253,6 @@ export class IngresoAlmacenEditComponent implements OnInit {
     this.router.navigate(['/acopio/operaciones/notaingresoalmacen/list']);
   }
 
-  async CalcularCostoTotal() {
-    const cantidad = this.frmNotaIngresoAcopioDetalle.value.PesoKilos;
-    if (cantidad) {
-      let costoUnitario = this.frmNotaIngresoAcopioDetalle.value.CostoUnitario;
-
-      const costoTotal = cantidad * costoUnitario;
-      if (costoTotal) {
-        this.frmNotaIngresoAcopioDetalle.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
-      }
-    }
-  }
-
   GenerarEtiquetas() {
     this.alertUtil.alertSiNoCallback('Pregunta',
       `¿Está seguro de generar las etiquetas de la nota de ingreso ${this.frmNotaIngresoAcopioDetalle.value.correlativo}?`,
@@ -279,7 +263,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
 
   ConfirmarTerminoEtiquetado() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      `¿Está seguro de confirmar la finalización del etiquetado de sacos?`,
+      `¿Está seguro de confirmar la finalización del etiquetado de los sacos?`,
       () => {
         this.spinner.show();
         const request = {
@@ -291,7 +275,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
           .subscribe((res) => {
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                'Se ha confirmado el etiquetado de los sacos.',
+                'Se ha confirmado la finalización del etiquetado de los sacos.',
                 () => {
                   this.ConsultarPorId();
                 });

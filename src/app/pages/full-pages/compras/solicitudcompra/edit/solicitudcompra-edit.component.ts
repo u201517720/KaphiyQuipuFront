@@ -482,7 +482,9 @@ export class SolicitudcompraEditComponent implements OnInit {
       SolicitudCompraId: this.locId,
       EmpresaId: this.userSession.EmpresaId,
       Observaciones: this.frmSolicitudCompraNew.value.observaciones,
-      UsuarioRegistro: this.userSession.NombreUsuario
+      UsuarioRegistro: this.userSession.NombreUsuario,
+      PrecioUnitario: this.frmSolicitudCompraNew.value.costoUnitario,
+      CostoTotal: this.frmSolicitudCompraNew.value.costoTotal
     };
 
     this.contratoService.Create(request)

@@ -244,22 +244,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngIf="locCodigoEstadoInt >= 3">
                             <div class="form-group row">
                                 <label for="tara" class="col-lg-4 col-form-label">TARA</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" formControlName="tara" class="form-control text-right"
-                                        placeholder="Costo unitario" [readonly]="true" *ngIf="locCodigoEstadoInt >= 3"
+                                        placeholder="Costo unitario" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.tara.invalid, 'is-valid': !f.tara.invalid }">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngIf="locCodigoEstadoInt >= 3">
                             <div class="form-group row">
                                 <label for="kilosNetos" class="col-lg-4 col-form-label">KILOS NETOS</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" formControlName="kilosNetos" class="form-control text-right"
-                                        placeholder="Costo unitario" [readonly]="true" *ngIf="locCodigoEstadoInt >= 3"
+                                        placeholder="Costo unitario" [readonly]="true"
                                         [ngClass]="{ 'is-invalid': f.kilosNetos.invalid, 'is-valid': !f.kilosNetos.invalid }">
                                 </div>
                             </div>
@@ -770,7 +770,7 @@
                                     *ngIf="userSession.RolId === 6 && locCodigoEstado === '08'">Confirmar
                                     Recepción</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
-                                    *ngIf="(locCodigoEstado === '03' &&  userSession.RolId === 7) || (locCodigoEstado === '05' &&  userSession.RolId === 9) || locCodigoEstado === '05'">Guardar</button>
+                                    *ngIf="(locCodigoEstado === '03' &&  userSession.RolId === 7) || (locCodigoEstado === '05' &&  userSession.RolId === 9)">Guardar</button>
                                 <button type="button" class="btn btn-primary mr-1"
                                     *ngIf="locCodigoEstado === '06' && userSession.RolId === 8"
                                     (click)="GenerarGuiaRecepcion()">Generar Guía de Recepción</button>

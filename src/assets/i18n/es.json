@@ -152,7 +152,7 @@
 				"Label": "Lista Guía Remisión"
 			},
 			"Devoluciones": {
-				"Label": "Nota Ingreso Devolución"
+				"Label": "Lista Notas Ingreso CP"
 			}
 		}
 	},

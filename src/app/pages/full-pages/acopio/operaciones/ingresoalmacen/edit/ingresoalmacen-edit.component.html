@@ -573,7 +573,7 @@
                 <button type="button" class="btn btn-primary mr-1" (click)="GenerarOrdenProceso()"
                   *ngIf="userSession.RolId == 10 && locEstado === 3">Generar Orden Proceso</button>
                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarTerminoEtiquetado()"
-                  *ngIf="userSession.RolId == 8 && locEstado === 2">Confirmar Etiquetado</button>
+                  *ngIf="userSession.RolId == 8 && locEstado === 2">Finalizar Etiquetado</button>
                 <button type="button" class="btn btn-primary mr-1" (click)="GenerarEtiquetas()"
                   *ngIf="userSession.RolId == 8 && locEstado === 2">Generar Etiquetas</button>
                 <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"

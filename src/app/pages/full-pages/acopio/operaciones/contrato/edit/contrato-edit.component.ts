@@ -614,16 +614,16 @@ export class ContratoEditComponent implements OnInit {
       agricultores: []
     };
     if (this.selectedAgricultores && this.selectedAgricultores.length > 0) {
-      let pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
+      let locKilosNetos = this.frmContratoCompraVenta.value.kilosNetos;
       let cosecha = 0, cosechaAux = 0;
 
       this.selectedAgricultores.forEach(x => {
 
-        if (x.TotalCosecha < pesoKilos) {
+        if (x.TotalCosecha < locKilosNetos) {
           cosecha = x.TotalCosecha;
-          pesoKilos -= x.TotalCosecha;
+          locKilosNetos -= x.TotalCosecha;
         } else {
-          cosecha = pesoKilos;
+          cosecha = locKilosNetos;
         }
 
         cosechaAux += cosecha;
@@ -636,7 +636,7 @@ export class ContratoEditComponent implements OnInit {
         });
       });
 
-      if (cosechaAux == this.frmContratoCompraVenta.value.pesoEnKilos) {
+      if (cosechaAux == this.frmContratoCompraVenta.value.kilosNetos) {
         if (request.agricultores.length > 0) {
           this.contratoService.RegistrarAgricultores(request)
             .subscribe((res) => {
@@ -648,7 +648,7 @@ export class ContratoEditComponent implements OnInit {
                     this.ConsultarPorId();
                   });
               } else {
-
+                this.alertUtil.alertError('ERROR', res.Result.Message);
               }
             }, (err) => {
               console.log(err);

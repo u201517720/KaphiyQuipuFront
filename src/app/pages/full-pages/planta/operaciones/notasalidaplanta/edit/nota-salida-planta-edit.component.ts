@@ -133,9 +133,9 @@ export class NotaSalidaPlantaEditComponent implements OnInit {
       this.frmNotaSalidaPlantaDetalle.controls.tipoEmpaque.setValue(data.TipoEmpaque);
       this.frmNotaSalidaPlantaDetalle.controls.kgsPorSaco.setValue(data.PesoSaco);
       this.frmNotaSalidaPlantaDetalle.controls.nroSacos.setValue(data.CafeExportacionSacos);
-      this.frmNotaSalidaPlantaDetalle.controls.kilosBrutos.setValue(data.TotalCafeKgNetos + (data.CafeExportacionSacos * 0.3));
+      this.frmNotaSalidaPlantaDetalle.controls.kilosBrutos.setValue((data.CafeExportacionSacos * data.PesoSaco) + (data.CafeExportacionSacos * 0.3));
       this.frmNotaSalidaPlantaDetalle.controls.tara.setValue(data.CafeExportacionSacos * 0.3);
-      this.frmNotaSalidaPlantaDetalle.controls.kilosNetos.setValue(data.TotalCafeKgNetos);
+      this.frmNotaSalidaPlantaDetalle.controls.kilosNetos.setValue(data.CafeExportacionSacos * data.PesoSaco);
       this.frmNotaSalidaPlantaDetalle.controls.certificacion.setValue(`${data.SubProducto} - ${data.Certificacion}`);
     }
     this.spinner.hide();

@@ -155,12 +155,8 @@ export class GuiaRecepcionEditComponent implements OnInit {
       this.frmGuiaRecepcionDetalle.controls.totalPorcentaje.setValue(data.TotalPorcAFC);
       this.frmGuiaRecepcionDetalle.controls.humedadProcenPC.setValue(data.Humedad);
       this.frmGuiaRecepcionDetalle.controls.observacionesPC.setValue(data.Observaciones);
-      if (data.Moneda === '01') {
-        this.frmGuiaRecepcionDetalle.controls.CostoUnitario.setValue(13.5);
-      } else {
-        this.frmGuiaRecepcionDetalle.controls.CostoUnitario.setValue(5.4);
-      }
-      await this.CalcularCostoTotal();
+      this.frmGuiaRecepcionDetalle.controls.CostoUnitario.setValue(data.PrecioUnitario);
+      this.frmGuiaRecepcionDetalle.controls.costoTotal.setValue(data.CostoTotal);
     }
     this.spinner.hide();
   }
@@ -222,22 +218,4 @@ export class GuiaRecepcionEditComponent implements OnInit {
     this.router.navigate(['/acopio/operaciones/guiarecepcion/list']);
   }
 
-  // async MostrarCostoUnitario() {
-  //   const moneda = this.frmGuiaRecepcionDetalle.value.moneda;
-  //   if (moneda === '01') {
-  //     this.frmGuiaRecepcionDetalle.controls.CostoUnitario.setValue(7.46);
-  //   }
-  // }
-
-  async CalcularCostoTotal() {
-    const cantidad = this.frmGuiaRecepcionDetalle.value.PesoKilos;
-    if (cantidad) {
-      let costoUnitario = this.frmGuiaRecepcionDetalle.value.CostoUnitario;
-
-      const costoTotal = cantidad * costoUnitario;
-      if (costoTotal) {
-        this.frmGuiaRecepcionDetalle.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
-      }
-    }
-  }
 }
