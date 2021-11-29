@@ -55,6 +55,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
   selectedAlmacen: any;
   submitted = false;
   tabActive = 1;
+  flagShowBtnFinalizarEtiquetado = false;
 
   ngOnInit(): void {
     this.GetAlmacenes();
@@ -101,7 +102,9 @@ export class IngresoAlmacenEditComponent implements OnInit {
       referencia: [],
       AlmacenId: [, Validators.required],
       CostoUnitario: [],
-      costoTotal: []
+      costoTotal: [],
+      tara: [],
+      kgsNetos: []
     });
   }
 
@@ -178,6 +181,8 @@ export class IngresoAlmacenEditComponent implements OnInit {
       this.frmNotaIngresoAcopioDetalle.controls.AlmacenId.setValue(data.AlmacenId);
       this.frmNotaIngresoAcopioDetalle.controls.CostoUnitario.setValue(data.PrecioUnitario);
       this.frmNotaIngresoAcopioDetalle.controls.costoTotal.setValue(data.CostoTotal);
+      this.frmNotaIngresoAcopioDetalle.controls.tara.setValue(data.Tara);
+      this.frmNotaIngresoAcopioDetalle.controls.kgsNetos.setValue(data.KilosNetosContrato);
     }
     this.spinner.hide();
   }
@@ -257,7 +262,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
     this.alertUtil.alertSiNoCallback('Pregunta',
       `¿Está seguro de generar las etiquetas de la nota de ingreso ${this.frmNotaIngresoAcopioDetalle.value.correlativo}?`,
       () => {
-
+        this.flagShowBtnFinalizarEtiquetado = true;
       });
   }
 

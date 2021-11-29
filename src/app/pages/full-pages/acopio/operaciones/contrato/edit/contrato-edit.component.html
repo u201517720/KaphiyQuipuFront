@@ -244,7 +244,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngIf="locCodigoEstadoInt >= 3">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
+                            *ngIf="locCodigoEstadoInt >= 3 && userSession.RolId != 6">
                             <div class="form-group row">
                                 <label for="tara" class="col-lg-4 col-form-label">TARA</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -254,7 +255,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngIf="locCodigoEstadoInt >= 3">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
+                            *ngIf="locCodigoEstadoInt >= 3 && userSession.RolId != 6">
                             <div class="form-group row">
                                 <label for="kilosNetos" class="col-lg-4 col-form-label">KILOS NETOS</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">

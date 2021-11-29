@@ -90,7 +90,9 @@ export class GuiaRecepcionEditComponent implements OnInit {
       observacionesPC: [],
       ObservacionesSolicitudCompra: [],
       CostoUnitario: [],
-      costoTotal: []
+      costoTotal: [],
+      tara: [],
+      kgsNetos: []
     });
   }
 
@@ -157,6 +159,10 @@ export class GuiaRecepcionEditComponent implements OnInit {
       this.frmGuiaRecepcionDetalle.controls.observacionesPC.setValue(data.Observaciones);
       this.frmGuiaRecepcionDetalle.controls.CostoUnitario.setValue(data.PrecioUnitario);
       this.frmGuiaRecepcionDetalle.controls.costoTotal.setValue(data.CostoTotal);
+      if (data.Tara)
+        this.frmGuiaRecepcionDetalle.controls.tara.setValue(data.Tara);
+      if (data.KilosNetosContrato)
+        this.frmGuiaRecepcionDetalle.controls.kgsNetos.setValue(data.KilosNetosContrato);
     }
     this.spinner.hide();
   }

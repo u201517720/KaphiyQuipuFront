@@ -326,22 +326,6 @@ export class ContratoEditComponent implements OnInit {
     }
   }
 
-  CalcularCostoTotal() {
-    const pesoKilos = this.frmContratoCompraVenta.value.pesoEnKilos;
-    if (pesoKilos) {
-      const cantidad = this.frmContratoCompraVenta.value.cantASolicitar;
-      const pesoSaco = this.frmContratoCompraVenta.value.pesoXSaco;
-      const costoUnitario = this.frmContratoCompraVenta.value.costoUnitario;
-
-      const costoTotal = pesoSaco * cantidad * costoUnitario;
-      if (costoTotal) {
-        this.frmContratoCompraVenta.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
-        this.frmContratoCompraVenta.controls.tara.setValue(parseFloat((cantidad * 0.3).toFixed(2)));
-        this.frmContratoCompraVenta.controls.kilosNetos.setValue(parseFloat((pesoKilos - (cantidad * 0.3)).toFixed(2)));
-      }
-    }
-  }
-
   async CompletarForm(data) {
     if (data) {
       if (data.PaisId) {
@@ -432,7 +416,12 @@ export class ContratoEditComponent implements OnInit {
       this.locCodigoEstado = data.EstadoId;
       this.locCodigoEstadoInt = parseInt(this.locCodigoEstado);
       this.locFechaRegistroString = data.FechaRegistroString;
-      this.CalcularCostoTotal();
+      if (data.CostoTotal)
+        this.frmContratoCompraVenta.controls.costoTotal.setValue(data.CostoTotal);
+      if (data.Tara)
+        this.frmContratoCompraVenta.controls.tara.setValue(data.Tara);
+      if (data.KilosNetos)
+        this.frmContratoCompraVenta.controls.kilosNetos.setValue(data.KilosNetos);
       this.ActualizarListaAgricultores();
       if (parseInt(this.locCodigoEstado) === 5) {
         await this.GetOlores();

@@ -105,7 +105,9 @@ export class SolicitudcompraEditComponent implements OnInit {
       distribuidora: [],
       fechaRegistro: [],
       estado: [],
-      correlativo: []
+      correlativo: [],
+      tara: [],
+      kgsNetos: []
     });
   }
 
@@ -454,6 +456,8 @@ export class SolicitudcompraEditComponent implements OnInit {
       this.frmSolicitudCompraNew.controls.distribuidora.setValue(data.Distribuidor);
       this.frmSolicitudCompraNew.controls.estado.setValue(data.DescripcionEstado);
       this.frmSolicitudCompraNew.controls.correlativo.setValue(data.Correlativo);
+      this.frmSolicitudCompraNew.controls.tara.setValue(parseFloat((data.TotalSacos * 0.3).toFixed(2)));
+      this.frmSolicitudCompraNew.controls.kgsNetos.setValue(parseFloat(((data.PesoSaco + 9) * data.TotalSacos).toFixed(2)));
       this.locCodigoEstado = data.EstadoId
       this.locFechaRegistroString = data.FechaRegistroString;
       this.CalcularCostoTotal();
@@ -484,7 +488,9 @@ export class SolicitudcompraEditComponent implements OnInit {
       Observaciones: this.frmSolicitudCompraNew.value.observaciones,
       UsuarioRegistro: this.userSession.NombreUsuario,
       PrecioUnitario: this.frmSolicitudCompraNew.value.costoUnitario,
-      CostoTotal: this.frmSolicitudCompraNew.value.costoTotal
+      CostoTotal: this.frmSolicitudCompraNew.value.costoTotal,
+      Tara: this.frmSolicitudCompraNew.value.tara,
+      KilosNetos: this.frmSolicitudCompraNew.value.kgsNetos
     };
 
     this.contratoService.Create(request)

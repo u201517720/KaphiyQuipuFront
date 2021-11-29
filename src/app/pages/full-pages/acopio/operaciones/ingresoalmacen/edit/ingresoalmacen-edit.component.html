@@ -209,6 +209,24 @@
                 </div>
               </div>
             </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div class="form-group row">
+                <label for="tara" class="col-lg-4 col-form-label">TARA</label>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                  <input type="number" formControlName="tara" class="form-control form-control-sm text-right"
+                    [readonly]="true">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div class="form-group row">
+                <label for="kgsNetos" class="col-lg-4 col-form-label">KILOS NETOS</label>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                  <input type="number" formControlName="kgsNetos" class="form-control form-control-sm text-right"
+                    [readonly]="true">
+                </div>
+              </div>
+            </div>
           </div>
           <div class="form-row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -573,7 +591,8 @@
                 <button type="button" class="btn btn-primary mr-1" (click)="GenerarOrdenProceso()"
                   *ngIf="userSession.RolId == 10 && locEstado === 3">Generar Orden Proceso</button>
                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarTerminoEtiquetado()"
-                  *ngIf="userSession.RolId == 8 && locEstado === 2">Finalizar Etiquetado</button>
+                  *ngIf="userSession.RolId == 8 && locEstado === 2 && flagShowBtnFinalizarEtiquetado">Finalizar
+                  Etiquetado</button>
                 <button type="button" class="btn btn-primary mr-1" (click)="GenerarEtiquetas()"
                   *ngIf="userSession.RolId == 8 && locEstado === 2">Generar Etiquetas</button>
                 <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"

@@ -249,6 +249,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngIf="userSession.RolId === 7">
+                            <div class="form-group row">
+                                <label for="tara" class="col-lg-4 col-form-label">TARA</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" formControlName="tara" class="form-control text-right"
+                                        placeholder="Peso en kilos" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': submitted && f.tara.invalid, 'is-valid': !submitted && !f.tara.invalid }">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngIf="userSession.RolId === 7">
+                            <div class="form-group row">
+                                <label for="kgsNetos" class="col-lg-4 col-form-label">KILOS NETOS</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" formControlName="kgsNetos" class="form-control text-right"
+                                        placeholder="Peso en kilos" [readonly]="true"
+                                        [ngClass]="{ 'is-invalid': submitted && f.kgsNetos.invalid, 'is-valid': !submitted && !f.kgsNetos.invalid }">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-row" *ngIf="locId > 0">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
