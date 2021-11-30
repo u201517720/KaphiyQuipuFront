@@ -142,6 +142,6 @@ export class NotaSalidaPlantaEditComponent implements OnInit {
   }
 
   Cancelar() {
-
+    this.router.navigate(['/planta/operaciones/notasalida/list']);
   }
 }

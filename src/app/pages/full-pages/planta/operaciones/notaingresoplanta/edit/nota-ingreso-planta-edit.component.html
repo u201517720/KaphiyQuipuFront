@@ -709,7 +709,7 @@
                         <div class="form-group row m-0">
                             <div class="col-lg-12 text-right">
                                 <button type="button" class="btn btn-primary mr-1" (click)="GenerarGuiaSalida()"
-                                    *ngIf="userSession.RolId == 11 && locEstado === 8">Generar Guía Salida</button>
+                                    *ngIf="userSession.RolId == 11 && locEstado === 8">Generar Nota Salida</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="FinalizarTransformacion()"
                                     *ngIf="userSession.RolId == 14 && locEstado === 7">Finalizar Transformación</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="AutorizarTransformacion()"
@@ -722,7 +722,7 @@
                                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarRecepcion()"
                                     *ngIf="userSession.RolId == 13 && locEstado === 2">Confirmar Recepción</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
-                                    *ngIf="(userSession.RolId == 11 && locEstado == 0) || (userSession.RolId == 12 || userSession.RolId == 14) && (locEstado < 2 || locEstado == 6)">Guardar</button>
+                                    *ngIf="(userSession.RolId == 11 && locEstado == 0) || userSession.RolId == 12 && locEstado < 2">Guardar</button>
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                             </div>
                         </div>

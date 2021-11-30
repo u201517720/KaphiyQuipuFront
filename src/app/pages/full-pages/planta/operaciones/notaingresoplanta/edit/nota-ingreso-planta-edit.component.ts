@@ -465,49 +465,6 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
         } else {
           this.alertUtil.alertWarning('Validación', 'Seleccionar como minimo un olor del análisis fisico.');
         }
-      } else if (this.userSession.RolId == 14 && this.locEstado === 6) {
-        this.alertUtil.alertSiNoCallback('Pregunta',
-          '¿Está seguro de guardar los resultados ingresados?',
-          () => {
-            this.spinner.show();
-            const request = {
-              NotaIngresoPlantaId: this.locId,
-              CafeExportacionSacos: this.frmNotaIngresoPlantaDetalle.value.cafeExportSacos,
-              CafeExportacionKilos: this.frmNotaIngresoPlantaDetalle.value.cafeExportKilos,
-              CafeExportacionMCSacos: this.frmNotaIngresoPlantaDetalle.value.cafeExportMCSacos,
-              CafeExportacionMCKilos: this.frmNotaIngresoPlantaDetalle.value.cafeExportMCKilos,
-              CafeSegundaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeSegundaSacos,
-              CafeSegundaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeSegundaKilos,
-              CafeDescarteMaquinaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaSacos,
-              CafeDescarteMaquinaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaKilos,
-              CafeDescarteEscojoSacos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoSacos,
-              CafeDescarteEscojoKilos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoKilos,
-              CafeBolaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeBolaSacos,
-              CafeBolaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeBolaKilos,
-              CafeCiscoSacos: this.frmNotaIngresoPlantaDetalle.value.cafeCiscoSacos,
-              CafeCiscoKilos: this.frmNotaIngresoPlantaDetalle.value.cafeCiscoKilos,
-              TotalCafeSacos: this.frmNotaIngresoPlantaDetalle.value.totalCafeSacos,
-              TotalCafeKgNetos: this.frmNotaIngresoPlantaDetalle.value.totalCafeKgNetos,
-              PiedraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.piedrasOtrosKgNetos,
-              CascaraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.cascaraOtrosKgNetos,
-              UsuarioRegistro: this.userSession.NombreUsuario
-            }
-            this.notaingresoplantaService.RegistrarResultadosTransformacion(request)
-              .subscribe((res) => {
-                if (res.Result.Success) {
-                  this.alertUtil.alertOkCallback('Confirmación',
-                    'Se han guardado los resultados ingresados.',
-                    () => {
-                      this.ConsultarPorId();
-                    });
-                } else {
-                  this.alertUtil.alertError('ERROR', res.Result.Message);
-                }
-              }, (err) => {
-                this.spinner.hide();
-                this.alertUtil.alertError('ERROR', this.mensajeGenerico);
-              });
-          });
       }
     } else {
       this.submitted = true;
@@ -963,31 +920,76 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   }
 
   FinalizarTransformacion() {
-    this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de confirmar la finalización de la transformación?',
-      () => {
-        this.spinner.show();
-        const request = {
-          Id: this.locId,
-          Usuario: this.userSession.NombreUsuario
-        }
-        this.notaingresoplantaService.FinalizarTransformacion(request)
-          .subscribe((res) => {
-            this.spinner.hide();
-            if (res.Result.Success) {
-              this.alertUtil.alertOkCallback('Confirmación',
-                `Se ha confirmado la ejecución de la transformación.`,
-                () => {
-                  this.ConsultarPorId();
-                });
-            } else {
-              this.alertUtil.alertError('ERROR', res.Result.Message);
-            }
-          }, (err) => {
-            this.spinner.hide();
-            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
-          });
-      });
+    // this.alertUtil.alertSiNoCallback('Pregunta',
+    //   '¿Está seguro de confirmar la finalización de la transformación?',
+    //   () => {
+    //     this.spinner.show();
+    //     const request = {
+    //       Id: this.locId,
+    //       Usuario: this.userSession.NombreUsuario
+    //     }
+    //     this.notaingresoplantaService.FinalizarTransformacion(request)
+    //       .subscribe((res) => {
+    //         this.spinner.hide();
+    //         if (res.Result.Success) {
+    //           this.alertUtil.alertOkCallback('Confirmación',
+    //             `Se ha confirmado la ejecución de la transformación.`,
+    //             () => {
+    //               this.ConsultarPorId();
+    //             });
+    //         } else {
+    //           this.alertUtil.alertError('ERROR', res.Result.Message);
+    //         }
+    //       }, (err) => {
+    //         this.spinner.hide();
+    //         this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+    //       });
+    //   });
+
+    if (this.userSession.RolId == 14 && this.locEstado === 6) {
+      this.alertUtil.alertSiNoCallback('Pregunta',
+        '¿Está seguro de guardar los resultados ingresados?',
+        () => {
+          this.spinner.show();
+          const request = {
+            NotaIngresoPlantaId: this.locId,
+            CafeExportacionSacos: this.frmNotaIngresoPlantaDetalle.value.cafeExportSacos,
+            CafeExportacionKilos: this.frmNotaIngresoPlantaDetalle.value.cafeExportKilos,
+            CafeExportacionMCSacos: this.frmNotaIngresoPlantaDetalle.value.cafeExportMCSacos,
+            CafeExportacionMCKilos: this.frmNotaIngresoPlantaDetalle.value.cafeExportMCKilos,
+            CafeSegundaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeSegundaSacos,
+            CafeSegundaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeSegundaKilos,
+            CafeDescarteMaquinaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaSacos,
+            CafeDescarteMaquinaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaKilos,
+            CafeDescarteEscojoSacos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoSacos,
+            CafeDescarteEscojoKilos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoKilos,
+            CafeBolaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeBolaSacos,
+            CafeBolaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeBolaKilos,
+            CafeCiscoSacos: this.frmNotaIngresoPlantaDetalle.value.cafeCiscoSacos,
+            CafeCiscoKilos: this.frmNotaIngresoPlantaDetalle.value.cafeCiscoKilos,
+            TotalCafeSacos: this.frmNotaIngresoPlantaDetalle.value.totalCafeSacos,
+            TotalCafeKgNetos: this.frmNotaIngresoPlantaDetalle.value.totalCafeKgNetos,
+            PiedraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.piedrasOtrosKgNetos,
+            CascaraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.cascaraOtrosKgNetos,
+            UsuarioRegistro: this.userSession.NombreUsuario
+          }
+          this.notaingresoplantaService.RegistrarResultadosTransformacion(request)
+            .subscribe((res) => {
+              if (res.Result.Success) {
+                this.alertUtil.alertOkCallback('Confirmación',
+                  'Se han guardado los resultados ingresados.',
+                  () => {
+                    this.ConsultarPorId();
+                  });
+              } else {
+                this.alertUtil.alertError('ERROR', res.Result.Message);
+              }
+            }, (err) => {
+              this.spinner.hide();
+              this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+            });
+        });
+    }
   }
 
   GenerarGuiaSalida() {
@@ -1006,7 +1008,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
               this.alertUtil.alertOkCallback('Confirmación',
                 `Se ha generado la nota de salida ${res.Result.Data}.`,
                 () => {
-                  this.ConsultarPorId();
+                  this.router.navigate(['/planta/operaciones/notasalida/list']);
                 });
             } else {
               this.alertUtil.alertError('ERROR', res.Result.Message);

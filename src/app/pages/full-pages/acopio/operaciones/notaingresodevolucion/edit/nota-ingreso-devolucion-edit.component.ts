@@ -128,9 +128,9 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
       if (data.PesoSaco) {
         this.frmNotaIngresoDevolucionDetalle.controls.pesoSaco.setValue(data.PesoSaco);
       }
-      this.frmNotaIngresoDevolucionDetalle.controls.pesoNeto.setValue((data.TotalSacos * data.PesoSaco));
-      this.frmNotaIngresoDevolucionDetalle.controls.pesoTotal.setValue((data.TotalSacos * data.PesoSaco) + (data.TotalSacos * 0.3));
-      this.frmNotaIngresoDevolucionDetalle.controls.totalPagar.setValue((data.TotalSacos * data.PesoSaco) * 5.4);
+      this.frmNotaIngresoDevolucionDetalle.controls.pesoNeto.setValue(parseFloat((data.TotalSacos * data.PesoSaco).toFixed(2)));
+      this.frmNotaIngresoDevolucionDetalle.controls.pesoTotal.setValue(parseFloat(((data.TotalSacos * data.PesoSaco) + (data.TotalSacos * 0.3)).toFixed(2)));
+      this.frmNotaIngresoDevolucionDetalle.controls.totalPagar.setValue(parseFloat(((data.TotalSacos * data.PesoSaco) * 5.4).toFixed(2)));
     }
     this.spinner.hide();
   }
