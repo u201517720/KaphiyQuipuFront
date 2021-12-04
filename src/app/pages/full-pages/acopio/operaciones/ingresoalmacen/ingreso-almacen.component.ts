@@ -75,8 +75,8 @@ export class IngresoAlmacenComponent implements OnInit {
 
     if (vEndDate < vBeginDate) {
       this.error = { isError: true, errorMessage: 'La fecha fin no puede ser anterior a la fecha inicio.' };
-    } else if (this.dateUtil.restarAnio(anioFechaInicio, anioFechaFin) > 2) {
-      this.error = { isError: true, errorMessage: 'Por favor el Rango de fechas no puede ser mayor a 2 años.' };
+    } else if (this.dateUtil.restarAnio(anioFechaInicio, anioFechaFin) > 1) {
+      this.error = { isError: true, errorMessage: 'El rango de fechas no puede ser mayor a 1 años. Por favor, corregir.' };
     } else {
       this.error = { isError: false, errorMessage: '' };
     }

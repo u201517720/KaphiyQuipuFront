@@ -20,7 +20,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   submitted = false;
   locId = 0;
   userSession: any;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
+  mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
   listOlores: any[];
   listColores: any[];
   locEstado = 0;
@@ -609,7 +609,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
   AutorizarTransformacion() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      `¿Está seguro de iniciar el procesamiento de la materia prima?`,
+      `¿Está seguro de iniciar la transformación de la materia prima?`,
       () => {
         this.spinner.show();
         const request = {
@@ -621,7 +621,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
             this.spinner.hide();
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                `Se ha confirmado el inicio del procesamiento de la materia prima.`,
+                `Se ha confirmado el inicio de la transformación de la materia prima.`,
                 () => {
                   this.ConsultarPorId();
                 });
@@ -994,7 +994,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
   GenerarGuiaSalida() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de generar la guía de salida?',
+      '¿Está seguro de generar la nota de salida?',
       () => {
         this.spinner.show();
         const request = {

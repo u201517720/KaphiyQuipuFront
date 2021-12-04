@@ -766,11 +766,11 @@
                             <div class="col-lg-12 text-right">
                                 <button type="button" class="btn btn-primary mr-1" (click)="GenerarQRTrazabilidad()"
                                     *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstado === '09'">Generar
-                                    QR
+                                    QR de
                                     Trazabilidad</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarRecepcion()"
                                     *ngIf="userSession.RolId === 6 && locCodigoEstado === '08'">Confirmar
-                                    Recepción</button>
+                                    Recepción del Producto</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
                                     *ngIf="(locCodigoEstado === '03' &&  userSession.RolId === 7) || (locCodigoEstado === '05' &&  userSession.RolId === 9)">Guardar</button>
                                 <button type="button" class="btn btn-primary mr-1"

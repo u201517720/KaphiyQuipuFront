@@ -32,7 +32,7 @@ export class OrdenprocesoEditComponent implements OnInit {
   listTipoProcesos = [];
   selectedTipoProceso = [];
   submitted = false;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
+  mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
   locEstado = 0;
 
   ngOnInit(): void {
@@ -177,7 +177,7 @@ export class OrdenprocesoEditComponent implements OnInit {
 
   GenerarGuiaRemision() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de generar guía de remisión?',
+      '¿Está seguro de generar la guía de remisión?',
       () => {
         this.spinner.show();
         const request = {
@@ -215,7 +215,7 @@ export class OrdenprocesoEditComponent implements OnInit {
             this.spinner.hide();
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                `Se ha confirmado el inicio de la transformación`,
+                `Se ha confirmado el inicio de la transformación.`,
                 () => {
                   this.router.navigate(['/planta/operaciones/notaingreso/list']);
                 });

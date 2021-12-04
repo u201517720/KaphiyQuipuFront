@@ -42,7 +42,7 @@ export class GuiaRecepcionEditComponent implements OnInit {
   userSession: any;
   rows = [];
   limitRef = 10000;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistema.';
+  mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
   listOlores = [];
   listColores = [];
   detalleControlesCalidad;

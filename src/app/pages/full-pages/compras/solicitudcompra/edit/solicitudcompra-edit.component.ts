@@ -54,7 +54,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   locCodigoEstado;
   locFechaRegistroString;
   submitted = false;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
+  mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,

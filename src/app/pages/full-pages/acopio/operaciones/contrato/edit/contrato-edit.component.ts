@@ -58,7 +58,7 @@ export class ContratoEditComponent implements OnInit {
   locId = 0;
   locCodigoEstado = '';
   locFechaRegistroString;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistema.';
+  mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
   listaControlesCalidad = [];
   oloresSels = [];
   coloresSels = [];
@@ -920,6 +920,10 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GenerarQRTrazabilidad() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de generar el código QR de la trazabilidad del café?',
+      () => {
 
+      });
   }
 }

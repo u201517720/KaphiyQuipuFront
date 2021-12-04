@@ -68,8 +68,8 @@ export class NotaSalidaPlantaComponent implements OnInit {
 
     if (vEndDate < vBeginDate) {
       this.errorGeneral = { isError: true, errorMessage: 'La fecha fin no puede ser anterior a la fecha inicio.' };
-    } else if (this.dateUtil.restarAnio(anioFechaInicio, anioFechaFin) > 2) {
-      this.errorGeneral = { isError: true, errorMessage: 'Por favor el Rango de fechas no puede ser mayor a 2 años.' };
+    } else if (this.dateUtil.restarAnio(anioFechaInicio, anioFechaFin) > 1) {
+      this.errorGeneral = { isError: true, errorMessage: 'El rango de fechas no puede ser mayor a 1 años. Por favor, corregir.' };
     } else {
       this.errorGeneral = { isError: false, errorMessage: '' };
     }

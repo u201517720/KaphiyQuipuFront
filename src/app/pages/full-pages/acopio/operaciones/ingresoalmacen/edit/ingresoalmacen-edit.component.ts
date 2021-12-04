@@ -46,7 +46,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
   userSession: any;
   rows = [];
   limitRef = 10000;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
+  mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
   listOlores = [];
   listColores = [];
   detalleControlesCalidad;

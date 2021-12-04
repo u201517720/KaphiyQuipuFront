@@ -30,7 +30,7 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
   listaAlmacenes = [];
   selectedAlmacen: any;
   submitted = false;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
+  mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
   userSession: any;
   locId = 0;
   locEstado = 0;
@@ -223,7 +223,7 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
             this.spinner.hide();
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                `La ha generado la guía de remisión ${res.Result.Data}.`,
+                `Se ha generado la guía de remisión ${res.Result.Data}.`,
                 () => {
                   this.Cancelar();
                 });

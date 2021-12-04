@@ -23,7 +23,7 @@ export class GuiaremisionEditComponent implements OnInit {
   frmGuiaRemisionAcopioDetalle: FormGroup;
   locId = 0;
   userSession: any;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
+  mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
 
   ngOnInit(): void {
     this.locId = parseInt(this.route.snapshot.params['id']);

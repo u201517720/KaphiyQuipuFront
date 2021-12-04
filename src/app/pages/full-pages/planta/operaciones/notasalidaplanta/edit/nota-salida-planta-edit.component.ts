@@ -24,7 +24,7 @@ export class NotaSalidaPlantaEditComponent implements OnInit {
 
   locId = 0;
   userSession: any;
-  mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
+  mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
   frmNotaSalidaPlantaDetalle: FormGroup;
 
   ngOnInit(): void {
