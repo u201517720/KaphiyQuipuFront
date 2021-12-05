@@ -305,7 +305,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
             this.spinner.hide();
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                `Se ha generado la orden de proceso ${res.Result.Data}`,
+                `Se ha generado la orden de proceso ${res.Result.Data}.`,
                 () => {
                   this.router.navigate(['/acopio/operaciones/ordenproceso/list']);
                 });

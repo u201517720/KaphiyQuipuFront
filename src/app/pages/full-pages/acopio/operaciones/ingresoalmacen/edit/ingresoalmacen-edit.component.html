@@ -3,7 +3,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="card mt-0">
         <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
-          DETALLE NOTA INGRESO {{frmNotaIngresoAcopioDetalle.value.correlativo}}
+          DETALLE DE NOTA DE INGRESO {{frmNotaIngresoAcopioDetalle.value.correlativo}}
         </h5>
         <div class="card-body">
           <div class="form-row">
@@ -181,7 +181,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div class="form-group row">
-                <label for="PesoSaco" class="col-lg-4 col-form-label">PESO POR SACO</label>
+                <label for="PesoSaco" class="col-lg-4 col-form-label">PESO SACO (Kg.)</label>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                   <input type="number" formControlName="PesoSaco" class="form-control form-control-sm text-right"
                     [readonly]="true">
@@ -190,7 +190,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div class="form-group row">
-                <label for="PesoKilos" class="col-lg-4 col-form-label">PESO EN KILOS</label>
+                <label for="PesoKilos" class="col-lg-4 col-form-label">PESO BRUTO (Kg.)</label>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                   <input type="number" formControlName="PesoKilos" class="form-control form-control-sm text-right"
                     [readonly]="true">
@@ -211,7 +211,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div class="form-group row">
-                <label for="tara" class="col-lg-4 col-form-label">TARA</label>
+                <label for="tara" class="col-lg-4 col-form-label">TARA (Kg.)</label>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                   <input type="number" formControlName="tara" class="form-control form-control-sm text-right"
                     [readonly]="true">
@@ -220,7 +220,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div class="form-group row">
-                <label for="kgsNetos" class="col-lg-4 col-form-label">KILOS NETOS</label>
+                <label for="kgsNetos" class="col-lg-4 col-form-label">PESO NETO (Kg.)</label>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                   <input type="number" formControlName="kgsNetos" class="form-control form-control-sm text-right"
                     [readonly]="true">
@@ -267,7 +267,7 @@
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Certificación" prop="TipoCertificacion">
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Cantidad Solicitada" prop="CantidadSolicitada">
+                <ngx-datatable-column name="Cantidad Solicitada (Kg.)" prop="CantidadSolicitada">
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro">
                 </ngx-datatable-column>
@@ -428,7 +428,7 @@
                                     </tr>
                                     <tr>
                                       <td>
-                                        <h6>Kilos brutos</h6>
+                                        <h6>Peso Bruto (Kg.)</h6>
                                       </td>
                                       <td>
                                         <input type="number" [readonly]="true" formControlName="kilosBrutosPC"
@@ -437,7 +437,7 @@
                                     </tr>
                                     <tr>
                                       <td>
-                                        <h6>Tara de saco</h6>
+                                        <h6>Tara de Saco (Kg.)</h6>
                                       </td>
                                       <td>
                                         <input type="number" [readonly]="true" formControlName="taraSacoPC"
@@ -446,7 +446,7 @@
                                     </tr>
                                     <tr>
                                       <td>
-                                        <h6>Kilos netos</h6>
+                                        <h6>Peso Neto (Kg.)</h6>
                                       </td>
                                       <td>
                                         <input type="number" formControlName="kilosNetosPC" [readonly]="true"
@@ -557,8 +557,8 @@
                       <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <div class="form-group row">
-                            <label for="observacionesPC" class="col-lg-4 col-form-label">OBSERVACIONES</label>
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <label for="observacionesPC" class="col-lg-2 col-form-label">OBSERVACIONES</label>
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                               <textarea class="form-control form-control-sm" formControlName="observacionesPC" rows="2"
                                 maxlength="500" [readonly]="true"></textarea>
                             </div>

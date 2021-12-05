@@ -853,17 +853,17 @@ export class ContratoEditComponent implements OnInit {
     }
 
     if (loccafeExportacionPorc) {
-      this.frmContratoCompraVenta.controls.cafeExportacionPorc.setValue(loccafeExportacionPorc);
+      this.frmContratoCompraVenta.controls.cafeExportacionPorc.setValue(parseFloat(loccafeExportacionPorc.toFixed(2)));
     } else {
       this.frmContratoCompraVenta.controls.cafeExportacionPorc.reset();
     }
     if (locdescartePorcentaje) {
-      this.frmContratoCompraVenta.controls.descartePorcentaje.setValue(locdescartePorcentaje);
+      this.frmContratoCompraVenta.controls.descartePorcentaje.setValue(parseFloat(locdescartePorcentaje.toFixed(2)));
     } else {
       this.frmContratoCompraVenta.controls.descartePorcentaje.reset();
     }
     if (loccascaraPorcentaje) {
-      this.frmContratoCompraVenta.controls.cascaraPorcentaje.setValue(loccascaraPorcentaje);
+      this.frmContratoCompraVenta.controls.cascaraPorcentaje.setValue(parseFloat(loccascaraPorcentaje.toFixed(2)));
     } else {
       this.frmContratoCompraVenta.controls.cascaraPorcentaje.reset();
     }
@@ -874,7 +874,7 @@ export class ContratoEditComponent implements OnInit {
 
     const suma2 = locCafeExpoPorc + locDescPorcen + locCascaraPorc;
     if (suma2) {
-      this.frmContratoCompraVenta.controls.totalPorcentaje.setValue(suma2);
+      this.frmContratoCompraVenta.controls.totalPorcentaje.setValue(parseFloat(suma2.toFixed(2)));
     }
   }
 

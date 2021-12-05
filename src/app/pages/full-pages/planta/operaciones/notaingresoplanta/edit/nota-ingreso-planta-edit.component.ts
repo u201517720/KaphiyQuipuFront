@@ -518,17 +518,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     }
 
     if (loccafeExportacionPorc) {
-      this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.setValue(loccafeExportacionPorc);
+      this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.setValue(parseFloat(loccafeExportacionPorc.toFixed(2)));
     } else {
       this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.reset();
     }
     if (locdescartePorcentaje) {
-      this.frmNotaIngresoPlantaDetalle.controls.descartePorcentaje.setValue(locdescartePorcentaje);
+      this.frmNotaIngresoPlantaDetalle.controls.descartePorcentaje.setValue(parseFloat(locdescartePorcentaje.toFixed(2)));
     } else {
       this.frmNotaIngresoPlantaDetalle.controls.descartePorcentaje.reset();
     }
     if (loccascaraPorcentaje) {
-      this.frmNotaIngresoPlantaDetalle.controls.cascaraPorcentaje.setValue(loccascaraPorcentaje);
+      this.frmNotaIngresoPlantaDetalle.controls.cascaraPorcentaje.setValue(parseFloat(loccascaraPorcentaje.toFixed(2)));
     } else {
       this.frmNotaIngresoPlantaDetalle.controls.cascaraPorcentaje.reset();
     }
@@ -539,7 +539,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
     const suma2 = locCafeExpoPorc + locDescPorcen + locCascaraPorc;
     if (suma2) {
-      this.frmNotaIngresoPlantaDetalle.controls.totalPorcentaje.setValue(suma2);
+      this.frmNotaIngresoPlantaDetalle.controls.totalPorcentaje.setValue(parseFloat(suma2.toFixed(2)));
     }
   }
 

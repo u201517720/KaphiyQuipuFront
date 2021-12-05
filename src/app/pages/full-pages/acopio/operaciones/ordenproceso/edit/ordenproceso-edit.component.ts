@@ -189,7 +189,7 @@ export class OrdenprocesoEditComponent implements OnInit {
             this.spinner.hide();
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                `Se ha generado la guía de remisión ${res.Result.Data}`,
+                `Se ha generado la guía de remisión ${res.Result.Data}.`,
                 () => {
                   this.router.navigate(['/home']);
                 });

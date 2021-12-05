@@ -41,6 +41,22 @@
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="almacen" class="col-lg-4 col-form-label pr-0">ALMACÉN</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <ng-select [items]="listaAlmacenes" formControlName="almacen" class="form-control"
+                                        bindLabel="Label" bindValue="Codigo" placeholder="Almacén"
+                                        [ngClass]="{ 'is-invalid': submitted && f.almacen.invalid, 'is-valid': !submitted && !f.almacen.invalid }"
+                                        [(ngModel)]="selectedAlmacen" [readonly]="locId > 0">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
                                 <label for="producto" class="col-lg-4 col-form-label pr-0">PRODUCTO</label>
@@ -53,19 +69,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="almacen" class="col-lg-3 col-form-label pr-0">ALMACÉN</label>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <ng-select [items]="listaAlmacenes" formControlName="almacen" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" placeholder="Almacén"
-                                        [ngClass]="{ 'is-invalid': submitted && f.almacen.invalid, 'is-valid': !submitted && !f.almacen.invalid }"
-                                        [(ngModel)]="selectedAlmacen" [readonly]="locId > 0">
-                                    </ng-select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <div class="form-group row">
-                                <label for="cantidad" class="col-lg-3 col-form-label pr-0">CANTIDAD</label>
+                                <label for="cantidad" class="col-lg-3 col-form-label pr-0">N° SACOS</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" class="form-control form-control-sm text-right"
                                         formControlName="cantidad"
@@ -74,12 +78,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="pesoSaco" class="col-lg-4 col-form-label pr-0">PESO SACO</label>
+                                <label for="pesoSaco" class="col-lg-4 col-form-label pr-0">PESO SACO (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" class="form-control form-control-sm text-right"
                                         formControlName="pesoSaco"
@@ -88,9 +89,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="almacen" class="col-lg-3 col-form-label pr-0">PESO TOTAL</label>
+                                <label for="almacen" class="col-lg-4 col-form-label pr-0">PESO TOTAL (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" class="form-control form-control-sm text-right"
                                         formControlName="pesoTotal"
@@ -101,11 +104,22 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="tara" class="col-lg-3 col-form-label pr-0">TARA</label>
+                                <label for="tara" class="col-lg-3 col-form-label pr-0">TARA (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" class="form-control form-control-sm text-right"
                                         formControlName="tara"
                                         [ngClass]="{ 'is-invalid': submitted && f.tara.invalid, 'is-valid': !submitted && !f.tara.invalid }"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="producto" class="col-lg-4 col-form-label pr-0">PESO NETO (Kg.)</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" class="form-control form-control-sm text-right"
+                                        formControlName="pesoNeto"
+                                        [ngClass]="{ 'is-invalid': submitted && f.pesoNeto.invalid, 'is-valid': !submitted && !f.pesoNeto.invalid }"
                                         [readonly]="true">
                                 </div>
                             </div>
@@ -115,18 +129,7 @@
                     <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="producto" class="col-lg-4 col-form-label pr-0">PESO NETO</label>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="number" class="form-control form-control-sm text-right"
-                                        formControlName="pesoNeto"
-                                        [ngClass]="{ 'is-invalid': submitted && f.pesoNeto.invalid, 'is-valid': !submitted && !f.pesoNeto.invalid }"
-                                        [readonly]="true">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <div class="form-group row">
-                                <label for="almacen" class="col-lg-3 col-form-label pr-0">TOTAL PAGAR</label>
+                                <label for="almacen" class="col-lg-4 col-form-label pr-0">TOTAL PAGAR</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" class="form-control form-control-sm text-right"
                                         formControlName="totalPagar"
@@ -153,7 +156,7 @@
                             <div class="form-group row m-0">
                                 <div class="col-lg-12 text-right">
                                     <button type="button" class="btn btn-primary mr-1" (click)="GenerarGuiaRemision()"
-                                        *ngIf="userSession.RolId == 8 && locId > 0">Generar Guía Remisión</button>
+                                        *ngIf="userSession.RolId == 8 && locId > 0">Generar Guía de Remisión</button>
                                     <button type="button" class="btn btn-primary mr-1"
                                         (click)="ConfirmarAtencionCompleta()"
                                         *ngIf="userSession.RolId == 7 && locId > 0 && locEstado <= 1">Confirmar Atención

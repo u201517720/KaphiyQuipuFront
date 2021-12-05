@@ -151,7 +151,7 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
               .subscribe((res) => {
                 if (res.Result.Success) {
                   this.alertUtil.alertOkCallback('Confirmación',
-                    `Se ha generado la nota de ingreso ${res.Result.Data}`,
+                    `Se ha generado la nota de ingreso ${res.Result.Data}.`,
                     () => {
                       this.Cancelar();
                     });
