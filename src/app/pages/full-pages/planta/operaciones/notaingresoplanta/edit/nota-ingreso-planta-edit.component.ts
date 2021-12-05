@@ -8,6 +8,7 @@ import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { NotaingresoplantaService } from '../../../../../../services/notaingresoplanta.service';
 import { MaestroService } from '../../../../../../services/maestro.service';
 import { NotasalidaplantaService } from '../../../../../../services/notasalidaplanta.service';
+import { host } from '../../../../../../shared/hosts/main.host';
 
 @Component({
   selector: 'app-nota-ingreso-planta-edit',
@@ -573,9 +574,19 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
   ImprimirEtiquetas() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de generar las etiquetas?',
+      '¿Está seguro de imprimir las etiquetas?',
       () => {
+        
+        let link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = `${host}NotaIngresoPlanta/Etiquetas?id=${this.locId}`;
+        link.download = "NotaCompra.pdf"
+        link.target = "_blank";
+        link.click();
+        link.remove();
+
         this.flagGeneroEtiquetas = true;
+
       });
   }
 

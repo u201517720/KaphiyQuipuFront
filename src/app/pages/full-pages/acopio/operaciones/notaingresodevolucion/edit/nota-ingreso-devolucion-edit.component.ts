@@ -107,6 +107,9 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
       if (data.EstadoId) {
         this.locEstado = parseInt(data.EstadoId);
       }
+      if (data.CorrelativoNID) {
+        this.frmNotaIngresoDevolucionDetalle.controls.correlativo.setValue(data.CorrelativoNID);
+      }
       this.frmNotaIngresoDevolucionDetalle.controls.fechaRegistro.setValue(data.FechaRegistro);
       this.frmNotaIngresoDevolucionDetalle.controls.guiaremisionplantaid.setValue(data.GuiaRemisionPlantaId);
       this.frmNotaIngresoDevolucionDetalle.controls.correlativoGRP.setValue(data.CorrelativoGRP);

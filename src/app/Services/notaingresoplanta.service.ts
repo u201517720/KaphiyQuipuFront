@@ -59,4 +59,9 @@ export class NotaingresoplantaService {
     const url = `${this.url}/FinalizarTransformacion`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  GenerarEtiquetasPlanta(request: any): Observable<any> {
+    const url = `${this.url}/Etiquetas`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
