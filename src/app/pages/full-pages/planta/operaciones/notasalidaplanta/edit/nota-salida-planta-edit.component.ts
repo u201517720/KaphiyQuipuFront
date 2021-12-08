@@ -77,7 +77,8 @@ export class NotaSalidaPlantaEditComponent implements OnInit {
         const request = {
           NotaSalidaPlantaId: this.locId,
           UsuarioRegistro: this.userSession.NombreUsuario,
-          Empresa: this.userSession.RazonSocialEmpresa
+          Empresa: this.userSession.RazonSocialEmpresa,
+          Contrato: this.frmNotaSalidaPlantaDetalle.value.nroContrato
         }
         this.guiaremisionplantaService.Registrar(request)
           .subscribe((res) => {

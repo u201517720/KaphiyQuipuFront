@@ -105,7 +105,8 @@ export class IngresoAlmacenEditComponent implements OnInit {
       CostoUnitario: [],
       costoTotal: [],
       tara: [],
-      kgsNetos: []
+      kgsNetos: [],
+      correlativoContrato: []
     });
   }
 
@@ -184,6 +185,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
       this.frmNotaIngresoAcopioDetalle.controls.costoTotal.setValue(data.CostoTotal);
       this.frmNotaIngresoAcopioDetalle.controls.tara.setValue(data.Tara);
       this.frmNotaIngresoAcopioDetalle.controls.kgsNetos.setValue(data.KilosNetosContrato);
+      this.frmNotaIngresoAcopioDetalle.controls.correlativoContrato.setValue(data.CorrelativoContrato);
     }
     this.spinner.hide();
   }
@@ -225,7 +227,8 @@ export class IngresoAlmacenEditComponent implements OnInit {
               AlmacenId: this.frmNotaIngresoAcopioDetalle.value.AlmacenId,
               Usuario: this.userSession.NombreUsuario,
               Correlativo: this.frmNotaIngresoAcopioDetalle.value.correlativo,
-              Almacen: this.listaAlmacenes.find(x => x.Codigo === this.selectedAlmacen).Label
+              Almacen: this.listaAlmacenes.find(x => x.Codigo === this.selectedAlmacen).Label,
+              Contrato: this.frmNotaIngresoAcopioDetalle.value.correlativoContrato
             };
             this.notaingresoacopioService.UbicarAlmacen(request)
               .subscribe((res) => {

@@ -182,7 +182,8 @@ export class OrdenprocesoEditComponent implements OnInit {
         this.spinner.show();
         const request = {
           OrdenProcesoId: this.locId,
-          UsuarioRegistro: this.userSession.NombreUsuario
+          UsuarioRegistro: this.userSession.NombreUsuario,
+          Contrato: this.frmOrdenProcesoAcopioDetalle.value.correlativoCon
         };
         this.guiaremisionService.Registrar(request)
           .subscribe((res) => {
@@ -208,7 +209,8 @@ export class OrdenprocesoEditComponent implements OnInit {
         this.spinner.show();
         const request = {
           Id: this.locId,
-          Usuario: this.userSession.NombreUsuario
+          Usuario: this.userSession.NombreUsuario,
+          Contrato: this.frmOrdenProcesoAcopioDetalle.value.correlativoCon
         };
         this.ordenprocesoacopioService.IniciarTransformacion(request)
           .subscribe((res) => {

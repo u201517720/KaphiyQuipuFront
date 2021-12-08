@@ -63,7 +63,8 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
       totalPagar: [],
       tara: [],
       pesoTotal: [],
-      pesoSaco: []
+      pesoSaco: [],
+      nroContrato: []
     });
   }
 
@@ -131,6 +132,9 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
       if (data.PesoSaco) {
         this.frmNotaIngresoDevolucionDetalle.controls.pesoSaco.setValue(data.PesoSaco);
       }
+      if (data.CorrelativoContrato) {
+        this.frmNotaIngresoDevolucionDetalle.controls.nroContrato.setValue(data.CorrelativoContrato);
+      }
       this.frmNotaIngresoDevolucionDetalle.controls.pesoNeto.setValue(parseFloat((data.TotalSacos * data.PesoSaco).toFixed(2)));
       this.frmNotaIngresoDevolucionDetalle.controls.pesoTotal.setValue(parseFloat(((data.TotalSacos * data.PesoSaco) + (data.TotalSacos * 0.3)).toFixed(2)));
       this.frmNotaIngresoDevolucionDetalle.controls.totalPagar.setValue(parseFloat(((data.TotalSacos * data.PesoSaco) * 5.4).toFixed(2)));
@@ -148,7 +152,8 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
               GuiaRemisionPlantaId: this.frmNotaIngresoDevolucionDetalle.value.guiaremisionplantaid,
               AlmacenId: this.frmNotaIngresoDevolucionDetalle.value.almacen,
               Observaciones: this.frmNotaIngresoDevolucionDetalle.value.observaciones,
-              UsuarioRegistro: this.userSession.NombreUsuario
+              UsuarioRegistro: this.userSession.NombreUsuario,
+              Contrato: this.frmNotaIngresoDevolucionDetalle.value.nroContrato
             }
             this.notaingresoacopioService.RegistrarDevolucion(request)
               .subscribe((res) => {
@@ -219,7 +224,8 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
         this.spinner.show();
         const request = {
           NotaIngresoDevolucionId: this.locId,
-          UsuarioRegistro: this.userSession.NombreUsuario
+          UsuarioRegistro: this.userSession.NombreUsuario,
+          Contrato: this.frmNotaIngresoDevolucionDetalle.value.nroContrato
         }
         this.guiaremisionService.RegistrarDevolucion(request)
           .subscribe((res) => {
