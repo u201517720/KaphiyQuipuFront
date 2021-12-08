@@ -65,7 +65,7 @@ export class SolicitudcompraEditComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private router: Router,
     private contratoService: ContratoService) {
-    this.locId = parseInt(this.route.snapshot.params['id']);
+    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     if (this.userSession) {

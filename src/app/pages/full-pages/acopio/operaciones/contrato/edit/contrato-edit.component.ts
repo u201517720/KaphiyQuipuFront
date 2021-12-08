@@ -77,7 +77,7 @@ export class ContratoEditComponent implements OnInit {
     private contratoService: ContratoService,
     private agricultorService: AgricultorService,
     private guiarecepcionacopioService: GuiarecepcionacopioService) {
-    this.locId = parseInt(this.route.snapshot.params['id']);
+    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     if (this.userSession) {
