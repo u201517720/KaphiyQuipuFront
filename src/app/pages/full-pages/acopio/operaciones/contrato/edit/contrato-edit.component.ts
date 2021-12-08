@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -11,6 +11,8 @@ import { ContratoService } from '../../../../../../services/contrato.service';
 import { AgricultorService } from '../../../../../../services/agricultor.service';
 import { TransactionReponse } from '../../../../../../services/models/transaction-response';
 import { GuiarecepcionacopioService } from '../../../../../../services/guiarecepcionacopio.service';
+import { host } from '../../../../../../shared/hosts/main.host';
+import { NgxPrinterService } from 'ngx-printer';
 
 @Component({
   selector: 'app-contrato-edit',
@@ -23,6 +25,8 @@ export class ContratoEditComponent implements OnInit {
   active = 1;
   frmContratoCompraVenta: FormGroup;
   // frmContratoCompraVentaPesadoCafe: FormGroup;
+  @ViewChild('PrintTemplate')
+  private PrintTemplateTpl: TemplateRef<any>;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   frmTitle = 'DETALLE DEL CONTRATO';
   limitRef = 50;
@@ -67,7 +71,10 @@ export class ContratoEditComponent implements OnInit {
   msgAgricultores = '';
   locCodigoEstadoInt = 0;
   mostrarqr = false;
+  hashBC = "";
+  fechaActual: Date;
   codeqr = "";
+  urlCanvas: string;
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -78,7 +85,8 @@ export class ContratoEditComponent implements OnInit {
     private alertUtil: AlertUtil,
     private contratoService: ContratoService,
     private agricultorService: AgricultorService,
-    private guiarecepcionacopioService: GuiarecepcionacopioService) {
+    private guiarecepcionacopioService: GuiarecepcionacopioService,
+    private printerService: NgxPrinterService) {
     this.locId = parseInt(this.route.snapshot.params['id']);
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
@@ -416,6 +424,7 @@ export class ContratoEditComponent implements OnInit {
       this.frmContratoCompraVenta.controls.estado.setValue(data.DescripcionEstado);
       this.frmContratoCompraVenta.controls.correlativo.setValue(data.Correlativo);
       this.locCodigoEstado = data.EstadoId;
+      this.hashBC = data.HashBC;
       this.locCodigoEstadoInt = parseInt(this.locCodigoEstado);
       this.locFechaRegistroString = data.FechaRegistroString;
       if (data.CostoTotal)
@@ -934,13 +943,13 @@ export class ContratoEditComponent implements OnInit {
   }
 
   generarQrTrazabilidad() {
-    this.codeqr = this.frmContratoCompraVenta.value.correlativo;
+    this.codeqr = `${host}Contrato/GenerarQRTrazabilidad/${this.frmContratoCompraVenta.value.correlativo}`;
     this.mostrarqr = true;
     const correlativo = this.frmContratoCompraVenta.value.correlativo;
     this.contratoService.generarQrTrazabilidad(correlativo)
       .subscribe(response => {
         this.fileDownload(response, correlativo)
-      });
+    });
   }
 
   fileDownload(response, nombreArchivo) {
@@ -950,5 +959,12 @@ export class ContratoEditComponent implements OnInit {
     link.target = "_blank";
     link.download = `${nombreArchivo}`;
     link.click();
+  }
+
+  onPrint() {
+    this.fechaActual = new Date();
+    var canvas = document.getElementsByTagName('canvas')[0];
+    this.urlCanvas = canvas.toDataURL();
+    this.printerService.printAngular(this.PrintTemplateTpl)
   }
 }

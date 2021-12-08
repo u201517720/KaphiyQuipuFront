@@ -765,6 +765,54 @@
         </div>
     </div>
 </div>
+<ng-template #PrintTemplate>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
+            <h3 class="text-center" style="font-weight: bold;">QR del Contrato {{this.frmContratoCompraVenta.value.correlativo}}</h3>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 50px;">
+            <div class="text-center">
+                <table style="margin: 5px auto;width: 850px;">
+                    <tbody>
+                        <tr>
+                            <td class="text-left"> <label style="font-weight: bold;">Hash BlockChain: </label> {{hashBC}}</td>
+                            <td class="text-right">  <label style="font-weight: bold;">Fecha Hora: </label> {{fechaActual | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="text-center">
+                <table style="margin: 5px auto">
+                    <tbody>
+                        <tr>
+                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas"/></td>
+                        </tr>
+                        <tr>
+                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas"/></td>
+                        </tr>
+                        <tr>
+                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas"/></td>
+                        </tr>
+                        <tr>
+                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-template>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
@@ -777,6 +825,9 @@
                                     *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstado === '09'">Generar
                                     QR de
                                     Trazabilidad</button>
+                                <button type="button" class="btn btn-secondary mr-1" (click)="onPrint()"
+                                    *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstado === '09' && mostrarqr">
+                                    Imprimir QR</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarRecepcion()"
                                     *ngIf="userSession.RolId === 6 && locCodigoEstado === '08'">Confirmar
                                     Recepción del Producto</button>

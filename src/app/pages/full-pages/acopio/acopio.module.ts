@@ -19,6 +19,7 @@ import { NgbDateCustomParserFormatter } from "../../../shared/util/NgbDateCustom
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { QrCodeModule } from 'ng-qrcode';
+import { NgxPrinterModule } from 'ngx-printer';
 
 import { IngresoAlmacenComponent } from './operaciones/ingresoalmacen/ingreso-almacen.component';
 import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
@@ -50,6 +51,7 @@ import { GuiaRemisionDevolucionEditComponent } from './operaciones/guiaremisiond
     SwiperModule,
     PipeModule,
     QrCodeModule,
+    NgxPrinterModule.forRoot({printOpenWindow: true}),
     NgxDatatableModule,
     CustomFormsModule,
     ArchwizardModule,
