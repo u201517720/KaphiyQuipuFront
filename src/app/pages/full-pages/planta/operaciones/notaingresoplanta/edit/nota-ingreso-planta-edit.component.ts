@@ -158,7 +158,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       totalesKilos: [],
       totalesKgNetos: [],
       totalesQQS: [],
-      totalesPorcen: []
+      totalesPorcen: [],
+      correlativoContrato: []
     });
   }
 
@@ -293,6 +294,9 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       if (data.HumedadPorcentaje) {
         this.frmNotaIngresoPlantaDetalle.controls.humedadProcenPC.setValue(data.HumedadPorcentaje);
       }
+      if (data.CorrelativoContrato) {
+        this.frmNotaIngresoPlantaDetalle.controls.correlativoContrato.setValue(data.CorrelativoContrato);
+      }
 
       if (this.locEstado >= 7) {
         if (data.CafeExportacionSacos)
@@ -401,7 +405,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
             const request = {
               GuiaRemisionAcopioId: this.frmNotaIngresoPlantaDetalle.value.codGuiaRemision,
               Observaciones: this.frmNotaIngresoPlantaDetalle.value.observaciones,
-              UsuarioRegistro: this.userSession.NombreUsuario
+              UsuarioRegistro: this.userSession.NombreUsuario,
+              Contrato: this.frmNotaIngresoPlantaDetalle.value.correlativoContrato
             };
             this.notaingresoplantaService.Registrar(request)
               .subscribe((res) => {
@@ -475,14 +480,14 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   }
 
   obtenerDescripcionOlores(): string {
-    return this.listOlores.filter(olor => this.oloresSels.find(y => y === olor.Codigo) !== undefined )
-    .map(x => x.Label).join(',');
+    return this.listOlores.filter(olor => this.oloresSels.find(y => y === olor.Codigo) !== undefined)
+      .map(x => x.Label).join(',');
   }
 
-  
+
   obtenerDescripcionColores(): string {
-    return this.listColores.filter(color => this.coloresSels.find(y => y === color.Codigo) !== undefined )
-    .map(x => x.Label).join(',');
+    return this.listColores.filter(color => this.coloresSels.find(y => y === color.Codigo) !== undefined)
+      .map(x => x.Label).join(',');
   }
 
   Cancelar() {
@@ -589,7 +594,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     this.alertUtil.alertSiNoCallback('Pregunta',
       '¿Está seguro de imprimir las etiquetas?',
       () => {
-        
+
         let link = document.createElement('a');
         document.body.appendChild(link);
         link.href = `${host}NotaIngresoPlanta/Etiquetas?id=${this.locId}`;
@@ -638,7 +643,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
         this.spinner.show();
         const request = {
           Id: this.locId,
-          Usuario: this.userSession.NombreUsuario
+          Usuario: this.userSession.NombreUsuario,
+          Contrato: this.frmNotaIngresoPlantaDetalle.value.correlativoContrato
         };
         this.notaingresoplantaService.AutorizarTransformacion(request)
           .subscribe((res) => {
@@ -995,7 +1001,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
             TotalCafeKgNetos: this.frmNotaIngresoPlantaDetalle.value.totalCafeKgNetos,
             PiedraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.piedrasOtrosKgNetos,
             CascaraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.cascaraOtrosKgNetos,
-            UsuarioRegistro: this.userSession.NombreUsuario
+            UsuarioRegistro: this.userSession.NombreUsuario,
+            Contrato: this.frmNotaIngresoPlantaDetalle.value.correlativoContrato
           }
           this.notaingresoplantaService.RegistrarResultadosTransformacion(request)
             .subscribe((res) => {

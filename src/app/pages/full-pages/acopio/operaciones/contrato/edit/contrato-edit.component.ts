@@ -87,7 +87,7 @@ export class ContratoEditComponent implements OnInit {
     private agricultorService: AgricultorService,
     private guiarecepcionacopioService: GuiarecepcionacopioService,
     private printerService: NgxPrinterService) {
-    this.locId = parseInt(this.route.snapshot.params['id']);
+    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
     this.LoadForm();
     if (this.userSession) {

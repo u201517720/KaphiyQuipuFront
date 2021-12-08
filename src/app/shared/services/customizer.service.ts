@@ -314,19 +314,19 @@ export class CustomizerService {
 
   switchLayout(layout: string, isBgImageDisplay: boolean) {
     let conf = this.config.templateConf;
-    if(layout.toLowerCase() === 'light') {
+    if (layout.toLowerCase() === 'light') {
       conf.layout.variant = 'Light';
       conf.layout.sidebar.backgroundImageURL = this.light_dark_bg_images[0].src;
       conf.layout.sidebar.backgroundColor = this.light_dark_colors[5].code;
       conf.layout.sidebar.backgroundImage = isBgImageDisplay;
     }
-    else if(layout.toLowerCase() === 'dark') {
+    else if (layout.toLowerCase() === 'dark') {
       conf.layout.variant = 'Dark';
       conf.layout.sidebar.backgroundImageURL = this.light_dark_bg_images[2].src;
       conf.layout.sidebar.backgroundColor = this.light_dark_colors[7].code;
       conf.layout.sidebar.backgroundImage = isBgImageDisplay;
     }
-    else if(layout.toLowerCase() === 'transparent') {
+    else if (layout.toLowerCase() === 'transparent') {
 
       conf.layout.variant = 'Transparent';
       conf.layout.sidebar.backgroundImageURL = "";
