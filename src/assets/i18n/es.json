@@ -140,26 +140,26 @@
 				"Label": "Contratos"
 			},
 			"ListaGuiaRecepcion": {
-				"Label": "Guías Recepción"
+				"Label": "Guías de Recepción"
 			},
 			"NotaIngreso": {
-				"Label": "Lista Notas Ingreso"
+				"Label": "Notas de Ingreso"
 			},
 			"OrdenesProcesos": {
 				"Label": "Ordenes de Proceso"
 			},
 			"GuiasRemision": {
-				"Label": "Lista Guía Remisión"
+				"Label": "Guías de Remisión"
 			},
 			"Devoluciones": {
-				"Label": "Lista Notas Ingreso CP"
+				"Label": "Notas de Ingreso a Planta"
 			}
 		}
 	},
 	"Compras": {
 		"Label": "Compras",
 		"SolicitudCompra": {
-			"Label": "Solicitud de Compra"
+			"Label": "Solicitudes de Compra"
 		},
 		"NuevaSolicitudCompra": {
 			"Label": "Solicitud de Compra"

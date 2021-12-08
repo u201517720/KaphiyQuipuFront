@@ -3,7 +3,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card mt-0">
                 <h5 class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
-                    NOTA DE INGRESO {{frmNotaIngresoPlantaDetalle.value.correlativo}}
+                    NOTA DE INGRESO A PLANTA {{frmNotaIngresoPlantaDetalle.value.correlativo}}
                 </h5>
                 <div class="card-body">
                     <div class="form-row" *ngIf="locId > 0">
@@ -60,30 +60,32 @@
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label for="transportista" class="col-lg-2 col-form-label pr-0">TRANSPORTISTA</label>
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <input type="text" formControlName="transportista"
+                                        class="form-control form-control-sm" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="form-group row">
+                                <label for="vehiculo" class="col-lg-2 col-form-label pr-0">VEHÍCULO</label>
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    <input type="text" formControlName="vehiculo" class="form-control form-control-sm"
+                                        [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
                                 <label for="certificacion" class="col-lg-4 col-form-label pr-0">CERTIFICACIÓN</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="text" formControlName="certificacion"
                                         class="form-control form-control-sm" [readonly]="true">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <div class="form-group row">
-                                <label for="transportista" class="col-lg-4 col-form-label pr-0">TRANSPORTISTA</label>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="text" formControlName="transportista"
-                                        class="form-control form-control-sm" [readonly]="true">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <div class="form-group row">
-                                <label for="vehiculo" class="col-lg-4 col-form-label pr-0">VEHÍCULO</label>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="text" formControlName="vehiculo" class="form-control form-control-sm"
-                                        [readonly]="true">
                                 </div>
                             </div>
                         </div>
@@ -107,31 +109,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <div class="form-group row">
-                                <label for="kilosBrutos" class="col-lg-4 col-form-label">KILOS BRUTOS</label>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="text" formControlName="kilosBrutos"
-                                        class="form-control form-control-sm text-right" [readonly]="true">
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="tara" class="col-lg-4 col-form-label">TARA</label>
+                                <label for="tara" class="col-lg-4 col-form-label">TARA (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="text" formControlName="tara"
+                                    <input type="number" formControlName="tara"
                                         class="form-control form-control-sm text-right" [readonly]="true">
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="kilosNetos" class="col-lg-4 col-form-label">KILOS NETOS</label>
+                                <label for="kilosNetos" class="col-lg-4 col-form-label">PESO NETO (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <input type="text" formControlName="kilosNetos"
+                                    <input type="number" formControlName="kilosNetos"
+                                        class="form-control form-control-sm text-right" [readonly]="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <div class="form-group row">
+                                <label for="kilosBrutos" class="col-lg-4 col-form-label">PESO BRUTO (Kg.)</label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                    <input type="number" formControlName="kilosBrutos"
                                         class="form-control form-control-sm text-right" [readonly]="true">
                                 </div>
                             </div>

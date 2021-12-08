@@ -81,7 +81,7 @@
                     <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="unidadMedida" class="col-lg-5 col-form-label pr-0">UNI.
+                                <label for="unidadMedida" class="col-lg-5 col-form-label pr-0">UND.
                                     MEDIDA</label>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                                     <ng-select [items]="listUniMedida" formControlName="unidadMedida"
@@ -217,7 +217,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="pesoXSaco" class="col-lg-4 col-form-label">PESO POR SACO</label>
+                                <label for="pesoXSaco" class="col-lg-4 col-form-label">PESO SACO (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" formControlName="pesoXSaco" class="form-control text-right"
                                         placeholder="Peso por saco" (blur)="CalcularPesoEnKilos()"
@@ -228,7 +228,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="pesoEnKilos" class="col-lg-4 col-form-label">PESO EN KILOS</label>
+                                <label for="pesoEnKilos" class="col-lg-4 col-form-label">PESO BRUTO (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" formControlName="pesoEnKilos" class="form-control text-right"
                                         placeholder="Peso en kilos" [readonly]="true"
@@ -251,7 +251,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngIf="userSession.RolId === 7">
                             <div class="form-group row">
-                                <label for="tara" class="col-lg-4 col-form-label">TARA</label>
+                                <label for="tara" class="col-lg-4 col-form-label">TARA (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" formControlName="tara" class="form-control text-right"
                                         placeholder="Peso en kilos" [readonly]="true"
@@ -261,7 +261,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" *ngIf="userSession.RolId === 7">
                             <div class="form-group row">
-                                <label for="kgsNetos" class="col-lg-4 col-form-label">KILOS NETOS</label>
+                                <label for="kgsNetos" class="col-lg-4 col-form-label">PESO NETO (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <input type="number" formControlName="kgsNetos" class="form-control text-right"
                                         placeholder="Peso en kilos" [readonly]="true"
@@ -306,7 +306,7 @@
                         <div class="form-group row m-0">
                             <div class="col-lg-12 text-right">
                                 <button type="button" class="btn btn-primary mr-1" (click)="EnviarSolicitud()"
-                                    *ngIf="userSession.RolId === 6">Enviar
+                                    *ngIf="userSession.RolId === 6 && locId === 0">Enviar
                                     Solicitud</button>
                                 <button type="button" class="btn btn-primary mr-1"
                                     *ngIf="locCodigoEstado === '01' && userSession.RolId === 7"

@@ -9,6 +9,7 @@ import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { MaestroUtil } from '../../../../../../services/util/maestro-util';
 import { NotaingresoacopioService } from '../../../../../../services/notaingresoacopio.service';
 import { OrdenprocesoacopioService } from '../../../../../../services/ordenprocesoacopio.service';
+import { host } from '../../../../../../shared/hosts/main.host';
 
 @Component({
   selector: 'app-ingresoalmacen-edit',
@@ -262,6 +263,15 @@ export class IngresoAlmacenEditComponent implements OnInit {
     this.alertUtil.alertSiNoCallback('Pregunta',
       `¿Está seguro de generar las etiquetas de la nota de ingreso ${this.frmNotaIngresoAcopioDetalle.value.correlativo}?`,
       () => {
+
+        let link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = `${host}NotaIngresoAcopio/Etiquetas?id=${this.locId}`;
+        link.download = "NotaCompra.pdf"
+        link.target = "_blank";
+        link.click();
+        link.remove();
+
         this.flagShowBtnFinalizarEtiquetado = true;
       });
   }
@@ -305,7 +315,7 @@ export class IngresoAlmacenEditComponent implements OnInit {
             this.spinner.hide();
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                `Se ha generado la orden de proceso ${res.Result.Data}`,
+                `Se ha generado la orden de proceso ${res.Result.Data}.`,
                 () => {
                   this.router.navigate(['/acopio/operaciones/ordenproceso/list']);
                 });

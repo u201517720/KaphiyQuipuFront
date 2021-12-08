@@ -8,6 +8,7 @@ import { AlertUtil } from '../../../../../../services/util/alert-util';
 import { NotaingresoplantaService } from '../../../../../../services/notaingresoplanta.service';
 import { MaestroService } from '../../../../../../services/maestro.service';
 import { NotasalidaplantaService } from '../../../../../../services/notasalidaplanta.service';
+import { host } from '../../../../../../shared/hosts/main.host';
 
 @Component({
   selector: 'app-nota-ingreso-planta-edit',
@@ -531,17 +532,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     }
 
     if (loccafeExportacionPorc) {
-      this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.setValue(loccafeExportacionPorc);
+      this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.setValue(parseFloat(loccafeExportacionPorc.toFixed(2)));
     } else {
       this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.reset();
     }
     if (locdescartePorcentaje) {
-      this.frmNotaIngresoPlantaDetalle.controls.descartePorcentaje.setValue(locdescartePorcentaje);
+      this.frmNotaIngresoPlantaDetalle.controls.descartePorcentaje.setValue(parseFloat(locdescartePorcentaje.toFixed(2)));
     } else {
       this.frmNotaIngresoPlantaDetalle.controls.descartePorcentaje.reset();
     }
     if (loccascaraPorcentaje) {
-      this.frmNotaIngresoPlantaDetalle.controls.cascaraPorcentaje.setValue(loccascaraPorcentaje);
+      this.frmNotaIngresoPlantaDetalle.controls.cascaraPorcentaje.setValue(parseFloat(loccascaraPorcentaje.toFixed(2)));
     } else {
       this.frmNotaIngresoPlantaDetalle.controls.cascaraPorcentaje.reset();
     }
@@ -552,7 +553,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
     const suma2 = locCafeExpoPorc + locDescPorcen + locCascaraPorc;
     if (suma2) {
-      this.frmNotaIngresoPlantaDetalle.controls.totalPorcentaje.setValue(suma2);
+      this.frmNotaIngresoPlantaDetalle.controls.totalPorcentaje.setValue(parseFloat(suma2.toFixed(2)));
     }
   }
 
@@ -586,9 +587,19 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
   ImprimirEtiquetas() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de generar las etiquetas?',
+      '¿Está seguro de imprimir las etiquetas?',
       () => {
+        
+        let link = document.createElement('a');
+        document.body.appendChild(link);
+        link.href = `${host}NotaIngresoPlanta/Etiquetas?id=${this.locId}`;
+        link.download = "NotaCompra.pdf"
+        link.target = "_blank";
+        link.click();
+        link.remove();
+
         this.flagGeneroEtiquetas = true;
+
       });
   }
 
