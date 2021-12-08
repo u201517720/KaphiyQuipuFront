@@ -66,6 +66,8 @@ export class ContratoEditComponent implements OnInit {
   submittedPesadoCafe = false;
   msgAgricultores = '';
   locCodigoEstadoInt = 0;
+  mostrarqr = false;
+  codeqr = "";
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -737,6 +739,8 @@ export class ContratoEditComponent implements OnInit {
     this.listaControlesCalidad.forEach(x => {
       if (x.ContratoSocioFincaId === id) {
         x.ListaOlores = this.oloresSels.join(',');
+        x.ListaDescripcionOlores = this.listOlores.filter(olor => this.oloresSels.find(y => y === olor.Codigo) !== undefined )
+                                                   .map(x => x.Label).join(',');
       }
     });
   }
@@ -750,6 +754,8 @@ export class ContratoEditComponent implements OnInit {
     this.listaControlesCalidad.forEach(x => {
       if (x.ContratoSocioFincaId === id) {
         x.ListaColores = this.coloresSels.join(',');
+        x.ListaDescripcionColores = this.listColores.filter(color => this.coloresSels.find(y => y === color.Codigo) !== undefined )
+                                                    .map(x => x.Label).join(',');
       }
     });
   }
@@ -923,7 +929,26 @@ export class ContratoEditComponent implements OnInit {
     this.alertUtil.alertSiNoCallback('Pregunta',
       '¿Está seguro de generar el código QR de la trazabilidad del café?',
       () => {
-
+        this.generarQrTrazabilidad();
       });
+  }
+
+  generarQrTrazabilidad() {
+    this.codeqr = this.frmContratoCompraVenta.value.correlativo;
+    this.mostrarqr = true;
+    const correlativo = this.frmContratoCompraVenta.value.correlativo;
+    this.contratoService.generarQrTrazabilidad(correlativo)
+      .subscribe(response => {
+        this.fileDownload(response, correlativo)
+      });
+  }
+
+  fileDownload(response, nombreArchivo) {
+    const url = window.URL.createObjectURL(response.body);
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.download = `${nombreArchivo}`;
+    link.click();
   }
 }

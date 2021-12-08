@@ -429,7 +429,9 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
                 const request = {
                   Id: this.locId,
                   Olores: this.frmNotaIngresoPlantaDetalle.value.listaOlores,
+                  DescripcionOlores: this.obtenerDescripcionOlores(),
                   Colores: this.frmNotaIngresoPlantaDetalle.value.listaColores,
+                  DescripcionColores: this.obtenerDescripcionColores(),
                   ExportableGramos: this.frmNotaIngresoPlantaDetalle.value.cafeExportacionGramos,
                   ExportablePorcentaje: this.frmNotaIngresoPlantaDetalle.value.cafeExportacionPorc,
                   DescarteGramos: this.frmNotaIngresoPlantaDetalle.value.descarteGramos,
@@ -469,6 +471,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     } else {
       this.submitted = true;
     }
+  }
+
+  obtenerDescripcionOlores(): string {
+    return this.listOlores.filter(olor => this.oloresSels.find(y => y === olor.Codigo) !== undefined )
+    .map(x => x.Label).join(',');
+  }
+
+  
+  obtenerDescripcionColores(): string {
+    return this.listColores.filter(color => this.coloresSels.find(y => y === color.Codigo) !== undefined )
+    .map(x => x.Label).join(',');
   }
 
   Cancelar() {
