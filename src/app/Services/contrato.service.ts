@@ -86,5 +86,13 @@ export class ContratoService {
     const url = `${this.url}/ConfirmarRecepcion`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  generarQrTrazabilidad(nroContrato: string): Observable<any> {
+    const url = `${this.url}/GenerarQRTrazabilidad/${nroContrato}`;
+    return this.http.get(url, {
+      observe: "response",
+      responseType: "blob",
+    });
+  }
 }
 

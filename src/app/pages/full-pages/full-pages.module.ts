@@ -11,6 +11,7 @@ import { SwiperModule } from "ngx-swiper-wrapper";
 import { HomeComponent } from "./home/home.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { AcopioModule } from "./acopio/acopio.module";
+import { QrCodeModule } from 'ng-qrcode';
 import { ListFilterPipe } from '../../shared/pipes/listFilter.pipe';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ComprasModule } from './compras/compras.module';
@@ -29,6 +30,7 @@ import { PlantaModule } from './planta/planta.module';
     NgbModule,
     SwiperModule,
     NgxDatatableModule,
+    QrCodeModule,
     AcopioModule,
     FileUploadModule,
     ComprasModule,

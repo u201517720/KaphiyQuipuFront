@@ -18,6 +18,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgbDateCustomParserFormatter } from "../../../shared/util/NgbDateCustomParserFormatter";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { QrCodeModule } from 'ng-qrcode';
 
 import { IngresoAlmacenComponent } from './operaciones/ingresoalmacen/ingreso-almacen.component';
 import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
@@ -48,6 +49,7 @@ import { GuiaRemisionDevolucionEditComponent } from './operaciones/guiaremisiond
     NgbModule,
     SwiperModule,
     PipeModule,
+    QrCodeModule,
     NgxDatatableModule,
     CustomFormsModule,
     ArchwizardModule,
