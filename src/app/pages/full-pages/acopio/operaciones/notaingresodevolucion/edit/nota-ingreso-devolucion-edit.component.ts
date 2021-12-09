@@ -148,6 +148,7 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
         this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de ubicar la materia transformada en el almacén seleccionado?',
           () => {
+            this.spinner.show();
             const request = {
               GuiaRemisionPlantaId: this.frmNotaIngresoDevolucionDetalle.value.guiaremisionplantaid,
               AlmacenId: this.frmNotaIngresoDevolucionDetalle.value.almacen,
@@ -157,6 +158,7 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
             }
             this.notaingresoacopioService.RegistrarDevolucion(request)
               .subscribe((res) => {
+                this.spinner.hide();
                 if (res.Result.Success) {
                   this.alertUtil.alertOkCallback('Confirmación',
                     `Se ha generado la nota de ingreso ${res.Result.Data}.`,

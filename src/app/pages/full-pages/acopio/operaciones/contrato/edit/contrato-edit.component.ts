@@ -748,8 +748,8 @@ export class ContratoEditComponent implements OnInit {
     this.listaControlesCalidad.forEach(x => {
       if (x.ContratoSocioFincaId === id) {
         x.ListaOlores = this.oloresSels.join(',');
-        x.ListaDescripcionOlores = this.listOlores.filter(olor => this.oloresSels.find(y => y === olor.Codigo) !== undefined )
-                                                   .map(x => x.Label).join(',');
+        x.ListaDescripcionOlores = this.listOlores.filter(olor => this.oloresSels.find(y => y === olor.Codigo) !== undefined)
+          .map(x => x.Label).join(',');
       }
     });
   }
@@ -763,8 +763,8 @@ export class ContratoEditComponent implements OnInit {
     this.listaControlesCalidad.forEach(x => {
       if (x.ContratoSocioFincaId === id) {
         x.ListaColores = this.coloresSels.join(',');
-        x.ListaDescripcionColores = this.listColores.filter(color => this.coloresSels.find(y => y === color.Codigo) !== undefined )
-                                                    .map(x => x.Label).join(',');
+        x.ListaDescripcionColores = this.listColores.filter(color => this.coloresSels.find(y => y === color.Codigo) !== undefined)
+          .map(x => x.Label).join(',');
       }
     });
   }
@@ -944,13 +944,22 @@ export class ContratoEditComponent implements OnInit {
   }
 
   generarQrTrazabilidad() {
+    this.spinner.show();
     this.codeqr = `${host}Contrato/GenerarQRTrazabilidad/${this.frmContratoCompraVenta.value.correlativo}`;
     this.mostrarqr = true;
     const correlativo = this.frmContratoCompraVenta.value.correlativo;
     this.contratoService.generarQrTrazabilidad(correlativo)
-      .subscribe(response => {
-        this.fileDownload(response, correlativo)
-    });
+      .subscribe((response) => {
+        this.spinner.hide();
+        if (response && response.body && response.body.type && response.body.type.includes('pdf')) {
+          this.fileDownload(response, correlativo)
+        } else {
+          this.alertUtil.alertError('ERROR', 'Ha ocurrido un error al generar el PDF de la trazabilidad.');
+        }
+      }, (err) => {
+        this.spinner.hide();
+        this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+      });
   }
 
   fileDownload(response, nombreArchivo) {
