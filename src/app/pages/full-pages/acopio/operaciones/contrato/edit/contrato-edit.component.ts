@@ -913,7 +913,8 @@ export class ContratoEditComponent implements OnInit {
         this.spinner.show();
         const request = {
           Id: this.locId,
-          Usuario: this.userSession.NombreUsuario
+          Usuario: this.userSession.NombreUsuario,
+          Contrato: this.frmContratoCompraVenta.value.correlativo
         }
         this.contratoService.ConfirmarRecepcionCafeTerminado(request)
           .subscribe((res) => {
