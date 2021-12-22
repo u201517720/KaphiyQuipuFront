@@ -2,7 +2,6 @@ import {
   Component, OnInit, ViewChild, OnDestroy,
   ElementRef, AfterViewInit, ChangeDetectorRef, HostListener
 } from "@angular/core";
-import { ROUTES } from './vertical-menu-routes.config';
 import { HROUTES } from '../horizontal-menu/navigation-routes.config';
 
 import { Router } from "@angular/router";

@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { ConfigService } from '../services/config.service';
 import { LayoutService } from '../services/layout.service';
 import { Router } from '@angular/router';
-import { match } from 'assert';
 
 @Directive({ selector: '[appSidebar]' })
 export class SidebarDirective implements OnInit, AfterViewInit, OnDestroy {

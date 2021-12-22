@@ -117,7 +117,6 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         this.hideSidebar = true;
         this.renderer.removeClass(this.document.body, "horizontal-menu");
         this.renderer.removeClass(this.document.body, "menu-open");
-
         this.renderer.addClass(this.document.body, "horizontal-layout");
         this.renderer.addClass(this.document.body, "horizontal-menu-padding");
         this.renderer.addClass(this.document.body, "vertical-layout");
@@ -134,7 +133,6 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer.removeClass(this.document.body, "fixed-navbar");
         this.renderer.removeClass(this.document.body, "menu-hide");
         this.renderer.removeClass(this.document.body, "vertical-menu");
-        // this.renderer.removeClass(this.document.body, "blank-page");
         this.renderer.addClass(this.document.body, "horizontal-menu");
         this.renderer.addClass(this.document.body, "horizontal-layout");
         this.renderer.addClass(this.document.body, "horizontal-menu-padding");
@@ -150,19 +148,14 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer.removeClass(this.document.body, "vertical-menu");
         this.renderer.removeClass(this.document.body, "menu-open");
         this.renderer.removeClass(this.document.body, "nav-collapsed");
-
         this.renderer.addClass(this.document.body, "vertical-layout");
         this.renderer.addClass(this.document.body, "menu-hide");
-
       }
       else { // If Screen size > 1200
         this.displayOverlayMenu = false;
-
         this.renderer.removeClass(this.document.body, "horizontal-layout");
         this.renderer.removeClass(this.document.body, "horizontal-menu");
         this.renderer.removeClass(this.document.body, "horizontal-menu-padding");
-        // this.renderer.removeClass(this.document.body, "blank-page");
-
         this.renderer.setAttribute(this.document.body, "data-menu", "vertical-menu");
         this.renderer.addClass(this.document.body, "vertical-layout");
         if (!this.config.layout.sidebar.collapsed) {

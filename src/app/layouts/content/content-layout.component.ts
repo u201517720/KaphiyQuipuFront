@@ -3,7 +3,6 @@ import { ConfigService } from '../../../app/shared/services/config.service';
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CustomizerService } from '../../../app/shared/services/customizer.service';
-//import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-content-layout',
@@ -19,16 +18,12 @@ export class ContentLayoutComponent implements OnInit, OnDestroy {
 
 
   constructor(private configService: ConfigService,
-    //public translate: TranslateService,
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2, private cdr: ChangeDetectorRef,
     private customizerService: CustomizerService
   ) {
     this.config = this.configService.templateConf;
     this.renderer.addClass(this.document.body, "auth-page");
-
-    //const browserLang: string = translate.getBrowserLang();
-    //  translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
   }
 
   ngOnInit() {
@@ -60,13 +55,10 @@ export class ContentLayoutComponent implements OnInit, OnDestroy {
       this.renderer.addClass(this.document.body, this.config.layout.sidebar.backgroundColor);
     }
 
-
     this.renderer.removeClass(this.document.body, "menu-expanded");
     this.renderer.removeClass(this.document.body, "navbar-static");
     this.renderer.removeClass(this.document.body, "menu-open");
     this.renderer.addClass(this.document.body, "blank-page");
-
-
   }
 
   removeTransparentBGClasses() {
