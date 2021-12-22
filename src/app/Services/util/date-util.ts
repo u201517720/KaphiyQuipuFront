@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { resultMemoize } from '@ngrx/store';
-import { formatDate } from '@angular/common';
 
 @Injectable()
 export class DateUtil {
