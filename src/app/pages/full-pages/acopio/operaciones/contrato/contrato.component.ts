@@ -3,11 +3,9 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-// import { DateUtil } from '../../../../../services/util/date-util';
 import { DateUtil } from 'src/app/services/util/date-util';
-// import { DateUtil } from './../../../../../services/util/date-util';
-import { AlertUtil } from '../../../../../services/util/alert-util';
-import { ContratoService } from '../../../../../services/contrato.service';
+import { AlertUtil } from 'src/app/services/util/alert-util';
+import { ContratoService } from 'src/app/services/contrato.service';
 
 @Component({
   selector: 'app-contrato',
