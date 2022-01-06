@@ -1,10 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { FullLayoutComponent } from "./layouts/full/full-layout.component";
-import { ContentLayoutComponent } from "./layouts/content/content-layout.component";
-import { Full_ROUTES } from "./shared/routes/full-layout.routes";
-import { CONTENT_ROUTES } from "./shared/routes/content-layout.routes";
-import { AuthGuard } from './shared/auth/auth-guard.service';
+import { FullLayoutComponent } from "src/app/layouts/full/full-layout.component";
+import { ContentLayoutComponent } from "src/app/layouts/content/content-layout.component";
+import { Full_ROUTES } from "src/app/shared/routes/full-layout.routes";
+import { CONTENT_ROUTES } from "src/app/shared/routes/content-layout.routes";
+import { AuthGuard } from 'src/app/shared/auth/auth-guard.service';
 
 const appRoutes = [
   { path: '', redirectTo: 'pages/login', pathMatch: 'full' },

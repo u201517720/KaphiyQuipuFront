@@ -6,30 +6,29 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrModule } from "ngx-toastr";
 import { AgmCoreModule } from "@agm/core";
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from "@angular/common/http";
-import { HttpInterceptorImpl } from './shared/http-interceptor-impl';
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { DragulaService } from "ng2-dragula";
 import { NgxSpinnerModule } from 'ngx-spinner';
-
 import {
   PerfectScrollbarModule,
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface
 } from 'ngx-perfect-scrollbar';
 
-import { AppRoutingModule } from "./app-routing.module";
-import { SharedModule } from "./shared/shared.module";
-import { AppComponent } from "./app.component";
-import { ContentLayoutComponent } from "./layouts/content/content-layout.component";
-import { FullLayoutComponent } from "./layouts/full/full-layout.component";
-import { AuthService } from "./services/auth.service";
-import { MaestroService } from "./services/maestro.service";
-import { MaestroUtil } from "./services/util/maestro-util";
-import { AlertUtil } from "./services/util/alert-util";
+import { HttpInterceptorImpl } from 'src/app/shared/http-interceptor-impl';
+import { AppRoutingModule } from "src/app/app-routing.module";
+import { SharedModule } from "src/app/shared/shared.module";
+import { AppComponent } from "src/app/app.component";
+import { ContentLayoutComponent } from "src/app/layouts/content/content-layout.component";
+import { FullLayoutComponent } from "src/app/layouts/full/full-layout.component";
+import { AuthService } from "src/app/services/auth.service";
+import { MaestroService } from "src/app/services/maestro.service";
+import { MaestroUtil } from "src/app/services/util/maestro-util";
+import { AlertUtil } from "src/app/services/util/alert-util";
 import { DateUtil } from "src/app/services/util/date-util";
-import { AuthGuard } from "./shared/auth/auth-guard.service";
-import { WINDOW_PROVIDERS } from './shared/services/window.service';
+import { AuthGuard } from "src/app/shared/auth/auth-guard.service";
+import { WINDOW_PROVIDERS } from 'src/app/shared/services/window.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
