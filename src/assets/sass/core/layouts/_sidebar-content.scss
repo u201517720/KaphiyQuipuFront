@@ -495,7 +495,7 @@ body {
   }
 
   &[data-background-color="man-of-steel"] {
-    @include set-gradient-background-color(#2F3EA0, #AE342D);
+    @include set-gradient-background-color(#a0673c, #AE342D); //CAMBIARAQUI
   }
 
   &[data-background-color="purple-love"] {

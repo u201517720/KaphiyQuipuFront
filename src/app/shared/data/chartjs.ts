@@ -58,8 +58,8 @@ export var lineChartColors: Array<any> = [
 
     fill: false,
     borderDash: [5, 5],
-    borderColor: "#975AFF",
-    pointBorderColor: "#975AFF",
+    borderColor: "#a0673c",
+    pointBorderColor: "#a0673c",
     pointBackgroundColor: "#FFF",
     pointBorderWidth: 2,
     pointHoverBorderWidth: 2,
@@ -400,7 +400,7 @@ export var barChartColors: Array<any> = [
 
   {
 
-    backgroundColor: '#975AFF',
+    backgroundColor: '#a0673c',
     borderColor: 'transparent',
     pointBackgroundColor: 'transparent',
     pointBorderColor: '#fff',
@@ -422,7 +422,7 @@ export var barChartColors: Array<any> = [
 // Doughnut
 export var doughnutChartLabels: string[] = ["January", "February", "March", "April", "May"];
 export var doughnutChartData: number[] = [65, 35, 24, 45, 85];
-export var doughnutChartColors: any[] = [{ backgroundColor: ['#975AFF', '#F77E17', '#40C057', '#F55252', '#2F8BE6'] }];
+export var doughnutChartColors: any[] = [{ backgroundColor: ['#a0673c', '#F77E17', '#40C057', '#F55252', '#2F8BE6'] }];
 export var doughnutChartType = 'doughnut';
 export var doughnutChartOptions: any = {
   animation: false,
@@ -442,7 +442,7 @@ export var radarChartColors: any[] = [
   {
     backgroundColor: "rgba(151, 90, 255, 0.3)",
     borderColor: "transparent",
-    pointBorderColor: "#975AFF",
+    pointBorderColor: "#a0673c",
     pointBackgroundColor: "#FFF",
     pointBorderWidth: 2,
     pointHoverBorderWidth: 2,
@@ -454,7 +454,7 @@ export var radarChartColors: any[] = [
   {
     backgroundColor: "rgba(151, 90, 255, 0.8)",
     borderColor: "transparent",
-    pointBorderColor: "#975AFF",
+    pointBorderColor: "#a0673c",
     pointBackgroundColor: "#FFF",
     pointBorderWidth: 2,
     pointHoverBorderWidth: 2,
@@ -485,7 +485,7 @@ export var radarChartOptions: any = {
 export var pieChartLabels: string[] = ["January", "February", "March", "April", "May"];
 export var pieChartData: number[] = [85, 65, 34, 45, 35];
 export var pieChartType = 'pie';
-export var pieChartColors: any[] = [{ backgroundColor: ['#975AFF', '#F77E17', '#40C057', '#F55252', '#2F8BE6'] }];
+export var pieChartColors: any[] = [{ backgroundColor: ['#a0673c', '#F77E17', '#40C057', '#F55252', '#2F8BE6'] }];
 export var pieChartOptions: any = {
   animation: false,
   responsive: true,
@@ -496,7 +496,7 @@ export var pieChartOptions: any = {
 export var polarAreaChartLabels: string[] = ["January", "February", "March", "April", "May"];
 export var polarAreaChartData: number[] = [65, 59, 80, 81, 56];
 export var polarAreaLegend = true;
-export var ploarChartColors: any[] = [{ backgroundColor: ['#975AFF', '#F77E17', '#40C057', '#F55252', '#2F8BE6'] }];
+export var ploarChartColors: any[] = [{ backgroundColor: ['#a0673c', '#F77E17', '#40C057', '#F55252', '#2F8BE6'] }];
 
 
 export var polarAreaChartType = 'polarArea';
