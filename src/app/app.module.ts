@@ -20,7 +20,6 @@ import {
 
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "./shared/shared.module";
-//import * as fromApp from './store/app.reducer';
 import { AppComponent } from "./app.component";
 import { ContentLayoutComponent } from "./layouts/content/content-layout.component";
 import { FullLayoutComponent } from "./layouts/full/full-layout.component";
@@ -28,7 +27,7 @@ import { AuthService } from "./services/auth.service";
 import { MaestroService } from "./services/maestro.service";
 import { MaestroUtil } from "./services/util/maestro-util";
 import { AlertUtil } from "./services/util/alert-util";
-import { DateUtil } from "./services/util/date-util";
+import { DateUtil } from "src/app/services/util/date-util";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
 
