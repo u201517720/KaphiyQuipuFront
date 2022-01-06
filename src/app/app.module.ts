@@ -10,13 +10,9 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { DragulaService } from "ng2-dragula";
 import { NgxSpinnerModule } from 'ngx-spinner';
-import {
-  PerfectScrollbarModule,
-  PERFECT_SCROLLBAR_CONFIG,
-  PerfectScrollbarConfigInterface
-} from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-import { HttpInterceptorImpl } from 'src/app/shared/http-interceptor-impl';
+import { HttpInterceptorImpl } from './shared/http-interceptor-impl';
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { AppComponent } from "src/app/app.component";
