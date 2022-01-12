@@ -4,13 +4,13 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { MaestroService } from '../../../../../../services/maestro.service';
-import { MaestroUtil } from '../../../../../../services/util/maestro-util';
-import { AlertUtil } from '../../../../../../services/util/alert-util';
-import { ContratoService } from '../../../../../../services/contrato.service';
-import { AgricultorService } from '../../../../../../services/agricultor.service';
-import { TransactionReponse } from '../../../../../../services/models/transaction-response';
-import { GuiarecepcionacopioService } from '../../../../../../services/guiarecepcionacopio.service';
+import { MaestroService } from '../../../../../../Services/maestro.service';
+import { MaestroUtil } from '../../../../../../Services/util/maestro-util';
+import { AlertUtil } from '../../../../../../Services/util/alert-util';
+import { ContratoService } from '../../../../../../Services/contrato.service';
+import { AgricultorService } from '../../../../../../Services/agricultor.service';
+import { TransactionReponse } from '../../../../../../Services/models/transaction-response';
+import { GuiarecepcionacopioService } from '../../../../../../Services/guiarecepcionacopio.service';
 import { host } from '../../../../../../shared/hosts/main.host';
 import { NgxPrinterService } from 'ngx-printer';
 

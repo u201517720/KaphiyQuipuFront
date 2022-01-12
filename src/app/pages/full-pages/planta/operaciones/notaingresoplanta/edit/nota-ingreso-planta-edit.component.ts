@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { GuiaremisionService } from '../../../../../../services/guiaremision.service';
-import { AlertUtil } from '../../../../../../services/util/alert-util';
-import { NotaingresoplantaService } from '../../../../../../services/notaingresoplanta.service';
-import { MaestroService } from '../../../../../../services/maestro.service';
-import { NotasalidaplantaService } from '../../../../../../services/notasalidaplanta.service';
+import { GuiaremisionService } from '../../../../../../Services/guiaremision.service';
+import { AlertUtil } from '../../../../../../Services/util/alert-util';
+import { NotaingresoplantaService } from '../../../../../../Services/notaingresoplanta.service';
+import { MaestroService } from '../../../../../../Services/maestro.service';
+import { NotasalidaplantaService } from '../../../../../../Services/notasalidaplanta.service';
 import { host } from '../../../../../../shared/hosts/main.host';
 
 @Component({

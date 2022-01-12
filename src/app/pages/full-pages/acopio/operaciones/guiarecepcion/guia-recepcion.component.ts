@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { DateUtil } from '../../../../../services/util/date-util';
-import { AlertUtil } from '../../../../../services/util/alert-util';
-import { GuiarecepcionacopioService } from '../../../../../services/guiarecepcionacopio.service';
-import { NotaingresoacopioService } from '../../../../../services/notaingresoacopio.service';
+import { DateUtil } from '../../../../../Services/util/date-util';
+import { AlertUtil } from '../../../../../Services/util/alert-util';
+import { GuiarecepcionacopioService } from '../../../../../Services/guiarecepcionacopio.service';
+import { NotaingresoacopioService } from '../../../../../Services/notaingresoacopio.service';
 
 @Component({
   selector: 'app-guia-recepcion',

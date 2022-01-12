@@ -4,11 +4,11 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ActivatedRoute } from '@angular/router';
 import { Router } from "@angular/router"
 
-import { MaestroService } from '../../../../../../services/maestro.service';
-import { AlertUtil } from '../../../../../../services/util/alert-util';
-import { MaestroUtil } from '../../../../../../services/util/maestro-util';
-import { NotaingresoacopioService } from '../../../../../../services/notaingresoacopio.service';
-import { OrdenprocesoacopioService } from '../../../../../../services/ordenprocesoacopio.service';
+import { MaestroService } from '../../../../../../Services/maestro.service';
+import { AlertUtil } from '../../../../../../Services/util/alert-util';
+import { MaestroUtil } from '../../../../../../Services/util/maestro-util';
+import { NotaingresoacopioService } from '../../../../../../Services/notaingresoacopio.service';
+import { OrdenprocesoacopioService } from '../../../../../../Services/ordenprocesoacopio.service';
 import { host } from '../../../../../../shared/hosts/main.host';
 
 @Component({

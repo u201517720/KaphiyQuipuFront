@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from "ngx-spinner";
 
-import { OrdenprocesoacopioService } from '../../../../../services/ordenprocesoacopio.service';
-import { DateUtil } from '../../../../../services/util/date-util';
-import { AlertUtil } from '../../../../../services/util/alert-util';
+import { OrdenprocesoacopioService } from '../../../../../Services/ordenprocesoacopio.service';
+import { DateUtil } from '../../../../../Services/util/date-util';
+import { AlertUtil } from '../../../../../Services/util/alert-util';
 
 @Component({
   selector: 'app-ordenproceso',

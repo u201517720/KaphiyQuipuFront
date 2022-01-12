@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { GuiaremisionplantaService } from '../../../../../../services/guiaremisionplanta.service';
-import { AlertUtil } from '../../../../../../services/util/alert-util';
-import { NotasalidaplantaService } from '../../../../../../services/notasalidaplanta.service';
+import { GuiaremisionplantaService } from '../../../../../../Services/guiaremisionplanta.service';
+import { AlertUtil } from '../../../../../../Services/util/alert-util';
+import { NotasalidaplantaService } from '../../../../../../Services/notasalidaplanta.service';
 
 @Component({
   selector: 'app-nota-salida-planta-edit',

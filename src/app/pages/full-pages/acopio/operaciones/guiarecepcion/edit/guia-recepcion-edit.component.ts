@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { GuiarecepcionacopioService } from '../../../../../../services/guiarecepcionacopio.service';
-import { NotaingresoacopioService } from '../../../../../../services/notaingresoacopio.service';
-import { MaestroService } from '../../../../../../services/maestro.service';
-import { AlertUtil } from '../../../../../../services/util/alert-util';
+import { GuiarecepcionacopioService } from '../../../../../../Services/guiarecepcionacopio.service';
+import { NotaingresoacopioService } from '../../../../../../Services/notaingresoacopio.service';
+import { MaestroService } from '../../../../../../Services/maestro.service';
+import { AlertUtil } from '../../../../../../Services/util/alert-util';
 
 @Component({
   selector: 'app-guia-recepcion-edit',

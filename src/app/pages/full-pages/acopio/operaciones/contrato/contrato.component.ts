@@ -4,8 +4,8 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { DateUtil } from '../../../../../Services/util/date-util';
-import { AlertUtil } from '../../../../../services/util/alert-util';
-import { ContratoService } from '../../../../../services/contrato.service';
+import { AlertUtil } from '../../../../../Services/util/alert-util';
+import { ContratoService } from '../../../../../Services/contrato.service';
 
 @Component({
   selector: 'app-contrato',

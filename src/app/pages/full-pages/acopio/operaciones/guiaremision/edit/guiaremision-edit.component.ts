@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { AlertUtil } from '../../../../../../services/util/alert-util';
-import { GuiaremisionService } from '../../../../../../services/guiaremision.service';
+import { AlertUtil } from '../../../../../../Services/util/alert-util';
+import { GuiaremisionService } from '../../../../../../Services/guiaremision.service';
 
 @Component({
   selector: 'app-guiaremision-edit',

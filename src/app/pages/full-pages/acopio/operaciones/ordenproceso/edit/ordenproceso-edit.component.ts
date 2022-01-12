@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
 
-import { OrdenprocesoacopioService } from '../../../../../../services/ordenprocesoacopio.service';
-import { MaestroService } from '../../../../../../services/maestro.service';
-import { AlertUtil } from '../../../../../../services/util/alert-util';
-import { GuiaremisionService } from '../../../../../../services/guiaremision.service';
-import { NotaingresoplantaService } from '../../../../../../services/notaingresoplanta.service';
+import { OrdenprocesoacopioService } from '../../../../../../Services/ordenprocesoacopio.service';
+import { MaestroService } from '../../../../../../Services/maestro.service';
+import { AlertUtil } from '../../../../../../Services/util/alert-util';
+import { GuiaremisionService } from '../../../../../../Services/guiaremision.service';
+import { NotaingresoplantaService } from '../../../../../../Services/notaingresoplanta.service';
 
 @Component({
   selector: 'app-ordenproceso-edit',

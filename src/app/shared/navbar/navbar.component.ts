@@ -6,7 +6,7 @@ import { ConfigService } from '../services/config.service';
 import { FormControl } from '@angular/forms';
 import { LISTITEMS } from '../data/template-search';
 import { Router } from '@angular/router';
-import { ILogin } from '../../services/models/login';
+import { ILogin } from '../../Services/models/login';
 
 @Component({
   selector: "app-navbar",

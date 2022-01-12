@@ -3,9 +3,9 @@ import { FormBuilder, Validators, FormGroup, ValidatorFn, ValidationErrors } fro
 import { NgxSpinnerService } from "ngx-spinner";
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 
-import { DateUtil } from '../../../../../services/util/date-util';
-import { AlertUtil } from '../../../../../services/util/alert-util';
-import { NotaingresoacopioService } from '../../../../../services/notaingresoacopio.service';
+import { DateUtil } from '../../../../../Services/util/date-util';
+import { AlertUtil } from '../../../../../Services/util/alert-util';
+import { NotaingresoacopioService } from '../../../../../Services/notaingresoacopio.service';
 
 @Component({
   selector: 'app-ingreso-almacen',

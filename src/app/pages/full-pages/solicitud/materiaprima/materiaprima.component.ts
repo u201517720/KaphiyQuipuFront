@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { DateUtil } from '../../../../services/util/date-util';
-import { AgricultorService } from '../../../../services/agricultor.service';
+import { DateUtil } from '../../../../Services/util/date-util';
+import { AgricultorService } from '../../../../Services/agricultor.service';
 
 @Component({
   selector: 'app-materiaprima',

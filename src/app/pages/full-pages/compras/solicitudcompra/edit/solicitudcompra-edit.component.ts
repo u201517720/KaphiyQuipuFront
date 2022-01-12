@@ -4,11 +4,11 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { MaestroService } from '../../../../../services/maestro.service';
-import { MaestroUtil } from '../../../../../services/util/maestro-util';
-import { SolicitudcompraService } from '../../../../../services/solicitudcompra.service';
-import { AlertUtil } from '../../../../../services/util/alert-util';
-import { ContratoService } from '../../../../../services/contrato.service';
+import { MaestroService } from '../../../../../Services/maestro.service';
+import { MaestroUtil } from '../../../../../Services/util/maestro-util';
+import { SolicitudcompraService } from '../../../../../Services/solicitudcompra.service';
+import { AlertUtil } from '../../../../../Services/util/alert-util';
+import { ContratoService } from '../../../../../Services/contrato.service';
 
 @Component({
   selector: 'app-solicitudcompra-edit',

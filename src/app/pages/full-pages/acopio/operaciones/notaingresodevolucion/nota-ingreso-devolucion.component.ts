@@ -4,9 +4,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { Router } from '@angular/router';
 
-import { AlertUtil } from '../../../../../services/util/alert-util';
-import { DateUtil } from '../../../../../services/util/date-util';
-import { NotaingresoacopioService } from '../../../../../services/notaingresoacopio.service';
+import { AlertUtil } from '../../../../../Services/util/alert-util';
+import { DateUtil } from '../../../../../Services/util/date-util';
+import { NotaingresoacopioService } from '../../../../../Services/notaingresoacopio.service';
 
 @Component({
   selector: 'app-nota-ingreso-devolucion',
