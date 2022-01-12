@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ContratoComponent } from 'src/app/pages/full-pages/acopio/operaciones/contrato/contrato.component';
-import { ContratoEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/contrato/edit/contrato-edit.component';
-import { GuiaRecepcionComponent } from 'src/app/pages/full-pages/acopio/operaciones/guiarecepcion/guia-recepcion.component';
-import { GuiaRecepcionEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
-import { IngresoAlmacenComponent } from 'src/app/pages/full-pages/acopio/operaciones/ingresoalmacen/ingreso-almacen.component';
-import { IngresoAlmacenEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
-import { OrdenprocesoComponent } from 'src/app/pages/full-pages/acopio/operaciones/ordenproceso/ordenproceso.component';
-import { OrdenprocesoEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/ordenproceso/edit/ordenproceso-edit.component';
-import { NotaIngresoDevolucionComponent } from 'src/app/pages/full-pages/acopio/operaciones/notaingresodevolucion/nota-ingreso-devolucion.component';
-import { NotaIngresoDevolucionEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/notaingresodevolucion/edit/nota-ingreso-devolucion-edit.component';
-import { GuiaRemisionDevolucionComponent } from 'src/app/pages/full-pages/acopio/operaciones/guiaremisiondevolucion/guia-remision-devolucion.component';
-import { GuiaRemisionDevolucionEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/guiaremisiondevolucion/edit/guia-remision-devolucion-edit.component';
-import { GuiaremisionComponent } from 'src/app/pages/full-pages/acopio/operaciones/guiaremision/guiaremision.component';
-import { GuiaremisionEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/guiaremision/edit/guiaremision-edit.component';
+import { ContratoComponent } from './operaciones/contrato/contrato.component';
+import { ContratoEditComponent } from './operaciones/contrato/edit/contrato-edit.component';
+import { GuiaRecepcionComponent } from './operaciones/guiarecepcion/guia-recepcion.component';
+import { GuiaRecepcionEditComponent } from './operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
+import { IngresoAlmacenComponent } from './operaciones/ingresoalmacen/ingreso-almacen.component';
+import { IngresoAlmacenEditComponent } from './operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
+import { OrdenprocesoComponent } from './operaciones/ordenproceso/ordenproceso.component';
+import { OrdenprocesoEditComponent } from './operaciones/ordenproceso/edit/ordenproceso-edit.component';
+import { NotaIngresoDevolucionComponent } from './operaciones/notaingresodevolucion/nota-ingreso-devolucion.component';
+import { NotaIngresoDevolucionEditComponent } from './operaciones/notaingresodevolucion/edit/nota-ingreso-devolucion-edit.component';
+import { GuiaRemisionDevolucionComponent } from './operaciones/guiaremisiondevolucion/guia-remision-devolucion.component';
+import { GuiaRemisionDevolucionEditComponent } from './operaciones/guiaremisiondevolucion/edit/guia-remision-devolucion-edit.component';
+import { GuiaremisionComponent } from './operaciones/guiaremision/guiaremision.component';
+import { GuiaremisionEditComponent } from './operaciones/guiaremision/edit/guiaremision-edit.component';
 
 const routes: Routes = [
   {
