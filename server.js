@@ -5,8 +5,9 @@ const app = express();
 
 app.use(express.static(__dirname + '/dist/kaphiyquipu'));
 
-app.get('/*', (req, res) => 
+app.get('*', (req, res) => 
     res.sendFile(path.join(__dirname + '/dist/kaphiyquipu/index.html')),
+    // res.sendFile('./index.html'),
 );
 
 app.listen(process.env.PORT || 8080);
