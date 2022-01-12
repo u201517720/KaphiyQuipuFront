@@ -25,7 +25,7 @@ import { IngresoAlmacenComponent } from 'src/app/pages/full-pages/acopio/operaci
 import { IngresoAlmacenEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/ingresoalmacen/edit/ingresoalmacen-edit.component';
 import { GuiaRecepcionComponent } from 'src/app/pages/full-pages/acopio/operaciones/guiarecepcion/guia-recepcion.component';
 import { GuiaRecepcionEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/guiarecepcion/edit/guia-recepcion-edit.component';
-import { ContratoComponent } from 'src/app/pages/full-pages/acopio/operaciones/contrato/contrato.component';
+import { ContratoComponent } from './operaciones/contrato/contrato.component';
 import { ContratoEditComponent } from 'src/app/pages/full-pages/acopio/operaciones/contrato/edit/contrato-edit.component';
 import { OrdenprocesoComponent } from 'src/app/pages/full-pages/acopio/operaciones/ordenproceso/ordenproceso.component';
 import { MarcadosacosComponent } from 'src/app/pages/full-pages/acopio/operaciones/marcadosacos/marcadosacos.component';
