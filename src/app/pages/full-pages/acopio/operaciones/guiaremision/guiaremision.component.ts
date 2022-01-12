@@ -4,7 +4,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { AlertUtil } from '../../../../../services/util/alert-util';
-import { DateUtil } from 'src/app/services/util/date-util';
+import { DateUtil } from '../../../../../services/util/date-util';
 import { GuiaremisionService } from '../../../../../services/guiaremision.service';
 
 @Component({

@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup, ValidatorFn, ValidationErrors } fro
 import { NgxSpinnerService } from "ngx-spinner";
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 
-import { DateUtil } from 'src/app/services/util/date-util';
+import { DateUtil } from '../../../../../services/util/date-util';
 import { AlertUtil } from '../../../../../services/util/alert-util';
 import { NotaingresoacopioService } from '../../../../../services/notaingresoacopio.service';
 

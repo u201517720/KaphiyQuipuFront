@@ -4,7 +4,7 @@ import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { SolicitudcompraService } from '../../../../services/solicitudcompra.service';
-import { DateUtil } from 'src/app/services/util/date-util';
+import { DateUtil } from '../../../../services/util/date-util';
 import { MaestroUtil } from '../../../../services/util/maestro-util';
 
 @Component({
