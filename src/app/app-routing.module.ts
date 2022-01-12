@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { FullLayoutComponent } from "src/app/layouts/full/full-layout.component";
+import { FullLayoutComponent } from './layouts/full/full-layout.component';
 import { ContentLayoutComponent } from "src/app/layouts/content/content-layout.component";
 import { Full_ROUTES } from "src/app/shared/routes/full-layout.routes";
 import { CONTENT_ROUTES } from "src/app/shared/routes/content-layout.routes";
