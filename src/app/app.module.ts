@@ -13,7 +13,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { HttpInterceptorImpl } from './shared/http-interceptor-impl';
-import { AppRoutingModule } from "src/app/app-routing.module";
+import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { AppComponent } from "src/app/app.component";
 import { ContentLayoutComponent } from "src/app/layouts/content/content-layout.component";
