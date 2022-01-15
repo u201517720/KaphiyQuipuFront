@@ -20,7 +20,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { SharedModule } from '../../../shared/shared.module';
-import { SolicitudRoutingModule } from './solicitudes-routing.module';
+import { ProductorRoutingModule } from './productor-routing.module';
 import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
 import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit.component';
 
@@ -46,11 +46,11 @@ import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit
         PipeModule,
         MatchHeightModule,
         FileUploadModule,
-        SolicitudRoutingModule
+        ProductorRoutingModule
     ],
 
     providers: [
         { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }
     ]
 })
-export class SolicitudesModule { }
+export class ProductorModule { }

@@ -15,7 +15,7 @@ import { QrCodeModule } from 'ng-qrcode';
 import { ListFilterPipe } from '../../shared/pipes/listFilter.pipe';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ComprasModule } from './compras/compras.module';
-import { SolicitudesModule } from './solicitud/solicitudes.module';
+import { ProductorModule } from './productor/productor.module';
 import { PlantaModule } from './planta/planta.module';
 
 @NgModule({
@@ -34,7 +34,7 @@ import { PlantaModule } from './planta/planta.module';
     AcopioModule,
     FileUploadModule,
     ComprasModule,
-    SolicitudesModule,
+    ProductorModule,
     PlantaModule
   ],
   declarations: [
