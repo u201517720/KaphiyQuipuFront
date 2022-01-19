@@ -44,7 +44,7 @@ export class AlertUtil {
     })
   }
 
-  alertSiNoCallback(title: String, mensaje: any, callback) {
+  alertSiNoCallback(title: String, mensaje: any, callback, callBackNo?) {
     swal.fire({
       icon: "warning",
       title: title,
@@ -55,6 +55,8 @@ export class AlertUtil {
     }).then((result) => {
       if (result.value) {
         callback(result); // this should execute now
+      } else {
+        callBackNo(result);
       }
     })
   }

@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { ContratoService } from '../../../../../Services/contrato.service';
 import { MaestroService } from '../../../../../Services/maestro.service';
-import { MaestroUtil } from '../../../../../Services/util/maestro-util';
 import { SolicitudcompraService } from '../../../../../Services/solicitudcompra.service';
 import { AlertUtil } from '../../../../../Services/util/alert-util';
-import { ContratoService } from '../../../../../Services/contrato.service';
+import { MaestroUtil } from '../../../../../Services/util/maestro-util';
+
 
 @Component({
   selector: 'app-solicitudcompra-edit',
@@ -51,10 +51,12 @@ export class SolicitudcompraEditComponent implements OnInit {
   rows = [];
   selected = [];
   locId = 0;
-  locCodigoEstado;
+  locCodigoEstado: number;
   locFechaRegistroString;
   submitted = false;
   mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
+  errorGeneral = { isError: false, errorMessage: '' };
+  msgSolicitudNoAceptada: string;
 
   constructor(private fb: FormBuilder,
     private maestroService: MaestroService,
@@ -335,6 +337,7 @@ export class SolicitudcompraEditComponent implements OnInit {
 
   ConsultarPorId() {
     this.spinner.show();
+    this.errorGeneral.isError = false;
     this.solicitudcompraService.ConsultarPorId({ SolicitudCompraId: this.locId })
       .subscribe((res) => {
         if (res && res.Result.Success) {
@@ -345,6 +348,7 @@ export class SolicitudcompraEditComponent implements OnInit {
       }, (err) => {
         console.log(err);
         this.spinner.hide();
+        this.errorGeneral = { isError: true, errorMessage: this.mensajeGenerico };
       });
   }
 
@@ -362,7 +366,7 @@ export class SolicitudcompraEditComponent implements OnInit {
     if (pesoKilos) {
       const costoUnitario = this.frmSolicitudCompraNew.value.costoUnitario;
       const cantidad = this.frmSolicitudCompraNew.value.cantASolicitar;
-      const pesoSaco = this.frmSolicitudCompraNew.value.pesoXSaco;  
+      const pesoSaco = this.frmSolicitudCompraNew.value.pesoXSaco;
       const costoTotal = cantidad * pesoSaco * costoUnitario;
       if (costoTotal) {
         this.frmSolicitudCompraNew.controls.costoTotal.setValue(parseFloat(costoTotal.toFixed(2)));
@@ -458,7 +462,7 @@ export class SolicitudcompraEditComponent implements OnInit {
       this.frmSolicitudCompraNew.controls.correlativo.setValue(data.Correlativo);
       this.frmSolicitudCompraNew.controls.tara.setValue(parseFloat((data.TotalSacos * 0.3).toFixed(2)));
       this.frmSolicitudCompraNew.controls.kgsNetos.setValue(parseFloat(((data.PesoSaco + 9) * data.TotalSacos).toFixed(2)));
-      this.locCodigoEstado = data.EstadoId
+      this.locCodigoEstado = parseInt(data.EstadoId);
       this.locFechaRegistroString = data.FechaRegistroString;
       this.CalcularCostoTotal();
     }
@@ -481,6 +485,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   }
 
   RegistrarContrato() {
+    this.errorGeneral.isError = false;
     this.spinner.show();
     const request = {
       SolicitudCompraId: this.locId,
@@ -506,7 +511,51 @@ export class SolicitudcompraEditComponent implements OnInit {
       }, (err) => {
         console.log(err);
         this.spinner.hide();
+        this.errorGeneral = { isError: true, errorMessage: this.mensajeGenerico };
       });
+  }
+
+  EvaluarDisponibilidad() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de evaluar la disponibilidad de la materia prima?',
+      () => {
+        this.spinner.show();
+        this.errorGeneral.isError = false;
+        if (!this.frmSolicitudCompraNew.invalid) {
+          const request = {
+            CodigoSolicitudCompra: this.locId,
+            CodigoTipoCertificacion: this.frmSolicitudCompraNew.value.certificacion,
+            PesoNeto: this.frmSolicitudCompraNew.value.kgsNetos,
+            PesoSaco: this.frmSolicitudCompraNew.value.pesoXSaco,
+            Usuario: this.userSession.NombreUsuario
+          };
+
+          this.solicitudcompraService.EvaluarDisponibilidad(request)
+            .subscribe((res) => {
+              this.spinner.hide();
+              if (res.Result.Success) {
+                if (res.Result.Data.Aceptado) {
+                  this.alertUtil.alertSiNoCallback('Confirmación y Pregunta',
+                    res.Result.Data.Mensaje,
+                    () => {
+                      this.RegistrarContrato();
+                    }, () => {
+                      this.ConsultarPorId();
+                    });
+                } else {
+                  this.msgSolicitudNoAceptada = res.Result.Data.Mensaje;
+                }
+              }
+            }, (err) => {
+              this.spinner.hide();
+              this.errorGeneral = { isError: true, errorMessage: this.mensajeGenerico };
+            });
+        }
+      });
+  }
+
+  CancelarSolicitud() {
+
   }
 
 }

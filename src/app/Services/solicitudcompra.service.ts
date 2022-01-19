@@ -29,4 +29,9 @@ export class SolicitudcompraService {
     const url = `${this.url}/ConsultarPorId`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  EvaluarDisponibilidad(request: any): Observable<any> {
+    const url = `${this.url}/EvaluateAvailability`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

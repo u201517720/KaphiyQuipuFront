@@ -24,7 +24,6 @@ export class ContratoEditComponent implements OnInit {
 
   active = 1;
   frmContratoCompraVenta: FormGroup;
-  // frmContratoCompraVentaPesadoCafe: FormGroup;
   @ViewChild('PrintTemplate')
   private PrintTemplateTpl: TemplateRef<any>;
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -434,7 +433,7 @@ export class ContratoEditComponent implements OnInit {
       if (data.KilosNetos)
         this.frmContratoCompraVenta.controls.kilosNetos.setValue(data.KilosNetos);
       this.ActualizarListaAgricultores();
-      if (parseInt(this.locCodigoEstado) === 5) {
+      if (parseInt(this.locCodigoEstado) === 6) {
         await this.GetOlores();
         await this.GetColores();
       } else {
@@ -442,7 +441,7 @@ export class ContratoEditComponent implements OnInit {
         await this.GetColores();
         this.detalleControlesCalidad = data.controles;
       }
-      if (this.locCodigoEstado === '06') {
+      if (this.locCodigoEstado === '07') {
         const locsacosPC = this.frmContratoCompraVenta.controls.sacosPC;
         const lockilosBrutosPC = this.frmContratoCompraVenta.controls.kilosBrutosPC;
         const loctaraSacoPC = this.frmContratoCompraVenta.controls.taraSacoPC;
@@ -495,7 +494,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   ConfirmarContrato() {
-    if (this.locCodigoEstado === '02' && this.userSession.RolId === 6) {
+    if (this.locCodigoEstado === '03' && this.userSession.RolId === 6) {
       if (!this.frmContratoCompraVenta.invalid) {
         this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de confirmar el contrato?',
@@ -537,7 +536,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   ActualizarListaAgricultores() {
-    if (this.locCodigoEstado === '03') {
+    if (this.locCodigoEstado === '04') {
       const request = {
         TipoCertificacionId: this.frmContratoCompraVenta.value.certificacion
       }
@@ -591,12 +590,12 @@ export class ContratoEditComponent implements OnInit {
   }
 
   Guardar() {
-    if (this.locCodigoEstado === '03' && this.userSession.RolId === 7) {
+    if (this.locCodigoEstado === '04' && this.userSession.RolId === 7) {
       this.alertUtil.alertSiNoCallback('Pregunta',
         '¿Está seguro de solicitar la materia prima a los agricultores seleccionados?', () => {
           this.GuardarAgricultores();
         });
-    } else if (this.locCodigoEstado === '05' && this.userSession.RolId === 9) {
+    } else if (this.locCodigoEstado === '06' && this.userSession.RolId === 9) {
       this.alertUtil.alertSiNoCallback('Pregunta',
         '¿Está seguro de registrar el control de calidad realizado a la materia prima de los agricultores?',
         () => {
@@ -677,7 +676,7 @@ export class ContratoEditComponent implements OnInit {
         this.spinner.hide();
         if (res.Result.Success) {
           this.rows = res.Result.Data;
-          if (parseInt(this.locCodigoEstado) === 5) {
+          if (parseInt(this.locCodigoEstado) === 6) {
             this.detalleControlesCalidad = this.rows;
             this.rows.forEach(x => {
               this.listaControlesCalidad.push({
@@ -779,7 +778,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GuardarPesadoCafe() {
-    if (this.userSession.RolId === 8 && this.locCodigoEstado === '06') {
+    if (this.userSession.RolId === 8 && this.locCodigoEstado === '07') {
       this.submittedPesadoCafe = false;
       this.spinner.show();
       const request = {
@@ -830,7 +829,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GenerarGuiaRecepcion() {
-    if (this.userSession.RolId === 8 && this.locCodigoEstado === '06') {
+    if (this.userSession.RolId === 8 && this.locCodigoEstado === '07') {
       this.submittedPesadoCafe = false;
       if (!this.frmContratoCompraVenta.invalid) {
         this.alertUtil.alertSiNoCallback('Pregunta',

@@ -7,7 +7,7 @@
                 </h5>
                 <div class="card-body">
                     <div class="form-row"
-                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9 || locCodigoEstadoInt >= 8">
+                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9 || locCodigoEstadoInt >= 9">
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                             <div class="form-group row">
                             </div>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="form-row"
-                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9 || locCodigoEstadoInt >= 8">
+                        *ngIf="userSession.RolId === 7 || userSession.RolId === 8 || userSession.RolId === 9 || locCodigoEstadoInt >= 9">
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                             <div class="form-group row">
                                 <label for="destino" class="col-lg-2 col-form-label pr-0">DISTRIBUIDORA</label>
@@ -239,13 +239,13 @@
                                 <label for="observaciones" class="col-lg-4 col-form-label">OBSERVACIONES</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <textarea class="form-control" formControlName="observaciones" rows="4"
-                                        placeholder="Observaciones" maxlength="500" [readonly]="locCodigoEstadoInt >= 2"
+                                        placeholder="Observaciones" maxlength="500" [readonly]="locCodigoEstadoInt >= 3"
                                         [ngClass]="{ 'is-invalid': f.observaciones.invalid, 'is-valid': !f.observaciones.invalid }"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
-                            *ngIf="locCodigoEstadoInt >= 3 && userSession.RolId != 6">
+                            *ngIf="locCodigoEstadoInt >= 4 && userSession.RolId != 6">
                             <div class="form-group row">
                                 <label for="tara" class="col-lg-4 col-form-label">TARA (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -256,7 +256,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"
-                            *ngIf="locCodigoEstadoInt >= 3 && userSession.RolId != 6">
+                            *ngIf="locCodigoEstadoInt >= 4 && userSession.RolId != 6">
                             <div class="form-group row">
                                 <label for="kilosNetos" class="col-lg-4 col-form-label">PESO NETO (Kg.)</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -290,10 +290,10 @@
                         </div>
                     </div>
                     <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1"
-                        *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 3">
+                        *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 4">
                         <label class="text-white ml-1">SELECCIONAR AGRICULTORES</label>
                     </div>
-                    <div class="form-row" *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 3">
+                    <div class="form-row" *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 4">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <fieldset class="form-group">
                                 <label>Mostrar
@@ -326,28 +326,28 @@
                                 <ngx-datatable-column name="Certificación" prop="TipoCertificacion">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Total Cosecha (Kg.)" prop="TotalCosecha"
-                                    *ngIf="locCodigoEstado === '03'">
+                                    *ngIf="locCodigoEstado === '04'">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Cantidad Solicitada (Kg.)" prop="CantidadSolicitada"
-                                    *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
+                                    *ngIf="locCodigoEstado === '05' || locCodigoEstado === '06' || locCodigoEstado === '07'">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString"
-                                    width="100" *ngIf="locCodigoEstado === '03'">
+                                    width="100" *ngIf="locCodigoEstado === '04'">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro"
-                                    *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
+                                    *ngIf="locCodigoEstado === '05' || locCodigoEstado === '06' || locCodigoEstado === '07'">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroString"
-                                    *ngIf="locCodigoEstado === '04' || locCodigoEstado === '05' || locCodigoEstado === '06'">
+                                    *ngIf="locCodigoEstado === '05' || locCodigoEstado === '06' || locCodigoEstado === '07'">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
                                     checkboxable="true" width="30" sortable="false"
-                                    *ngIf="userSession.RolId === 7 && locCodigoEstado === '03'">
+                                    *ngIf="userSession.RolId === 7 && locCodigoEstado === '04'">
                                 </ngx-datatable-column>
                             </ngx-datatable>
                         </div>
                     </div>
-                    <div class="form-row" *ngIf="locCodigoEstado === '03'">
+                    <div class="form-row" *ngIf="locCodigoEstado === '04'">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <div class="form-group row">
                                 <label
@@ -371,7 +371,7 @@
         </div>
     </div>
     <div class="form-row"
-        *ngIf="(userSession.RolId === 9 || userSession.RolId === 8 || userSession.RolId === 7) && (locCodigoEstado === '05' || locCodigoEstado === '06')">
+        *ngIf="(userSession.RolId === 9 || userSession.RolId === 8 || userSession.RolId === 7) && (locCodigoEstado === '06' || locCodigoEstado === '07')">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="card-content">
@@ -413,13 +413,13 @@
                                                         <div class="col-lg-8">
                                                             <input type="number" class="form-control form-control-sm"
                                                                 placeholder="Porcentaje de humedad"
-                                                                [readonly]="locCodigoEstado === '06'"
-                                                                *ngIf="locCodigoEstadoInt === 5"
+                                                                [readonly]="locCodigoEstado === '07'"
+                                                                *ngIf="locCodigoEstadoInt === 6"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
                                                             <input type="number" class="form-control form-control-sm"
                                                                 placeholder="Porcentaje de humedad"
-                                                                [readonly]="locCodigoEstado === '06'"
-                                                                [value]="item.Humedad" *ngIf="locCodigoEstadoInt >= 6"
+                                                                [readonly]="locCodigoEstado === '07'"
+                                                                [value]="item.Humedad" *ngIf="locCodigoEstadoInt >= 7"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
                                                         </div>
                                                     </div>
@@ -434,15 +434,15 @@
                                                             <textarea class="form-control form-control-sm"
                                                                 id="observacionesAF" rows="2"
                                                                 placeholder="Observaciones" maxlength="500"
-                                                                [readonly]="locCodigoEstado === '06'"
-                                                                *ngIf="locCodigoEstadoInt === 5"
+                                                                [readonly]="locCodigoEstado === '07'"
+                                                                *ngIf="locCodigoEstadoInt === 6"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'obs')"></textarea>
                                                             <textarea class="form-control form-control-sm"
                                                                 id="observacionesAF" rows="2"
                                                                 placeholder="Observaciones" maxlength="500"
-                                                                [readonly]="locCodigoEstado === '06'"
+                                                                [readonly]="locCodigoEstado === '07'"
                                                                 [value]="item.Observaciones"
-                                                                *ngIf="locCodigoEstadoInt >= 6"
+                                                                *ngIf="locCodigoEstadoInt >= 7"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'obs')"></textarea>
                                                         </div>
                                                     </div>
@@ -462,12 +462,12 @@
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="olor.Codigo"
-                                                                        *ngIf="locCodigoEstadoInt === 5"
+                                                                        *ngIf="locCodigoEstadoInt === 6"
                                                                         (change)="changeOlores($event, item.ContratoSocioFincaId)">
                                                                     <input type="checkbox" [value]="olor.Codigo"
-                                                                        [disabled]="locCodigoEstadoInt === 6"
+                                                                        [disabled]="locCodigoEstadoInt === 7"
                                                                         [checked]="item.ListaOlores.includes(olor.Codigo)"
-                                                                        *ngIf="locCodigoEstadoInt >= 6">
+                                                                        *ngIf="locCodigoEstadoInt >= 7">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -484,12 +484,12 @@
                                                                 <td>{{color.Label}}</td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="color.Codigo"
-                                                                        *ngIf="locCodigoEstadoInt === 5"
+                                                                        *ngIf="locCodigoEstadoInt === 6"
                                                                         (change)="changeColores($event, item.ContratoSocioFincaId)">
                                                                     <input type="checkbox" [value]="color.Codigo"
-                                                                        [disabled]="locCodigoEstado === '06'"
+                                                                        [disabled]="locCodigoEstado === '07'"
                                                                         [checked]="item.ListaColores.includes(color.Codigo)"
-                                                                        *ngIf="locCodigoEstadoInt >= 6">
+                                                                        *ngIf="locCodigoEstadoInt >= 7">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -521,7 +521,7 @@
                                     </div>
                                 </ng-template>
                             </li>
-                            <li [ngbNavItem]="2" *ngIf="userSession.RolId === 8 && locCodigoEstado === '06'">
+                            <li [ngbNavItem]="2" *ngIf="userSession.RolId === 8 && locCodigoEstado === '07'">
                                 <a ngbNavLink class="nav-link d-flex align-items-center">
                                     <span class="d-none d-sm-block" style="font-size: 1.1rem;">Pesado del Café</span>
                                 </a>
@@ -754,7 +754,7 @@
         </div>
     </div>
 </form>
-<div class="row" *ngIf="mostrarqr" >
+<div class="row" *ngIf="mostrarqr">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
             <div class="card-content">
@@ -768,44 +768,47 @@
 <ng-template #PrintTemplate>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
-            <h3 class="text-center" style="font-weight: bold;">QR del Contrato {{this.frmContratoCompraVenta.value.correlativo}}</h3>
+            <h3 class="text-center" style="font-weight: bold;">QR del Contrato
+                {{this.frmContratoCompraVenta.value.correlativo}}</h3>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 50px;">
             <div class="text-center">
                 <table style="margin: 5px auto;width: 850px;">
                     <tbody>
                         <tr>
-                            <td class="text-left"> <label style="font-weight: bold;">Hash BlockChain: </label> {{hashBC}}</td>
-                            <td class="text-right">  <label style="font-weight: bold;">Fecha Hora: </label> {{fechaActual | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td class="text-left"> <label style="font-weight: bold;">Hash BlockChain: </label>
+                                {{hashBC}}</td>
+                            <td class="text-right"> <label style="font-weight: bold;">Fecha Hora: </label> {{fechaActual
+                                | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-       
+
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="text-center">
                 <table style="margin: 5px auto">
                     <tbody>
                         <tr>
-                            <td> <img [src]="urlCanvas"/></td>
-                            <td> <img [src]="urlCanvas"/></td>
-                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas" /></td>
+                            <td> <img [src]="urlCanvas" /></td>
+                            <td> <img [src]="urlCanvas" /></td>
                         </tr>
                         <tr>
-                            <td> <img [src]="urlCanvas"/></td>
-                            <td> <img [src]="urlCanvas"/></td>
-                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas" /></td>
+                            <td> <img [src]="urlCanvas" /></td>
+                            <td> <img [src]="urlCanvas" /></td>
                         </tr>
                         <tr>
-                            <td> <img [src]="urlCanvas"/></td>
-                            <td> <img [src]="urlCanvas"/></td>
-                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas" /></td>
+                            <td> <img [src]="urlCanvas" /></td>
+                            <td> <img [src]="urlCanvas" /></td>
                         </tr>
                         <tr>
-                            <td> <img [src]="urlCanvas"/></td>
-                            <td> <img [src]="urlCanvas"/></td>
-                            <td> <img [src]="urlCanvas"/></td>
+                            <td> <img [src]="urlCanvas" /></td>
+                            <td> <img [src]="urlCanvas" /></td>
+                            <td> <img [src]="urlCanvas" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -822,23 +825,26 @@
                         <div class="form-group row m-0">
                             <div class="col-lg-12 text-right">
                                 <button type="button" class="btn btn-primary mr-1" (click)="GenerarQRTrazabilidad()"
-                                    *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstado === '09'">Generar
+                                    *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstado === '10'">Generar
                                     QR de
                                     Trazabilidad</button>
                                 <button type="button" class="btn btn-secondary mr-1" (click)="onPrint()"
-                                    *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstado === '09' && mostrarqr">
+                                    *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstado === '10' && mostrarqr">
                                     Imprimir QR</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarRecepcion()"
-                                    *ngIf="userSession.RolId === 6 && locCodigoEstado === '08'">Confirmar
+                                    *ngIf="userSession.RolId === 6 && locCodigoEstado === '09'">Confirmar
                                     Recepción del Producto</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
-                                    *ngIf="(locCodigoEstado === '03' &&  userSession.RolId === 7) || (locCodigoEstado === '05' &&  userSession.RolId === 9)">Guardar</button>
+                                    *ngIf="(locCodigoEstado === '04' &&  userSession.RolId === 7) || (locCodigoEstado === '06' &&  userSession.RolId === 9)">Guardar</button>
                                 <button type="button" class="btn btn-primary mr-1"
-                                    *ngIf="locCodigoEstado === '06' && userSession.RolId === 8"
+                                    *ngIf="locCodigoEstado === '07' && userSession.RolId === 8"
                                     (click)="GenerarGuiaRecepcion()">Generar Guía de Recepción</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarContrato()"
-                                    *ngIf="locCodigoEstado === '02' && userSession.RolId === 6">Confirmar
+                                    *ngIf="locCodigoEstado === '03' && userSession.RolId === 6">Confirmar
                                     Contrato</button>
+                                <button type="button" class="btn btn-primary mr-1"
+                                    (click)="GenerarSolicitudTransporte()">Generar
+                                    Solicitud de Transporte</button>
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                             </div>
                         </div>

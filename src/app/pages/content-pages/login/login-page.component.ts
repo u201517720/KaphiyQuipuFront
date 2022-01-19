@@ -49,7 +49,7 @@ export class LoginPageComponent {
         fullScreen: true
       });
 
-    this.authService.signinUser(this.loginForm.value.username, this.loginForm.value.password)
+    this.authService.signinUser(this.loginForm.value.username.trim(), this.loginForm.value.password)
       .subscribe(res => {
         this.spinner.hide();
         console.log(res);
@@ -63,6 +63,8 @@ export class LoginPageComponent {
           else {
             this.errorGeneral = { isError: true, errorMessage: this.mensajeErrorGenerico };
           }
+        } else {
+          this.errorGeneral = { isError: true, errorMessage: res.Result.Message };
         }
       },
         err => {
