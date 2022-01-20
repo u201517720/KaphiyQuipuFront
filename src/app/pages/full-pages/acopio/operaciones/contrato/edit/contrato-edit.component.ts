@@ -59,7 +59,6 @@ export class ContratoEditComponent implements OnInit {
   rows = [];
   selectedAgricultores = [];
   locId = 0;
-  locCodigoEstado = '';
   locFechaRegistroString;
   mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
   listaControlesCalidad = [];
@@ -68,7 +67,7 @@ export class ContratoEditComponent implements OnInit {
   detalleControlesCalidad = [];
   submittedPesadoCafe = false;
   msgAgricultores = '';
-  locCodigoEstadoInt = 0;
+  locCodigoEstadoInt: number = 0;
   mostrarqr = false;
   hashBC = "";
   fechaActual: Date;
@@ -337,6 +336,7 @@ export class ContratoEditComponent implements OnInit {
 
   async CompletarForm(data) {
     if (data) {
+      this.locCodigoEstadoInt = parseInt(data.EstadoId);
       if (data.PaisId) {
         await this.GetCountries();
         this.frmContratoCompraVenta.controls.pais.setValue(data.PaisId);
@@ -422,9 +422,7 @@ export class ContratoEditComponent implements OnInit {
       this.frmContratoCompraVenta.controls.distribuidora.setValue(data.Distribuidor);
       this.frmContratoCompraVenta.controls.estado.setValue(data.DescripcionEstado);
       this.frmContratoCompraVenta.controls.correlativo.setValue(data.Correlativo);
-      this.locCodigoEstado = data.EstadoId;
       this.hashBC = data.HashBC;
-      this.locCodigoEstadoInt = parseInt(this.locCodigoEstado);
       this.locFechaRegistroString = data.FechaRegistroString;
       if (data.CostoTotal)
         this.frmContratoCompraVenta.controls.costoTotal.setValue(data.CostoTotal);
@@ -433,7 +431,7 @@ export class ContratoEditComponent implements OnInit {
       if (data.KilosNetos)
         this.frmContratoCompraVenta.controls.kilosNetos.setValue(data.KilosNetos);
       this.ActualizarListaAgricultores();
-      if (parseInt(this.locCodigoEstado) === 6) {
+      if (this.locCodigoEstadoInt === 6) {
         await this.GetOlores();
         await this.GetColores();
       } else {
@@ -441,7 +439,7 @@ export class ContratoEditComponent implements OnInit {
         await this.GetColores();
         this.detalleControlesCalidad = data.controles;
       }
-      if (this.locCodigoEstado === '07') {
+      if (this.locCodigoEstadoInt === 7) {
         const locsacosPC = this.frmContratoCompraVenta.controls.sacosPC;
         const lockilosBrutosPC = this.frmContratoCompraVenta.controls.kilosBrutosPC;
         const loctaraSacoPC = this.frmContratoCompraVenta.controls.taraSacoPC;
@@ -494,7 +492,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   ConfirmarContrato() {
-    if (this.locCodigoEstado === '03' && this.userSession.RolId === 6) {
+    if (this.locCodigoEstadoInt === 3 && this.userSession.RolId === 6) {
       if (!this.frmContratoCompraVenta.invalid) {
         this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de confirmar el contrato?',
@@ -536,7 +534,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   ActualizarListaAgricultores() {
-    if (this.locCodigoEstado === '04') {
+    if (this.locCodigoEstadoInt === 4) {
       const request = {
         TipoCertificacionId: this.frmContratoCompraVenta.value.certificacion
       }
@@ -590,12 +588,12 @@ export class ContratoEditComponent implements OnInit {
   }
 
   Guardar() {
-    if (this.locCodigoEstado === '04' && this.userSession.RolId === 7) {
+    if (this.locCodigoEstadoInt === 4 && this.userSession.RolId === 7) {
       this.alertUtil.alertSiNoCallback('Pregunta',
         '¿Está seguro de solicitar la materia prima a los agricultores seleccionados?', () => {
           this.GuardarAgricultores();
         });
-    } else if (this.locCodigoEstado === '06' && this.userSession.RolId === 9) {
+    } else if (this.locCodigoEstadoInt === 6 && this.userSession.RolId === 9) {
       this.alertUtil.alertSiNoCallback('Pregunta',
         '¿Está seguro de registrar el control de calidad realizado a la materia prima de los agricultores?',
         () => {
@@ -676,7 +674,7 @@ export class ContratoEditComponent implements OnInit {
         this.spinner.hide();
         if (res.Result.Success) {
           this.rows = res.Result.Data;
-          if (parseInt(this.locCodigoEstado) === 6) {
+          if (this.locCodigoEstadoInt === 6) {
             this.detalleControlesCalidad = this.rows;
             this.rows.forEach(x => {
               this.listaControlesCalidad.push({
@@ -778,7 +776,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GuardarPesadoCafe() {
-    if (this.userSession.RolId === 8 && this.locCodigoEstado === '07') {
+    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 7) {
       this.submittedPesadoCafe = false;
       this.spinner.show();
       const request = {
@@ -829,7 +827,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GenerarGuiaRecepcion() {
-    if (this.userSession.RolId === 8 && this.locCodigoEstado === '07') {
+    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 7) {
       this.submittedPesadoCafe = false;
       if (!this.frmContratoCompraVenta.invalid) {
         this.alertUtil.alertSiNoCallback('Pregunta',
@@ -975,5 +973,9 @@ export class ContratoEditComponent implements OnInit {
     var canvas = document.getElementsByTagName('canvas')[0];
     this.urlCanvas = canvas.toDataURL();
     this.printerService.printAngular(this.PrintTemplateTpl)
+  }
+
+  GenerarSolicitudTransporte() {
+
   }
 }
