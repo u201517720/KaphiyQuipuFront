@@ -162,6 +162,6 @@ export class MateriaprimaEditComponent implements OnInit {
   }
 
   Cancelar() {
-    this.router.navigate(['/solicitudes/materiaprima/list']);
+    this.router.navigate(['/productor/materiaprima/list']);
   }
 }

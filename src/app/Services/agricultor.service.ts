@@ -38,4 +38,9 @@ export class AgricultorService {
     const url = `${this.url}/ConfirmarEnvio`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ListarCosechasPorAgricultor(request: any): Observable<any> {
+    const url = `${this.url}/HarvestByFarmer`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

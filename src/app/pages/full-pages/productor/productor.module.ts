@@ -23,9 +23,10 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ProductorRoutingModule } from './productor-routing.module';
 import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
 import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit.component';
+import { CosechaComponent } from "./cosecha/cosecha.component";
 
 @NgModule({
-    declarations: [MateriaprimaComponent, MateriaprimaEditComponent],
+    declarations: [MateriaprimaComponent, MateriaprimaEditComponent, CosechaComponent],
     imports: [
         SharedModule,
         CommonModule,

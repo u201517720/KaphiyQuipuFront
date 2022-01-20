@@ -14,7 +14,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="destino" class="col-lg-4 col-form-label pr-0">FECHA REGISTRO</label>
+                                <label class="col-lg-4 col-form-label pr-0">FECHA REGISTRO</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <label class="col-form-label">{{locFechaRegistroString}}</label>
                                 </div>
@@ -25,7 +25,7 @@
                         *ngIf="userSession.RolId >= 7 && userSession.RolId <= 9 || locCodigoEstadoInt >= 10">
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                             <div class="form-group row">
-                                <label for="destino" class="col-lg-2 col-form-label pr-0">DISTRIBUIDORA</label>
+                                <label class="col-lg-2 col-form-label pr-0">DISTRIBUIDORA</label>
                                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                     <label class="col-form-label">{{frmContratoCompraVenta.value.distribuidora}}</label>
                                 </div>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
-                                <label for="destino" class="col-lg-4 col-form-label pr-0">ESTADO</label>
+                                <label class="col-lg-4 col-form-label pr-0">ESTADO</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                     <label class="col-form-label">{{frmContratoCompraVenta.value.estado}}</label>
                                 </div>
@@ -231,14 +231,13 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="form-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="form-group row">
                                 <label for="observaciones" class="col-lg-4 col-form-label">OBSERVACIONES</label>
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                    <textarea class="form-control" formControlName="observaciones" rows="4"
+                                    <textarea class="form-control" formControlName="observaciones" rows="2"
                                         placeholder="Observaciones" maxlength="500" [readonly]="locCodigoEstadoInt >= 3"
                                         [ngClass]="{ 'is-invalid': f.observaciones.invalid, 'is-valid': !f.observaciones.invalid }"></textarea>
                                 </div>
@@ -290,6 +289,11 @@
                         </div>
                     </div>
                     <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1"
+                        *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 6">
+                        <label class="text-white ml-1">TRANSPORTISTA QUE RECOGERÁ LA MATERIA PRIMA</label>
+                    </div>
+
+                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1"
                         *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 4">
                         <label class="text-white ml-1">SELECCIONAR AGRICULTORES</label>
                     </div>
@@ -328,16 +332,16 @@
                                 <ngx-datatable-column name="Total Cosecha (Kg.)" prop="TotalCosecha"
                                     *ngIf="locCodigoEstadoInt === 4">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Cantidad Solicitada (Kg.)" prop="CantidadSolicitada"
+                                <ngx-datatable-column name="Cant. Solicitada (Kg.)" prop="CantidadSolicitada"
                                     *ngIf="locCodigoEstadoInt >= 5 && locCodigoEstadoInt <= 8">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Fecha Actualización" prop="FechaActualizacionString"
+                                <ngx-datatable-column name="F. Actualización" prop="FechaActualizacionString"
                                     width="100" *ngIf="locCodigoEstadoInt === 4">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro"
                                     *ngIf="locCodigoEstadoInt >= 5 && locCodigoEstadoInt <= 8">
                                 </ngx-datatable-column>
-                                <ngx-datatable-column name="Fecha Registro" prop="FechaRegistroString"
+                                <ngx-datatable-column name="F. Registro" prop="FechaRegistroString"
                                     *ngIf="locCodigoEstadoInt >= 5 && locCodigoEstadoInt <= 8">
                                 </ngx-datatable-column>
                                 <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
@@ -371,7 +375,7 @@
         </div>
     </div>
     <div class="form-row"
-        *ngIf="(userSession.RolId === 9 || userSession.RolId === 8 || userSession.RolId === 7) && (locCodigoEstadoInt === 7 || locCodigoEstadoInt === 8)">
+        *ngIf="(userSession.RolId >= 7 && userSession.RolId <= 9) && (locCodigoEstadoInt === 7 || locCodigoEstadoInt === 8)">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="card-content">

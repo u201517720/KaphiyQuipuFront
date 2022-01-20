@@ -1,0 +1,102 @@
+<div class="row" *ngIf="userSession.RolId === 3">
+    <div class="col-12">
+        <div class="content-header text-center">LISTA DEL REGISTRO DE COSECHA</div>
+    </div>
+</div>
+<section id="tooltip-validation" *ngIf="userSession.RolId === 3">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="needs-validation" [formGroup]="frmListaCosecha" novalidate>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-4 form-group mb-2">
+                                    <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+                                    <input type="date" class="form-control" formControlName="fechaInicio"
+                                        id="fechaInicio" name="fechaInicio" placeholder="date" date
+                                        [ngClass]="{ 'is-invalid': f.fechaInicio.invalid, 'is-valid': !f.fechaInicio.invalid }"
+                                        (blur)="compararFechas()" />
+                                </div>
+                                <div class="col-md-4 mb-4 form-group mb-2">
+                                    <label for="fechaFin" class="form-label">Fecha Fin</label>
+                                    <input type="date" class="form-control" formControlName="fechaFin" id="fechaFin"
+                                        name="fechaFin" placeholder="date" date
+                                        [ngClass]="{ 'is-invalid': f.fechaFin.invalid, 'is-valid': !f.fechaFin.invalid }"
+                                        (blur)="compararFechas()" />
+                                </div>
+                            </div>
+
+                            <small class="form-text text-muted danger mb-1 font-weight-bolder"
+                                *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
+                            <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()"
+                                [disabled]="frmListaCosecha.invalid">Buscar</button>
+                            <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Nuevo()">Nuevo</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>
+<section id="ngx-datatable-filter" *ngIf="userSession.RolId === 3">
+    <div class="row">
+        <div class="col-12">
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <fieldset class="form-group">
+                            <label>Mostrar
+                                <select name="users-list-select"
+                                    class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                                    (click)="updateLimit($event)">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                filas</label>
+                        </fieldset>
+                        <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows" [scrollbarH]="true">
+                            <!-- <ngx-datatable-column name="Nro. Socio" prop="Codigo">
+                                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                                    <div class="d-flex align-items-center">
+                                        <div class="cell-line-height">
+                                            <a class="line-height-1 mb-0"
+                                                [routerLink]="['/productor/cosecha/update', row.SocioFincaCosechaId]">{{
+                                                name }}</a>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngx-datatable-column> -->
+                            <ngx-datatable-column name="Nro. Socio" prop="Codigo">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Tipo Doc." prop="TipoDocumento">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Nro. Documento" prop="NumeroDocumento">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Finca" prop="Finca">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Peso Neto" prop="PesoNeto">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Unid. Medida" prop="UnidadMedida">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="F. Cosecha" prop="FechaCosechaString">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="F. Registro" prop="FechaRegistroString">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="F. Actualización" prop="FechaActualizacionString">
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
