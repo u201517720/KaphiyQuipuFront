@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-header bg-primary text-white text-center align-middle p-0 pt-1 pb-1">
+        NUEVA COSECHA
+    </div>
+    <div class="card-body">
+        <form class="needs-validation" [formGroup]="frmDetalleCosecha" novalidate>
+            <div class="form-row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label pr-0">FINCA</label>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            <ng-select [items]="listFincas" formControlName="finca" class="form-control"
+                                bindLabel="Label" bindValue="Codigo" placeholder="Finca"
+                                [ngClass]="{ 'is-invalid': submitted && f.finca.invalid, 'is-valid': !submitted && !f.finca.invalid }"
+                                [(ngModel)]="selectedFinca">
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label pr-0">FECHA COSECHA</label>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            <input type="date" date formControlName="fechaCosecha" class="form-control"
+                                placeholder="Fecha Cosecha"
+                                [ngClass]="{ 'is-invalid': submitted && f.fechaCosecha.invalid, 'is-valid': !submitted && !f.fechaCosecha.invalid }">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label pr-0">UNIDAD MEDIDA</label>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            <ng-select [items]="listUnidadMedida" formControlName="unidadMedida" class="form-control"
+                                bindLabel="Label" bindValue="Codigo" placeholder="Unidad Medida"
+                                [ngClass]="{ 'is-invalid': submitted && f.finca.invalid, 'is-valid': !submitted && !f.finca.invalid }"
+                                [(ngModel)]="selectedUnidMedida">
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label pr-0">PESO NETO</label>
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            <input type="number" formControlName="pesoNeto" class="form-control text-right"
+                                placeholder="Peso Neto"
+                                [ngClass]="{ 'is-invalid': submitted && f.pesoNeto.invalid, 'is-valid': !submitted && !f.pesoNeto.invalid }">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-lg-12 text-right">
+                <button type="button" class="btn btn-primary mr-1" (click)="Guardar()">Guardar</button>
+                <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>

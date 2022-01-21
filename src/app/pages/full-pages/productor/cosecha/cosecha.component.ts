@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 import { DateUtil } from '../../../../Services/util/date-util';
 import { AgricultorService } from '../../../../Services/agricultor.service';
@@ -24,6 +25,7 @@ export class CosechaComponent implements OnInit {
     constructor(private fb: FormBuilder,
         private dateUtil: DateUtil,
         private spinner: NgxSpinnerService,
+        private router: Router,
         private agricultorService: AgricultorService) {
         this.userSession = JSON.parse(sessionStorage.getItem('user'));
         if (this.userSession) {
@@ -107,7 +109,7 @@ export class CosechaComponent implements OnInit {
     }
 
     Nuevo() {
-
+        this.router.navigate(['/productor/cosecha/create']);
     }
 
 }

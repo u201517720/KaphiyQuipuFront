@@ -24,9 +24,10 @@ import { ProductorRoutingModule } from './productor-routing.module';
 import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
 import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit.component';
 import { CosechaComponent } from "./cosecha/cosecha.component";
+import { CosechaEditComponent } from "./cosecha/edit/cosecha-edit.component";
 
 @NgModule({
-    declarations: [MateriaprimaComponent, MateriaprimaEditComponent, CosechaComponent],
+    declarations: [MateriaprimaComponent, MateriaprimaEditComponent, CosechaComponent, CosechaEditComponent],
     imports: [
         SharedModule,
         CommonModule,

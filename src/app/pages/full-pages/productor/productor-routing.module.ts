@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
 import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit.component';
 import { CosechaComponent } from './cosecha/cosecha.component';
+import { CosechaEditComponent } from './cosecha/edit/cosecha-edit.component';
 
 const routes: Routes = [
     {
@@ -32,7 +33,7 @@ const routes: Routes = [
             },
             {
                 path: 'cosecha/create',
-                component: CosechaComponent,
+                component: CosechaEditComponent,
                 data: {
                     title: 'Lista del registro de cosechas'
                 }

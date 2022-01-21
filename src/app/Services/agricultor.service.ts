@@ -43,4 +43,14 @@ export class AgricultorService {
     const url = `${this.url}/HarvestByFarmer`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ListarFincasPorAgricultor(request: any): Observable<any> {
+    const url = `${this.url}/EstatesByFarmer`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  RegistrarCosechaPorFinca(request: any): Observable<any> {
+    const url = `${this.url}/SaveHarvestByFarm`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
