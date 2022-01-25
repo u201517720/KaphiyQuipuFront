@@ -1,0 +1,69 @@
+<div class="modal-header bg-primary">
+    <h4 class="modal-title">Consultar Transportistas</h4>
+    <button type="button" class="close" aria-label="Close" (click)="CloseModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="modalConsultarTransportista" class="needs-validation" novalidate>
+        <div class="form-row">
+            <div class="col-md-3 mb-4 form-group mb-2">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre completo"
+                    [ngClass]="{ 'is-invalid': f.nombre.invalid, 'is-valid': !f.nombre.invalid }" />
+            </div>
+            <div class="col-md-3 mb-4 form-group mb-2">
+                <label for="nroDocumento" class="form-label">Nro. Documento</label>
+                <input type="text" class="form-control" formControlName="nroDocumento" placeholder="Número documento"
+                    [ngClass]="{ 'is-invalid': f.nroDocumento.invalid, 'is-valid': !f.nroDocumento.invalid }" />
+            </div>
+        </div>
+
+        <small class="form-text text-muted danger" *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
+
+        <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Buscar()"
+            [disabled]="modalConsultarTransportista.invalid">Buscar</button>
+        <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Seleccionar()">Seleccionar</button>
+    </form>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body">
+                        <fieldset class="form-group">
+                            <label>Mostrar
+                                <select name="users-list-select"
+                                    class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                                    (click)="updateLimit($event)">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                filas</label>
+                        </fieldset>
+                        <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
+                            [selectionType]="'single'" #table [selected]="selected">
+                            <ngx-datatable-column name="Nombre Completo" prop="CorrelativoNIA">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Nro. Documento" prop="CorrelativoNIA">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Celular" prop="TipoProceso">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="SOAT" prop="Responsable">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Placa" prop="FechaInicioProceso">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Licencia" prop="FechaFinProceso">
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-between align-items-center">
+    <ngx-spinner></ngx-spinner>
+</div>

@@ -82,4 +82,9 @@ export class MaestroService {
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
 
+  ConsultarTransportista(request: any) {
+    const url = `${this.url}/ConsultCarrier`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
 }
