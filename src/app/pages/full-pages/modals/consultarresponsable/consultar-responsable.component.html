@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <form [formGroup]="modalConsultarTransportista" class="needs-validation" novalidate>
+    <form [formGroup]="modalConsultarResponsable" class="needs-validation" novalidate>
         <div class="form-row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="form-group row">
@@ -31,7 +31,7 @@
         <small class="form-text text-muted danger" *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
 
         <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Buscar()"
-            [disabled]="modalConsultarTransportista.invalid">Buscar</button>
+            [disabled]="modalConsultarResponsable.invalid">Buscar</button>
         <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Seleccionar()">Seleccionar</button>
     </form>
     <div class="row">
@@ -54,17 +54,13 @@
                         <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
                             [rowHeight]="50" [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows"
                             [scrollbarH]="true" [selectionType]="'single'" #table [selected]="selected">
-                            <ngx-datatable-column name="Nombre Completo" prop="Conductor">
+                            <ngx-datatable-column name="Nombre Completo" prop="Responsable">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Nro. Documento" prop="Dni">
+                            <ngx-datatable-column name="Tipo Documento" prop="TipoDocumento">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="Celular" prop="NroCelular">
+                            <ngx-datatable-column name="Nro. Documento" prop="NumeroDocumento">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="SOAT" prop="Soat">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Placa" prop="PlacaCarreta">
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Licencia" prop="Licencia">
+                            <ngx-datatable-column name="Email" prop="Email">
                             </ngx-datatable-column>
                         </ngx-datatable>
                     </div>

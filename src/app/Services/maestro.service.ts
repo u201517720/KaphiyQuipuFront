@@ -87,4 +87,8 @@ export class MaestroService {
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
 
+  ConsultarResponsable(request: any) {
+    const url = `${this.url}/ConsultResponsible`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

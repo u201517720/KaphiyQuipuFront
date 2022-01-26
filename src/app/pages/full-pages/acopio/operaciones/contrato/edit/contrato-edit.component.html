@@ -292,6 +292,14 @@
                         *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 6">
                         <label class="text-white ml-1">TRANSPORTISTA QUE RECOGERÁ LA MATERIA PRIMA</label>
                     </div>
+                    <div class="form-row">
+                        <ng-template #mdlConsultCarriers let-c="close" let-d="dismiss">
+                            <app-consultar-transportista (transportistaEvent)="ResultConsultCarriers($event)">
+                            </app-consultar-transportista>
+                        </ng-template>
+                        <button class="btn btn-primary" (click)="openModal(mdlConsultCarriers)"
+                            type="button">Transportista</button>
+                    </div>
 
                     <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1"
                         *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 4">

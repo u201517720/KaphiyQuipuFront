@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { MaestroService } from '../../../../../../Services/maestro.service';
 import { MaestroUtil } from '../../../../../../Services/util/maestro-util';
@@ -84,6 +85,7 @@ export class ContratoEditComponent implements OnInit {
     private contratoService: ContratoService,
     private agricultorService: AgricultorService,
     private guiarecepcionacopioService: GuiarecepcionacopioService,
+    private modalService: NgbModal,
     private printerService: NgxPrinterService) {
     this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
@@ -976,6 +978,14 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GenerarSolicitudTransporte() {
+
+  }
+
+  openModal(modal) {
+    this.modalService.open(modal, { windowClass: 'dark-modal', size: 'xl', centered: true });
+  }
+
+  ResultConsultCarriers(event) {
 
   }
 }

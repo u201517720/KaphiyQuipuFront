@@ -16,8 +16,10 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { QrCodeModule } from 'ng-qrcode';
 import { NgxPrinterModule } from 'ngx-printer';
+
 import { AcopioRoutingModule } from './acopio-routing.module';
 import { PipeModule } from '../../../shared/pipes/pipe.module';
+import { ModalModule } from '../modals/modal.module';
 import { MatchHeightModule } from '../../../shared/directives/match-height.directive';
 import { NgbDateCustomParserFormatter } from '../../../shared/util/NgbDateCustomParserFormatter';
 import { IngresoAlmacenComponent } from '../acopio/operaciones/ingresoalmacen/ingreso-almacen.component';
@@ -36,7 +38,6 @@ import { NotaIngresoDevolucionComponent } from '../acopio/operaciones/notaingres
 import { NotaIngresoDevolucionEditComponent } from '../acopio/operaciones/notaingresodevolucion/edit/nota-ingreso-devolucion-edit.component';
 import { GuiaRemisionDevolucionComponent } from '../acopio/operaciones/guiaremisiondevolucion/guia-remision-devolucion.component';
 import { GuiaRemisionDevolucionEditComponent } from '../acopio/operaciones/guiaremisiondevolucion/edit/guia-remision-devolucion-edit.component';
-import { ModalModule } from '../modals/modal.module';
 
 @NgModule({
   imports: [

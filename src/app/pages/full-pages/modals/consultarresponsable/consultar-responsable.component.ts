@@ -6,13 +6,13 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { MaestroService } from '../../../../Services/maestro.service';
 
 @Component({
-    selector: 'app-consultar-transportista',
-    templateUrl: './consultar-transportista.component.html',
-    styleUrls: ['./consultar-transportista.component.scss', '/assets/sass/libs/datatables.scss'],
+    selector: 'app-consultar-responsable',
+    templateUrl: './consultar-responsable.component.html',
+    styleUrls: ['./consultar-responsable.component.scss', '/assets/sass/libs/datatables.scss'],
     encapsulation: ViewEncapsulation.None
 })
 
-export class MConsultarTransportista implements OnInit {
+export class MConsultarResponsable implements OnInit {
 
     constructor(
         private spinner: NgxSpinnerService,
@@ -21,7 +21,7 @@ export class MConsultarTransportista implements OnInit {
         private maestroService: MaestroService
     ) { }
 
-    modalConsultarTransportista: FormGroup;
+    modalConsultarResponsable: FormGroup;
     @ViewChild(DatatableComponent) table: DatatableComponent;
     @Output() transportistaEvent = new EventEmitter<any[]>();
     errorGeneral = { isError: false, errorMessage: '' };
@@ -34,14 +34,14 @@ export class MConsultarTransportista implements OnInit {
     }
 
     LoadForm() {
-        this.modalConsultarTransportista = this.fb.group({
+        this.modalConsultarResponsable = this.fb.group({
             nombre: [],
             nroDocumento: []
         });
     }
 
     get f() {
-        return this.modalConsultarTransportista.controls;
+        return this.modalConsultarResponsable.controls;
     }
 
     updateLimit(limit) {
@@ -51,10 +51,11 @@ export class MConsultarTransportista implements OnInit {
     Buscar() {
         this.spinner.show();
         const request = {
-            Nombre: this.modalConsultarTransportista.value.nombre,
-            NumeroDocumento: this.modalConsultarTransportista.value.nroDocumento
+            Nombre: this.modalConsultarResponsable.value.nombre,
+            Documento: this.modalConsultarResponsable.value.nroDocumento,
+            Tipo: '01'
         }
-        this.maestroService.ConsultarTransportista(request)
+        this.maestroService.ConsultarResponsable(request)
             .subscribe((res) => {
                 this.spinner.hide();
                 if (res.Result.Success) {

@@ -17,7 +17,9 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgbDateCustomParserFormatter } from "../../../shared/util/NgbDateCustomParserFormatter";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MConsultarTransportista } from "./consultartransportista/consultar-transportista.component";
 import { SharedModule } from '../../../shared/shared.module';
+import { MConsultarResponsable } from "./consultarresponsable/consultar-responsable.component";
 
 @NgModule({
     imports: [
@@ -41,10 +43,12 @@ import { SharedModule } from '../../../shared/shared.module';
         NgxSpinnerModule
     ],
     declarations: [
-        
+        MConsultarTransportista,
+        MConsultarResponsable
     ],
     exports: [
-        
+        MConsultarTransportista,
+        MConsultarResponsable
     ],
     providers: [
         { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }
