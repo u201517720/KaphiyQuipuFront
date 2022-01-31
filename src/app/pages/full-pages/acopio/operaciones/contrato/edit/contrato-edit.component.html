@@ -7,7 +7,7 @@
                 </h5>
                 <div class="card-body">
                     <div class="form-row"
-                        *ngIf="userSession.RolId >= 7 && userSession.RolId <= 9 || locCodigoEstadoInt >= 10">
+                        *ngIf="userSession.RolId >= 7 && userSession.RolId <= 9 || locCodigoEstadoInt >= 11">
                         <div class="col-lg-8 col-md-9 col-sm-9 col-xs-9">
                             <div class="form-group row">
                             </div>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="form-row"
-                        *ngIf="userSession.RolId >= 7 && userSession.RolId <= 9 || locCodigoEstadoInt >= 10">
+                        *ngIf="userSession.RolId >= 7 && userSession.RolId <= 9 || locCodigoEstadoInt >= 11">
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label pr-0">DISTRIBUIDORA</label>
@@ -288,75 +288,199 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1"
-                        *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 6">
-                        <label class="text-white ml-1">TRANSPORTISTA QUE RECOGERÁ LA MATERIA PRIMA</label>
+                    <div *ngIf="userSession.RolId === 7 && locCodigoEstadoInt >= 6">
+                        <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                            <label class="text-white ml-1">TRANSPORTISTAS DISPONIBLES</label>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <fieldset class="form-group">
+                                    <label>Mostrar
+                                        <select name="users-list-select"
+                                            class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                                            (click)="updateLimit($event)">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        Filas</label>
+                                    <button type="button" class="btn btn-sm float-right btn-primary"
+                                        (click)="ActualizarListaTransportistas()"
+                                        *ngIf="locCodigoEstadoInt === 6">Actualizar Lista</button>
+                                </fieldset>
+                                <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'"
+                                    [headerHeight]="50" [footerHeight]="50" rowHeight="'auto'" [limit]="limitTrans"
+                                    [rows]="rowsTrans" [scrollbarH]="true" [selected]="selectedTrans"
+                                    [selectionType]="'checkbox'" (select)="onSelectTransportistas($event)">
+                                    <ngx-datatable-column name="Nombre Completo" prop="Conductor">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Nro. Documento" prop="Dni">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Celular" prop="NroCelular">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="SOAT" prop="Soat">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Placa" prop="PlacaCarreta">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Licencia" prop="Licencia">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
+                                        checkboxable="true" width="30" sortable="false"
+                                        *ngIf="locCodigoEstadoInt === 6">
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                            </div>
+                        </div>
+                        <!-- <div class="form-row">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <div class="form-group row">
+                                    <label for="transportista" class="col-lg-2 col-form-label">TRANSPORTISTA</label>
+                                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                        <input type="text" formControlName="transportista"
+                                            class="form-control form-control-sm" placeholder="Nombre del transportista"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.transportista.invalid, 'is-valid': !f.transportista.invalid }">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <ng-template #mdlConsultCarriers let-c="close" let-d="dismiss">
+                                            <app-consultar-transportista
+                                                (transportistaEvent)="ResultConsultCarriers($event)">
+                                            </app-consultar-transportista>
+                                        </ng-template>
+                                        <button class="btn btn-primary btn-sm" (click)="openModal(mdlConsultCarriers)"
+                                            type="button" *ngIf="locCodigoEstadoInt === 6">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="form-row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="tipoDocTrans" class="col-lg-4 col-form-label">TIPO DOCUMENTO</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="tipoDocTrans"
+                                            class="form-control form-control-sm" placeholder="Tipo de documento"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.tipoDocTrans.invalid, 'is-valid': !f.tipoDocTrans.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="nroDocTrans" class="col-lg-4 col-form-label">NRO. DOCUMENTO</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="nroDocTrans"
+                                            class="form-control form-control-sm" placeholder="Número de documento"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.nroDocTrans.invalid, 'is-valid': !f.nroDocTrans.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="nroCellTrans" class="col-lg-4 col-form-label">NRO. CELULAR</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="nroCellTrans"
+                                            class="form-control form-control-sm" placeholder="Número de celular"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.nroCellTrans.invalid, 'is-valid': !f.nroCellTrans.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="placaTrans" class="col-lg-4 col-form-label">PLACA</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="placaTrans"
+                                            class="form-control form-control-sm" placeholder="Número de placa"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.placaTrans.invalid, 'is-valid': !f.placaTrans.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="licenciaTrans" class="col-lg-4 col-form-label">LICENCIA</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="licenciaTrans"
+                                            class="form-control form-control-sm" placeholder="Licencia"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.licenciaTrans.invalid, 'is-valid': !f.licenciaTrans.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="soatTrans" class="col-lg-4 col-form-label">SOAT</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="soatTrans"
+                                            class="form-control form-control-sm" placeholder="SOAT" [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.soatTrans.invalid, 'is-valid': !f.soatTrans.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
                     </div>
-                    <div class="form-row">
-                        <ng-template #mdlConsultCarriers let-c="close" let-d="dismiss">
-                            <app-consultar-transportista (transportistaEvent)="ResultConsultCarriers($event)">
-                            </app-consultar-transportista>
-                        </ng-template>
-                        <button class="btn btn-primary" (click)="openModal(mdlConsultCarriers)"
-                            type="button">Transportista</button>
-                    </div>
-
-                    <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1"
-                        *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 4">
-                        <label class="text-white ml-1">SELECCIONAR AGRICULTORES</label>
-                    </div>
-                    <div class="form-row" *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 4">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <fieldset class="form-group">
-                                <label>Mostrar
-                                    <select name="users-list-select"
-                                        class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
-                                        (click)="updateLimit($event)">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                    Filas</label>
-                                <button type="button" class="btn btn-sm float-right btn-primary"
-                                    (click)="ActualizarListaAgricultores()">Actualizar Lista</button>
-                            </fieldset>
-                            <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
-                                [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows"
-                                [scrollbarH]="true" [selected]="selectedAgricultores" [selectionType]="'checkbox'"
-                                (select)="onSelectAgricultores($event)">
-                                <ngx-datatable-column name="Nombre" prop="NombreCompleto">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Tipo Documento" prop="TipoDocumento">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Número Documento" prop="NumeroDocumento">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Celular" prop="NumeroTelefonoCelular">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Finca" prop="Finca">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Certificación" prop="TipoCertificacion">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Total Cosecha (Kg.)" prop="TotalCosecha"
-                                    *ngIf="locCodigoEstadoInt === 4">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Cant. Solicitada (Kg.)" prop="CantidadSolicitada"
-                                    *ngIf="locCodigoEstadoInt >= 5 && locCodigoEstadoInt <= 8">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="F. Actualización" prop="FechaActualizacionString"
-                                    width="100" *ngIf="locCodigoEstadoInt === 4">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro"
-                                    *ngIf="locCodigoEstadoInt >= 5 && locCodigoEstadoInt <= 8">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="F. Registro" prop="FechaRegistroString"
-                                    *ngIf="locCodigoEstadoInt >= 5 && locCodigoEstadoInt <= 8">
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
-                                    checkboxable="true" width="30" sortable="false"
-                                    *ngIf="userSession.RolId === 7 && locCodigoEstadoInt === 4">
-                                </ngx-datatable-column>
-                            </ngx-datatable>
+                    <div *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 4">
+                        <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                            <label class="text-white ml-1">SELECCIONAR AGRICULTORES</label>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <fieldset class="form-group">
+                                    <label>Mostrar
+                                        <select name="users-list-select"
+                                            class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                                            (click)="updateLimit($event)">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        Filas</label>
+                                    <button type="button" class="btn btn-sm float-right btn-primary"
+                                        (click)="ActualizarListaAgricultores()">Actualizar Lista</button>
+                                </fieldset>
+                                <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'"
+                                    [headerHeight]="50" [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef"
+                                    [rows]="rows" [scrollbarH]="true" [selected]="selectedAgricultores"
+                                    [selectionType]="'checkbox'" (select)="onSelectAgricultores($event)">
+                                    <ngx-datatable-column name="Nombre" prop="NombreCompleto">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Tipo Documento" prop="TipoDocumento">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Número Documento" prop="NumeroDocumento">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Celular" prop="NumeroTelefonoCelular">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Finca" prop="Finca">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Certificación" prop="TipoCertificacion">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Total Cosecha (Kg.)" prop="TotalCosecha"
+                                        *ngIf="locCodigoEstadoInt === 4">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Cant. Solicitada (Kg.)" prop="CantidadSolicitada"
+                                        *ngIf="locCodigoEstadoInt >= 5 && locCodigoEstadoInt <= 9">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="F. Actualización" prop="FechaActualizacionString"
+                                        width="100" *ngIf="locCodigoEstadoInt === 4">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Usuario Registro" prop="UsuarioRegistro"
+                                        *ngIf="locCodigoEstadoInt >= 5 && locCodigoEstadoInt <= 9">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="F. Registro" prop="FechaRegistroString"
+                                        *ngIf="locCodigoEstadoInt >= 5 && locCodigoEstadoInt <= 9">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
+                                        checkboxable="true" width="30" sortable="false"
+                                        *ngIf="userSession.RolId === 7 && locCodigoEstadoInt === 4">
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row" *ngIf="locCodigoEstadoInt === 4">
@@ -378,12 +502,77 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="userSession.RolId === 8 && locCodigoEstadoInt >= 8">
+                        <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                            <label class="text-white ml-1">SELECCIONAR CONTROLADOR DE CALIDAD</label>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <div class="form-group row">
+                                    <label for="controlador" class="col-lg-4 col-form-label">CONTROLADOR DE
+                                        CALIDAD</label>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <input type="text" formControlName="controlador"
+                                            class="form-control form-control-sm" placeholder="Controlador de calidad"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.controlador.invalid, 'is-valid': !f.controlador.invalid }">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <ng-template #mdlResponsibleInquiries let-c="close" let-d="dismiss">
+                                            <app-consultar-responsable
+                                                (responsableEvent)="ResultResponsibleInquiries($event)">
+                                            </app-consultar-responsable>
+                                        </ng-template>
+                                        <button class="btn btn-primary btn-sm"
+                                            (click)="openModal(mdlResponsibleInquiries)" type="button"
+                                            *ngIf="locCodigoEstadoInt === 8">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="tipoDocControlador" class="col-lg-4 col-form-label">TIPO
+                                        DOCUMENTO</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="tipoDocControlador"
+                                            class="form-control form-control-sm" placeholder="Tipo de documento"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.tipoDocControlador.invalid, 'is-valid': !f.tipoDocControlador.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="nroDocControlador" class="col-lg-4 col-form-label">NRO.
+                                        DOCUMENTO</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="nroDocControlador"
+                                            class="form-control form-control-sm" placeholder="Número de documento"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.nroDocControlador.invalid, 'is-valid': !f.nroDocControlador.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="mailControlador" class="col-lg-4 col-form-label">EMAIL</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="email" formControlName="mailControlador"
+                                            class="form-control form-control-sm" placeholder="Email" [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.mailControlador.invalid, 'is-valid': !f.mailControlador.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="form-row"
-        *ngIf="(userSession.RolId >= 7 && userSession.RolId <= 9) && (locCodigoEstadoInt === 7 || locCodigoEstadoInt === 8)">
+        *ngIf="(userSession.RolId >= 7 && userSession.RolId <= 9) && (locCodigoEstadoInt === 8 || locCodigoEstadoInt === 9)">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="card-content">
@@ -425,13 +614,13 @@
                                                         <div class="col-lg-8">
                                                             <input type="number" class="form-control form-control-sm"
                                                                 placeholder="Porcentaje de humedad"
-                                                                [readonly]="locCodigoEstadoInt === 8"
-                                                                *ngIf="locCodigoEstadoInt === 7"
+                                                                [readonly]="locCodigoEstadoInt === 9"
+                                                                *ngIf="locCodigoEstadoInt === 8"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
                                                             <input type="number" class="form-control form-control-sm"
                                                                 placeholder="Porcentaje de humedad"
-                                                                [readonly]="locCodigoEstadoInt === 8"
-                                                                [value]="item.Humedad" *ngIf="locCodigoEstadoInt >= 8"
+                                                                [readonly]="locCodigoEstadoInt === 9"
+                                                                [value]="item.Humedad" *ngIf="locCodigoEstadoInt >= 9"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'hmd')">
                                                         </div>
                                                     </div>
@@ -446,15 +635,15 @@
                                                             <textarea class="form-control form-control-sm"
                                                                 id="observacionesAF" rows="2"
                                                                 placeholder="Observaciones" maxlength="500"
-                                                                [readonly]="locCodigoEstadoInt === 8"
-                                                                *ngIf="locCodigoEstadoInt === 7"
+                                                                [readonly]="locCodigoEstadoInt === 9"
+                                                                *ngIf="locCodigoEstadoInt === 8"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'obs')"></textarea>
                                                             <textarea class="form-control form-control-sm"
                                                                 id="observacionesAF" rows="2"
                                                                 placeholder="Observaciones" maxlength="500"
-                                                                [readonly]="locCodigoEstadoInt === 8"
+                                                                [readonly]="locCodigoEstadoInt === 9"
                                                                 [value]="item.Observaciones"
-                                                                *ngIf="locCodigoEstadoInt >= 8"
+                                                                *ngIf="locCodigoEstadoInt >= 9"
                                                                 (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'obs')"></textarea>
                                                         </div>
                                                     </div>
@@ -474,12 +663,12 @@
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="olor.Codigo"
-                                                                        *ngIf="locCodigoEstadoInt === 7"
+                                                                        *ngIf="locCodigoEstadoInt === 8"
                                                                         (change)="changeOlores($event, item.ContratoSocioFincaId)">
                                                                     <input type="checkbox" [value]="olor.Codigo"
-                                                                        [disabled]="locCodigoEstadoInt === 8"
+                                                                        [disabled]="locCodigoEstadoInt === 9"
                                                                         [checked]="item.ListaOlores.includes(olor.Codigo)"
-                                                                        *ngIf="locCodigoEstadoInt >= 8">
+                                                                        *ngIf="locCodigoEstadoInt >= 9">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -496,12 +685,12 @@
                                                                 <td>{{color.Label}}</td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="color.Codigo"
-                                                                        *ngIf="locCodigoEstadoInt === 7"
+                                                                        *ngIf="locCodigoEstadoInt === 8"
                                                                         (change)="changeColores($event, item.ContratoSocioFincaId)">
                                                                     <input type="checkbox" [value]="color.Codigo"
-                                                                        [disabled]="locCodigoEstadoInt === 8"
+                                                                        [disabled]="locCodigoEstadoInt === 9"
                                                                         [checked]="item.ListaColores.includes(color.Codigo)"
-                                                                        *ngIf="locCodigoEstadoInt >= 8">
+                                                                        *ngIf="locCodigoEstadoInt >= 9">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -533,7 +722,7 @@
                                     </div>
                                 </ng-template>
                             </li>
-                            <li [ngbNavItem]="2" *ngIf="userSession.RolId === 8 && locCodigoEstadoInt === 8">
+                            <li [ngbNavItem]="2" *ngIf="userSession.RolId === 8 && locCodigoEstadoInt === 9">
                                 <a ngbNavLink class="nav-link d-flex align-items-center">
                                     <span class="d-none d-sm-block" style="font-size: 1.1rem;">Pesado del Café</span>
                                 </a>
@@ -837,27 +1026,27 @@
                         <div class="form-group row m-0">
                             <div class="col-lg-12 text-right">
                                 <button type="button" class="btn btn-primary mr-1" (click)="GenerarQRTrazabilidad()"
-                                    *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstadoInt === 11">Generar
+                                    *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstadoInt === 12">Generar
                                     QR de
                                     Trazabilidad</button>
                                 <button type="button" class="btn btn-secondary mr-1" (click)="onPrint()"
-                                    *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstadoInt === 11 && mostrarqr">
+                                    *ngIf="(userSession.RolId === 6 || userSession.RolId === 7 || userSession.RolId === 8) && locCodigoEstadoInt === 12 && mostrarqr">
                                     Imprimir QR</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarRecepcion()"
-                                    *ngIf="userSession.RolId === 6 && locCodigoEstadoInt === 10">Confirmar
+                                    *ngIf="userSession.RolId === 6 && locCodigoEstadoInt === 11">Confirmar
                                     Recepción del Producto</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
-                                    *ngIf="(locCodigoEstadoInt === 4 &&  userSession.RolId === 7) || (locCodigoEstadoInt === 7 &&  userSession.RolId === 9)">Guardar</button>
+                                    *ngIf="(locCodigoEstadoInt === 4 &&  userSession.RolId === 7) || (locCodigoEstadoInt === 8 &&  (userSession.RolId === 8 || userSession.RolId === 9)) || (locCodigoEstadoInt === 6 &&  userSession.RolId === 7)">Guardar</button>
                                 <button type="button" class="btn btn-primary mr-1"
-                                    *ngIf="locCodigoEstadoInt === 8 && userSession.RolId === 8"
+                                    *ngIf="locCodigoEstadoInt === 9 && userSession.RolId === 8"
                                     (click)="GenerarGuiaRecepcion()">Generar Guía de Recepción</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarContrato()"
                                     *ngIf="locCodigoEstadoInt === 3 && userSession.RolId === 6">Confirmar
                                     Contrato</button>
-                                <button type="button" class="btn btn-primary mr-1"
+                                <!-- <button type="button" class="btn btn-primary mr-1"
                                     *ngIf="locCodigoEstadoInt === 6 &&  userSession.RolId === 7"
                                     (click)="GenerarSolicitudTransporte()">Generar
-                                    Solicitud de Transporte</button>
+                                    Solicitud de Transporte</button> -->
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                             </div>
                         </div>

@@ -94,5 +94,10 @@ export class ContratoService {
       responseType: "blob",
     });
   }
+
+  AsignarTransportistas(request: any): Observable<any> {
+    const url = `${this.url}/AssignCarriers`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
 

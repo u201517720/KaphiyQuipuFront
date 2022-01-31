@@ -48,6 +48,10 @@ export class MConsultarTransportista implements OnInit {
         this.limitRef = limit.target.value;
     }
 
+    onSelectCheck(row: any) {
+        return this.selected.indexOf(row) === -1;
+    }
+
     Buscar() {
         this.spinner.show();
         const request = {

@@ -23,7 +23,7 @@ export class MConsultarResponsable implements OnInit {
 
     modalConsultarResponsable: FormGroup;
     @ViewChild(DatatableComponent) table: DatatableComponent;
-    @Output() transportistaEvent = new EventEmitter<any[]>();
+    @Output() responsableEvent = new EventEmitter<any[]>();
     errorGeneral = { isError: false, errorMessage: '' };
     limitRef = 10;
     rows: any[];
@@ -42,6 +42,10 @@ export class MConsultarResponsable implements OnInit {
 
     get f() {
         return this.modalConsultarResponsable.controls;
+    }
+
+    onSelectCheck(row: any) {
+        return this.selected.indexOf(row) === -1;
     }
 
     updateLimit(limit) {
@@ -65,7 +69,7 @@ export class MConsultarResponsable implements OnInit {
     }
 
     Seleccionar() {
-        this.transportistaEvent.emit(this.selected);
+        this.responsableEvent.emit(this.selected);
         this.CloseModal();
     }
 

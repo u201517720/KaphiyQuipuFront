@@ -32,7 +32,8 @@
 
         <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Buscar()"
             [disabled]="modalConsultarTransportista.invalid">Buscar</button>
-        <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Seleccionar()">Seleccionar</button>
+        <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Seleccionar()"
+            [disabled]="!selected || selected.length <= 0">Seleccionar</button>
     </form>
     <div class="row">
         <div class="col-12">
@@ -53,7 +54,8 @@
                         </fieldset>
                         <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50"
                             [rowHeight]="50" [footerHeight]="50" rowHeight="'auto'" [limit]="limitRef" [rows]="rows"
-                            [scrollbarH]="true" [selectionType]="'single'" #table [selected]="selected">
+                            [scrollbarH]="true" [selectionType]="'single'" #table [selected]="selected"
+                            [selectCheck]="onSelectCheck">
                             <ngx-datatable-column name="Nombre Completo" prop="Conductor">
                             </ngx-datatable-column>
                             <ngx-datatable-column name="Nro. Documento" prop="Dni">

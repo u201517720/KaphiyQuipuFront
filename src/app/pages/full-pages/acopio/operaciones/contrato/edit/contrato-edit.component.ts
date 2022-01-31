@@ -23,6 +23,30 @@ import { NgxPrinterService } from 'ngx-printer';
 })
 export class ContratoEditComponent implements OnInit {
 
+  constructor(private fb: FormBuilder,
+    private maestroService: MaestroService,
+    private maestroUtil: MaestroUtil,
+    private spinner: NgxSpinnerService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private alertUtil: AlertUtil,
+    private contratoService: ContratoService,
+    private agricultorService: AgricultorService,
+    private guiarecepcionacopioService: GuiarecepcionacopioService,
+    private modalService: NgbModal,
+    private printerService: NgxPrinterService) {
+    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
+    this.LoadForm();
+    if (this.userSession) {
+      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+    }
+    if (this.locId > 0) {
+      this.ConsultarPorId();
+      this.frmTitle = 'DETALLE DEL CONTRATO ';
+    }
+  }
+
   active = 1;
   frmContratoCompraVenta: FormGroup;
   @ViewChild('PrintTemplate')
@@ -74,30 +98,9 @@ export class ContratoEditComponent implements OnInit {
   fechaActual: Date;
   codeqr = "";
   urlCanvas: string;
-
-  constructor(private fb: FormBuilder,
-    private maestroService: MaestroService,
-    private maestroUtil: MaestroUtil,
-    private spinner: NgxSpinnerService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private alertUtil: AlertUtil,
-    private contratoService: ContratoService,
-    private agricultorService: AgricultorService,
-    private guiarecepcionacopioService: GuiarecepcionacopioService,
-    private modalService: NgbModal,
-    private printerService: NgxPrinterService) {
-    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
-    this.userSession = JSON.parse(sessionStorage.getItem('user'));
-    this.LoadForm();
-    if (this.userSession) {
-      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
-    }
-    if (this.locId > 0) {
-      this.ConsultarPorId();
-      this.frmTitle = 'DETALLE DEL CONTRATO ';
-    }
-  }
+  limitTrans = 10;
+  rowsTrans = [];
+  selectedTrans = [];
 
   ngOnInit(): void {
     this.msgAgricultores = '';
@@ -146,7 +149,20 @@ export class ContratoEditComponent implements OnInit {
       humedadProcenPC: [],
       observacionesPC: [],
       tara: [],
-      kilosNetos: []
+      kilosNetos: [],
+      codControlador: [],
+      controlador: [],
+      tipoDocControlador: [],
+      nroDocControlador: [],
+      mailControlador: []
+      // codTrans: [],
+      // transportista: [],
+      // tipoDocTrans: [],
+      // nroDocTrans: [],
+      // nroCellTrans: [],
+      // placaTrans: [],
+      // licenciaTrans: [],
+      // soatTrans: []
     });
   }
 
@@ -321,6 +337,7 @@ export class ContratoEditComponent implements OnInit {
       .subscribe((res) => {
         if (res && res.Result.Success) {
           this.CompletarForm(res.Result.Data);
+          this.ModifyRequired();
         }
       }, (err) => {
         this.spinner.hide();
@@ -433,7 +450,7 @@ export class ContratoEditComponent implements OnInit {
       if (data.KilosNetos)
         this.frmContratoCompraVenta.controls.kilosNetos.setValue(data.KilosNetos);
       this.ActualizarListaAgricultores();
-      if (this.locCodigoEstadoInt === 6) {
+      if (this.locCodigoEstadoInt === 8) {
         await this.GetOlores();
         await this.GetColores();
       } else {
@@ -441,7 +458,7 @@ export class ContratoEditComponent implements OnInit {
         await this.GetColores();
         this.detalleControlesCalidad = data.controles;
       }
-      if (this.locCodigoEstadoInt === 7) {
+      if (this.locCodigoEstadoInt === 8) {
         const locsacosPC = this.frmContratoCompraVenta.controls.sacosPC;
         const lockilosBrutosPC = this.frmContratoCompraVenta.controls.kilosBrutosPC;
         const loctaraSacoPC = this.frmContratoCompraVenta.controls.taraSacoPC;
@@ -488,6 +505,7 @@ export class ContratoEditComponent implements OnInit {
 
         this.frmContratoCompraVenta.controls.sacosPC.setValue(data.TotalSacos);
         this.frmContratoCompraVenta.controls.kilosBrutosPC.setValue(data.PesoKilos);
+        this.ActualizarListaTransportistas();
       }
     }
     this.spinner.hide();
@@ -595,13 +613,60 @@ export class ContratoEditComponent implements OnInit {
         '¿Está seguro de solicitar la materia prima a los agricultores seleccionados?', () => {
           this.GuardarAgricultores();
         });
-    } else if (this.locCodigoEstadoInt === 6 && this.userSession.RolId === 9) {
+    } else if (this.locCodigoEstadoInt === 8 && this.userSession.RolId === 9) {
       this.alertUtil.alertSiNoCallback('Pregunta',
         '¿Está seguro de registrar el control de calidad realizado a la materia prima de los agricultores?',
         () => {
           this.GuardarControlCalidad();
         });
-    } else {
+    } else if (this.locCodigoEstadoInt === 6 && this.userSession.RolId === 7) {
+      if (this.selectedTrans && this.selectedTrans.length > 0) {
+        this.alertUtil.alertSiNoCallback('Pregunta',
+          '¿Está seguro de asignar a los transportistas seleccionados para el recojo de la materia prima?',
+          () => {
+            const request = {
+              transportistas: []
+            };
+            this.selectedTrans.forEach(x => {
+              request.transportistas.push({
+                ContratoId: this.locId,
+                TransporteId: x.TransporteId,
+                Usuario: this.userSession.NombreUsuario
+              })
+            });
+            this.contratoService.AsignarTransportistas(request)
+              .subscribe((res) => {
+                this.spinner.hide();
+                if (res.Result.Success) {
+                  this.alertUtil.alertOkCallback('Confirmación',
+                    'Se ha solicitado materia prima a lo agricultores seleccionados correctamente.',
+                    () => {
+                      this.ConsultarPorId();
+                    });
+                } else {
+                  this.alertUtil.alertError('ERROR', res.Result.Message);
+                }
+              }, (err) => {
+                console.log(err);
+                this.spinner.hide();
+                this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+              });
+          });
+      } else {
+        this.alertUtil.alertWarning('Validación', 'Seleccionar el/los transportista(s) que recogerá la materia prima.');
+      }
+    } else if (this.locCodigoEstadoInt === 8 && this.userSession.RolId === 8) {
+      if (this.frmContratoCompraVenta.value.controlador) {
+        this.alertUtil.alertSiNoCallback('Pregunta',
+          `¿Está seguro de asignar a ${this.frmContratoCompraVenta.value.controlador} como controlador de calidad?`,
+          () => {
+
+          });
+      } else {
+        this.alertUtil.alertWarning('Validación', 'Seleccionar un responsable para el control de calidad.');
+      }
+    }
+    else {
       this.alertUtil.alertWarning('Advertencia',
         'No tiene permisos para realizar esta acción.');
     }
@@ -676,7 +741,7 @@ export class ContratoEditComponent implements OnInit {
         this.spinner.hide();
         if (res.Result.Success) {
           this.rows = res.Result.Data;
-          if (this.locCodigoEstadoInt === 6) {
+          if (this.locCodigoEstadoInt === 8) {
             this.detalleControlesCalidad = this.rows;
             this.rows.forEach(x => {
               this.listaControlesCalidad.push({
@@ -778,7 +843,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GuardarPesadoCafe() {
-    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 7) {
+    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 8) {
       this.submittedPesadoCafe = false;
       this.spinner.show();
       const request = {
@@ -829,7 +894,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GenerarGuiaRecepcion() {
-    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 7) {
+    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 8) {
       this.submittedPesadoCafe = false;
       if (!this.frmContratoCompraVenta.invalid) {
         this.alertUtil.alertSiNoCallback('Pregunta',
@@ -985,7 +1050,59 @@ export class ContratoEditComponent implements OnInit {
     this.modalService.open(modal, { windowClass: 'dark-modal', size: 'xl', centered: true });
   }
 
-  ResultConsultCarriers(event) {
+  // ResultConsultCarriers(event) {
+  //   this.frmContratoCompraVenta.controls.codTrans.setValue(event[0].TransporteId);
+  //   this.frmContratoCompraVenta.controls.transportista.setValue(event[0].Conductor);
+  //   this.frmContratoCompraVenta.controls.tipoDocTrans.setValue(event[0].TipoDoc);
+  //   this.frmContratoCompraVenta.controls.nroDocTrans.setValue(event[0].Dni);
+  //   this.frmContratoCompraVenta.controls.nroCellTrans.setValue(event[0].NroCelular);
+  //   this.frmContratoCompraVenta.controls.placaTrans.setValue(event[0].PlacaCarreta);
+  //   this.frmContratoCompraVenta.controls.licenciaTrans.setValue(event[0].Licencia);
+  //   this.frmContratoCompraVenta.controls.soatTrans.setValue(event[0].Soat);
+  // }
 
+  ModifyRequired() {
+    // if (this.locCodigoEstadoInt === 6) {
+    //   const loctransportista = this.frmContratoCompraVenta.controls.transportista;
+
+    //   loctransportista.setValidators(Validators.required);
+    //   loctransportista.updateValueAndValidity();
+    // }
+    if (this.locCodigoEstadoInt === 8) {
+      const locControl = this.frmContratoCompraVenta.controls.controlador;
+
+      locControl.setValidators(Validators.required);
+      locControl.updateValueAndValidity();
+    }
+  }
+
+  ActualizarListaTransportistas() {
+    if (this.locCodigoEstadoInt === 6) {
+      this.maestroService.ConsultarTransportista({})
+        .subscribe((res) => {
+          if (res.Result.Success) {
+            this.rowsTrans = res.Result.Data;
+          }
+        });
+    } else {
+      this.maestroService.ConsultarTransportista({ ContratoId: this.locId })
+        .subscribe((res) => {
+          if (res.Result.Success) {
+            this.rowsTrans = res.Result.Data;
+          }
+        });
+    }
+  }
+
+  onSelectTransportistas() {
+
+  }
+
+  ResultResponsibleInquiries(e) {
+    this.frmContratoCompraVenta.controls.codControlador.setValue(e[0].ResponsableId);
+    this.frmContratoCompraVenta.controls.controlador.setValue(e[0].Responsable);
+    this.frmContratoCompraVenta.controls.tipoDocControlador.setValue(e[0].TipoDocumento);
+    this.frmContratoCompraVenta.controls.nroDocControlador.setValue(e[0].NumeroDocumento);
+    this.frmContratoCompraVenta.controls.mailControlador.setValue(e[0].Email);
   }
 }
