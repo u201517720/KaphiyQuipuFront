@@ -99,5 +99,10 @@ export class ContratoService {
     const url = `${this.url}/AssignCarriers`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  AsignarResponsableCalidad(request: any): Observable<any> {
+    const url = `${this.url}/AssignQualityManager`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
 

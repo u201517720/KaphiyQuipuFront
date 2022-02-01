@@ -450,7 +450,7 @@ export class ContratoEditComponent implements OnInit {
       if (data.KilosNetos)
         this.frmContratoCompraVenta.controls.kilosNetos.setValue(data.KilosNetos);
       this.ActualizarListaAgricultores();
-      if (this.locCodigoEstadoInt === 8) {
+      if (this.locCodigoEstadoInt === 9) {
         await this.GetOlores();
         await this.GetColores();
       } else {
@@ -458,7 +458,7 @@ export class ContratoEditComponent implements OnInit {
         await this.GetColores();
         this.detalleControlesCalidad = data.controles;
       }
-      if (this.locCodigoEstadoInt === 8) {
+      if (this.locCodigoEstadoInt === 10) {
         const locsacosPC = this.frmContratoCompraVenta.controls.sacosPC;
         const lockilosBrutosPC = this.frmContratoCompraVenta.controls.kilosBrutosPC;
         const loctaraSacoPC = this.frmContratoCompraVenta.controls.taraSacoPC;
@@ -613,7 +613,7 @@ export class ContratoEditComponent implements OnInit {
         '¿Está seguro de solicitar la materia prima a los agricultores seleccionados?', () => {
           this.GuardarAgricultores();
         });
-    } else if (this.locCodigoEstadoInt === 8 && this.userSession.RolId === 9) {
+    } else if (this.locCodigoEstadoInt === 9 && this.userSession.RolId === 9) {
       this.alertUtil.alertSiNoCallback('Pregunta',
         '¿Está seguro de registrar el control de calidad realizado a la materia prima de los agricultores?',
         () => {
@@ -624,6 +624,7 @@ export class ContratoEditComponent implements OnInit {
         this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de asignar a los transportistas seleccionados para el recojo de la materia prima?',
           () => {
+            this.spinner.show();
             const request = {
               transportistas: []
             };
@@ -660,7 +661,28 @@ export class ContratoEditComponent implements OnInit {
         this.alertUtil.alertSiNoCallback('Pregunta',
           `¿Está seguro de asignar a ${this.frmContratoCompraVenta.value.controlador} como controlador de calidad?`,
           () => {
-
+            this.spinner.show();
+            const request = {
+              Id: this.locId,
+              ResponsableId: this.frmContratoCompraVenta.value.codControlador,
+              EstadoId: this.locCodigoEstadoInt,
+              Usuario: this.userSession.NombreUsuario
+            };
+            this.contratoService.AsignarResponsableCalidad(request)
+              .subscribe((res) => {
+                if (res.Result.Success) {
+                  this.alertUtil.alertOkCallback('Confirmación',
+                    'Se ha asignado correctamente al responsable para el control de calidad.',
+                    () => {
+                      this.ConsultarPorId();
+                    });
+                } else {
+                  this.alertUtil.alertError('ERROR', res.Result.Message);
+                }
+              }, (err) => {
+                this.spinner.hide();
+                this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+              });
           });
       } else {
         this.alertUtil.alertWarning('Validación', 'Seleccionar un responsable para el control de calidad.');
@@ -741,7 +763,7 @@ export class ContratoEditComponent implements OnInit {
         this.spinner.hide();
         if (res.Result.Success) {
           this.rows = res.Result.Data;
-          if (this.locCodigoEstadoInt === 8) {
+          if (this.locCodigoEstadoInt === 9) {
             this.detalleControlesCalidad = this.rows;
             this.rows.forEach(x => {
               this.listaControlesCalidad.push({
@@ -843,7 +865,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   GuardarPesadoCafe() {
-    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 8) {
+    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 10) {
       this.submittedPesadoCafe = false;
       this.spinner.show();
       const request = {
@@ -890,11 +912,13 @@ export class ContratoEditComponent implements OnInit {
           this.spinner.hide();
           this.alertUtil.alertError('ERROR', this.mensajeGenerico);
         })
+    } else {
+      this.alertUtil.alertWarning('Validación', 'No cuenta con permisos o su rol no es el adecuado, para ejecutar esta acción.');
     }
   }
 
   GenerarGuiaRecepcion() {
-    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 8) {
+    if (this.userSession.RolId === 8 && this.locCodigoEstadoInt === 10) {
       this.submittedPesadoCafe = false;
       if (!this.frmContratoCompraVenta.invalid) {
         this.alertUtil.alertSiNoCallback('Pregunta',
