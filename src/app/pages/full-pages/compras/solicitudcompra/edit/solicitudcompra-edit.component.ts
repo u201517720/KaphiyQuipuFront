@@ -8,7 +8,7 @@ import { MaestroService } from '../../../../../Services/maestro.service';
 import { SolicitudcompraService } from '../../../../../Services/solicitudcompra.service';
 import { AlertUtil } from '../../../../../Services/util/alert-util';
 import { MaestroUtil } from '../../../../../Services/util/maestro-util';
-
+import { GeneralService } from '../../../../../Services/general.service';
 
 @Component({
   selector: 'app-solicitudcompra-edit',
@@ -17,6 +17,28 @@ import { MaestroUtil } from '../../../../../Services/util/maestro-util';
   encapsulation: ViewEncapsulation.None
 })
 export class SolicitudcompraEditComponent implements OnInit {
+
+  constructor(private fb: FormBuilder,
+    private maestroService: MaestroService,
+    private maestroUtil: MaestroUtil,
+    private solicitudcompraService: SolicitudcompraService,
+    private alertUtil: AlertUtil,
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService,
+    private generalService: GeneralService,
+    private router: Router,
+    private contratoService: ContratoService) {
+    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
+    this.LoadForm();
+    if (this.userSession) {
+      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+    }
+    if (this.locId > 0) {
+      this.ConsultarPorId();
+      this.frmTitle = 'DETALLE DE LA SOLICITUD ';
+    }
+  }
 
   active = 1;
   frmSolicitudCompraNew: FormGroup;
@@ -57,27 +79,6 @@ export class SolicitudcompraEditComponent implements OnInit {
   mensajeGenerico = 'Ha ocurrido un error interno. Por favor, comuníquese con el área de soporte de sistemas.';
   errorGeneral = { isError: false, errorMessage: '' };
   msgSolicitudNoAceptada: string;
-
-  constructor(private fb: FormBuilder,
-    private maestroService: MaestroService,
-    private maestroUtil: MaestroUtil,
-    private solicitudcompraService: SolicitudcompraService,
-    private alertUtil: AlertUtil,
-    private route: ActivatedRoute,
-    private spinner: NgxSpinnerService,
-    private router: Router,
-    private contratoService: ContratoService) {
-    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
-    this.userSession = JSON.parse(sessionStorage.getItem('user'));
-    this.LoadForm();
-    if (this.userSession) {
-      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
-    }
-    if (this.locId > 0) {
-      this.ConsultarPorId();
-      this.frmTitle = 'DETALLE DE LA SOLICITUD ';
-    }
-  }
 
   ngOnInit(): void {
     this.submitted = false;
@@ -257,7 +258,7 @@ export class SolicitudcompraEditComponent implements OnInit {
   CalcularPesoEnKilos() {
     const cantidad = this.frmSolicitudCompraNew.value.cantASolicitar ? this.frmSolicitudCompraNew.value.cantASolicitar : 0;
     const pesoSaco = this.frmSolicitudCompraNew.value.pesoXSaco ? this.frmSolicitudCompraNew.value.pesoXSaco : 0;
-    const total = cantidad * (pesoSaco + 9) + (cantidad * 0.3);
+    const total = cantidad * pesoSaco + (cantidad * 0.3);
     if (total) {
       this.frmSolicitudCompraNew.controls.pesoEnKilos.setValue(total);
     } else {
@@ -355,7 +356,12 @@ export class SolicitudcompraEditComponent implements OnInit {
   async MostrarCostoUnitario() {
     const moneda = this.frmSolicitudCompraNew.value.moneda;
     if (moneda === '01') {
-      this.frmSolicitudCompraNew.controls.costoUnitario.setValue(13.5);
+      this.generalService.ObtenerTipoCambio()
+        .subscribe((res) => {
+          this.frmSolicitudCompraNew.controls.costoUnitario.setValue(parseFloat((5.4 * res.Result.Data.Venta).toFixed(2)));
+        }, (err) => {
+          console.log(err);
+        });
     } else {
       this.frmSolicitudCompraNew.controls.costoUnitario.setValue(5.4);
     }
@@ -461,7 +467,7 @@ export class SolicitudcompraEditComponent implements OnInit {
       this.frmSolicitudCompraNew.controls.estado.setValue(data.DescripcionEstado);
       this.frmSolicitudCompraNew.controls.correlativo.setValue(data.Correlativo);
       this.frmSolicitudCompraNew.controls.tara.setValue(parseFloat((data.TotalSacos * 0.3).toFixed(2)));
-      this.frmSolicitudCompraNew.controls.kgsNetos.setValue(parseFloat(((data.PesoSaco + 9) * data.TotalSacos).toFixed(2)));
+      this.frmSolicitudCompraNew.controls.kgsNetos.setValue(parseFloat((data.PesoSaco * data.TotalSacos).toFixed(2)));
       this.locCodigoEstado = parseInt(data.EstadoId);
       this.locFechaRegistroString = data.FechaRegistroString;
       this.CalcularCostoTotal();
@@ -525,7 +531,7 @@ export class SolicitudcompraEditComponent implements OnInit {
           const request = {
             CodigoSolicitudCompra: this.locId,
             CodigoTipoCertificacion: this.frmSolicitudCompraNew.value.certificacion,
-            PesoNeto: this.frmSolicitudCompraNew.value.kgsNetos,
+            PesoNeto: this.frmSolicitudCompraNew.value.cantASolicitar * (this.frmSolicitudCompraNew.value.pesoXSaco + 9),
             PesoSaco: this.frmSolicitudCompraNew.value.pesoXSaco,
             Usuario: this.userSession.NombreUsuario
           };

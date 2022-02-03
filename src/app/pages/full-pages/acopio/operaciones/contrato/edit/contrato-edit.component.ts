@@ -150,6 +150,7 @@ export class ContratoEditComponent implements OnInit {
       observacionesPC: [],
       tara: [],
       kilosNetos: [],
+      kilosNetosTemp: [],
       codControlador: [],
       controlador: [],
       tipoDocControlador: [],
@@ -344,14 +345,14 @@ export class ContratoEditComponent implements OnInit {
       });
   }
 
-  async MostrarCostoUnitario() {
-    const moneda = this.frmContratoCompraVenta.value.moneda;
-    if (moneda === '01') {
-      this.frmContratoCompraVenta.controls.costoUnitario.setValue(13.5);
-    } else {
-      this.frmContratoCompraVenta.controls.costoUnitario.setValue(5.4);
-    }
-  }
+  // async MostrarCostoUnitario() {
+  //   const moneda = this.frmContratoCompraVenta.value.moneda;
+  //   if (moneda === '01') {
+  //     this.frmContratoCompraVenta.controls.costoUnitario.setValue(13.5);
+  //   } else {
+  //     this.frmContratoCompraVenta.controls.costoUnitario.setValue(5.4);
+  //   }
+  // }
 
   async CompletarForm(data) {
     if (data) {
@@ -369,8 +370,10 @@ export class ContratoEditComponent implements OnInit {
       if (data.MonedaId) {
         await this.GetCurrencies();
         this.frmContratoCompraVenta.controls.moneda.setValue(data.MonedaId);
-        await this.MostrarCostoUnitario();
+        // await this.MostrarCostoUnitario();
       }
+
+      this.frmContratoCompraVenta.controls.costoUnitario.setValue(data.PrecioUnitario);
 
       if (data.UnidadMedidaId) {
         await this.GetMeasurementUnit();
@@ -447,8 +450,10 @@ export class ContratoEditComponent implements OnInit {
         this.frmContratoCompraVenta.controls.costoTotal.setValue(data.CostoTotal);
       if (data.Tara)
         this.frmContratoCompraVenta.controls.tara.setValue(data.Tara);
-      if (data.KilosNetos)
+      if (data.KilosNetos) {
         this.frmContratoCompraVenta.controls.kilosNetos.setValue(data.KilosNetos);
+        this.frmContratoCompraVenta.controls.kilosNetosTemp.setValue(parseFloat((data.TotalSacos * (data.PesoSaco + 9)).toFixed(2)));
+      }
       this.ActualizarListaAgricultores();
       if (this.locCodigoEstadoInt === 9) {
         await this.GetOlores();
@@ -576,8 +581,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   onSelectAgricultores(e) {
-    const pesoKilosNetos = this.frmContratoCompraVenta.value.kilosNetos;
-    const sumaCosecha = this.frmContratoCompraVenta.value.sumaCosechaSeleccionada;
+    const pesoKilosNetos = this.frmContratoCompraVenta.value.kilosNetosTemp;
     let sumaSelected = 0;
     if (e && e.selected.length > 0) {
       let colTotalCosecha = 0;
@@ -696,11 +700,11 @@ export class ContratoEditComponent implements OnInit {
 
   GuardarAgricultores() {
     this.spinner.show();
-    let request = {
-      agricultores: []
-    };
     if (this.selectedAgricultores && this.selectedAgricultores.length > 0) {
-      let locKilosNetos = this.frmContratoCompraVenta.value.kilosNetos;
+      let request = {
+        agricultores: []
+      };
+      let locKilosNetos = this.frmContratoCompraVenta.value.kilosNetosTemp;
       let cosecha = 0, cosechaAux = 0;
 
       this.selectedAgricultores.forEach(x => {
@@ -722,7 +726,7 @@ export class ContratoEditComponent implements OnInit {
         });
       });
 
-      if (cosechaAux == this.frmContratoCompraVenta.value.kilosNetos) {
+      if (cosechaAux == this.frmContratoCompraVenta.value.kilosNetosTemp) {
         if (request.agricultores.length > 0) {
           this.contratoService.RegistrarAgricultores(request)
             .subscribe((res) => {
