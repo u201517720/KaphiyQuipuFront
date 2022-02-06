@@ -101,6 +101,7 @@ export class ContratoEditComponent implements OnInit {
   limitTrans = 10;
   rowsTrans = [];
   selectedTrans = [];
+  submittedQualityController = false;
 
   ngOnInit(): void {
     this.msgAgricultores = '';
@@ -510,8 +511,8 @@ export class ContratoEditComponent implements OnInit {
 
         this.frmContratoCompraVenta.controls.sacosPC.setValue(data.TotalSacos);
         this.frmContratoCompraVenta.controls.kilosBrutosPC.setValue(data.PesoKilos);
-        this.ActualizarListaTransportistas();
       }
+      this.ActualizarListaTransportistas();
     }
     this.spinner.hide();
   }
@@ -612,6 +613,7 @@ export class ContratoEditComponent implements OnInit {
   }
 
   Guardar() {
+    this.submittedQualityController = false;
     if (this.locCodigoEstadoInt === 4 && this.userSession.RolId === 7) {
       this.alertUtil.alertSiNoCallback('Pregunta',
         '¿Está seguro de solicitar la materia prima a los agricultores seleccionados?', () => {
@@ -689,6 +691,7 @@ export class ContratoEditComponent implements OnInit {
               });
           });
       } else {
+        this.submittedQualityController = true;
         this.alertUtil.alertWarning('Validación', 'Seleccionar un responsable para el control de calidad.');
       }
     }
@@ -842,6 +845,16 @@ export class ContratoEditComponent implements OnInit {
           .map(x => x.Label).join(',');
       }
     });
+
+    // if (e.currentTarget.checked) {
+    //   if (this.oloresSels) {
+    //     this.oloresSels.find(x => x.code == id);
+    //   } else {
+
+    //   }
+    // } else {
+    //   this.oloresSels[id].splice(this.oloresSels.indexOf(e.currentTarget.value), 1);
+    // }
   }
 
   changeColores(e, id) {

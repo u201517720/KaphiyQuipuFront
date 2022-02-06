@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'planta',
     loadChildren: () => import('./planta/planta.module').then(m => m.PlantaModule)
+  },
+  {
+    path: 'general',
+    loadChildren: () => import('./general/general.module').then(m => m.GeneralModule)
   }
 ];
 

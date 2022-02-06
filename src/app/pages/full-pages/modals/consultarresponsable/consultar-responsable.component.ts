@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatatableComponent } from "@swimlane/ngx-datatable";
@@ -28,6 +28,7 @@ export class MConsultarResponsable implements OnInit {
     limitRef = 10;
     rows: any[];
     selected = [];
+    @Input() type: any;
 
     ngOnInit(): void {
         this.LoadForm();
@@ -57,7 +58,7 @@ export class MConsultarResponsable implements OnInit {
         const request = {
             Nombre: this.modalConsultarResponsable.value.nombre,
             Documento: this.modalConsultarResponsable.value.nroDocumento,
-            Tipo: '01'
+            Tipo: this.type
         }
         this.maestroService.ConsultarResponsable(request)
             .subscribe((res) => {

@@ -8,15 +8,19 @@ import { ErrorHandling } from '../shared/util/error-handling';
   providedIn: 'root'
 })
 export class GeneralService {
-  private url = `${host}Maestro`;
+  private urlMstr = `${host}Maestro`;
+  private urlGral = `${host}General`;
 
   constructor(private http: HttpClient,
     private errorHandling: ErrorHandling) { }
 
-    ObtenerTipoCambio(): Observable<any> {
-    const url = `${this.url}/GetExchangeRate`;
+  ObtenerTipoCambio(): Observable<any> {
+    const url = `${this.urlMstr}/GetExchangeRate`;
     return this.http.post<any>(url, {}).catch(this.errorHandling.handleError);
   }
 
-
+  ConsultarDocumentoPago(request): Observable<any> {
+    const url = `${this.urlGral}/ConsultPaymentDocument`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
