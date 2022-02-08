@@ -23,4 +23,9 @@ export class GeneralService {
     const url = `${this.urlGral}/ConsultPaymentDocument`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConsultarDocumentoPagoPorId(request): Observable<any> {
+    const url = `${this.urlGral}/ConsultPaymentDocumentById`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

@@ -23,6 +23,7 @@ import { ModalModule } from '../modals/modal.module';
 import { MatchHeightModule } from '../../../shared/directives/match-height.directive';
 import { NgbDateCustomParserFormatter } from '../../../shared/util/NgbDateCustomParserFormatter';
 import { DocumentoPagoComponent } from './operaciones/documentopago/documento-pago.component';
+import { DocumentopagoEditComponent } from './operaciones/documentopago/edit/documentopago-edit.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { DocumentoPagoComponent } from './operaciones/documentopago/documento-pa
     ModalModule
   ],
   declarations: [
-    DocumentoPagoComponent
+    DocumentoPagoComponent,
+    DocumentopagoEditComponent
   ],
   exports: [],
   providers: [
