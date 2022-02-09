@@ -54,7 +54,8 @@ export class DocumentoPagoComponent implements OnInit {
   RequestBuscar() {
     const request = {
       CorrelativoDPA: this.frmListaPagos.value.nroDocPago,
-      CorrelativoCC: this.frmListaPagos.value.nroContrato
+      CorrelativoCC: this.frmListaPagos.value.nroContrato,
+      id: this.userSession.RolId === 3 ? this.userSession.IdUsuario : 0
     };
     return request;
   }

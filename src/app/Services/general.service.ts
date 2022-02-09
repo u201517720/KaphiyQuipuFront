@@ -28,4 +28,9 @@ export class GeneralService {
     const url = `${this.urlGral}/ConsultPaymentDocumentById`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConfirmarVoucherPago(request): Observable<any> {
+    const url = `${this.urlGral}/ConfirmVoucherPayment`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
