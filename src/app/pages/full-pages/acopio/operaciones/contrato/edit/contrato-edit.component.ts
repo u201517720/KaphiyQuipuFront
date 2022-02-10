@@ -632,7 +632,8 @@ export class ContratoEditComponent implements OnInit {
           () => {
             this.spinner.show();
             const request = {
-              transportistas: []
+              transportistas: [],
+              Codigo: 'TransporteContratoAcopio'
             };
             this.selectedTrans.forEach(x => {
               request.transportistas.push({
@@ -1119,14 +1120,14 @@ export class ContratoEditComponent implements OnInit {
 
   ActualizarListaTransportistas() {
     if (this.locCodigoEstadoInt === 6) {
-      this.maestroService.ConsultarTransportista({})
+      this.maestroService.ConsultarTransportista({ Codigo: 'TransporteContratoAcopio' })
         .subscribe((res) => {
           if (res.Result.Success) {
             this.rowsTrans = res.Result.Data;
           }
         });
     } else {
-      this.maestroService.ConsultarTransportista({ ContratoId: this.locId })
+      this.maestroService.ConsultarTransportista({ Id: this.locId, Codigo: 'TransporteContratoAcopio' })
         .subscribe((res) => {
           if (res.Result.Success) {
             this.rowsTrans = res.Result.Data;
