@@ -312,7 +312,7 @@
                                 <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'"
                                     [headerHeight]="50" [footerHeight]="50" rowHeight="'auto'" [limit]="limitTrans"
                                     [rows]="rowsTrans" [scrollbarH]="true" [selected]="selectedTrans"
-                                    [selectionType]="'checkbox'" (select)="onSelectTransportistas($event)">
+                                    [selectionType]="'checkbox'">
                                     <ngx-datatable-column name="Nombre Completo" prop="Conductor">
                                     </ngx-datatable-column>
                                     <ngx-datatable-column name="Nro. Documento" prop="Dni">
@@ -332,97 +332,6 @@
                                 </ngx-datatable>
                             </div>
                         </div>
-                        <!-- <div class="form-row">
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                <div class="form-group row">
-                                    <label for="transportista" class="col-lg-2 col-form-label">TRANSPORTISTA</label>
-                                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                        <input type="text" formControlName="transportista"
-                                            class="form-control form-control-sm" placeholder="Nombre del transportista"
-                                            [readonly]="true"
-                                            [ngClass]="{ 'is-invalid': f.transportista.invalid, 'is-valid': !f.transportista.invalid }">
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                        <ng-template #mdlConsultCarriers let-c="close" let-d="dismiss">
-                                            <app-consultar-transportista
-                                                (transportistaEvent)="ResultConsultCarriers($event)">
-                                            </app-consultar-transportista>
-                                        </ng-template>
-                                        <button class="btn btn-primary btn-sm" (click)="openModal(mdlConsultCarriers)"
-                                            type="button" *ngIf="locCodigoEstadoInt === 6">Buscar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                         <div class="form-row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group row">
-                                    <label for="tipoDocTrans" class="col-lg-4 col-form-label">TIPO DOCUMENTO</label>
-                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        <input type="text" formControlName="tipoDocTrans"
-                                            class="form-control form-control-sm" placeholder="Tipo de documento"
-                                            [readonly]="true"
-                                            [ngClass]="{ 'is-invalid': f.tipoDocTrans.invalid, 'is-valid': !f.tipoDocTrans.invalid }">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group row">
-                                    <label for="nroDocTrans" class="col-lg-4 col-form-label">NRO. DOCUMENTO</label>
-                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        <input type="text" formControlName="nroDocTrans"
-                                            class="form-control form-control-sm" placeholder="Número de documento"
-                                            [readonly]="true"
-                                            [ngClass]="{ 'is-invalid': f.nroDocTrans.invalid, 'is-valid': !f.nroDocTrans.invalid }">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group row">
-                                    <label for="nroCellTrans" class="col-lg-4 col-form-label">NRO. CELULAR</label>
-                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        <input type="text" formControlName="nroCellTrans"
-                                            class="form-control form-control-sm" placeholder="Número de celular"
-                                            [readonly]="true"
-                                            [ngClass]="{ 'is-invalid': f.nroCellTrans.invalid, 'is-valid': !f.nroCellTrans.invalid }">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group row">
-                                    <label for="placaTrans" class="col-lg-4 col-form-label">PLACA</label>
-                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        <input type="text" formControlName="placaTrans"
-                                            class="form-control form-control-sm" placeholder="Número de placa"
-                                            [readonly]="true"
-                                            [ngClass]="{ 'is-invalid': f.placaTrans.invalid, 'is-valid': !f.placaTrans.invalid }">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group row">
-                                    <label for="licenciaTrans" class="col-lg-4 col-form-label">LICENCIA</label>
-                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        <input type="text" formControlName="licenciaTrans"
-                                            class="form-control form-control-sm" placeholder="Licencia"
-                                            [readonly]="true"
-                                            [ngClass]="{ 'is-invalid': f.licenciaTrans.invalid, 'is-valid': !f.licenciaTrans.invalid }">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="form-group row">
-                                    <label for="soatTrans" class="col-lg-4 col-form-label">SOAT</label>
-                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        <input type="text" formControlName="soatTrans"
-                                            class="form-control form-control-sm" placeholder="SOAT" [readonly]="true"
-                                            [ngClass]="{ 'is-invalid': f.soatTrans.invalid, 'is-valid': !f.soatTrans.invalid }">
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                     <div *ngIf="userSession.RolId >= 7 && locCodigoEstadoInt >= 4">
                         <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">

@@ -19,6 +19,7 @@ import { NgbDateCustomParserFormatter } from "../../../shared/util/NgbDateCustom
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { ModalModule } from '../modals/modal.module';
 import { NotaIngresoPlantaComponent } from './operaciones/notaingresoplanta/nota-ingreso-planta.component';
 import { NotaIngresoPlantaEditComponent } from './operaciones/notaingresoplanta/edit/nota-ingreso-planta-edit.component';
 import { NotaSalidaPlantaComponent } from './operaciones/notasalidaplanta/nota-salida-planta.component';
@@ -45,7 +46,8 @@ import { GuiaRemisionPlantaEditComponent } from './operaciones/guiaremisionplant
     TagInputModule,
     QuillModule,
     MatchHeightModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ModalModule
   ],
   declarations: [
     NotaIngresoPlantaComponent,

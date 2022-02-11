@@ -61,7 +61,7 @@
                     </div>
                     <div>
                         <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
-                            <label class="text-white ml-1">TRANSPORTISTAS SELECCIONADOS</label>
+                            <label class="text-white ml-1">TRANSPORTISTAS ENVIADOS POR ACOPIO</label>
                         </div>
                         <div class="form-row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -191,11 +191,121 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="userSession.RolId === 11 && locEstado === 1">
+                        <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                            <label class="text-white ml-1">SELECCIONAR CONTROLADOR DE CALIDAD</label>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <div class="form-group row">
+                                    <label for="controlador" class="col-lg-4 col-form-label">CONTROLADOR DE
+                                        CALIDAD</label>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                        <input type="text" formControlName="controlador"
+                                            class="form-control form-control-sm" placeholder="Controlador de calidad"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': submittedQualityController && f.controlador.invalid, 
+                                                        'is-valid': !submittedQualityController && !f.controlador.invalid }">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                        <ng-template #mdlResponsibleInquiries let-c="close" let-d="dismiss">
+                                            <app-consultar-responsable [type]="'02'"
+                                                (responsableEvent)="ResultResponsibleInquiries($event)">
+                                            </app-consultar-responsable>
+                                        </ng-template>
+                                        <button class="btn btn-primary btn-sm"
+                                            (click)="openModal(mdlResponsibleInquiries)" type="button"
+                                            *ngIf="locEstado === 1">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="tipoDocControlador" class="col-lg-4 col-form-label">TIPO
+                                        DOCUMENTO</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="tipoDocControlador"
+                                            class="form-control form-control-sm" placeholder="Tipo de documento"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.tipoDocControlador.invalid, 'is-valid': !f.tipoDocControlador.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="nroDocControlador" class="col-lg-4 col-form-label">NRO.
+                                        DOCUMENTO</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="text" formControlName="nroDocControlador"
+                                            class="form-control form-control-sm" placeholder="Número de documento"
+                                            [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.nroDocControlador.invalid, 'is-valid': !f.nroDocControlador.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label for="mailControlador" class="col-lg-4 col-form-label">EMAIL</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <input type="email" formControlName="mailControlador"
+                                            class="form-control form-control-sm" placeholder="Email" [readonly]="true"
+                                            [ngClass]="{ 'is-invalid': f.mailControlador.invalid, 'is-valid': !f.mailControlador.invalid }">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="userSession.RolId === 11 && locEstado === 3">
+                        <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
+                            <label class="text-white ml-1">TRANSPORTISTAS DISPONIBLES</label>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <fieldset class="form-group">
+                                    <label>Mostrar
+                                        <select name="users-list-select"
+                                            class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                                            (click)="updateLimit2($event)">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                        Filas</label>
+                                    <button type="button" class="btn btn-sm float-right btn-primary"
+                                        (click)="ActualizarListaTransportistas2()" *ngIf="locEstado === 3">Actualizar
+                                        Lista</button>
+                                </fieldset>
+                                <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'"
+                                    [headerHeight]="50" [footerHeight]="50" rowHeight="'auto'" [limit]="limitTrans2"
+                                    [rows]="rowsTrans2" [scrollbarH]="true" [selected]="selectedTrans2"
+                                    [selectionType]="'checkbox'">
+                                    <ngx-datatable-column name="Nombre Completo" prop="Conductor">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Nro. Documento" prop="Dni">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Celular" prop="NroCelular">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="SOAT" prop="Soat">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Placa" prop="PlacaCarreta">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Licencia" prop="Licencia">
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name='' prop="selcheck" headerCheckboxable="true"
+                                        checkboxable="true" width="30" sortable="false" *ngIf="locEstado === 3">
+                                    </ngx-datatable-column>
+                                </ngx-datatable>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="form-row" *ngIf="locId > 0">
+    <div class="form-row" *ngIf="locId > 0 && locEstado > 2 || (userSession.RolId === 12)">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="card-content">
@@ -228,8 +338,8 @@
                                                                     <label>{{olor.Label}}</label>
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <input type="checkbox" [disabled]="locEstado > 1"
-                                                                        (change)="locEstado < 2 && changeOlores($event)"
+                                                                    <input type="checkbox" [disabled]="locEstado > 2"
+                                                                        (change)="locEstado < 3 && changeOlores($event)"
                                                                         [value]="olor.Codigo"
                                                                         [checked]="oloresSeleccionados.includes(olor.Codigo)">
                                                                 </td>
@@ -250,8 +360,8 @@
                                                                 </td>
                                                                 <td class="text-center">
                                                                     <input type="checkbox" [value]="color.Codigo"
-                                                                        (change)="locEstado < 2 && changeColores($event)"
-                                                                        [disabled]="locEstado > 1"
+                                                                        (change)="locEstado < 3 && changeColores($event)"
+                                                                        [disabled]="locEstado > 2"
                                                                         [checked]="coloresSeleccionados.includes(color.Codigo)">
                                                                 </td>
                                                             </tr>
@@ -282,9 +392,9 @@
                                                                         <h6>Café exportación</h6>
                                                                     </td>
                                                                     <td>
-                                                                        <input type="number" [readonly]="locEstado > 1"
+                                                                        <input type="number" [readonly]="locEstado > 2"
                                                                             formControlName="cafeExportacionGramos"
-                                                                            (blur)="locEstado < 2 && CalcularAnalisisFisico()"
+                                                                            (blur)="locEstado < 3 && CalcularAnalisisFisico()"
                                                                             [ngClass]="{ 'is-invalid': submitted && f.cafeExportacionGramos.invalid, 'is-valid': !submitted && !f.cafeExportacionGramos.invalid }"
                                                                             class="form-control text-right form-control-sm">
                                                                     </td>
@@ -300,9 +410,9 @@
                                                                         <h6>Descarte</h6>
                                                                     </td>
                                                                     <td>
-                                                                        <input type="number" [readonly]="locEstado > 1"
+                                                                        <input type="number" [readonly]="locEstado > 2"
                                                                             formControlName="descarteGramos"
-                                                                            (blur)="locEstado < 2 && CalcularAnalisisFisico()"
+                                                                            (blur)="locEstado < 3 && CalcularAnalisisFisico()"
                                                                             [ngClass]="{ 'is-invalid': submitted && f.descarteGramos.invalid, 'is-valid': !submitted && !f.descarteGramos.invalid }"
                                                                             class="form-control text-right form-control-sm">
                                                                     </td>
@@ -318,9 +428,9 @@
                                                                         <h6>Cáscara</h6>
                                                                     </td>
                                                                     <td>
-                                                                        <input type="number" [readonly]="locEstado > 1"
+                                                                        <input type="number" [readonly]="locEstado > 2"
                                                                             formControlName="cascaraGramos"
-                                                                            (blur)="locEstado < 2 && CalcularAnalisisFisico()"
+                                                                            (blur)="locEstado < 3 && CalcularAnalisisFisico()"
                                                                             [ngClass]="{ 'is-invalid': submitted && f.cascaraGramos.invalid, 'is-valid': !submitted && !f.cascaraGramos.invalid }"
                                                                             class="form-control text-right form-control-sm">
                                                                     </td>
@@ -360,7 +470,7 @@
                                                             class="col-lg-4 col-form-label">HUMEDAD (%)</label>
                                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                             <input type="number" formControlName="humedadProcenPC"
-                                                                [readonly]="locEstado > 1"
+                                                                [readonly]="locEstado > 2"
                                                                 [ngClass]="{ 'is-invalid': submitted && f.humedadProcenPC.invalid, 'is-valid': !submitted && !f.humedadProcenPC.invalid }"
                                                                 class="form-control text-right form-control-sm">
                                                         </div>
@@ -391,7 +501,7 @@
                                     </div>
                                 </ng-template>
                             </li>
-                            <li [ngbNavItem]="2" *ngIf="(userSession.RolId === 14 && locEstado == 6) || locEstado > 6">
+                            <li [ngbNavItem]="2" *ngIf="(userSession.RolId === 14 && locEstado == 7) || locEstado > 7">
                                 <a ngbNavLink class="nav-link d-flex align-items-center">
                                     <span class="d-none d-sm-block" style="font-size: 1.1rem;">Resultados
                                         Transformación</span>
@@ -432,14 +542,14 @@
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportSacos.invalid, 'is-valid': !submitted && !f.cafeExportSacos.invalid }"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     class="form-control form-control-sm text-right"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportKilos.invalid, 'is-valid': !submitted && !f.cafeExportKilos.invalid }"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
@@ -461,14 +571,14 @@
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportMCSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportMCSacos.invalid, 'is-valid': !submitted && !f.cafeExportMCSacos.invalid }"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportMCKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportMCKilos.invalid, 'is-valid': !submitted && !f.cafeExportMCKilos.invalid }"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
@@ -490,14 +600,14 @@
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeSegundaSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeSegundaSacos.invalid, 'is-valid': !submitted && !f.cafeSegundaSacos.invalid }"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeSegundaKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeSegundaKilos.invalid, 'is-valid': !submitted && !f.cafeSegundaKilos.invalid }"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     (blur)="CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
@@ -521,7 +631,7 @@
                                                                     formControlName="cafeDescarteMaquinaSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteMaquinaSacos.invalid, 'is-valid': !submitted && !f.cafeDescarteMaquinaSacos.invalid }"
                                                                     (blur)="CalcularResultadosProcesos()"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
@@ -529,7 +639,7 @@
                                                                     formControlName="cafeDescarteMaquinaKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteMaquinaKilos.invalid, 'is-valid': !submitted && !f.cafeDescarteMaquinaKilos.invalid }"
                                                                     (blur)="CalcularResultadosProcesos()"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -552,7 +662,7 @@
                                                                     formControlName="cafeDescarteEscojoSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteEscojoSacos.invalid, 'is-valid': !submitted && !f.cafeDescarteEscojoSacos.invalid }"
                                                                     (blur)="CalcularResultadosProcesos()"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
@@ -560,7 +670,7 @@
                                                                     formControlName="cafeDescarteEscojoKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteEscojoKilos.invalid, 'is-valid': !submitted && !f.cafeDescarteEscojoKilos.invalid }"
                                                                     (blur)="CalcularResultadosProcesos()"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -582,14 +692,14 @@
                                                                 <input type="number" formControlName="cafeBolaSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeBolaSacos.invalid, 'is-valid': !submitted && !f.cafeBolaSacos.invalid }"
                                                                     class="form-control form-control-sm text-right"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeBolaKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeBolaKilos.invalid, 'is-valid': !submitted && !f.cafeBolaKilos.invalid }"
                                                                     class="form-control form-control-sm text-right"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -611,14 +721,14 @@
                                                                 <input type="number" formControlName="cafeCiscoSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeCiscoSacos.invalid, 'is-valid': !submitted && !f.cafeCiscoSacos.invalid }"
                                                                     class="form-control form-control-sm text-right"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeCiscoKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeCiscoKilos.invalid, 'is-valid': !submitted && !f.cafeCiscoKilos.invalid }"
                                                                     class="form-control form-control-sm text-right"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -667,7 +777,7 @@
                                                                 <input type="number"
                                                                     formControlName="piedrasOtrosKgNetos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.piedrasOtrosKgNetos.invalid, 'is-valid': !submitted && !f.piedrasOtrosKgNetos.invalid }"
-                                                                    [readonly]="locEstado > 6"
+                                                                    [readonly]="locEstado > 7"
                                                                     class="form-control form-control-sm text-right"
                                                                     (blur)="CalcularResultadosProcesos()">
                                                             </td>
@@ -751,20 +861,20 @@
                         <div class="form-group row m-0">
                             <div class="col-lg-12 text-right">
                                 <button type="button" class="btn btn-primary mr-1" (click)="GenerarGuiaSalida()"
-                                    *ngIf="userSession.RolId == 11 && locEstado === 8">Generar Nota de Salida</button>
+                                    *ngIf="userSession.RolId == 11 && locEstado === 10">Generar Nota de Salida</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="FinalizarTransformacion()"
-                                    *ngIf="userSession.RolId == 14 && locEstado === 6">Finalizar Transformación</button>
+                                    *ngIf="userSession.RolId == 14 && locEstado === 8">Finalizar Transformación</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="AutorizarTransformacion()"
-                                    *ngIf="userSession.RolId == 11 && locEstado === 4">Autorizar Transformación</button>
+                                    *ngIf="userSession.RolId == 11 && locEstado === 6">Autorizar Transformación</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="FinalizarEtiquetado()"
                                     [disabled]="!flagGeneroEtiquetas"
-                                    *ngIf="userSession.RolId == 13 && locEstado === 3">Finalizar Etiquetado</button>
+                                    *ngIf="userSession.RolId == 13 && locEstado === 5">Finalizar Etiquetado</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ImprimirEtiquetas()"
-                                    *ngIf="userSession.RolId == 13 && locEstado === 3">Generar Etiquetas</button>
+                                    *ngIf="userSession.RolId == 13 && locEstado === 5">Generar Etiquetas</button>
                                 <button type="button" class="btn btn-primary mr-1" (click)="ConfirmarRecepcion()"
-                                    *ngIf="userSession.RolId == 13 && locEstado === 2">Confirmar Recepción</button>
-                                <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
-                                    *ngIf="(userSession.RolId == 11 && locEstado == 0) || userSession.RolId == 12 && locEstado < 2">Guardar</button>
+                                    *ngIf="userSession.RolId == 13 && locEstado === 4">Confirmar Recepción</button>
+                                <button type="button" class="btn btn-primary mr-1" (click)="Guardar()" *ngIf="(userSession.RolId == 11 && (locEstado === 0 || locEstado === 1 || locEstado === 3))
+                                            || userSession.RolId == 12 && locEstado < 3">Guardar</button>
                                 <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                             </div>
                         </div>

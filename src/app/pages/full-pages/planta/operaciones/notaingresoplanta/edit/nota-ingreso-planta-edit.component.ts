@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { GuiaremisionService } from '../../../../../../Services/guiaremision.service';
 import { AlertUtil } from '../../../../../../Services/util/alert-util';
@@ -9,6 +10,7 @@ import { NotaingresoplantaService } from '../../../../../../Services/notaingreso
 import { MaestroService } from '../../../../../../Services/maestro.service';
 import { NotasalidaplantaService } from '../../../../../../Services/notasalidaplanta.service';
 import { host } from '../../../../../../shared/hosts/main.host';
+import { ContratoService } from '../../../../../../Services/contrato.service';
 
 @Component({
   selector: 'app-nota-ingreso-planta-edit',
@@ -17,6 +19,29 @@ import { host } from '../../../../../../shared/hosts/main.host';
   encapsulation: ViewEncapsulation.None
 })
 export class NotaIngresoPlantaEditComponent implements OnInit {
+
+  constructor(private fb: FormBuilder,
+    private guiaremisionService: GuiaremisionService,
+    private spinner: NgxSpinnerService,
+    private alertUtil: AlertUtil,
+    private notaingresoplantaService: NotaingresoplantaService,
+    private route: ActivatedRoute,
+    private maestroService: MaestroService,
+    private modalService: NgbModal,
+    private contratoService: ContratoService,
+    private router: Router,
+    private notasalidaplantaService: NotasalidaplantaService) {
+    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
+    this.userSession = JSON.parse(sessionStorage.getItem('user'));
+    this.LoadForm();
+    if (this.userSession) {
+      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+    }
+    if (this.locId > 0) {
+      this.ConsultarPorId();
+    } else {
+    }
+  }
 
   frmNotaIngresoPlantaDetalle: FormGroup;
   submitted = false;
@@ -33,28 +58,11 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   activeTab = 1;
   flagGeneroEtiquetas = false;
   limitTrans = 10;
+  limitTrans2 = 10;
   rowsTrans = [];
-
-  constructor(private fb: FormBuilder,
-    private guiaremisionService: GuiaremisionService,
-    private spinner: NgxSpinnerService,
-    private alertUtil: AlertUtil,
-    private notaingresoplantaService: NotaingresoplantaService,
-    private route: ActivatedRoute,
-    private maestroService: MaestroService,
-    private router: Router,
-    private notasalidaplantaService: NotasalidaplantaService) {
-    this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
-    this.userSession = JSON.parse(sessionStorage.getItem('user'));
-    this.LoadForm();
-    if (this.userSession) {
-      this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
-    }
-    if (this.locId > 0) {
-      this.ConsultarPorId();
-    } else {
-    }
-  }
+  rowsTrans2 = [];
+  submittedQualityController = false;
+  selectedTrans2 = [];
 
   ngOnInit(): void {
     // if (!this.locId) {
@@ -161,7 +169,13 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       totalesKgNetos: [],
       totalesQQS: [],
       totalesPorcen: [],
-      correlativoContrato: []
+      correlativoContrato: [],
+
+      codControlador: [],
+      controlador: [],
+      tipoDocControlador: [],
+      nroDocControlador: [],
+      mailControlador: []
     });
   }
 
@@ -341,7 +355,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
         this.CalcularResultadosProcesos();
       }
 
-      if (this.locEstado === 1) {
+      if (this.locEstado === 2) {
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionGramos.setValidators(Validators.required);
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportacionPorc.setValidators(Validators.required);
         this.frmNotaIngresoPlantaDetalle.controls.descarteGramos.setValidators(Validators.required);
@@ -361,7 +375,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
         this.frmNotaIngresoPlantaDetalle.controls.totalGramos.updateValueAndValidity();
         this.frmNotaIngresoPlantaDetalle.controls.totalPorcentaje.updateValueAndValidity();
         this.frmNotaIngresoPlantaDetalle.controls.humedadProcenPC.updateValueAndValidity();
-      } else if (this.locEstado === 2) {
+      } else if (this.locEstado === 5) {
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportSacos.setValidators(Validators.required);
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportKilos.setValidators(Validators.required);
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCSacos.setValidators(Validators.required);
@@ -395,13 +409,17 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
         this.frmNotaIngresoPlantaDetalle.controls.piedrasOtrosKgNetos.updateValueAndValidity();
       }
       this.ActualizarListaTransportistas();
+      if (this.locEstado === 3) {
+        this.ActualizarListaTransportistas2();
+      }
     }
     this.spinner.hide();
   }
 
   Guardar() {
+    this.submittedQualityController = false;
     if (!this.frmNotaIngresoPlantaDetalle.invalid) {
-      if (this.userSession.RolId == 11) {
+      if (this.userSession.RolId == 11 && this.locId === 0) {
         this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de generar la nota de ingreso?',
           () => {
@@ -429,6 +447,77 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
                 this.alertUtil.alertError('ERROR', this.mensajeGenerico);
               });
           });
+      } else if (this.userSession.RolId == 11 && this.locEstado === 1) {
+        if (this.frmNotaIngresoPlantaDetalle.value.controlador) {
+          this.alertUtil.alertSiNoCallback('Pregunta',
+            `¿Está seguro de asignar a ${this.frmNotaIngresoPlantaDetalle.value.controlador} como controlador de calidad?`,
+            () => {
+              this.spinner.show();
+              const request = {
+                Id: this.locId,
+                ResponsableId: this.frmNotaIngresoPlantaDetalle.value.codControlador,
+                EstadoId: 0,
+                Usuario: this.userSession.NombreUsuario,
+                Codigo: 'ControlCalidadPlanta'
+              };
+              this.contratoService.AsignarResponsableCalidad(request)
+                .subscribe((res) => {
+                  if (res.Result.Success) {
+                    this.alertUtil.alertOkCallback('Confirmación',
+                      'Se ha asignado correctamente al responsable para el control de calidad.',
+                      () => {
+                        this.ConsultarPorId();
+                      });
+                  } else {
+                    this.alertUtil.alertError('ERROR', res.Result.Message);
+                  }
+                }, (err) => {
+                  this.spinner.hide();
+                  this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+                });
+            });
+        } else {
+          this.submittedQualityController = true;
+          this.alertUtil.alertWarning('Validación', 'Seleccionar un responsable para el control de calidad.');
+        }
+      } else if (this.userSession.RolId == 11 && this.locEstado === 3) {
+        if (this.selectedTrans2 && this.selectedTrans2.length > 0) {
+          this.alertUtil.alertSiNoCallback('Pregunta',
+            '¿Está seguro de asignar a los transportistas seleccionados para el envio de la materia prima al almacén de planta?',
+            () => {
+              this.spinner.show();
+              const request = {
+                transportistas: [],
+                Codigo: 'TransporteNotaIngresoPlanta'
+              };
+              this.selectedTrans2.forEach(x => {
+                request.transportistas.push({
+                  IdProceso: this.locId,
+                  TransporteId: x.TransporteId,
+                  Usuario: this.userSession.NombreUsuario
+                })
+              });
+              this.contratoService.AsignarTransportistas(request)
+                .subscribe((res) => {
+                  this.spinner.hide();
+                  if (res.Result.Success) {
+                    this.alertUtil.alertOkCallback('Confirmación',
+                      'Se ha asignado a los transportistas seleccionados la responsabilidad de envio de la materia prima al almacén de planta.',
+                      () => {
+                        this.ConsultarPorId();
+                      });
+                  } else {
+                    this.alertUtil.alertError('ERROR', res.Result.Message);
+                  }
+                }, (err) => {
+                  console.log(err);
+                  this.spinner.hide();
+                  this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+                });
+            });
+        } else {
+          this.alertUtil.alertWarning('Validación', 'Seleccionar el/los transportista(s) que enviarán la materia prima al almacén de planta.');
+        }
       } else if (this.userSession.RolId == 12) {
         if (this.frmNotaIngresoPlantaDetalle.value.listaOlores) {
           if (this.frmNotaIngresoPlantaDetalle.value.listaColores) {
@@ -1078,6 +1167,54 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
 
   updateLimit(e) {
     this.limitTrans = e.target.value;
+  }
+
+  updateLimit2(e) {
+    this.limitTrans2 = e.target.value;
+  }
+
+  openModal(modal) {
+    this.modalService.open(modal, { windowClass: 'dark-modal', size: 'xl', centered: true });
+  }
+
+  ResultResponsibleInquiries(e) {
+    this.frmNotaIngresoPlantaDetalle.controls.codControlador.setValue(e[0].ResponsableId);
+    this.frmNotaIngresoPlantaDetalle.controls.controlador.setValue(e[0].Responsable);
+    this.frmNotaIngresoPlantaDetalle.controls.tipoDocControlador.setValue(e[0].TipoDocumento);
+    this.frmNotaIngresoPlantaDetalle.controls.nroDocControlador.setValue(e[0].NumeroDocumento);
+    this.frmNotaIngresoPlantaDetalle.controls.mailControlador.setValue(e[0].Email);
+  }
+
+  ActualizarListaTransportistas2() {
+    this.spinner.show();
+    this.rowsTrans2 = [];
+    if (this.locEstado === 3) {
+      this.maestroService.ConsultarTransportista({ Codigo: 'TransporteNotaIngresoPlanta' })
+        .subscribe((res) => {
+          this.spinner.hide();
+          if (res.Result.Success) {
+            this.rowsTrans2 = res.Result.Data;
+          } else {
+            this.alertUtil.alertError('ERROR', res.Result.Message);
+          }
+        }, (err) => {
+          this.spinner.hide();
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+        });
+    } else {
+      this.maestroService.ConsultarTransportista({ Id: this.locId, Codigo: 'TransporteNotaIngresoPlanta' })
+        .subscribe((res) => {
+          this.spinner.hide();
+          if (res.Result.Success) {
+            this.rowsTrans2 = res.Result.Data;
+          } else {
+            this.alertUtil.alertError('ERROR', res.Result.Message);
+          }
+        }, (err) => {
+          this.spinner.hide();
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+        });
+    }
   }
 
 }

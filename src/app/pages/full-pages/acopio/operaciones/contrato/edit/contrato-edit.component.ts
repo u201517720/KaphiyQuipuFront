@@ -677,7 +677,8 @@ export class ContratoEditComponent implements OnInit {
               Id: this.locId,
               ResponsableId: this.frmContratoCompraVenta.value.codControlador,
               EstadoId: this.locCodigoEstadoInt,
-              Usuario: this.userSession.NombreUsuario
+              Usuario: this.userSession.NombreUsuario,
+              Codigo: 'ControlCalidadAcopio'
             };
             this.contratoService.AsignarResponsableCalidad(request)
               .subscribe((res) => {
@@ -1123,25 +1124,35 @@ export class ContratoEditComponent implements OnInit {
   }
 
   ActualizarListaTransportistas() {
+    this.spinner.show();
+    this.rowsTrans = [];
     if (this.locCodigoEstadoInt === 6) {
       this.maestroService.ConsultarTransportista({ Codigo: 'TransporteContratoAcopio' })
         .subscribe((res) => {
+          this.spinner.hide();
           if (res.Result.Success) {
             this.rowsTrans = res.Result.Data;
+          } else {
+            this.alertUtil.alertError('ERROR', res.Result.Message);
           }
+        }, (err) => {
+          this.spinner.hide();
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
         });
     } else {
       this.maestroService.ConsultarTransportista({ Id: this.locId, Codigo: 'TransporteContratoAcopio' })
         .subscribe((res) => {
+          this.spinner.hide();
           if (res.Result.Success) {
             this.rowsTrans = res.Result.Data;
+          } else {
+            this.alertUtil.alertError('ERROR', res.Result.Message);
           }
+        }, (err) => {
+          this.spinner.hide();
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
         });
     }
-  }
-
-  onSelectTransportistas() {
-
   }
 
   ResultResponsibleInquiries(e) {
