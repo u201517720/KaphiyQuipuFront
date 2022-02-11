@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,8 @@ import { host } from '../../../../../../shared/hosts/main.host';
 @Component({
   selector: 'app-nota-ingreso-planta-edit',
   templateUrl: './nota-ingreso-planta-edit.component.html',
-  styleUrls: ['./nota-ingreso-planta-edit.component.scss']
+  styleUrls: ['./nota-ingreso-planta-edit.component.scss', '/assets/sass/libs/datatables.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NotaIngresoPlantaEditComponent implements OnInit {
 
@@ -31,6 +32,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   coloresSeleccionados = '';
   activeTab = 1;
   flagGeneroEtiquetas = false;
+  limitTrans = 10;
+  rowsTrans = [];
 
   constructor(private fb: FormBuilder,
     private guiaremisionService: GuiaremisionService,
@@ -50,7 +53,6 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     if (this.locId > 0) {
       this.ConsultarPorId();
     } else {
-
     }
   }
 
@@ -69,8 +71,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       cliente: [],
       direccion: [],
       certificacion: [],
-      transportista: [],
-      vehiculo: [],
+      // transportista: [],
+      // vehiculo: [],
       producto: [],
       numeroSacos: [],
       kilosBrutos: [],
@@ -194,6 +196,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       this.spinner.show();
       this.guiaremisionService.ConsultarPorCorrelativo({ Correlativo: this.frmNotaIngresoPlantaDetalle.value.nroGuiaRemision })
         .subscribe((res) => {
+          this.spinner.hide();
           if (res.Result.Success) {
             if (!res.Result.Data) {
               this.frmNotaIngresoPlantaDetalle.reset();
@@ -251,8 +254,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       this.frmNotaIngresoPlantaDetalle.controls.cliente.setValue(data.Empresa);
       this.frmNotaIngresoPlantaDetalle.controls.direccion.setValue(data.EmpresaDireccion);
       this.frmNotaIngresoPlantaDetalle.controls.certificacion.setValue(data.Certificacion);
-      this.frmNotaIngresoPlantaDetalle.controls.transportista.setValue(data.Conductor);
-      this.frmNotaIngresoPlantaDetalle.controls.vehiculo.setValue(data.PlacaTractor);
+      // this.frmNotaIngresoPlantaDetalle.controls.transportista.setValue(data.Conductor);
+      // this.frmNotaIngresoPlantaDetalle.controls.vehiculo.setValue(data.PlacaTractor);
       this.frmNotaIngresoPlantaDetalle.controls.producto.setValue(data.Producto);
       this.frmNotaIngresoPlantaDetalle.controls.numeroSacos.setValue(data.TotalSacos);
       this.frmNotaIngresoPlantaDetalle.controls.kilosBrutos.setValue(data.KilosBrutosPC);
@@ -391,6 +394,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
         this.frmNotaIngresoPlantaDetalle.controls.cafeCiscoKilos.updateValueAndValidity();
         this.frmNotaIngresoPlantaDetalle.controls.piedrasOtrosKgNetos.updateValueAndValidity();
       }
+      this.ActualizarListaTransportistas();
     }
     this.spinner.hide();
   }
@@ -1049,6 +1053,31 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
             this.alertUtil.alertError('ERROR', this.mensajeGenerico);
           });
       });
+  }
+
+  ActualizarListaTransportistas() {
+    this.spinner.show();
+    this.rowsTrans = [];
+    const request = {
+      Id: this.frmNotaIngresoPlantaDetalle.value.codGuiaRemision,
+      Codigo: 'TransporteGuiaRemisionAcopio'
+    };
+    this.maestroService.ConsultarTransportista(request)
+      .subscribe((res) => {
+        this.spinner.hide();
+        if (res.Result.Success) {
+          this.rowsTrans = res.Result.Data;
+        } else {
+          this.alertUtil.alertError('ERROR', res.Result.Message);
+        }
+      }, (err) => {
+        this.spinner.hide();
+        this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+      });
+  }
+
+  updateLimit(e) {
+    this.limitTrans = e.target.value;
   }
 
 }

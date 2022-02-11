@@ -95,6 +95,8 @@ export class NotaIngresoPlantaComponent implements OnInit {
           this.spinner.hide();
           if (res.Result.Success) {
             this.rows = res.Result.Data;
+          } else {
+            this.alertUtil.alertError('ERROR', res.Result.Message);
           }
         }, (err) => {
           this.spinner.hide();

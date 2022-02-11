@@ -83,9 +83,10 @@ export class DocumentopagoEditComponent implements OnInit {
           this.frmDocumentoPagoEdit.controls.motivo.setValue(res.Result.Data.Motivo);
           this.frmDocumentoPagoEdit.controls.tipoDocumento.setValue(res.Result.Data.TipoDocumento);
           this.frmDocumentoPagoEdit.controls.nroDocumento.setValue(res.Result.Data.NumeroDocumento);
-          this.frmDocumentoPagoEdit.controls.estado.setValue(res.Result.Data.CorrelativoDPA);
+          this.frmDocumentoPagoEdit.controls.estado.setValue(res.Result.Data.Estado);
           this.frmDocumentoPagoEdit.controls.totalPagar.setValue(res.Result.Data.MontoPago);
-          this.frmDocumentoPagoEdit.controls.fileName.setValue(res.Result.Data.NombreArchivo);
+          if (res.Result.Data.NombreArchivo)
+            this.frmDocumentoPagoEdit.controls.fileName.setValue(res.Result.Data.NombreArchivo);
         } else {
 
         }

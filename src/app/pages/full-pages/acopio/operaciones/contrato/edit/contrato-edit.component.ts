@@ -561,11 +561,14 @@ export class ContratoEditComponent implements OnInit {
 
   ActualizarListaAgricultores() {
     if (this.locCodigoEstadoInt === 4) {
+      this.spinner.show();
+      this.rows = [];
       const request = {
         TipoCertificacionId: this.frmContratoCompraVenta.value.certificacion
       }
       this.agricultorService.Consultar(request)
         .subscribe((res) => {
+          this.spinner.hide();
           if (res && res.Result.Success) {
             if (res.Result.Data.length > 0) {
               this.rows = res.Result.Data;
@@ -574,6 +577,7 @@ export class ContratoEditComponent implements OnInit {
             }
           }
         }, (err) => {
+          this.spinner.hide();
           console.log(err);
         });
     } else {
@@ -637,7 +641,7 @@ export class ContratoEditComponent implements OnInit {
             };
             this.selectedTrans.forEach(x => {
               request.transportistas.push({
-                ContratoId: this.locId,
+                IdProceso: this.locId,
                 TransporteId: x.TransporteId,
                 Usuario: this.userSession.NombreUsuario
               })

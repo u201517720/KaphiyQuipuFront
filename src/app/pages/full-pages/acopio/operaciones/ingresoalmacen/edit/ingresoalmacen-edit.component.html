@@ -53,7 +53,7 @@
                 <label for="AlmacenId" class="col-lg-4 col-form-label pr-0">ALMACÉN</label>
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                   <ng-select [items]="listaAlmacenes" formControlName="AlmacenId" class="form-control" bindLabel="Label"
-                    bindValue="Codigo" placeholder="Almacén" [readonly]="locEstado >= 3"
+                    bindValue="Codigo" placeholder="Almacén" [readonly]="locEstado >= 2"
                     [ngClass]="{ 'is-invalid': submitted && f.AlmacenId.invalid, 'is-valid': !submitted && !f.AlmacenId.invalid }"
                     [(ngModel)]="selectedAlmacen">
                   </ng-select>
