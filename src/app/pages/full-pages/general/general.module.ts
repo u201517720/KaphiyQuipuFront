@@ -24,6 +24,8 @@ import { MatchHeightModule } from '../../../shared/directives/match-height.direc
 import { NgbDateCustomParserFormatter } from '../../../shared/util/NgbDateCustomParserFormatter';
 import { DocumentoPagoComponent } from './operaciones/documentopago/documento-pago.component';
 import { DocumentopagoEditComponent } from './operaciones/documentopago/edit/documentopago-edit.component';
+import { DocumentoPagoPlantaComponent } from './operaciones/documentopagoplanta/documento-pago-planta.component';
+import { DocumentopagoplantaEditComponent } from './operaciones/documentopagoplanta/edit/documentopagoplanta-edit.component';
 
 @NgModule({
   imports: [
@@ -51,7 +53,9 @@ import { DocumentopagoEditComponent } from './operaciones/documentopago/edit/doc
   ],
   declarations: [
     DocumentoPagoComponent,
-    DocumentopagoEditComponent
+    DocumentopagoEditComponent,
+    DocumentoPagoPlantaComponent,
+    DocumentopagoplantaEditComponent
   ],
   exports: [],
   providers: [

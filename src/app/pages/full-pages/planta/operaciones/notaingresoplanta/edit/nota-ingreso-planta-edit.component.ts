@@ -11,6 +11,7 @@ import { MaestroService } from '../../../../../../Services/maestro.service';
 import { NotasalidaplantaService } from '../../../../../../Services/notasalidaplanta.service';
 import { host } from '../../../../../../shared/hosts/main.host';
 import { ContratoService } from '../../../../../../Services/contrato.service';
+import { GeneralService } from '../../../../../../Services/general.service';
 
 @Component({
   selector: 'app-nota-ingreso-planta-edit',
@@ -30,6 +31,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
     private modalService: NgbModal,
     private contratoService: ContratoService,
     private router: Router,
+    private generalService: GeneralService,
     private notasalidaplantaService: NotasalidaplantaService) {
     this.locId = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : 0;
     this.userSession = JSON.parse(sessionStorage.getItem('user'));
@@ -375,7 +377,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
         this.frmNotaIngresoPlantaDetalle.controls.totalGramos.updateValueAndValidity();
         this.frmNotaIngresoPlantaDetalle.controls.totalPorcentaje.updateValueAndValidity();
         this.frmNotaIngresoPlantaDetalle.controls.humedadProcenPC.updateValueAndValidity();
-      } else if (this.locEstado === 5) {
+      } else if (this.locEstado === 8) {
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportSacos.setValidators(Validators.required);
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportKilos.setValidators(Validators.required);
         this.frmNotaIngresoPlantaDetalle.controls.cafeExportMCSacos.setValidators(Validators.required);
@@ -540,7 +542,8 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
                   TotalGramos: this.frmNotaIngresoPlantaDetalle.value.totalGramos,
                   TotalPorcentaje: this.frmNotaIngresoPlantaDetalle.value.totalPorcentaje,
                   HumedadPorcentaje: this.frmNotaIngresoPlantaDetalle.value.humedadProcenPC,
-                  UsuarioActualizacion: this.userSession.NombreUsuario
+                  UsuarioActualizacion: this.userSession.NombreUsuario,
+                  CorrelativoNIP: this.frmNotaIngresoPlantaDetalle.value.correlativo
                 }
 
                 this.notaingresoplantaService.RegistrarControlCalidad(request)
@@ -1043,76 +1046,66 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
   }
 
   FinalizarTransformacion() {
-    // this.alertUtil.alertSiNoCallback('Pregunta',
-    //   '¿Está seguro de confirmar la finalización de la transformación?',
-    //   () => {
-    //     this.spinner.show();
-    //     const request = {
-    //       Id: this.locId,
-    //       Usuario: this.userSession.NombreUsuario
-    //     }
-    //     this.notaingresoplantaService.FinalizarTransformacion(request)
-    //       .subscribe((res) => {
-    //         this.spinner.hide();
-    //         if (res.Result.Success) {
-    //           this.alertUtil.alertOkCallback('Confirmación',
-    //             `Se ha confirmado la ejecución de la transformación.`,
-    //             () => {
-    //               this.ConsultarPorId();
-    //             });
-    //         } else {
-    //           this.alertUtil.alertError('ERROR', res.Result.Message);
-    //         }
-    //       }, (err) => {
-    //         this.spinner.hide();
-    //         this.alertUtil.alertError('ERROR', this.mensajeGenerico);
-    //       });
-    //   });
+    if (this.userSession.RolId == 14 && this.locEstado === 8) {
+      this.submitted = false;
+      if (!this.frmNotaIngresoPlantaDetalle.invalid) {
+        this.alertUtil.alertSiNoCallback('Pregunta',
+          '¿Está seguro de guardar los resultados ingresados?',
+          () => {
+            this.spinner.show();
+            const request = {
+              NotaIngresoPlantaId: this.locId,
+              CafeExportacionSacos: this.frmNotaIngresoPlantaDetalle.value.cafeExportSacos,
+              CafeExportacionKilos: this.frmNotaIngresoPlantaDetalle.value.cafeExportKilos,
+              CafeExportacionMCSacos: this.frmNotaIngresoPlantaDetalle.value.cafeExportMCSacos,
+              CafeExportacionMCKilos: this.frmNotaIngresoPlantaDetalle.value.cafeExportMCKilos,
+              CafeSegundaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeSegundaSacos,
+              CafeSegundaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeSegundaKilos,
+              CafeDescarteMaquinaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaSacos,
+              CafeDescarteMaquinaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaKilos,
+              CafeDescarteEscojoSacos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoSacos,
+              CafeDescarteEscojoKilos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoKilos,
+              CafeBolaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeBolaSacos,
+              CafeBolaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeBolaKilos,
+              CafeCiscoSacos: this.frmNotaIngresoPlantaDetalle.value.cafeCiscoSacos,
+              CafeCiscoKilos: this.frmNotaIngresoPlantaDetalle.value.cafeCiscoKilos,
+              TotalCafeSacos: this.frmNotaIngresoPlantaDetalle.value.totalCafeSacos,
+              TotalCafeKgNetos: this.frmNotaIngresoPlantaDetalle.value.totalCafeKgNetos,
+              PiedraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.piedrasOtrosKgNetos,
+              CascaraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.cascaraOtrosKgNetos,
+              UsuarioRegistro: this.userSession.NombreUsuario,
+              Contrato: this.frmNotaIngresoPlantaDetalle.value.correlativoContrato,
+              CorrelativoNIP: this.frmNotaIngresoPlantaDetalle.value.correlativo
+            }
+            this.notaingresoplantaService.RegistrarResultadosTransformacion(request)
+              .subscribe((res) => {
+                if (res.Result.Success) {
+                  this.alertUtil.alertOkCallback('Confirmación',
+                    'Se han guardado los resultados ingresados.',
+                    () => {
+                      const request2 = {
+                        Id: this.locId,
+                        Usuario: this.userSession.NombreUsuario
+                      }
+                      this.generalService.GenerarPagoPendientePlanta(request2)
+                        .subscribe((res) => {
+                          if (res.Result.Success) {
 
-    if (this.userSession.RolId == 14 && this.locEstado === 6) {
-      this.alertUtil.alertSiNoCallback('Pregunta',
-        '¿Está seguro de guardar los resultados ingresados?',
-        () => {
-          this.spinner.show();
-          const request = {
-            NotaIngresoPlantaId: this.locId,
-            CafeExportacionSacos: this.frmNotaIngresoPlantaDetalle.value.cafeExportSacos,
-            CafeExportacionKilos: this.frmNotaIngresoPlantaDetalle.value.cafeExportKilos,
-            CafeExportacionMCSacos: this.frmNotaIngresoPlantaDetalle.value.cafeExportMCSacos,
-            CafeExportacionMCKilos: this.frmNotaIngresoPlantaDetalle.value.cafeExportMCKilos,
-            CafeSegundaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeSegundaSacos,
-            CafeSegundaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeSegundaKilos,
-            CafeDescarteMaquinaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaSacos,
-            CafeDescarteMaquinaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteMaquinaKilos,
-            CafeDescarteEscojoSacos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoSacos,
-            CafeDescarteEscojoKilos: this.frmNotaIngresoPlantaDetalle.value.cafeDescarteEscojoKilos,
-            CafeBolaSacos: this.frmNotaIngresoPlantaDetalle.value.cafeBolaSacos,
-            CafeBolaKilos: this.frmNotaIngresoPlantaDetalle.value.cafeBolaKilos,
-            CafeCiscoSacos: this.frmNotaIngresoPlantaDetalle.value.cafeCiscoSacos,
-            CafeCiscoKilos: this.frmNotaIngresoPlantaDetalle.value.cafeCiscoKilos,
-            TotalCafeSacos: this.frmNotaIngresoPlantaDetalle.value.totalCafeSacos,
-            TotalCafeKgNetos: this.frmNotaIngresoPlantaDetalle.value.totalCafeKgNetos,
-            PiedraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.piedrasOtrosKgNetos,
-            CascaraOtrosKgNetos: this.frmNotaIngresoPlantaDetalle.value.cascaraOtrosKgNetos,
-            UsuarioRegistro: this.userSession.NombreUsuario,
-            Contrato: this.frmNotaIngresoPlantaDetalle.value.correlativoContrato
-          }
-          this.notaingresoplantaService.RegistrarResultadosTransformacion(request)
-            .subscribe((res) => {
-              if (res.Result.Success) {
-                this.alertUtil.alertOkCallback('Confirmación',
-                  'Se han guardado los resultados ingresados.',
-                  () => {
-                    this.ConsultarPorId();
-                  });
-              } else {
-                this.alertUtil.alertError('ERROR', res.Result.Message);
-              }
-            }, (err) => {
-              this.spinner.hide();
-              this.alertUtil.alertError('ERROR', this.mensajeGenerico);
-            });
-        });
+                          }
+                        })
+                      this.ConsultarPorId();
+                    });
+                } else {
+                  this.alertUtil.alertError('ERROR', res.Result.Message);
+                }
+              }, (err) => {
+                this.spinner.hide();
+                this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+              });
+          });
+      } else {
+        this.submitted = true;
+      }
     }
   }
 

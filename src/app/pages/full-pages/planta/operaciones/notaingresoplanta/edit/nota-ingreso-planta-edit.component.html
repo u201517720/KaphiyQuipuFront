@@ -501,7 +501,7 @@
                                     </div>
                                 </ng-template>
                             </li>
-                            <li [ngbNavItem]="2" *ngIf="(userSession.RolId === 14 && locEstado == 7) || locEstado > 7">
+                            <li [ngbNavItem]="2" *ngIf="(userSession.RolId === 14 && locEstado == 8) || locEstado > 7">
                                 <a ngbNavLink class="nav-link d-flex align-items-center">
                                     <span class="d-none d-sm-block" style="font-size: 1.1rem;">Resultados
                                         Transformación</span>
@@ -542,15 +542,15 @@
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportSacos.invalid, 'is-valid': !submitted && !f.cafeExportSacos.invalid }"
-                                                                    [readonly]="locEstado > 7"
+                                                                    [readonly]="locEstado > 8"
                                                                     class="form-control form-control-sm text-right"
-                                                                    (blur)="CalcularResultadosProcesos()">
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportKilos.invalid, 'is-valid': !submitted && !f.cafeExportKilos.invalid }"
-                                                                    [readonly]="locEstado > 7"
-                                                                    (blur)="CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 8"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -571,15 +571,15 @@
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportMCSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportMCSacos.invalid, 'is-valid': !submitted && !f.cafeExportMCSacos.invalid }"
-                                                                    [readonly]="locEstado > 7"
-                                                                    (blur)="CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 8"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeExportMCKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeExportMCKilos.invalid, 'is-valid': !submitted && !f.cafeExportMCKilos.invalid }"
-                                                                    [readonly]="locEstado > 7"
-                                                                    (blur)="CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 8"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -600,15 +600,15 @@
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeSegundaSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeSegundaSacos.invalid, 'is-valid': !submitted && !f.cafeSegundaSacos.invalid }"
-                                                                    [readonly]="locEstado > 7"
-                                                                    (blur)="CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 8"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeSegundaKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeSegundaKilos.invalid, 'is-valid': !submitted && !f.cafeSegundaKilos.invalid }"
-                                                                    [readonly]="locEstado > 7"
-                                                                    (blur)="CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 8"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -630,16 +630,16 @@
                                                                 <input type="number"
                                                                     formControlName="cafeDescarteMaquinaSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteMaquinaSacos.invalid, 'is-valid': !submitted && !f.cafeDescarteMaquinaSacos.invalid }"
-                                                                    (blur)="CalcularResultadosProcesos()"
-                                                                    [readonly]="locEstado > 7"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 8"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number"
                                                                     formControlName="cafeDescarteMaquinaKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteMaquinaKilos.invalid, 'is-valid': !submitted && !f.cafeDescarteMaquinaKilos.invalid }"
-                                                                    (blur)="CalcularResultadosProcesos()"
-                                                                    [readonly]="locEstado > 7"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 8"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -661,16 +661,16 @@
                                                                 <input type="number"
                                                                     formControlName="cafeDescarteEscojoSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteEscojoSacos.invalid, 'is-valid': !submitted && !f.cafeDescarteEscojoSacos.invalid }"
-                                                                    (blur)="CalcularResultadosProcesos()"
-                                                                    [readonly]="locEstado > 7"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 8"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number"
                                                                     formControlName="cafeDescarteEscojoKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeDescarteEscojoKilos.invalid, 'is-valid': !submitted && !f.cafeDescarteEscojoKilos.invalid }"
-                                                                    (blur)="CalcularResultadosProcesos()"
-                                                                    [readonly]="locEstado > 7"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()"
+                                                                    [readonly]="locEstado > 8"
                                                                     class="form-control form-control-sm text-right">
                                                             </td>
                                                             <td class="text-right align-middle">
@@ -692,15 +692,15 @@
                                                                 <input type="number" formControlName="cafeBolaSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeBolaSacos.invalid, 'is-valid': !submitted && !f.cafeBolaSacos.invalid }"
                                                                     class="form-control form-control-sm text-right"
-                                                                    [readonly]="locEstado > 7"
-                                                                    (blur)="CalcularResultadosProcesos()">
+                                                                    [readonly]="locEstado > 8"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeBolaKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeBolaKilos.invalid, 'is-valid': !submitted && !f.cafeBolaKilos.invalid }"
                                                                     class="form-control form-control-sm text-right"
-                                                                    [readonly]="locEstado > 7"
-                                                                    (blur)="CalcularResultadosProcesos()">
+                                                                    [readonly]="locEstado > 8"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-right align-middle">
                                                                 <label>{{frmNotaIngresoPlantaDetalle.value.cafeBolaKgNetos}}</label>
@@ -721,15 +721,15 @@
                                                                 <input type="number" formControlName="cafeCiscoSacos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeCiscoSacos.invalid, 'is-valid': !submitted && !f.cafeCiscoSacos.invalid }"
                                                                     class="form-control form-control-sm text-right"
-                                                                    [readonly]="locEstado > 7"
-                                                                    (blur)="CalcularResultadosProcesos()">
+                                                                    [readonly]="locEstado > 8"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-center">
                                                                 <input type="number" formControlName="cafeCiscoKilos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.cafeCiscoKilos.invalid, 'is-valid': !submitted && !f.cafeCiscoKilos.invalid }"
                                                                     class="form-control form-control-sm text-right"
-                                                                    [readonly]="locEstado > 7"
-                                                                    (blur)="CalcularResultadosProcesos()">
+                                                                    [readonly]="locEstado > 8"
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-right align-middle">
                                                                 <label>{{frmNotaIngresoPlantaDetalle.value.cafeCiscoKgNetos}}</label>
@@ -777,9 +777,9 @@
                                                                 <input type="number"
                                                                     formControlName="piedrasOtrosKgNetos"
                                                                     [ngClass]="{ 'is-invalid': submitted && f.piedrasOtrosKgNetos.invalid, 'is-valid': !submitted && !f.piedrasOtrosKgNetos.invalid }"
-                                                                    [readonly]="locEstado > 7"
+                                                                    [readonly]="locEstado > 8"
                                                                     class="form-control form-control-sm text-right"
-                                                                    (blur)="CalcularResultadosProcesos()">
+                                                                    (blur)="locEstado ===8 && CalcularResultadosProcesos()">
                                                             </td>
                                                             <td class="text-right align-middle">
                                                                 <label>{{frmNotaIngresoPlantaDetalle.value.piedrasOtrosQQS}}</label>

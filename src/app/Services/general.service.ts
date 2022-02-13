@@ -33,4 +33,14 @@ export class GeneralService {
     const url = `${this.urlGral}/ConfirmVoucherPayment`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  GenerarPagoPendientePlanta(request): Observable<any> {
+    const url = `${this.urlGral}/GeneratePlantPendingPayment`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  ConsultarDocumentoPagoPlanta(request): Observable<any> {
+    const url = `${this.urlGral}/ConsultPaymentDocumentPlant`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
