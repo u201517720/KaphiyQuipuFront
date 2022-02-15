@@ -43,4 +43,24 @@ export class GeneralService {
     const url = `${this.urlGral}/ConsultPaymentDocumentPlant`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConsultarDocumentoPagoPlantaPorId(request): Observable<any> {
+    const url = `${this.urlGral}/ConsultPaymentDocumentPlantById`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  AprobarDepositoPlanta(request): Observable<any> {
+    const url = `${this.urlGral}/ApprovePlantDeposit`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  GuardarVoucherPlanta(request): Observable<any> {
+    const url = `${this.urlGral}/SaveVoucherPlant`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  ConfirmarVoucherPagoPlanta(request): Observable<any> {
+    const url = `${this.urlGral}/ConfirmVoucherPaymentPlant`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

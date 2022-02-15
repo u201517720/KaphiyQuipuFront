@@ -47,17 +47,18 @@ export class DocumentopagoplantaEditComponent implements OnInit {
   LoadForm() {
     this.frmDocumentoPagoPlantaEdit = this.fb.group({
       correlativo: [],
-      nroContrato: [],
+      nroNotaIngreso: [],
       rucEmpresa: [],
       fechaRegistro: [],
-      agricultor: [],
+      cobrador: [],
       motivo: [],
-      tipoDocumento: [],
-      nroDocumento: [],
+      rucCobrador: [],
+      rzDestinatario: [],
       estado: [],
       totalPagar: [],
       file: [],
-      fileName: []
+      fileName: [],
+      rucDestinatario: []
     });
   }
 
@@ -68,28 +69,30 @@ export class DocumentopagoplantaEditComponent implements OnInit {
   ConsultarPorId() {
     this.spinner.show();
     const request = { Id: this.locId }
-    this.generalService.ConsultarDocumentoPagoPorId(request)
+    this.generalService.ConsultarDocumentoPagoPlantaPorId(request)
       .subscribe((res) => {
         this.spinner.hide();
         if (res.Result.Success) {
-          this.locEstado = parseInt(res.Result.Data.EstadoId);
-          this.frmDocumentoPagoPlantaEdit.controls.correlativo.setValue(res.Result.Data.CorrelativoDPA);
-          this.frmDocumentoPagoPlantaEdit.controls.nroContrato.setValue(res.Result.Data.CorrelativoCC);
+          this.locEstado = res.Result.Data.EstadoId;
+          this.frmDocumentoPagoPlantaEdit.controls.correlativo.setValue(res.Result.Data.CorrelativoPT);
+          this.frmDocumentoPagoPlantaEdit.controls.nroNotaIngreso.setValue(res.Result.Data.CorrelativoNIP);
           this.frmDocumentoPagoPlantaEdit.controls.rucEmpresa.setValue(res.Result.Data.Ruc);
-          this.frmDocumentoPagoPlantaEdit.controls.fechaRegistro.setValue(res.Result.Data.Fecha);
-          this.frmDocumentoPagoPlantaEdit.controls.agricultor.setValue(res.Result.Data.Agricultor);
+          this.frmDocumentoPagoPlantaEdit.controls.fechaRegistro.setValue(res.Result.Data.FecReg);
+          this.frmDocumentoPagoPlantaEdit.controls.cobrador.setValue(res.Result.Data.Planta);
           this.frmDocumentoPagoPlantaEdit.controls.motivo.setValue(res.Result.Data.Motivo);
-          this.frmDocumentoPagoPlantaEdit.controls.tipoDocumento.setValue(res.Result.Data.TipoDocumento);
-          this.frmDocumentoPagoPlantaEdit.controls.nroDocumento.setValue(res.Result.Data.NumeroDocumento);
+          this.frmDocumentoPagoPlantaEdit.controls.rucCobrador.setValue(res.Result.Data.RucPlanta);
+          this.frmDocumentoPagoPlantaEdit.controls.rzDestinatario.setValue(res.Result.Data.Acopio);
+          this.frmDocumentoPagoPlantaEdit.controls.rucDestinatario.setValue(res.Result.Data.RucAcopio);
           this.frmDocumentoPagoPlantaEdit.controls.estado.setValue(res.Result.Data.Estado);
           this.frmDocumentoPagoPlantaEdit.controls.totalPagar.setValue(res.Result.Data.MontoPago);
           if (res.Result.Data.NombreArchivo)
             this.frmDocumentoPagoPlantaEdit.controls.fileName.setValue(res.Result.Data.NombreArchivo);
         } else {
-
+          this.alertUtil.alertError('ERROR', res.Result.Message);
         }
       }, (err) => {
         this.spinner.hide();
+        this.alertUtil.alertError('ERROR', this.mensajeGenerico);
       });
   }
 
@@ -103,7 +106,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
   }
 
   Guardar() {
-    if (this.locEstado === 1) {
+    if (this.locEstado === 2) {
       if (this.frmDocumentoPagoPlantaEdit.value.file) {
         this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de guardar el archivo seleccionado como Voucher de Pago?',
@@ -119,7 +122,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
             const headers = new HttpHeaders();
             headers.append('enctype', 'multipart/form-data');
             this.httpClient
-              .post(`${host}General/SaveVoucher`, formData, { headers })
+              .post(`${host}General/SaveVoucherPlant`, formData, { headers })
               .subscribe((res: any) => {
                 if (res.Result.Success) {
                   this.alertUtil.alertOkCallback('Confirmación',
@@ -155,7 +158,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
           Id: this.locId,
           Usuario: this.userSession.NombreUsuario
         };
-        this.generalService.ConfirmarVoucherPago(request)
+        this.generalService.ConfirmarVoucherPagoPlanta(request)
           .subscribe((res) => {
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
@@ -170,6 +173,33 @@ export class DocumentopagoplantaEditComponent implements OnInit {
             console.log(err);
             this.spinner.hide();
             this.alertUtil.alertError("ERROR!", this.mensajeGenerico);
+          })
+      });
+  }
+
+  AprobarDeposito() {
+    this.alertUtil.alertSiNoCallback('Pregunta',
+      '¿Está seguro de aprobar el deposito?',
+      () => {
+        this.spinner.show();
+        const request = {
+          Id: this.locId,
+          Usuario: this.userSession.NombreUsuario
+        }
+        this.generalService.AprobarDepositoPlanta(request)
+          .subscribe((res) => {
+            if (res.Result.Success) {
+              this.alertUtil.alertOkCallback('Confirmacion',
+                'El deposito se ha aprobado.',
+                () => {
+                  this.ConsultarPorId();
+                });
+            } else {
+              this.alertUtil.alertError('ERROR', res.Result.Message);
+            }
+          }, (err) => {
+            this.spinner.hide();
+            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
           })
       });
   }
