@@ -156,13 +156,14 @@
                             <div class="form-group row m-0">
                                 <div class="col-lg-12 text-right">
                                     <button type="button" class="btn btn-primary mr-1" (click)="GenerarGuiaRemision()"
-                                        *ngIf="userSession.RolId == 8 && locId > 0">Generar Guía de Remisión</button>
+                                        *ngIf="userSession.RolId == 8 && locEstado === 2">Generar Guía de
+                                        Remisión</button>
                                     <button type="button" class="btn btn-primary mr-1"
                                         (click)="ConfirmarAtencionCompleta()"
                                         *ngIf="userSession.RolId == 7 && locId > 0 && locEstado <= 1">Confirmar Atención
                                         Completa</button>
                                     <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
-                                        *ngIf="userSession.RolId == 8 && locId <= 0">Guardar</button>
+                                        *ngIf="userSession.RolId == 8 && locEstado === 0">Guardar</button>
                                     <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
                                 </div>
                             </div>
