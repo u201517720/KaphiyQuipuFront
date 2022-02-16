@@ -63,4 +63,14 @@ export class GeneralService {
     const url = `${this.urlGral}/ConfirmVoucherPaymentPlant`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ConsultarPagoContrato(request): Observable<any> {
+    const url = `${this.urlGral}/ConsultPaymentContract`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  ConsultarPagoContratoId(request): Observable<any> {
+    const url = `${this.urlGral}/ConsultPaymentContractById`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

@@ -4,6 +4,8 @@ import { DocumentoPagoComponent } from './operaciones/documentopago/documento-pa
 import { DocumentopagoEditComponent } from './operaciones/documentopago/edit/documentopago-edit.component';
 import { DocumentoPagoPlantaComponent } from './operaciones/documentopagoplanta/documento-pago-planta.component';
 import { DocumentopagoplantaEditComponent } from './operaciones/documentopagoplanta/edit/documentopagoplanta-edit.component';
+import { PagoContratoEditComponent } from './operaciones/pagocontrato/edit/pago-contrato-edit.component';
+import { PagoContratoComponent } from './operaciones/pagocontrato/pago-contrato.component';
 
 const routes: Routes = [
   {
@@ -35,6 +37,20 @@ const routes: Routes = [
         component: DocumentopagoplantaEditComponent,
         data: {
           title: 'Documento Pago Planta'
+        }
+      },
+      {
+        path: 'pagocontrato/list',
+        component: PagoContratoComponent,
+        data: {
+          title: 'Pago Contrato'
+        }
+      },
+      {
+        path: 'pagocontrato/update/:id',
+        component: PagoContratoEditComponent,
+        data: {
+          title: 'Pago Contrato'
         }
       }
     ]

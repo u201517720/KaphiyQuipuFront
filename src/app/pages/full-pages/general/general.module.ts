@@ -26,6 +26,8 @@ import { DocumentoPagoComponent } from './operaciones/documentopago/documento-pa
 import { DocumentopagoEditComponent } from './operaciones/documentopago/edit/documentopago-edit.component';
 import { DocumentoPagoPlantaComponent } from './operaciones/documentopagoplanta/documento-pago-planta.component';
 import { DocumentopagoplantaEditComponent } from './operaciones/documentopagoplanta/edit/documentopagoplanta-edit.component';
+import { PagoContratoComponent } from './operaciones/pagocontrato/pago-contrato.component';
+import { PagoContratoEditComponent } from './operaciones/pagocontrato/edit/pago-contrato-edit.component';
 
 @NgModule({
   imports: [
@@ -55,7 +57,9 @@ import { DocumentopagoplantaEditComponent } from './operaciones/documentopagopla
     DocumentoPagoComponent,
     DocumentopagoEditComponent,
     DocumentoPagoPlantaComponent,
-    DocumentopagoplantaEditComponent
+    DocumentopagoplantaEditComponent,
+    PagoContratoComponent,
+    PagoContratoEditComponent
   ],
   exports: [],
   providers: [
