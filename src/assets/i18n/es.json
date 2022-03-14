@@ -153,6 +153,12 @@
 			},
 			"Devoluciones": {
 				"Label": "Notas de Ingreso a Planta"
+			},
+			"DocumentoPagoPlanta": {
+				"Label": "Pagos de Planta"
+			},
+			"PagoContrato": {
+				"Label": "Pagos del Contrato"
 			}
 		}
 	},
@@ -171,17 +177,29 @@
 			"Label": "Materia Prima"
 		}
 	},
+	"Cosecha": {
+		"Label": "Cosecha",
+		"GestionarCosecha": {
+			"Label": "Gestionar Cosecha"
+		}
+	},
 	"Planta": {
 		"Label": "Planta",
 		"Operaciones": {
 			"NotasIngreso": {
 				"Label": "Notas de Ingreso"
 			},
+			"OrdenesProcesos": {
+				"Label": "Ordenes de Proceso"
+			},
 			"NotasSalida": {
 				"Label": "Notas de Salida"
 			},
 			"GuiasRemision": {
 				"Label": "Guías de Remisión"
+			},
+			"DocumentoPagoPlanta": {
+				"Label": "Pagos"
 			}
 		}
 	},

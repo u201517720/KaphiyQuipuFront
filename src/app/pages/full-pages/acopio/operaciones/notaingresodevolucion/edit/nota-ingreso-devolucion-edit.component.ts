@@ -247,4 +247,8 @@ export class NotaIngresoDevolucionEditComponent implements OnInit {
           });
       });
   }
+
+  ConfirmarAtencionCompleta2() {
+    
+  }
 }

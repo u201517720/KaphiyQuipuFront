@@ -117,7 +117,7 @@
                             <input type="file" (change)="fileChange($event)"
                                 *ngIf="locEstado === 1 && userSession.RolId === 6" placeholder="Upload file"
                                 accept=".bmp,.gif,.jpg,.tif,.png, .jpeg">
-                            <a role="button" (click)="Descargar(row)" *ngIf="locEstado > 2"
+                            <a role="button" (click)="Descargar(row)" *ngIf="locEstado >= 2"
                                 style="color: blue;">{{frmPagoContratoEdit.value.fileName}}</a>
                         </div>
                     </div>
@@ -126,11 +126,9 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
                     <button class="btn btn-primary mr-1" type="button" (click)="ConfirmarDeposito()"
-                        *ngIf="locEstado === 3 && userSession.RolId === 11">Confirmar Deposito</button>
+                        *ngIf="locEstado === 2 && userSession.RolId === 7">Confirmar Deposito</button>
                     <button class="btn btn-primary mr-1" type="button" (click)="Guardar()"
-                        *ngIf="locEstado === 2 && userSession.RolId === 7">Guardar</button>
-                    <button class="btn btn-primary mr-1" type="button" (click)="AprobarDeposito()"
-                        *ngIf="locEstado === 1 && userSession.RolId === 10">Aprobar Deposito</button>
+                        *ngIf="locEstado === 1 && userSession.RolId === 6">Guardar</button>
                     <button class="btn btn-danger" type="button" (click)="Cancelar()">Cancelar</button>
                 </div>
             </div>

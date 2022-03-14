@@ -6,7 +6,7 @@
                     NOTA DE INGRESO DE CAFÉ PROCESADO {{frmNotaIngresoDevolucionDetalle.value.correlativo}}
                 </h5>
                 <div class="card-body">
-                    <div class="form-row">
+                    <div class="form-row" *ngIf="locId">
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"></div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                             <div class="form-group row">
@@ -156,11 +156,15 @@
                             <div class="form-group row m-0">
                                 <div class="col-lg-12 text-right">
                                     <button type="button" class="btn btn-primary mr-1" (click)="GenerarGuiaRemision()"
-                                        *ngIf="userSession.RolId == 8 && locEstado === 2">Generar Guía de
+                                        *ngIf="userSession.RolId == 8 && locEstado === 4">Generar Guía de
                                         Remisión</button>
                                     <button type="button" class="btn btn-primary mr-1"
                                         (click)="ConfirmarAtencionCompleta()"
-                                        *ngIf="userSession.RolId == 7 && locId > 0 && locEstado <= 1">Confirmar Atención
+                                        *ngIf="userSession.RolId == 8 && locId > 0 && locEstado <= 1">Confirmar Atención
+                                        Completa</button>
+                                    <button type="button" class="btn btn-primary mr-1"
+                                        (click)="ConfirmarAtencionCompleta2()"
+                                        *ngIf="userSession.RolId == 7 && locId > 0 && locEstado == 2">Confirmar Atención
                                         Completa</button>
                                     <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
                                         *ngIf="userSession.RolId == 8 && locEstado === 0">Guardar</button>

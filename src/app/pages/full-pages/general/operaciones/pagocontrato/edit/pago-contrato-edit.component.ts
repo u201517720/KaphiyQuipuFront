@@ -108,7 +108,7 @@ export class PagoContratoEditComponent implements OnInit {
   }
 
   Guardar() {
-    if (this.locEstado === 2) {
+    if (this.locEstado === 1) {
       if (this.frmPagoContratoEdit.value.file) {
         this.alertUtil.alertSiNoCallback('Pregunta',
           '¿Está seguro de guardar el archivo seleccionado como Voucher de Pago?',
@@ -124,7 +124,7 @@ export class PagoContratoEditComponent implements OnInit {
             const headers = new HttpHeaders();
             headers.append('enctype', 'multipart/form-data');
             this.httpClient
-              .post(`${host}General/SaveVoucherPlant`, formData, { headers })
+              .post(`${host}General/SaveVoucherContractPurchase`, formData, { headers })
               .subscribe((res: any) => {
                 if (res.Result.Success) {
                   this.alertUtil.alertOkCallback('Confirmación',
@@ -160,7 +160,7 @@ export class PagoContratoEditComponent implements OnInit {
           Id: this.locId,
           Usuario: this.userSession.NombreUsuario
         };
-        this.generalService.ConfirmarVoucherPagoPlanta(request)
+        this.generalService.ConfirmarVoucherPagoContratoCompra(request)
           .subscribe((res) => {
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
@@ -175,33 +175,6 @@ export class PagoContratoEditComponent implements OnInit {
             console.log(err);
             this.spinner.hide();
             this.alertUtil.alertError("ERROR!", this.mensajeGenerico);
-          })
-      });
-  }
-
-  AprobarDeposito() {
-    this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de aprobar el deposito?',
-      () => {
-        this.spinner.show();
-        const request = {
-          Id: this.locId,
-          Usuario: this.userSession.NombreUsuario
-        }
-        this.generalService.AprobarDepositoPlanta(request)
-          .subscribe((res) => {
-            if (res.Result.Success) {
-              this.alertUtil.alertOkCallback('Confirmacion',
-                'El deposito se ha aprobado.',
-                () => {
-                  this.ConsultarPorId();
-                });
-            } else {
-              this.alertUtil.alertError('ERROR', res.Result.Message);
-            }
-          }, (err) => {
-            this.spinner.hide();
-            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
           })
       });
   }

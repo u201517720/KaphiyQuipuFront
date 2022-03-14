@@ -146,7 +146,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
   }
 
   Cancelar() {
-    this.router.navigate(['/general/operaciones/documentopago/list']);
+    this.router.navigate(['/general/operaciones/documentopagoplanta/list']);
   }
 
   ConfirmarDeposito() {
