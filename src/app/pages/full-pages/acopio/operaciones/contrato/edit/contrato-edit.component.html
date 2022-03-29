@@ -477,6 +477,30 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="userSession.RolId === 6 && locCodigoEstadoInt >= 12">
+                        <div class="form-row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <label class="col-lg-5 col-form-label">VALORAR</label>
+                                    <div class="col-lg-7">
+                                        <ngb-rating [max]="5" [(rate)]="valoracionDistribuidor"
+                                            [readonly]="locCodigoEstadoInt > 12">
+                                        </ngb-rating>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        <textarea class="form-control form-control-sm" rows="3"
+                                            placeholder="Comentarios" maxlength="300"
+                                            [readonly]="locCodigoEstadoInt > 12"
+                                            formControlName="comentariosDis"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -601,6 +625,33 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group row">
+                                                        <label
+                                                            class="col-lg-4 col-form-label font-weight-bold">VALORAR</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-4">
+                                                            <ngb-rating [max]="5" [(rate)]="item.Puntaje"
+                                                                [readonly]="locCodigoEstadoInt > 9"
+                                                                (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'pv')">
+                                                            </ngb-rating>
+                                                        </div>
+                                                        <div class="col-lg-8">
+                                                            <textarea class="form-control form-control-sm" rows="3"
+                                                                placeholder="Comentarios" maxlength="300"
+                                                                [readonly]="locCodigoEstadoInt > 9"
+                                                                (blur)="changeValorCalidad($event, item.ContratoSocioFincaId, 'cval')"
+                                                                [value]="item.Comentarios ? item.Comentarios : ''"></textarea>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

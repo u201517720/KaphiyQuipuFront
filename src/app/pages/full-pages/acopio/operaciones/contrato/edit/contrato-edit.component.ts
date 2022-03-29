@@ -102,6 +102,7 @@ export class ContratoEditComponent implements OnInit {
   rowsTrans = [];
   selectedTrans = [];
   submittedQualityController = false;
+  valoracionDistribuidor = 0;
 
   ngOnInit(): void {
     this.msgAgricultores = '';
@@ -156,7 +157,7 @@ export class ContratoEditComponent implements OnInit {
       controlador: [],
       tipoDocControlador: [],
       nroDocControlador: [],
-      mailControlador: []
+      mailControlador: [],
       // codTrans: [],
       // transportista: [],
       // tipoDocTrans: [],
@@ -165,6 +166,7 @@ export class ContratoEditComponent implements OnInit {
       // placaTrans: [],
       // licenciaTrans: [],
       // soatTrans: []
+      comentariosDis: []
     });
   }
 
@@ -455,6 +457,8 @@ export class ContratoEditComponent implements OnInit {
         this.frmContratoCompraVenta.controls.kilosNetos.setValue(data.KilosNetos);
         this.frmContratoCompraVenta.controls.kilosNetosTemp.setValue(parseFloat((data.TotalSacos * (data.PesoSaco + 9)).toFixed(2)));
       }
+      this.valoracionDistribuidor = data.PuntajeDis;
+      this.frmContratoCompraVenta.controls.comentariosDis.setValue(data.ComentarioDis);
       this.ActualizarListaAgricultores();
       if (this.locCodigoEstadoInt === 9) {
         await this.GetOlores();
@@ -786,7 +790,9 @@ export class ContratoEditComponent implements OnInit {
                 ListaOlores: '',
                 ListaColores: '',
                 UsuarioCreacion: this.userSession.NombreUsuario,
-                Agricultor: x.NombreCompleto
+                Agricultor: x.NombreCompleto,
+                Comentarios: '',
+                Puntaje: 0
               });
             });
           }
@@ -801,6 +807,8 @@ export class ContratoEditComponent implements OnInit {
     const valHumedad = this.listaControlesCalidad.filter(x => x.Humedad <= 0);
     const valOlores = this.listaControlesCalidad.filter(x => x.ListaOlores === '');
     const valColores = this.listaControlesCalidad.filter(x => x.ListaColores === '');
+    const locPuntajes = this.listaControlesCalidad.filter(x => x.Puntaje <= 0);
+
     if (valHumedad.length > 0) {
       this.alertUtil.alertWarning('Validación', `Ingresar la humedad del agricultor ${valHumedad[0].Agricultor}.`);
       return;
@@ -809,6 +817,9 @@ export class ContratoEditComponent implements OnInit {
       return;
     } else if (valColores.length > 0) {
       this.alertUtil.alertWarning('Validación', `Seleccionar los colores del agricultor ${valColores[0].Agricultor}.`);
+      return;
+    } else if (locPuntajes.length > 0) {
+      this.alertUtil.alertWarning('Validación', `Valorar con un puntaje al agricultor ${locPuntajes[0].Agricultor}.`);
       return;
     }
     this.spinner.show();
@@ -883,6 +894,8 @@ export class ContratoEditComponent implements OnInit {
       if (x.ContratoSocioFincaId === id) {
         x.Humedad = tipo === 'hmd' ? parseFloat(e.currentTarget.value) : x.Humedad;
         x.Observaciones = tipo === 'obs' ? e.currentTarget.value : x.Observaciones;
+        x.Puntaje = tipo === 'pv' ? parseInt(e.target.ariaValueNow) : x.Puntaje;
+        x.Comentarios = tipo === 'cval' ? e.currentTarget.value : x.Comentarios;
       }
     });
   }
@@ -1025,7 +1038,9 @@ export class ContratoEditComponent implements OnInit {
         const request = {
           Id: this.locId,
           Usuario: this.userSession.NombreUsuario,
-          Contrato: this.frmContratoCompraVenta.value.correlativo
+          Contrato: this.frmContratoCompraVenta.value.correlativo,
+          Puntaje: this.valoracionDistribuidor,
+          Comentarios: this.frmContratoCompraVenta.value.comentariosDis
         }
         this.contratoService.ConfirmarRecepcionCafeTerminado(request)
           .subscribe((res) => {

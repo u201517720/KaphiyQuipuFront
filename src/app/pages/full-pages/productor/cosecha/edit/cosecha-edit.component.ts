@@ -78,7 +78,7 @@ export class CosechaEditComponent implements OnInit {
         this.submitted = false;
         if (!this.frmDetalleCosecha.invalid) {
             this.alertUtil.alertSiNoCallback('Pregunta',
-                '¿Está seguro de registrar?',
+                '¿Está seguro de registrar la nueva cosecha?',
                 () => {
                     const request = {
                         CodigoSocioFinca: this.frmDetalleCosecha.value.finca,

@@ -186,7 +186,7 @@ export class GuiaremisionEditComponent implements OnInit {
               this.spinner.hide();
               if (res.Result.Success) {
                 this.alertUtil.alertOkCallback('Confirmación',
-                  'Se ha solicitado materia prima a lo agricultores seleccionados correctamente.',
+                  'Se ha asignado a los transportistas seleccionado el traslado de la materia prima hacia planta.',
                   () => {
                     this.ConsultarPorId();
                   });
