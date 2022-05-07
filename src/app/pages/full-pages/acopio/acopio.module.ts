@@ -38,6 +38,7 @@ import { NotaIngresoDevolucionComponent } from '../acopio/operaciones/notaingres
 import { NotaIngresoDevolucionEditComponent } from '../acopio/operaciones/notaingresodevolucion/edit/nota-ingreso-devolucion-edit.component';
 import { GuiaRemisionDevolucionComponent } from '../acopio/operaciones/guiaremisiondevolucion/guia-remision-devolucion.component';
 import { GuiaRemisionDevolucionEditComponent } from '../acopio/operaciones/guiaremisiondevolucion/edit/guia-remision-devolucion-edit.component';
+import { ProyectarVentaComponent } from '../acopio/operaciones/proyectarventa/proyectar-venta.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { GuiaRemisionDevolucionEditComponent } from '../acopio/operaciones/guiar
     NotaIngresoDevolucionComponent,
     NotaIngresoDevolucionEditComponent,
     GuiaRemisionDevolucionComponent,
-    GuiaRemisionDevolucionEditComponent
+    GuiaRemisionDevolucionEditComponent,
+    ProyectarVentaComponent
   ],
   exports: [],
   providers: [

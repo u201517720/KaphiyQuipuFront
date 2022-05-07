@@ -167,7 +167,7 @@ export class GuiaremisionEditComponent implements OnInit {
   AsignarTransportista() {
     if (this.selectedTrans && this.selectedTrans.length > 0) {
       this.alertUtil.alertSiNoCallback('Pregunta',
-        '¿Está seguro de asignar a los transportistas seleccionados para el envio de la materia prima?',
+        '¿Está seguro de asignar el envío de la materia prima a la planta de transformación a los transportistas seleccionados?',
         () => {
           this.spinner.show();
           const request = {
@@ -186,7 +186,7 @@ export class GuiaremisionEditComponent implements OnInit {
               this.spinner.hide();
               if (res.Result.Success) {
                 this.alertUtil.alertOkCallback('Confirmación',
-                  'Se ha asignado a los transportistas seleccionado el traslado de la materia prima hacia planta.',
+                  'Se ha asignado el envío de la materia prima a la planta de transformación a los transportistas seleccionados.',
                   () => {
                     this.ConsultarPorId();
                   });

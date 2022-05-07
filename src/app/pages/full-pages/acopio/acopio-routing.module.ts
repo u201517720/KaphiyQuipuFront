@@ -15,6 +15,7 @@ import { GuiaRemisionDevolucionComponent } from './operaciones/guiaremisiondevol
 import { GuiaRemisionDevolucionEditComponent } from './operaciones/guiaremisiondevolucion/edit/guia-remision-devolucion-edit.component';
 import { GuiaremisionComponent } from './operaciones/guiaremision/guiaremision.component';
 import { GuiaremisionEditComponent } from './operaciones/guiaremision/edit/guiaremision-edit.component';
+import { ProyectarVentaComponent } from './operaciones/proyectarventa/proyectar-venta.component';
 
 const routes: Routes = [
   {
@@ -123,6 +124,13 @@ const routes: Routes = [
         component: GuiaremisionEditComponent,
         data: {
           title: 'Guía Remisión'
+        }
+      },
+      {
+        path: 'proyectarventa',
+        component: ProyectarVentaComponent,
+        data: {
+          title: 'Proyección de Venta'
         }
       }
     ]

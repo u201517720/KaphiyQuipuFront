@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MateriaprimaComponent } from './materiaprima/materiaprima.component';
-import { MateriaprimaEditComponent } from './materiaprima/edit/materiaprima-edit.component';
-import { CosechaComponent } from './cosecha/cosecha.component';
-import { CosechaEditComponent } from './cosecha/edit/cosecha-edit.component';
+import { MateriaprimaComponent } from './operaciones/materiaprima/materiaprima.component';
+import { MateriaprimaEditComponent } from './operaciones/materiaprima/edit/materiaprima-edit.component';
+import { CosechaComponent } from './operaciones/cosecha/cosecha.component';
+import { CosechaEditComponent } from './operaciones/cosecha/edit/cosecha-edit.component';
+import { ProyectarCosechaComponent } from './operaciones/proyectarcosecha/proyectar-cosecha.component';
 
 const routes: Routes = [
     {
@@ -36,6 +37,13 @@ const routes: Routes = [
                 component: CosechaEditComponent,
                 data: {
                     title: 'Lista del registro de cosechas'
+                }
+            },
+            {
+                path: 'proyectarcosecha',
+                component: ProyectarCosechaComponent,
+                data: {
+                    title: 'Proyectar Cosecha'
                 }
             }
         ]

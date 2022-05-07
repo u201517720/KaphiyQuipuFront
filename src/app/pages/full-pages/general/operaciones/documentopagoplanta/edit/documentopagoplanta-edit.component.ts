@@ -109,7 +109,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
     if (this.locEstado === 2) {
       if (this.frmDocumentoPagoPlantaEdit.value.file) {
         this.alertUtil.alertSiNoCallback('Pregunta',
-          '¿Está seguro de guardar el archivo seleccionado como Voucher de Pago?',
+          '¿Está seguro de guardar el archivo seleccionado como Váucher de Pago?',
           () => {
             this.spinner.show();
             const request = {
@@ -179,7 +179,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
 
   AprobarDeposito() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de aprobar el deposito?',
+      '¿Está seguro de aprobar el depósito?',
       () => {
         this.spinner.show();
         const request = {
@@ -190,7 +190,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
           .subscribe((res) => {
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmacion',
-                'El deposito se ha aprobado.',
+                'El depósito se ha aprobado.',
                 () => {
                   this.ConsultarPorId();
                 });

@@ -111,7 +111,7 @@ export class PagoContratoEditComponent implements OnInit {
     if (this.locEstado === 1) {
       if (this.frmPagoContratoEdit.value.file) {
         this.alertUtil.alertSiNoCallback('Pregunta',
-          '¿Está seguro de guardar el archivo seleccionado como Voucher de Pago?',
+          '¿Está seguro de guardar el archivo como váucher de pago?',
           () => {
             this.spinner.show();
             const request = {
@@ -128,7 +128,7 @@ export class PagoContratoEditComponent implements OnInit {
               .subscribe((res: any) => {
                 if (res.Result.Success) {
                   this.alertUtil.alertOkCallback('Confirmación',
-                    'Se ha guardado el voucher de pago correctamente.',
+                    'Se ha guardado el váucher de pago correctamente.',
                     () => {
                       this.ConsultarPorId();
                     })

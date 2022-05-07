@@ -485,7 +485,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
       } else if (this.userSession.RolId == 11 && this.locEstado === 3) {
         if (this.selectedTrans2 && this.selectedTrans2.length > 0) {
           this.alertUtil.alertSiNoCallback('Pregunta',
-            '¿Está seguro de asignar a los transportistas seleccionados para el envio de la materia prima al almacén de planta?',
+            '¿Está seguro de asignar el envío de la materia prima al almacén de planta a los transportistas seleccionados?',
             () => {
               this.spinner.show();
               const request = {
@@ -504,7 +504,7 @@ export class NotaIngresoPlantaEditComponent implements OnInit {
                   this.spinner.hide();
                   if (res.Result.Success) {
                     this.alertUtil.alertOkCallback('Confirmación',
-                      'Se ha asignado a los transportistas seleccionados la responsabilidad de envio de la materia prima al almacén de planta.',
+                      'Se ha asignado el envío de la materia prima al almacén de planta a los transportistas seleccionados.',
                       () => {
                         this.ConsultarPorId();
                       });

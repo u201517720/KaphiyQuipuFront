@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header text-center bg-primary text-white align-middle font-weight-bold">
-        <label>DOCUMENTO DE PAGO {{frmPagoContratoEdit.value.correlativo}}</label>
+        <label>DETALLE DE DOCUMENTO DE PAGO {{frmPagoContratoEdit.value.correlativo}}</label>
     </div>
     <div class="card-body">
         <form class="needs-validation" [formGroup]="frmPagoContratoEdit" novalidate>
@@ -60,10 +60,10 @@
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label pr-0">Por Concepto de</label>
+                        <label class="col-lg-4 col-form-label pr-0">CONCEPTO</label>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                             <textarea cols="2" rows="2" formControlName="motivo" class="form-control form-control-sm"
-                                placeholder="Por concepto de" [readonly]="true"></textarea>
+                                placeholder="Concepto" [readonly]="true"></textarea>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
                     <button class="btn btn-primary mr-1" type="button" (click)="ConfirmarDeposito()"
-                        *ngIf="locEstado === 2 && userSession.RolId === 7">Confirmar Deposito</button>
+                        *ngIf="locEstado === 2 && userSession.RolId === 7">Confirmar Depósito</button>
                     <button class="btn btn-primary mr-1" type="button" (click)="Guardar()"
                         *ngIf="locEstado === 1 && userSession.RolId === 6">Guardar</button>
                     <button class="btn btn-danger" type="button" (click)="Cancelar()">Cancelar</button>

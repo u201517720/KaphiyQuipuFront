@@ -70,7 +70,8 @@
                     </div>
                     <div *ngIf="locEstado >= 1">
                         <div class="form-row bg-primary align-middle mb-2 pt-1 pb-1">
-                            <label class="text-white ml-1">TRANSPORTISTAS {{ locEstado === 1 ? 'DISPONIBLES' : 'SELECCIONADOS'}}</label>
+                            <label class="text-white ml-1"> {{ locEstado === 1 ? 'SELECCIONAR TRANSPORTISTAS' :
+                                'TRANSPORTISTAS SELECCIONADOS'}}</label>
                         </div>
                         <div class="form-row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

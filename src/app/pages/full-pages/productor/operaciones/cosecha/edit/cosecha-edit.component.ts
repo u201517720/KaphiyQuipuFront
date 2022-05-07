@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 
-import { DateUtil } from '../../../../../Services/util/date-util';
-import { AgricultorService } from '../../../../../Services/agricultor.service';
-import { MaestroUtil } from '../../../../../Services/util/maestro-util';
-import { AlertUtil } from '../../../../../Services/util/alert-util';
+import { DateUtil } from '../../../../../../Services/util/date-util';
+import { AgricultorService } from '../../../../../../Services/agricultor.service';
+import { MaestroUtil } from '../../../../../../Services/util/maestro-util';
+import { AlertUtil } from '../../../../../../Services/util/alert-util';
 
 @Component({
     selector: 'app-cosecha-edit',
@@ -92,7 +92,7 @@ export class CosechaEditComponent implements OnInit {
                         .subscribe((res) => {
                             if (res.Result.Success) {
                                 this.alertUtil.alertOkCallback('Confirmación',
-                                    'La cosecha se guardo correctamente.',
+                                    'La nueva cosecha ha sido registrada correctamente.',
                                     () => {
                                         this.Cancelar();
                                     });

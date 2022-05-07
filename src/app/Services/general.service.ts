@@ -78,4 +78,14 @@ export class GeneralService {
     const url = `${this.urlGral}/ConfirmVoucherPaymentContract`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ProyectarCosecha(request): Observable<any> {
+    const url = `${this.urlGral}/ProjectHarvest`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  ProyectarVenta(request): Observable<any> {
+    const url = `${this.urlGral}/ProjectSale`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

@@ -108,7 +108,7 @@ export class DocumentopagoEditComponent implements OnInit {
     if (this.locEstado === 1) {
       if (this.frmDocumentoPagoEdit.value.file) {
         this.alertUtil.alertSiNoCallback('Pregunta',
-          '¿Está seguro de guardar el archivo seleccionado como Voucher de Pago?',
+          '¿Está seguro de guardar el archivo seleccionado como Váucher de Pago?',
           () => {
             this.spinner.show();
             const request = {

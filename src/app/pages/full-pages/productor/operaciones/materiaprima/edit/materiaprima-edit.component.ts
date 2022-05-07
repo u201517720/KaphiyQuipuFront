@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { AgricultorService } from '../../../../../Services/agricultor.service';
-import { AlertUtil } from '../../../../../Services/util/alert-util';
+import { AgricultorService } from '../../../../../../Services/agricultor.service';
+import { AlertUtil } from '../../../../../../Services/util/alert-util';
 
 @Component({
   selector: 'app-materiaprima-edit',
