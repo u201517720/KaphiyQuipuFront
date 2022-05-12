@@ -88,4 +88,9 @@ export class GeneralService {
     const url = `${this.urlGral}/ProjectSale`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ProyectarCosechaAcopio(request): Observable<any> {
+    const url = `${this.urlGral}/ProjectAllCrops`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

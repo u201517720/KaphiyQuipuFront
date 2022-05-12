@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from "ngx-spinner";
 
 import { AlertUtil } from '../../../../../Services/util/alert-util';
@@ -8,10 +7,10 @@ import { MaestroUtil } from '../../../../../Services/util/maestro-util';
 import { GeneralService } from '../../../../../Services/general.service';
 
 @Component({
-  selector: 'app-proyectar-venta-acopio',
-  templateUrl: './proyectar-venta.component.html'
+  selector: 'app-proyectar-cosecha-acopio',
+  templateUrl: './proyectar-cosecha-todo.component.html'
 })
-export class ProyectarVentaComponent implements OnInit {
+export class ProyectarCosechaTodoComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -19,14 +18,11 @@ export class ProyectarVentaComponent implements OnInit {
     private generalService: GeneralService,
     private alertUtil: AlertUtil) { }
 
-  @ViewChild(DatatableComponent) table: DatatableComponent;
-  frmProyeccionVentaAcopio: FormGroup;
+  frmProyeccionCosechasAcopio: FormGroup;
   errorGeneral: any = { isError: false, errorMessage: '' };
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con soporte de sistemas.';
   columnas: any[] = [];
   valores: any[] = [];
-  columnasCosecha: any[] = [];
-  valoresCosecha: any[] = [];
   selectedPeriodo = [];
   listPeriodos = [];
 
@@ -35,14 +31,14 @@ export class ProyectarVentaComponent implements OnInit {
   }
 
   LoadForm() {
-    this.frmProyeccionVentaAcopio = this.fb.group({
+    this.frmProyeccionCosechasAcopio = this.fb.group({
       periodo: [, Validators.required]
     });
     this.GetPeriodos();
   }
 
   get f() {
-    return this.frmProyeccionVentaAcopio.controls;
+    return this.frmProyeccionCosechasAcopio.controls;
   }
 
   GetPeriodos() {
@@ -52,20 +48,18 @@ export class ProyectarVentaComponent implements OnInit {
   }
 
   Proyectar() {
-    if (!this.frmProyeccionVentaAcopio.invalid) {
+    if (!this.frmProyeccionCosechasAcopio.invalid) {
       this.errorGeneral = { isError: false, errorMessage: '' };
       this.spinner.show();
       this.columnas = [];
       const request = {
-        NroMeses: parseInt(this.frmProyeccionVentaAcopio.value.periodo),
+        NroMeses: parseInt(this.frmProyeccionCosechasAcopio.value.periodo),
       };
-      this.generalService.ProyectarVenta(request)
+      this.generalService.ProyectarCosechaAcopio(request)
         .subscribe((res) => {
           this.spinner.hide();
-          this.columnas = res.Columnas.reverse();
-          this.valores = res.Valores.reverse();
-          this.columnasCosecha = res.ColumnasCosecha.reverse();
-          this.valoresCosecha = res.ValoresCosecha.reverse();
+          this.columnas = res.Columnas;
+          this.valores = res.Valores;
         }, (err) => {
           console.log(err);
         })

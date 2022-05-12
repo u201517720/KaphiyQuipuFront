@@ -203,6 +203,18 @@
 			}
 		}
 	},
+	"Proyeccion": {
+		"Label": "Proyecciones",
+		"Cosecha": {
+			"Label": "Cosecha"
+		},
+		"Venta": {
+			"Label": "Ventas"
+		},
+		"CosechaAcopio": {
+			"Label": "Cosechas"
+		}
+	},
 	"CONTRATO": {
 		"LIST": {
 			"Title": "BANDEJA DE CONTRATOS",

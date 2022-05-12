@@ -16,6 +16,7 @@ import { GuiaRemisionDevolucionEditComponent } from './operaciones/guiaremisiond
 import { GuiaremisionComponent } from './operaciones/guiaremision/guiaremision.component';
 import { GuiaremisionEditComponent } from './operaciones/guiaremision/edit/guiaremision-edit.component';
 import { ProyectarVentaComponent } from './operaciones/proyectarventa/proyectar-venta.component';
+import { ProyectarCosechaTodoComponent } from './operaciones/proyectarcosecha/proyectar-cosecha-todo.component';
 
 const routes: Routes = [
   {
@@ -131,6 +132,13 @@ const routes: Routes = [
         component: ProyectarVentaComponent,
         data: {
           title: 'Proyección de Venta'
+        }
+      },
+      {
+        path: 'proyectarcosecha',
+        component: ProyectarCosechaTodoComponent,
+        data: {
+          title: 'Proyección de Cosechas'
         }
       }
     ]

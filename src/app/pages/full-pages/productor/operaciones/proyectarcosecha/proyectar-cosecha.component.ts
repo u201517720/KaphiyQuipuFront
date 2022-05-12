@@ -52,7 +52,7 @@ export class ProyectarCosechaComponent implements OnInit {
 
   GetPeriodos() {
     this.maestroUtil.obtenerMaestros('PeriodosProyeccion', (res) => {
-      this.listPeriodos = res.Result.Data;
+      this.listPeriodos = res.Result.Data.map(x => ({ Codigo: parseInt(x.Codigo), Label: x.Label })).sort((a, b) => a.Codigo - b.Codigo);
     })
   }
 

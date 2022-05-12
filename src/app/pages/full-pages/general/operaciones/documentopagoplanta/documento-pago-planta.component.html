@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <div class="content-header text-center">LISTA DE PAGOS</div>
+        <div class="content-header text-center">LISTA DE DOCUMENTOS DE PAGO</div>
     </div>
 </div>
 <div class="card">
@@ -8,7 +8,7 @@
         <form class="needs-validation" [formGroup]="frmListaPagosPlanta" novalidate>
             <div class="form-row">
                 <div class="col-md-3 mb-4 form-group mb-2">
-                    <label for="nroDocPago" class="form-label">Nro. Doc. Pago</label>
+                    <label for="nroDocPago" class="form-label">Número de documento de pago</label>
                     <input type="text" class="form-control" formControlName="nroDocPago"
                         placeholder="Número documento de pago"
                         [ngClass]="{ 'is-invalid': f.nroDocPago.invalid, 'is-valid': !f.nroDocPago.invalid }" />
