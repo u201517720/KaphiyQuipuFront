@@ -26,10 +26,12 @@ import { MateriaprimaEditComponent } from './operaciones/materiaprima/edit/mater
 import { CosechaComponent } from "./operaciones/cosecha/cosecha.component";
 import { CosechaEditComponent } from "./operaciones/cosecha/edit/cosecha-edit.component";
 import { ProyectarCosechaComponent } from "./operaciones/proyectarcosecha/proyectar-cosecha.component";
+import { ValoracionComponent } from "./operaciones/valoracion/valoracion.component";
 
 @NgModule({
     declarations: [MateriaprimaComponent, MateriaprimaEditComponent, CosechaComponent, CosechaEditComponent,
-        ProyectarCosechaComponent],
+        ProyectarCosechaComponent,
+        ValoracionComponent],
     imports: [
         SharedModule,
         CommonModule,

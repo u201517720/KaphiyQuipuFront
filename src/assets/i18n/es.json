@@ -215,6 +215,12 @@
 			"Label": "Cosechas"
 		}
 	},
+	"Valoraciones": {
+		"Label": "Valoraciones",
+		"ValoracionCafe": {
+			"Label": "Valoración del Café"
+		}
+	},
 	"CONTRATO": {
 		"LIST": {
 			"Title": "BANDEJA DE CONTRATOS",

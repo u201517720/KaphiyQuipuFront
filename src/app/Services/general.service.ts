@@ -93,4 +93,14 @@ export class GeneralService {
     const url = `${this.urlGral}/ProjectAllCrops`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  ValoracionesPorAgricultor(request): Observable<any> {
+    const url = `${this.urlGral}/ValuationsFarmer`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
+
+  ListarPuntajeValoracionesAgricultores(request): Observable<any> {
+    const url = `${this.urlGral}/ListScoreRatingsFarmers`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }

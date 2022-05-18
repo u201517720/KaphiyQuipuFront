@@ -6,6 +6,7 @@ import { MateriaprimaEditComponent } from './operaciones/materiaprima/edit/mater
 import { CosechaComponent } from './operaciones/cosecha/cosecha.component';
 import { CosechaEditComponent } from './operaciones/cosecha/edit/cosecha-edit.component';
 import { ProyectarCosechaComponent } from './operaciones/proyectarcosecha/proyectar-cosecha.component';
+import { ValoracionComponent } from './operaciones/valoracion/valoracion.component';
 
 const routes: Routes = [
     {
@@ -44,6 +45,13 @@ const routes: Routes = [
                 component: ProyectarCosechaComponent,
                 data: {
                     title: 'Proyectar Cosecha'
+                }
+            },
+            {
+                path: 'valoracioncafe',
+                component: ValoracionComponent,
+                data: {
+                    title: 'Valoración del Café'
                 }
             }
         ]
