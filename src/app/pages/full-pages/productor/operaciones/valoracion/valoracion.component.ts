@@ -3,10 +3,34 @@ import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import {
+    ApexAxisChartSeries,
+    ApexChart,
+    ChartComponent,
+    ApexTitleSubtitle,
+    ApexDataLabels,
+    ApexStroke,
+    ApexYAxis,
+    ApexXAxis,
+    ApexPlotOptions,
+    ApexTooltip
+} from "ng-apexcharts";
 
 import { DateUtil } from '../../../../../Services/util/date-util';
 import { MaestroUtil } from '../../../../../Services/util/maestro-util';
 import { GeneralService } from '../../../../../Services/general.service';
+
+export type ChartOptions = {
+    series: ApexAxisChartSeries;
+    chart: ApexChart;
+    dataLabels: ApexDataLabels;
+    plotOptions: ApexPlotOptions;
+    xaxis: ApexXAxis;
+    colors: string[];
+    title: ApexTitleSubtitle;
+    subtitle: ApexTitleSubtitle;
+    stroke: ApexStroke;
+};
 
 @Component({
     selector: 'app-valoracion-productor',
@@ -17,10 +41,12 @@ export class ValoracionComponent implements OnInit {
     frmValoracionesPorAgricultor: FormGroup;
     errorGeneral = { isError: false, errorMessage: '' };
     @ViewChild(DatatableComponent) table: DatatableComponent;
+    @ViewChild("chart") chart: ChartComponent;
     userSession;
     listActores: [];
     selectedActor: [];
     comentarios: [] = [];
+    public chartOptions: Partial<ChartOptions>;
 
     constructor(private fb: FormBuilder,
         private dateUtil: DateUtil,
@@ -61,6 +87,7 @@ export class ValoracionComponent implements OnInit {
 
     Visualizar() {
         if (!this.frmValoracionesPorAgricultor.invalid) {
+            this.spinner.show();
             const request = {
                 FechaInicio: this.frmValoracionesPorAgricultor.value.fechaInicial,
                 FechaFin: this.frmValoracionesPorAgricultor.value.fechaFinal,
@@ -70,7 +97,69 @@ export class ValoracionComponent implements OnInit {
             this.generalService.ValoracionesPorAgricultor(request)
                 .subscribe((res) => {
                     this.comentarios = res.Result.Data;
-                })
+                }, (err) => {
+                    this.spinner.hide();
+                });
+
+            const request2 = {
+                FechaInicio: this.frmValoracionesPorAgricultor.value.fechaInicial,
+                FechaFin: this.frmValoracionesPorAgricultor.value.fechaFinal,
+                Tipo: parseInt(this.frmValoracionesPorAgricultor.value.actor)
+            }
+
+            this.generalService.ListarPuntajeValoracionesAgricultores(request2)
+                .subscribe((res) => {
+                    this.spinner.hide();
+                    this.chartOptions = {
+                        series: [
+                            {
+                                name: "Puntaje",
+                                data: res.Result.Data.map(x => x.Puntaje)
+                            }
+                        ],
+                        chart: {
+                            type: "bar",
+                            height: 300
+                        },
+                        plotOptions: {
+                            bar: {
+                                distributed: true,
+                                horizontal: true
+                            }
+                        },
+                        colors: [
+                            "#2b908f", "#2b908f", "#2b908f", "#2b908f", "#2b908f"
+                        ],
+                        dataLabels: {
+                            enabled: false,
+                            formatter: function (val, opt) {
+                                return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
+                            },
+                            offsetX: 0,
+                            dropShadow: {
+                                enabled: true
+                            }
+                        },
+                        stroke: {
+                            width: 1,
+                            colors: ["#fff"]
+                        },
+                        xaxis: {
+                            categories: res.Result.Data.map(x => x.Productor)
+                        },
+                        title: {
+                            text: "Custom DataLabels",
+                            align: "center",
+                            floating: true
+                        },
+                        subtitle: {
+                            text: "Category Names as DataLabels inside bars",
+                            align: "center"
+                        },
+                    };
+                }, (err) => {
+                    this.spinner.hide();
+                });
         }
     }
 }

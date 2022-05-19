@@ -16,6 +16,7 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { QrCodeModule } from 'ng-qrcode';
 import { NgxPrinterModule } from 'ngx-printer';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 import { AcopioRoutingModule } from './acopio-routing.module';
 import { PipeModule } from '../../../shared/pipes/pipe.module';
@@ -40,6 +41,7 @@ import { GuiaRemisionDevolucionComponent } from '../acopio/operaciones/guiaremis
 import { GuiaRemisionDevolucionEditComponent } from '../acopio/operaciones/guiaremisiondevolucion/edit/guia-remision-devolucion-edit.component';
 import { ProyectarVentaComponent } from '../acopio/operaciones/proyectarventa/proyectar-venta.component';
 import { ProyectarCosechaTodoComponent } from './operaciones/proyectarcosecha/proyectar-cosecha-todo.component';
+import { ListaValoracionAgricultorAcopioComponent } from './operaciones/listaValoracionAgricultor/lista-Valoracion-Agricultor-Acopio.component';
 
 @NgModule({
   imports: [
@@ -54,6 +56,7 @@ import { ProyectarCosechaTodoComponent } from './operaciones/proyectarcosecha/pr
     SwiperModule,
     PipeModule,
     QrCodeModule,
+    NgApexchartsModule,
     NgxPrinterModule.forRoot({ printOpenWindow: true }),
     NgxDatatableModule,
     CustomFormsModule,
@@ -84,7 +87,8 @@ import { ProyectarCosechaTodoComponent } from './operaciones/proyectarcosecha/pr
     GuiaRemisionDevolucionComponent,
     GuiaRemisionDevolucionEditComponent,
     ProyectarVentaComponent,
-    ProyectarCosechaTodoComponent
+    ProyectarCosechaTodoComponent,
+    ListaValoracionAgricultorAcopioComponent
   ],
   exports: [],
   providers: [

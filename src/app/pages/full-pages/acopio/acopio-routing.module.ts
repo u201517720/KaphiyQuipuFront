@@ -17,6 +17,7 @@ import { GuiaremisionComponent } from './operaciones/guiaremision/guiaremision.c
 import { GuiaremisionEditComponent } from './operaciones/guiaremision/edit/guiaremision-edit.component';
 import { ProyectarVentaComponent } from './operaciones/proyectarventa/proyectar-venta.component';
 import { ProyectarCosechaTodoComponent } from './operaciones/proyectarcosecha/proyectar-cosecha-todo.component';
+import { ListaValoracionAgricultorAcopioComponent } from './operaciones/listaValoracionAgricultor/lista-Valoracion-Agricultor-Acopio.component';
 
 const routes: Routes = [
   {
@@ -137,6 +138,13 @@ const routes: Routes = [
       {
         path: 'proyectarcosecha',
         component: ProyectarCosechaTodoComponent,
+        data: {
+          title: 'Proyección de Cosechas'
+        }
+      },
+      {
+        path: 'valoracion/list',
+        component: ListaValoracionAgricultorAcopioComponent,
         data: {
           title: 'Proyección de Cosechas'
         }

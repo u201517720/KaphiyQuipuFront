@@ -219,6 +219,9 @@
 		"Label": "Valoraciones",
 		"ValoracionCafe": {
 			"Label": "Valoración del Café"
+		},
+		"ValoracionCafeAcopio": {
+			"Label": "Valoración del Café"
 		}
 	},
 	"CONTRATO": {

@@ -15,6 +15,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 import { PipeModule } from "../../../shared/pipes/pipe.module";
 import { MatchHeightModule } from "../../../shared/directives/match-height.directive";
@@ -31,7 +32,8 @@ import { ValoracionComponent } from "./operaciones/valoracion/valoracion.compone
 @NgModule({
     declarations: [MateriaprimaComponent, MateriaprimaEditComponent, CosechaComponent, CosechaEditComponent,
         ProyectarCosechaComponent,
-        ValoracionComponent],
+        ValoracionComponent,
+        ],
     imports: [
         SharedModule,
         CommonModule,
@@ -52,7 +54,8 @@ import { ValoracionComponent } from "./operaciones/valoracion/valoracion.compone
         PipeModule,
         MatchHeightModule,
         FileUploadModule,
-        ProductorRoutingModule
+        ProductorRoutingModule,
+        NgApexchartsModule
     ],
     providers: [
         { provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter }
