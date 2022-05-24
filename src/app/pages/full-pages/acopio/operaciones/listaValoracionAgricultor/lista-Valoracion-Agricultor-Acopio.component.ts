@@ -63,9 +63,9 @@ export class ListaValoracionAgricultorAcopioComponent implements OnInit {
 
     LoadForm() {
         this.frmListaValoracionAgricultor = this.fb.group({
-            actor: [Validators.required],
-            fechaInicial: [Validators.required],
-            fechaFinal: [Validators.required],
+            actor: [, Validators.required],
+            fechaInicial: [, Validators.required],
+            fechaFinal: [, Validators.required],
         });
         this.frmListaValoracionAgricultor.controls.fechaInicial.setValue(this.dateUtil.currentMonthAgo());
         this.frmListaValoracionAgricultor.controls.fechaFinal.setValue(this.dateUtil.currentDate());

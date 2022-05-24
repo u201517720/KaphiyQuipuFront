@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -151,7 +151,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
 
   ConfirmarDeposito() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de confirmar el pago?',
+      '¿Está seguro de confirmar la liquidación del documento de pago?',
       () => {
         this.spinner.show();
         const request = {
@@ -162,7 +162,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
           .subscribe((res) => {
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                'Se ha confirmado el pago correctamente.',
+                'Se ha confirmado la liquidación del documento de pago correctamente.',
                 () => {
                   this.ConsultarPorId();
                 })

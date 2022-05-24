@@ -66,9 +66,9 @@ export class ValoracionComponent implements OnInit {
 
     LoadForm() {
         this.frmValoracionesPorAgricultor = this.fb.group({
-            actor: [Validators.required],
-            fechaInicial: [Validators.required],
-            fechaFinal: [Validators.required],
+            actor: [, Validators.required],
+            fechaInicial: [, Validators.required],
+            fechaFinal: [, Validators.required],
         });
         this.frmValoracionesPorAgricultor.controls.fechaInicial.setValue(this.dateUtil.currentMonthAgo());
         this.frmValoracionesPorAgricultor.controls.fechaFinal.setValue(this.dateUtil.currentDate());

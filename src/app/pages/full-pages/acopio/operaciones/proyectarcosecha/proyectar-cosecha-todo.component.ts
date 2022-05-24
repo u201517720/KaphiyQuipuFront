@@ -58,8 +58,19 @@ export class ProyectarCosechaTodoComponent implements OnInit {
       this.generalService.ProyectarCosechaAcopio(request)
         .subscribe((res) => {
           this.spinner.hide();
+          let tmpValores = [];
           this.columnas = res.Columnas;
-          this.valores = res.Valores;
+          res.Valores.forEach((x, y) => {
+            tmpValores = [];
+            x.forEach((a, b) => {
+              if (b > 0) {
+                tmpValores.push(parseFloat(a).toLocaleString('es-PE'));
+              } else {
+                tmpValores.push(a);
+              }
+            });
+            this.valores.push(tmpValores);
+          })
         }, (err) => {
           console.log(err);
         })

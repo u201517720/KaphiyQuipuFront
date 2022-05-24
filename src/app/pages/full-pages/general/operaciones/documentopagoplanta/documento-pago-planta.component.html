@@ -8,7 +8,7 @@
         <form class="needs-validation" [formGroup]="frmListaPagosPlanta" novalidate>
             <div class="form-row">
                 <div class="col-md-3 mb-4 form-group mb-2">
-                    <label for="nroDocPago" class="form-label">Número de documento de pago</label>
+                    <label for="nroDocPago" class="form-label">NRO. DOCUMENTO DE  PAGO</label>
                     <input type="text" class="form-control" formControlName="nroDocPago"
                         placeholder="Número documento de pago"
                         [ngClass]="{ 'is-invalid': f.nroDocPago.invalid, 'is-valid': !f.nroDocPago.invalid }" />
@@ -61,7 +61,7 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Total a Pagar" prop="MontoPago">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Voucher" prop="NombreArchivo">
+            <ngx-datatable-column name="Váucher" prop="NombreArchivo">
             </ngx-datatable-column>
             <ngx-datatable-column name="U. Registro" prop="UsuReg">
             </ngx-datatable-column>

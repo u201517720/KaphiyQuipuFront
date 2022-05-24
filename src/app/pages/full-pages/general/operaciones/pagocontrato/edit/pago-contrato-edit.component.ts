@@ -153,7 +153,7 @@ export class PagoContratoEditComponent implements OnInit {
 
   ConfirmarDeposito() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de confirmar el pago?',
+      '¿Está seguro de confirmar la liquidación del documento de pago?',
       () => {
         this.spinner.show();
         const request = {
@@ -164,7 +164,7 @@ export class PagoContratoEditComponent implements OnInit {
           .subscribe((res) => {
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                'Se ha confirmado el pago correctamente.',
+                'Se ha confirmado la liquidación del documento de pago correctamente.',
                 () => {
                   this.ConsultarPorId();
                 })

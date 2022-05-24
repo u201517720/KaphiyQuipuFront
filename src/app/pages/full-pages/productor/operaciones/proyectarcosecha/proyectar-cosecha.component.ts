@@ -17,7 +17,6 @@ export class ProyectarCosechaComponent implements OnInit {
   errorGeneral = { isError: false, msgError: '' };
   columnas: any[] = [];
   valores: any[] = [];
-  @ViewChild(DatatableComponent) table: DatatableComponent;
   userSession: any;
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
   selectedPeriodo = [];
@@ -41,7 +40,7 @@ export class ProyectarCosechaComponent implements OnInit {
 
   LoadForm() {
     this.frmProyectar = this.fb.group({
-      periodo: []
+      periodo: [, Validators.required]
     });
     this.GetPeriodos();
   }
@@ -51,27 +50,31 @@ export class ProyectarCosechaComponent implements OnInit {
   }
 
   GetPeriodos() {
+    this.spinner.show();
     this.maestroUtil.obtenerMaestros('PeriodosProyeccion', (res) => {
       this.listPeriodos = res.Result.Data.map(x => ({ Codigo: parseInt(x.Codigo), Label: x.Label })).sort((a, b) => a.Codigo - b.Codigo);
+      this.spinner.hide();
     })
   }
 
   Proyectar() {
-    this.spinner.show();
-    this.columnas = [];
-    this.valores = [];
-    const request = {
-      CantMeses: parseInt(this.frmProyectar.value.periodo),
-      UserId: this.userSession.IdUsuario
+    if (!this.frmProyectar.invalid) {
+      this.spinner.show();
+      this.columnas = [];
+      this.valores = [];
+      const request = {
+        CantMeses: parseInt(this.frmProyectar.value.periodo),
+        UserId: this.userSession.IdUsuario
+      }
+      this.generalService.ProyectarCosecha(request)
+        .subscribe((res) => {
+          this.spinner.hide();
+          this.columnas = res.Columnas.reverse();
+          this.valores = res.Valores.reverse();
+        }, (err) => {
+          this.spinner.hide();
+          this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+        })
     }
-    this.generalService.ProyectarCosecha(request)
-      .subscribe((res) => {
-        this.spinner.hide();
-        this.columnas = res.Columnas.reverse();
-        this.valores = res.Valores.reverse();
-      }, (err) => {
-        this.spinner.hide();
-        this.alertUtil.alertError('ERROR', this.mensajeGenerico);
-      })
   }
 }

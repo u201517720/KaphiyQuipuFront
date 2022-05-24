@@ -159,6 +159,9 @@
 			},
 			"PagoContrato": {
 				"Label": "Pagos del Contrato"
+			},
+			"PagoAlAgricultor": {
+				"Label": "Pago al Agricultor"
 			}
 		}
 	},

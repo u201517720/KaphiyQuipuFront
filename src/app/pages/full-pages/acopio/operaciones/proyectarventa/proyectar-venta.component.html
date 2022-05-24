@@ -36,13 +36,14 @@
 <div class="d-flex justify-content-between align-items-center">
     <ngx-spinner></ngx-spinner>
 </div>
-<div class="card">
+<div class="card" *ngIf="columnas && columnas.length > 0">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th *ngFor="let item of columnas" class="text-center" scope="col"
+                        <th></th>
+                        <th *ngFor="let item of columnas" class="text-center align-middle" scope="col"
                             [ngClass]="item.includes('Oct') || item.includes('Abr') ? 'table-success' : 'table-warning'">
                             {{item}}
                         </th>
@@ -50,12 +51,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td *ngFor="let item of valores" class="text-right">{{item}}</td>
+                        <th>VENTAS</th>
+                        <td *ngFor="let item of valores" class="text-right align-middle">{{ item.toLocaleString('es-PE')
+                            }}</td>
                     </tr>
                     <tr>
-                        <td *ngFor="let item of columnas; let i = index" class="text-right"
+                        <th>COSECHAS</th>
+                        <td *ngFor="let item of columnas; let i = index" class="text-right align-middle"
                             [ngClass]="columnasCosecha.includes(item) ? 'table-warning' : ''">
-                            {{columnasCosecha.includes(item) ? valoresCosecha[columnasCosecha.indexOf(item)] : ''}}
+                            {{columnasCosecha.includes(item) ?
+                            valoresCosecha[columnasCosecha.indexOf(item)].toLocaleString('es-PE') : ''}}
                         </td>
                     </tr>
                 </tbody>

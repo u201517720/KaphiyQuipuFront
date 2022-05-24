@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AlertUtil } from '../../../../../../Services/util/alert-util';
+import { MaestroService } from '../../../../../../Services/maestro.service';
 import { GeneralService } from '../../../../../../Services/general.service';
 import { host } from '../../../../../../shared/hosts/main.host';
 
@@ -22,6 +23,7 @@ export class DocumentopagoEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private httpClient: HttpClient,
+    private maestroService: MaestroService,
     private alertUtil: AlertUtil) { }
 
   frmDocumentoPagoEdit: FormGroup;
@@ -32,6 +34,8 @@ export class DocumentopagoEditComponent implements OnInit {
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
   locId = 0;
   locEstado = 0;
+  listTiposDocs: [];
+  selectedTipoDoc: [];
 
   ngOnInit(): void {
     this.errorGeneral = { isError: false, msgError: '' };
@@ -59,12 +63,22 @@ export class DocumentopagoEditComponent implements OnInit {
       estado: [],
       totalPagar: [],
       file: [],
-      fileName: []
+      fileName: [],
+      moneda: []
     });
+    this.GetTiposDocumentos();
   }
 
   get f() {
     return this.frmDocumentoPagoEdit.controls;
+  }
+
+  async GetTiposDocumentos() {
+    this.listTiposDocs = [];
+    const res = await this.maestroService.obtenerMaestros('TipoDocumento').toPromise();
+    if (res.Result.Success) {
+      this.listTiposDocs = res.Result.Data;
+    }
   }
 
   ConsultarPorId() {
@@ -81,10 +95,11 @@ export class DocumentopagoEditComponent implements OnInit {
           this.frmDocumentoPagoEdit.controls.fechaRegistro.setValue(res.Result.Data.Fecha);
           this.frmDocumentoPagoEdit.controls.agricultor.setValue(res.Result.Data.Agricultor);
           this.frmDocumentoPagoEdit.controls.motivo.setValue(res.Result.Data.Motivo);
-          this.frmDocumentoPagoEdit.controls.tipoDocumento.setValue(res.Result.Data.TipoDocumento);
+          this.frmDocumentoPagoEdit.controls.tipoDocumento.setValue(res.Result.Data.TipoDocumentoId);
           this.frmDocumentoPagoEdit.controls.nroDocumento.setValue(res.Result.Data.NumeroDocumento);
           this.frmDocumentoPagoEdit.controls.estado.setValue(res.Result.Data.Estado);
           this.frmDocumentoPagoEdit.controls.totalPagar.setValue(res.Result.Data.MontoPago);
+          this.frmDocumentoPagoEdit.controls.moneda.setValue(res.Result.Data.Moneda);
           if (res.Result.Data.NombreArchivo)
             this.frmDocumentoPagoEdit.controls.fileName.setValue(res.Result.Data.NombreArchivo);
         } else {
@@ -108,7 +123,7 @@ export class DocumentopagoEditComponent implements OnInit {
     if (this.locEstado === 1) {
       if (this.frmDocumentoPagoEdit.value.file) {
         this.alertUtil.alertSiNoCallback('Pregunta',
-          '¿Está seguro de guardar el archivo seleccionado como Váucher de Pago?',
+          '¿Está seguro de guardar el comprobante de pago?',
           () => {
             this.spinner.show();
             const request = {
@@ -125,7 +140,7 @@ export class DocumentopagoEditComponent implements OnInit {
               .subscribe((res: any) => {
                 if (res.Result.Success) {
                   this.alertUtil.alertOkCallback('Confirmación',
-                    'Se ha guardado el voucher de pago correctamente.',
+                    'Se ha guardado el comprobante de pago correctamente.',
                     () => {
                       this.ConsultarPorId();
                     })
@@ -150,7 +165,7 @@ export class DocumentopagoEditComponent implements OnInit {
 
   ConfirmarDeposito() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de confirmar el pago?',
+      '¿Está seguro de confirmar la liquidación del documento de pago?',
       () => {
         this.spinner.show();
         const request = {
@@ -161,7 +176,7 @@ export class DocumentopagoEditComponent implements OnInit {
           .subscribe((res) => {
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmación',
-                'Se ha confirmado el pago correctamente.',
+                'Se ha confirmado la liquidación del documento de pago correctamente.',
                 () => {
                   this.ConsultarPorId();
                 })

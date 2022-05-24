@@ -348,15 +348,6 @@ export class ContratoEditComponent implements OnInit {
       });
   }
 
-  // async MostrarCostoUnitario() {
-  //   const moneda = this.frmContratoCompraVenta.value.moneda;
-  //   if (moneda === '01') {
-  //     this.frmContratoCompraVenta.controls.costoUnitario.setValue(13.5);
-  //   } else {
-  //     this.frmContratoCompraVenta.controls.costoUnitario.setValue(5.4);
-  //   }
-  // }
-
   async CompletarForm(data) {
     if (data) {
       this.locCodigoEstadoInt = parseInt(data.EstadoId);
@@ -1031,34 +1022,38 @@ export class ContratoEditComponent implements OnInit {
   }
 
   ConfirmarRecepcion() {
-    this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de confirmar la recepción del producto?',
-      () => {
-        this.spinner.show();
-        const request = {
-          Id: this.locId,
-          Usuario: this.userSession.NombreUsuario,
-          Contrato: this.frmContratoCompraVenta.value.correlativo,
-          Puntaje: this.valoracionDistribuidor,
-          Comentarios: this.frmContratoCompraVenta.value.comentariosDis
-        }
-        this.contratoService.ConfirmarRecepcionCafeTerminado(request)
-          .subscribe((res) => {
-            this.spinner.hide();
-            if (res.Result.Success) {
-              this.alertUtil.alertOkCallback('Confirmación',
-                'Se ha confirmado la recepción del producto terminado.',
-                () => {
-                  this.ConsultarPorId();
-                });
-            } else {
-              this.alertUtil.alertError('ERROR', res.Result.Message);
-            }
-          }, (err) => {
-            this.spinner.hide();
-            this.alertUtil.alertError('ERROR', this.mensajeGenerico);
-          });
-      });
+    if (this.valoracionDistribuidor) {
+      this.alertUtil.alertSiNoCallback('Pregunta',
+        '¿Está seguro de confirmar la recepción del producto?',
+        () => {
+          this.spinner.show();
+          const request = {
+            Id: this.locId,
+            Usuario: this.userSession.NombreUsuario,
+            Contrato: this.frmContratoCompraVenta.value.correlativo,
+            Puntaje: this.valoracionDistribuidor,
+            Comentarios: this.frmContratoCompraVenta.value.comentariosDis
+          }
+          this.contratoService.ConfirmarRecepcionCafeTerminado(request)
+            .subscribe((res) => {
+              this.spinner.hide();
+              if (res.Result.Success) {
+                this.alertUtil.alertOkCallback('Confirmación',
+                  'Se ha confirmado la recepción del producto terminado.',
+                  () => {
+                    this.ConsultarPorId();
+                  });
+              } else {
+                this.alertUtil.alertError('ERROR', res.Result.Message);
+              }
+            }, (err) => {
+              this.spinner.hide();
+              this.alertUtil.alertError('ERROR', this.mensajeGenerico);
+            });
+        });
+    } else {
+      this.alertUtil.alertWarning('Validación', 'Por favor valorar al acopiador seleccionando un puntaje.');
+    }
   }
 
   GenerarQRTrazabilidad() {

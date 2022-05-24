@@ -28,20 +28,21 @@
 <div class="d-flex justify-content-between align-items-center">
     <ngx-spinner></ngx-spinner>
 </div>
-<div class="card">
+<div class="card" *ngIf="columnas && columnas.length > 0">
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr class="table-warning">
-                        <th *ngFor="let item of columnas" class="text-center" scope="col">
+                        <th *ngFor="let item of columnas" class="text-center align-middle" scope="col">
                             {{item}}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="text-right">
-                        <td *ngFor="let item of valores" class="text-right">{{item}}</td>
+                        <td *ngFor="let item of valores" class="text-right align-middle">
+                            {{item.toLocaleString('es-PE')}}</td>
                     </tr>
                 </tbody>
             </table>
