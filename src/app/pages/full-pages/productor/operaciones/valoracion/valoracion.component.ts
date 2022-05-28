@@ -47,6 +47,7 @@ export class ValoracionComponent implements OnInit {
     selectedActor: [];
     comentarios: [] = [];
     public chartOptions: Partial<ChartOptions>;
+    submitted = false;
 
     constructor(private fb: FormBuilder,
         private dateUtil: DateUtil,
@@ -160,6 +161,8 @@ export class ValoracionComponent implements OnInit {
                 }, (err) => {
                     this.spinner.hide();
                 });
+        } else {
+            this.submitted = true;
         }
     }
 }

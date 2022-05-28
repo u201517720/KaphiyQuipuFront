@@ -1052,7 +1052,7 @@ export class ContratoEditComponent implements OnInit {
             });
         });
     } else {
-      this.alertUtil.alertWarning('Validación', 'Por favor valorar al acopiador seleccionando un puntaje.');
+      this.alertUtil.alertWarning('Validación', 'Por favor, valorar el servicio brindado por la cooperativa.');
     }
   }
 

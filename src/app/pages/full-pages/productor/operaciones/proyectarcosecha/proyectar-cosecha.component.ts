@@ -21,6 +21,7 @@ export class ProyectarCosechaComponent implements OnInit {
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
   selectedPeriodo = [];
   listPeriodos = [];
+  submitted = false;
 
   constructor(private fb: FormBuilder,
     private generalService: GeneralService,
@@ -51,7 +52,7 @@ export class ProyectarCosechaComponent implements OnInit {
 
   GetPeriodos() {
     this.spinner.show();
-    this.maestroUtil.obtenerMaestros('PeriodosProyeccion', (res) => {
+    this.maestroUtil.obtenerMaestros('NumerosCosechas', (res) => {
       this.listPeriodos = res.Result.Data.map(x => ({ Codigo: parseInt(x.Codigo), Label: x.Label })).sort((a, b) => a.Codigo - b.Codigo);
       this.spinner.hide();
     })
@@ -75,6 +76,8 @@ export class ProyectarCosechaComponent implements OnInit {
           this.spinner.hide();
           this.alertUtil.alertError('ERROR', this.mensajeGenerico);
         })
+    } else {
+      this.submitted = true;
     }
   }
 }

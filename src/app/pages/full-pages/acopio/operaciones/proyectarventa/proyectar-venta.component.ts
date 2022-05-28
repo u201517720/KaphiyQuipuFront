@@ -29,6 +29,7 @@ export class ProyectarVentaComponent implements OnInit {
   valoresCosecha: any[] = [];
   selectedPeriodo = [];
   listPeriodos = [];
+  submitted = false;
 
   ngOnInit(): void {
     this.LoadForm();
@@ -69,6 +70,8 @@ export class ProyectarVentaComponent implements OnInit {
         }, (err) => {
           console.log(err);
         })
+    } else {
+      this.submitted = true;
     }
   }
 

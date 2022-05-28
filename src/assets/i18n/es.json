@@ -155,13 +155,13 @@
 				"Label": "Notas de Ingreso a Planta"
 			},
 			"DocumentoPagoPlanta": {
-				"Label": "Pagos de Planta"
+				"Label": "Pagos a Planta"
 			},
 			"PagoContrato": {
-				"Label": "Pagos del Contrato"
+				"Label": "Pagos de Contrato"
 			},
 			"PagoAlAgricultor": {
-				"Label": "Pago al Agricultor"
+				"Label": "Pagos al Agricultor"
 			}
 		}
 	},
@@ -202,7 +202,7 @@
 				"Label": "Guías de Remisión"
 			},
 			"DocumentoPagoPlanta": {
-				"Label": "Pagos"
+				"Label": "Pagos de Planta"
 			}
 		}
 	},

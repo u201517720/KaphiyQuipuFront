@@ -13,10 +13,10 @@
                         <form class="needs-validation" [formGroup]="frmProyeccionCosechasAcopio" novalidate>
                             <div class="form-row">
                                 <div class="col-md-4 mb-4 form-group mb-2">
-                                    <label for="fechaInicio" class="form-label">Periodo</label>
+                                    <label for="fechaInicio" class="form-label">Nro. de Cosechas</label>
                                     <ng-select [items]="listPeriodos" formControlName="periodo" class="form-control"
-                                        bindLabel="Label" bindValue="Codigo" placeholder="Periodo"
-                                        [ngClass]="{ 'is-invalid': f.periodo.invalid, 'is-valid': !f.periodo.invalid }"
+                                        bindLabel="Label" bindValue="Codigo" placeholder="Número de cosechas"
+                                        [ngClass]="{ 'is-invalid': submitted && f.periodo.invalid, 'is-valid': !submitted && !f.periodo.invalid }"
                                         [(ngModel)]="selectedPeriodo">
                                     </ng-select>
                                 </div>
@@ -24,8 +24,8 @@
 
                             <small class="form-text text-muted danger mb-1"
                                 *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
-                            <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Proyectar()"
-                                [disabled]="frmProyeccionCosechasAcopio.invalid">Proyectar</button>
+                            <button class="btn btn-primary mr-1 mb-1" type="submit"
+                                (click)="Proyectar()">Proyectar</button>
                         </form>
                     </div>
                 </div>

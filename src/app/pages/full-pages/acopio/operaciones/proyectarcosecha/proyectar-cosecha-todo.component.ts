@@ -25,6 +25,7 @@ export class ProyectarCosechaTodoComponent implements OnInit {
   valores: any[] = [];
   selectedPeriodo = [];
   listPeriodos = [];
+  submitted = false;
 
   ngOnInit(): void {
     this.LoadForm();
@@ -42,7 +43,7 @@ export class ProyectarCosechaTodoComponent implements OnInit {
   }
 
   GetPeriodos() {
-    this.maestroUtil.obtenerMaestros('PeriodosProyeccion', (res) => {
+    this.maestroUtil.obtenerMaestros('NumerosCosechas', (res) => {
       this.listPeriodos = res.Result.Data.map(x => ({ Codigo: parseInt(x.Codigo), Label: x.Label })).sort((a, b) => a.Codigo - b.Codigo);
     })
   }
@@ -52,6 +53,7 @@ export class ProyectarCosechaTodoComponent implements OnInit {
       this.errorGeneral = { isError: false, errorMessage: '' };
       this.spinner.show();
       this.columnas = [];
+      this.valores = [];
       const request = {
         NroMeses: parseInt(this.frmProyeccionCosechasAcopio.value.periodo),
       };
@@ -64,7 +66,7 @@ export class ProyectarCosechaTodoComponent implements OnInit {
             tmpValores = [];
             x.forEach((a, b) => {
               if (b > 0) {
-                tmpValores.push(parseFloat(a).toLocaleString('es-PE'));
+                tmpValores.push(`${parseFloat(a).toLocaleString('es-PE')} Kg.`);
               } else {
                 tmpValores.push(a);
               }
@@ -74,6 +76,8 @@ export class ProyectarCosechaTodoComponent implements OnInit {
         }, (err) => {
           console.log(err);
         })
+    } else {
+      this.submitted = true;
     }
   }
 

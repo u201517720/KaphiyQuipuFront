@@ -44,6 +44,7 @@ export class ListaValoracionAgricultorAcopioComponent implements OnInit {
     listActores: [];
     selectedActor: [];
     public chartOptions: Partial<ChartOptions>;
+    submitted = false;
 
     constructor(private fb: FormBuilder,
         private dateUtil: DateUtil,
@@ -146,6 +147,8 @@ export class ListaValoracionAgricultorAcopioComponent implements OnInit {
                 }, (err) => {
 
                 });
+        } else {
+            this.submitted = true;
         }
     }
 }

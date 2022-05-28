@@ -162,10 +162,10 @@
                                         (click)="ConfirmarAtencionCompleta()"
                                         *ngIf="userSession.RolId == 8 && locId > 0 && locEstado <= 1">Confirmar Atención
                                         Completa</button>
-                                    <button type="button" class="btn btn-primary mr-1"
+                                    <!-- <button type="button" class="btn btn-primary mr-1"
                                         (click)="ConfirmarAtencionCompleta2()"
                                         *ngIf="userSession.RolId == 7 && locId > 0 && locEstado == 2">Confirmar Atención
-                                        Completa</button>
+                                        Completa</button> -->
                                     <button type="button" class="btn btn-primary mr-1" (click)="Guardar()"
                                         *ngIf="userSession.RolId == 8 && locEstado === 0">Guardar</button>
                                     <button type="button" class="btn btn-danger" (click)="Cancelar()">Cancelar</button>
