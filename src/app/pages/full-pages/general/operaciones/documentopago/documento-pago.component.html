@@ -48,7 +48,7 @@
         </fieldset>
         <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
             rowHeight="'auto'" [limit]="limitRef" [rows]="rows" [scrollbarH]="true">
-            <ngx-datatable-column name="Nro Doc. Pago" prop="CorrelativoDPA">
+            <ngx-datatable-column name="Nro Doc. Pago" prop="CorrelativoDPA" headerClass="text-center">
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                     <div class="d-flex align-items-center">
                         <div class="cell-line-height">
@@ -59,21 +59,22 @@
                     </div>
                 </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Nro. Contrato" prop="CorrelativoCC">
+            <ngx-datatable-column name="Nro. Contrato" prop="CorrelativoCC" headerClass="text-center">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Nro. Guía Recepción" prop="CorrelativoGR">
+            <ngx-datatable-column name="Nro. Guía Recepción" prop="CorrelativoGR" headerClass="text-center">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Agricultor" prop="Agricultor">
+            <ngx-datatable-column name="Agricultor" prop="Agricultor" headerClass="text-center">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Motivo" prop="Motivo">
+            <ngx-datatable-column name="Motivo" prop="Motivo" headerClass="text-center">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Total a Pagar" prop="MontoPago">
+            <ngx-datatable-column name="Total a Pagar" prop="MontoPagoMoneda" headerClass="text-center"
+                [cellClass]="getCellClass">
             </ngx-datatable-column>
-            <ngx-datatable-column name="Váucher" prop="NombreArchivo">
+            <ngx-datatable-column name="Váucher" prop="NombreArchivo" headerClass="text-center">
             </ngx-datatable-column>
-            <ngx-datatable-column name="U. Registro" prop="UsuReg">
+            <ngx-datatable-column name="U. Registro" prop="UsuReg" headerClass="text-center">
             </ngx-datatable-column>
-            <ngx-datatable-column name="F. Registro" prop="FecReg">
+            <ngx-datatable-column name="F. Registro" prop="FecReg" headerClass="text-center">
             </ngx-datatable-column>
         </ngx-datatable>
     </div>

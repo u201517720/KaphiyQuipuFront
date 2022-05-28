@@ -64,6 +64,9 @@ export class PagoContratoComponent implements OnInit {
           if (res) {
             if (res.Result.Success) {
               if (!res.Result.Message) {
+                res.Result.Data.forEach(x => {
+                  x.MontoPagoMoneda = `${x.Moneda} ${x.MontoPago.toLocaleString('es-PE')}`
+                });
                 this.rows = res.Result.Data;
               } else {
                 this.errorGeneral = { isError: true, msgError: res.Result.Message };
@@ -80,6 +83,13 @@ export class PagoContratoComponent implements OnInit {
           this.alertUtil.alertError('ERROR', this.mensajeGenerico);
         });
     }
+  }
+
+  getCellClass({ row, column, value }): any {
+    return {
+      'd-flex': column.prop === 'MontoPagoMoneda',
+      'justify-content-end': column.prop === 'MontoPagoMoneda'
+    };
   }
 
 }
