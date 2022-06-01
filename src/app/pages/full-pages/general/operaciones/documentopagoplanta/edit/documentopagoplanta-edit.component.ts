@@ -58,7 +58,8 @@ export class DocumentopagoplantaEditComponent implements OnInit {
       totalPagar: [],
       file: [],
       fileName: [],
-      rucDestinatario: []
+      rucDestinatario: [],
+      moneda: []
     });
   }
 
@@ -85,6 +86,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
           this.frmDocumentoPagoPlantaEdit.controls.rucDestinatario.setValue(res.Result.Data.RucAcopio);
           this.frmDocumentoPagoPlantaEdit.controls.estado.setValue(res.Result.Data.Estado);
           this.frmDocumentoPagoPlantaEdit.controls.totalPagar.setValue(res.Result.Data.MontoPago);
+          this.frmDocumentoPagoPlantaEdit.controls.moneda.setValue(res.Result.Data.Moneda);
           if (res.Result.Data.NombreArchivo)
             this.frmDocumentoPagoPlantaEdit.controls.fileName.setValue(res.Result.Data.NombreArchivo);
         } else {
@@ -109,7 +111,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
     if (this.locEstado === 2) {
       if (this.frmDocumentoPagoPlantaEdit.value.file) {
         this.alertUtil.alertSiNoCallback('Pregunta',
-          '¿Está seguro de guardar el archivo seleccionado como Váucher de Pago?',
+          '¿Está seguro de guardar el comprobante de pago?',
           () => {
             this.spinner.show();
             const request = {
@@ -126,7 +128,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
               .subscribe((res: any) => {
                 if (res.Result.Success) {
                   this.alertUtil.alertOkCallback('Confirmación',
-                    'Se ha guardado el voucher de pago correctamente.',
+                    'Se ha guardado el comprobante de pago correctamente.',
                     () => {
                       this.ConsultarPorId();
                     })
@@ -179,7 +181,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
 
   AprobarDeposito() {
     this.alertUtil.alertSiNoCallback('Pregunta',
-      '¿Está seguro de aprobar el depósito?',
+      '¿Está seguro de aprobar la cancelación del documento de pago?',
       () => {
         this.spinner.show();
         const request = {
@@ -190,7 +192,7 @@ export class DocumentopagoplantaEditComponent implements OnInit {
           .subscribe((res) => {
             if (res.Result.Success) {
               this.alertUtil.alertOkCallback('Confirmacion',
-                'El depósito se ha aprobado.',
+                'Se ha aprobado la cancelación del documento de pago correctamente.',
                 () => {
                   this.ConsultarPorId();
                 });

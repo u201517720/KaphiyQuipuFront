@@ -45,9 +45,11 @@ export class ValoracionComponent implements OnInit {
     userSession;
     listActores: [];
     selectedActor: [];
-    comentarios: [] = [];
+    comentarios = [];
     public chartOptions: Partial<ChartOptions>;
     submitted = false;
+    flagGrafico = false;
+    mensajeValidacion = '';
 
     constructor(private fb: FormBuilder,
         private dateUtil: DateUtil,
@@ -89,6 +91,8 @@ export class ValoracionComponent implements OnInit {
     Visualizar() {
         if (!this.frmValoracionesPorAgricultor.invalid) {
             this.spinner.show();
+            this.flagGrafico = false;
+            this.mensajeValidacion = '';
             const request = {
                 FechaInicio: this.frmValoracionesPorAgricultor.value.fechaInicial,
                 FechaFin: this.frmValoracionesPorAgricultor.value.fechaFinal,
@@ -97,7 +101,11 @@ export class ValoracionComponent implements OnInit {
             };
             this.generalService.ValoracionesPorAgricultor(request)
                 .subscribe((res) => {
-                    this.comentarios = res.Result.Data;
+                    if (res.Result.Data.length > 0) {
+                        this.comentarios = res.Result.Data;
+                    } else {
+                        this.mensajeValidacion = 'No se encuentra información según el filtro aplicado.';
+                    }
                 }, (err) => {
                     this.spinner.hide();
                 });
@@ -111,6 +119,7 @@ export class ValoracionComponent implements OnInit {
             this.generalService.ListarPuntajeValoracionesAgricultores(request2)
                 .subscribe((res) => {
                     this.spinner.hide();
+                    this.flagGrafico = true;
                     this.chartOptions = {
                         series: [
                             {
