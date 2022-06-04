@@ -21,7 +21,12 @@ export class NotaIngresoDevolucionComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private alertUtil: AlertUtil,
     private notaingresoacopioService: NotaingresoacopioService,
-    private router: Router) { }
+    private router: Router) { 
+      this.userSession = JSON.parse(sessionStorage.getItem('user'));
+      if (this.userSession) {
+        this.userSession = this.userSession.Result ? this.userSession.Result.Data ? this.userSession.Result.Data : this.userSession.Result : this.userSession;
+      }
+    }
 
   frmNotaIngresoDevolucion: FormGroup;
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -29,6 +34,7 @@ export class NotaIngresoDevolucionComponent implements OnInit {
   rows: any[] = [];
   limitRef = 10;
   mensajeGenerico = 'Ha ocurrido un error interno, por favor comunicarse con el administrador de sistemas.';
+  userSession: any;
 
   ngOnInit(): void {
     this.LoadForm();

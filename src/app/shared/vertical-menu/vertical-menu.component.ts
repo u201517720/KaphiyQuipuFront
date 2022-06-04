@@ -46,7 +46,7 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.login = JSON.parse(sessionStorage.getItem("user"));
     this.menuItems = this.login.Result.Data.Opciones;
-    this.logoUrl = `assets/img/LogoKaphiyQuipu.jpg`;
+    this.logoUrl = `assets/img/LogoKaphiyQuipu.png`;
   }
 
   ngAfterViewInit() {

@@ -32,7 +32,8 @@
                                 *ngIf="errorGeneral.isError">{{errorGeneral.errorMessage}}</small>
                             <button class="btn btn-primary mr-1 mb-1" type="submit" (click)="Buscar()"
                                 [disabled]="frmNotaIngresoDevolucion.invalid">Buscar</button>
-                            <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Nuevo()">Nuevo</button>
+                            <button class="btn btn-primary mr-1 mb-1" type="button" (click)="Nuevo()"
+                                *ngIf="userSession.RolId === 8">Nuevo</button>
                         </form>
                     </div>
                 </div>

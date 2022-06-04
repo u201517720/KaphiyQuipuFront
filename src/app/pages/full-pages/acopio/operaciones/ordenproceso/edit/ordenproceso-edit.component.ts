@@ -192,7 +192,7 @@ export class OrdenprocesoEditComponent implements OnInit {
               this.alertUtil.alertOkCallback('Confirmación',
                 `Se ha generado la guía de remisión ${res.Result.Data}.`,
                 () => {
-                  this.router.navigate(['/home']);
+                  this.router.navigate(['/acopio/operaciones/guiaremision/list']);
                 });
             }
           }, (err) => {
