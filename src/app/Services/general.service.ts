@@ -103,4 +103,9 @@ export class GeneralService {
     const url = `${this.urlGral}/ListScoreRatingsFarmers`;
     return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
   }
+
+  GuardarValoracionClienteExterno(request): Observable<any> {
+    const url = `${this.urlGral}/SaveExternalCustomerRating`;
+    return this.http.post<any>(url, request).catch(this.errorHandling.handleError);
+  }
 }
