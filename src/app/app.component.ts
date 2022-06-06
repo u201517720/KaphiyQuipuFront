@@ -14,10 +14,23 @@ export class AppComponent implements OnInit, OnDestroy {
   userSession: any;
 
   constructor(private router: Router) {
-    this.userSession = sessionStorage.getItem('user');
-    if (!this.userSession) {
-      this.router.navigate(['/pages/login']);
-    }
+    // this.userSession = sessionStorage.getItem('user');
+    // if (!this.userSession) {
+    //   this.router.navigate(['/pages/login']);
+    // }
+
+    this.router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        if (e.url.includes("pages/valoracion-cafe")) {
+          return;
+        }
+
+        this.userSession = sessionStorage.getItem('user');
+        if (!this.userSession) {
+          this.router.navigate(['/pages/login']);
+        }
+      }
+    });
   }
 
   ngOnInit() {

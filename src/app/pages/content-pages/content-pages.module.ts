@@ -11,6 +11,8 @@ import { ForgotPasswordComponent } from "./ForgotPassword/ForgotPassword.compone
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ValoracionAgricultorComponent } from './valoracion-agricultor/valoracion-agricultor.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -22,6 +24,7 @@ export function createTranslateLoader(http: HttpClient) {
     ContentPagesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     NgbModule,
     TranslateModule.forChild({
       loader: {
@@ -35,7 +38,8 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     
     LoginPageComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ValoracionAgricultorComponent
   ]
 })
 export class ContentPagesModule { }
