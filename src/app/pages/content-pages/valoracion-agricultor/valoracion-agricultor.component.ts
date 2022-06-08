@@ -24,12 +24,12 @@ export class ValoracionAgricultorComponent implements OnInit {
   isReadonly = false
 
   constructor(private fb: FormBuilder,
-              private alertUtil: AlertUtil,
-              private spinner: NgxSpinnerService,
-              private maestroService: MaestroService,
-              private generalService: GeneralService,
-              private route: ActivatedRoute,
-              private router: Router) {
+    private alertUtil: AlertUtil,
+    private spinner: NgxSpinnerService,
+    private maestroService: MaestroService,
+    private generalService: GeneralService,
+    private route: ActivatedRoute,
+    private router: Router) {
     this.LoadForm();
     this.hash = this.route.snapshot.queryParams['q'];
 
@@ -73,6 +73,14 @@ export class ValoracionAgricultorComponent implements OnInit {
         });
     } else {
       this.submitted = true;
+      if (!this.frmValoracion.value.tipoDocumento
+        || !this.frmValoracion.value.nroDocumento
+        || !this.frmValoracion.value.nombreApellido
+        || !this.currentRate) {
+        this.alertUtil.alertWarning('Validación', 'Por favor, seleccionar o ingresar un valor en los controles obligatorios.');
+      } else if (this.frmValoracion.value.nroDocumento.length < 8) {
+        this.alertUtil.alertWarning('Validación', 'Por favor, ingresar un número de documento válido.');
+      }
     }
   }
 
@@ -86,9 +94,9 @@ export class ValoracionAgricultorComponent implements OnInit {
           if (res.Result.Success && res.Result.Message === '') {
             this.isReadonly = true;
             this.alertUtil.alertOkCallback('Confirmación',
-              `Se envió correctamente su valoración`,
+              `Su valoración ha sido registrada correctamente. Gracias`,
               () => {
-                
+
               });
           } else {
             this.alertUtil.alertError('ERROR', res.Result.Message);
