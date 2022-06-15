@@ -57,6 +57,9 @@ export class ProyectarVentaComponent implements OnInit {
       this.errorGeneral = { isError: false, errorMessage: '' };
       this.spinner.show();
       this.columnas = [];
+      this.valores = [];
+      this.columnasCosecha = [];
+      this.valoresCosecha = [];
       const request = {
         NroMeses: parseInt(this.frmProyeccionVentaAcopio.value.periodo),
       };

@@ -91,6 +91,7 @@ export class ValoracionComponent implements OnInit {
     Visualizar() {
         if (!this.frmValoracionesPorAgricultor.invalid) {
             this.spinner.show();
+            this.comentarios = [];
             this.flagGrafico = false;
             this.mensajeValidacion = '';
             const request = {
